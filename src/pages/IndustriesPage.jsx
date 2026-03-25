@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { industries } from '../content'
+import { industries } from '../data'
 import { FinalCta, SectionHeading } from '../components'
 
 const MotionSection = motion.section

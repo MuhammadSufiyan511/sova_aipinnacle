@@ -1,4 +1,4 @@
-import { privacySections, termsSections } from '../content'
+import { privacySections, termsSections } from '../data'
 import { FinalCta, ListItem, SectionHeading } from '../components'
 
 export function TermsPage() {

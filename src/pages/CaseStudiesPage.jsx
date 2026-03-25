@@ -1,4 +1,4 @@
-import { caseStudies } from '../content'
+import { caseStudies } from '../data'
 import { FinalCta } from '../components'
 
 export function CaseStudiesPage() {

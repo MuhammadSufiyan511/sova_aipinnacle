@@ -1,6 +1,6 @@
 import { Check, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { pricingPlans } from '../content'
+import { pricingPlans } from '../data'
 import { CTAButton, FinalCta, SectionHeading } from '../components'
 
 export function PricingPage() {

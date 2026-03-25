@@ -1,5 +1,5 @@
 import { CircleHelp, MessagesSquare, PhoneCall } from 'lucide-react'
-import { faqs } from '../content'
+import { faqs } from '../data'
 import { SectionHeading, WhatsAppButton } from '../components'
 
 export function AboutContactPage() {

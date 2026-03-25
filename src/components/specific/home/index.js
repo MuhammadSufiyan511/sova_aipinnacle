@@ -1,0 +1,8 @@
+export { HeroSection } from './HeroSection'
+export { IndustriesPreviewSection } from './IndustriesPreviewSection'
+export { TrustedBusinessesSection } from './TrustedBusinessesSection'
+export { FeaturesGridSection } from './FeaturesGridSection'
+export { PricingPreviewSection } from './PricingPreviewSection'
+export { CaseStudiesPreviewSection } from './CaseStudiesPreviewSection'
+export { ReviewsSection } from './ReviewsSection'
+export { HowItWorksSection } from './HowItWorksSection'
