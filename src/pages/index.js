@@ -1,0 +1,7 @@
+export { HomePage } from './HomePage'
+export { IndustriesPage } from './IndustriesPage'
+export { PricingPage } from './PricingPage'
+export { CaseStudiesPage } from './CaseStudiesPage'
+export { AboutContactPage } from './AboutContactPage'
+export { AuthPage } from './AuthPage'
+export { TermsPage, PrivacyPage } from './LegalPages'
