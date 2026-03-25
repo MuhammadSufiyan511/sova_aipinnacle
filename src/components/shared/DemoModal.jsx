@@ -3,8 +3,8 @@ import { heroVideoUrl } from '../../data'
 
 export function DemoModal({ onClose }) {
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-3xl rounded-[36px] border border-white/10 bg-slate-950 p-5 text-white shadow-[0_32px_80px_rgba(15,23,42,0.45)] sm:p-6">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#10283a]/70 px-4 backdrop-blur-sm">
+      <div className="w-full max-w-3xl rounded-[36px] border border-white/10 bg-[#10283a] p-5 text-white shadow-[0_32px_80px_rgba(15,23,42,0.45)] sm:p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">2-minute demo</p>
@@ -15,7 +15,7 @@ export function DemoModal({ onClose }) {
           </button>
         </div>
         <div className="mt-6 rounded-[28px] bg-[linear-gradient(135deg,#111827_0%,#0f766e_100%)] p-4">
-          <div className="aspect-video overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/30">
+          <div className="aspect-video overflow-hidden rounded-[24px] border border-white/10 bg-[#10283a]/30">
             <iframe className="h-full w-full" src={heroVideoUrl} title="Sova product demo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
           </div>
         </div>

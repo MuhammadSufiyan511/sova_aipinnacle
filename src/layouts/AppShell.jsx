@@ -15,7 +15,7 @@ export function AppShell({ children }) {
   const location = useLocation()
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(167,139,250,0.16),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_24%),linear-gradient(180deg,#f8fafc_0%,#ffffff_48%,#eff6ff_100%)] text-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(167,139,250,0.16),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_24%),linear-gradient(180deg,#f6fdfd_0%,#ffffff_46%,#eefaf9_76%,#f4f0ff_100%)] text-[#173247]">
       <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader />
         <AnimatePresence mode="wait">

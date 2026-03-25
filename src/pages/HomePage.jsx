@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { DemoModal } from '../components/shared'
 import {
-  CaseStudiesPreviewSection,
   FeaturesGridSection,
   HeroSection,
   HowItWorksSection,
@@ -24,7 +23,6 @@ export function HomePage() {
       <TrustedBusinessesSection />
       <FeaturesGridSection />
       <PricingPreviewSection />
-      <CaseStudiesPreviewSection />
       <ReviewsSection />
       <HowItWorksSection />
       <FinalCta />

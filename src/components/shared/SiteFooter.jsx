@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
+import sovaLogo from '../../assets/logos/sova.png'
 
 const footerLinks = [
   { label: 'Industries', to: ROUTES.industries },
@@ -16,15 +17,13 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-10">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#06b6d4_0%,#10b981_100%)] text-lg font-semibold text-white">
-              S
-            </div>
+            <img src={sovaLogo} alt="Sova logo" className="h-12 w-12 rounded-2xl object-cover shadow-[0_14px_30px_rgba(6,182,212,0.18)]" />
             <div>
               <p className="font-display text-xl font-semibold tracking-[-0.03em]">Sova</p>
-              <p className="text-sm text-slate-200/80">Your smooth, omnipresent virtual sales assistant</p>
+              <p className="text-sm text-[#dff2ef]/80">Your smooth, omnipresent virtual sales assistant</p>
             </div>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-slate-200/85">
+          <p className="max-w-xl text-sm leading-7 text-[#e8f6f3]/85">
             Turn high WhatsApp message volume into real business opportunities with cleaner replies, smarter follow-ups, and better sales focus.
           </p>
         </div>
@@ -33,7 +32,7 @@ export function SiteFooter() {
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Pages</p>
           <div className="space-y-3">
             {footerLinks.map((link) => (
-              <Link key={link.to} to={link.to} className="block text-slate-200/85 transition hover:text-amber-300">
+              <Link key={link.to} to={link.to} className="block text-[#e8f6f3]/85 transition hover:text-amber-300">
                 {link.label}
               </Link>
             ))}
@@ -42,7 +41,7 @@ export function SiteFooter() {
 
         <div>
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Contact</p>
-          <div className="space-y-3 text-slate-200/85">
+          <div className="space-y-3 text-[#e8f6f3]/85">
             <p>WhatsApp: +971 50 123 4567</p>
             <p>Email: hello@sovaassist.com</p>
           </div>
