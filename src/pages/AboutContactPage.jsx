@@ -1,5 +1,5 @@
 import { CircleHelp, MessagesSquare, PhoneCall } from 'lucide-react'
-import { faqs } from '../data'
+import { contactPhone, faqs } from '../data'
 import { SectionHeading, WhatsAppButton } from '../components'
 
 export function AboutContactPage() {
@@ -29,7 +29,7 @@ export function AboutContactPage() {
             <div className="mt-6 space-y-4 text-[#305365]">
               <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4">
                 <PhoneCall className="h-5 w-5 text-teal-600" />
-                +971 50 123 4567
+                {contactPhone}
               </div>
               <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4">
                 <MessagesSquare className="h-5 w-5 text-purple-500" />

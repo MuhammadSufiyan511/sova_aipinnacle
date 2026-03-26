@@ -1,6 +1,9 @@
 import { BellRing, Bot, Filter, ScanSearch } from 'lucide-react'
 
 export const heroVideoUrl = 'https://www.youtube.com/embed/7a1AXiAmSB0'
+export const contactPhone = '+92 344 0555915'
+export const whatsappLink = 'https://wa.me/923440555915'
+export const mapEmbedUrl = 'https://www.google.com/maps?q=Pakistan&output=embed'
 
 export const features = [
   { title: 'Serious Buyer Detection', description: 'Find chats with clear buying intent before your team wastes time.', icon: ScanSearch },

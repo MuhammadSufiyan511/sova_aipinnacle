@@ -12,7 +12,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
     <section className="mx-auto max-w-[1280px] py-2">
       <SectionHeading eyebrow="Industries" title="Made for your industry" description="Pick the use case that matches your daily chats." centered />
       <div className="mt-8 rounded-[32px] border border-[#cfe6e9]/80 bg-white/88 p-4 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-6">
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap justify-center gap-3">
           {industries.map((industry) => (
             <button key={industry.id} type="button" onClick={() => onSelectIndustry(industry.id)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeIndustry === industry.id ? 'bg-[#0f9f8f] text-white shadow-lg' : 'bg-[#ebf7f8] text-[#0f9f8f] hover:bg-[#dff1f3]'}`}>
               {industry.label}

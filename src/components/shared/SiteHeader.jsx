@@ -4,7 +4,6 @@ import { ROUTES } from '../../utils/routes'
 import sovaLogo from '../../assets/logos/sova.png'
 
 const navItems = [
-  { label: 'Home', to: ROUTES.home },
   { label: 'Industries', to: ROUTES.industries },
   { label: 'Pricing', to: ROUTES.pricing },
   { label: 'Case Studies', to: ROUTES.caseStudies },

@@ -8,8 +8,8 @@ const MotionDiv = motion.div
 
 export function HeroSection({ onWatchDemo }) {
   return (
-    <section className="relative mx-auto grid min-h-[66vh] max-w-[1280px] items-center gap-8 overflow-hidden py-6 lg:grid-cols-[0.92fr_1.08fr] lg:py-8">
-      <div className="space-y-4">
+    <section className="relative mx-auto grid min-h-[66vh] max-w-[1160px] items-center gap-6 overflow-hidden py-6 lg:grid-cols-[0.98fr_0.92fr] lg:py-8">
+      <div className="mx-auto max-w-[520px] space-y-4 lg:mx-0 lg:justify-self-end">
         <MotionDiv initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }} className="space-y-4">
           <div className="space-y-3">
             <h1 className="max-w-lg font-display text-[1.5rem] font-semibold leading-[1.02] tracking-[-0.05em] text-[#173247] sm:text-[2.6rem] lg:text-[3.1rem]">
@@ -33,7 +33,7 @@ export function HeroSection({ onWatchDemo }) {
         </MotionDiv>
       </div>
 
-      <MotionDiv initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }} className="w-full max-w-[530px] justify-self-end">
+      <MotionDiv initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }} className="w-full max-w-[500px] justify-self-start">
         <div className="overflow-hidden rounded-[32px] border border-white/70 bg-white/90 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.12)] backdrop-blur">
           <div className="aspect-video overflow-hidden rounded-[26px] bg-[#10283a]">
             <iframe className="h-full w-full" src={heroVideoUrl} title="Sova business automation demo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />

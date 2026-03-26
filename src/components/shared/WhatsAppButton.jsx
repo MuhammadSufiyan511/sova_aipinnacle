@@ -1,9 +1,10 @@
 import { ArrowRight } from 'lucide-react'
+import { whatsappLink } from '../../data'
 
 export function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/971501234567"
+      href={whatsappLink}
       target="_blank"
       rel="noreferrer"
       className="mt-6 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-[#173247] px-6 text-base font-semibold text-white transition hover:bg-[#214257]"
