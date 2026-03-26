@@ -1,4 +1,5 @@
 import { whatsappLink } from '../../data'
+import { useTranslation } from 'react-i18next'
 
 function WhatsAppIcon() {
   return (
@@ -10,17 +11,19 @@ function WhatsAppIcon() {
 }
 
 export function FloatingWhatsApp() {
+  const { t } = useTranslation()
+
   return (
     <a
       href={whatsappLink}
-      className="group fixed bottom-5 right-5 z-50 inline-flex h-14 items-center rounded-full bg-[linear-gradient(135deg,#10b981,#06b6d4)] px-4 text-sm font-semibold text-white shadow-[0_22px_45px_rgba(16,185,129,0.35)] transition hover:translate-y-[-2px]"
+      className="group fixed bottom-6 right-6 z-50 inline-flex h-16 items-center rounded-full bg-gradient-to-r from-[#0061FF] to-[#3B82F6] px-5 text-[1rem] font-bold text-white shadow-[0_20px_40px_rgba(0,97,255,0.3)] transition-all hover:scale-[1.05] active:scale-[0.95]"
       target="_blank"
       rel="noreferrer"
-      aria-label="Chat with Sova on WhatsApp"
+      aria-label={t('common.chatOnWhatsApp')}
     >
       <WhatsAppIcon />
-      <span className="max-w-0 overflow-hidden whitespace-nowrap pl-0 opacity-0 transition-all duration-300 group-hover:max-w-[140px] group-hover:pl-3 group-hover:opacity-100">
-        Chat on WhatsApp
+      <span className="max-w-0 overflow-hidden whitespace-nowrap pl-0 opacity-0 transition-all duration-300 group-hover:max-w-[180px] group-hover:pl-4 group-hover:opacity-100 uppercase tracking-wider text-[0.8rem]">
+        {t('common.chatOnWhatsApp')}
       </span>
     </a>
   )

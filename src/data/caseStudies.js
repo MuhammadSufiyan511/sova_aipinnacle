@@ -1,6 +1,7 @@
 export const caseStudies = [
   {
     slug: 'abaya-store',
+    category: 'Abaya',
     businessType: 'Fashion retailer',
     company: 'Noor Abaya House',
     headline: 'Faster replies turned evening WhatsApp traffic into confirmed orders.',
@@ -13,6 +14,7 @@ export const caseStudies = [
   },
   {
     slug: 'toy-wholesale',
+    category: 'Toys',
     businessType: 'Toy wholesaler',
     company: 'Rafiq Toys Wholesale',
     headline: 'Bulk buyers became easier to spot in a noisy inbox.',
@@ -25,6 +27,7 @@ export const caseStudies = [
   },
   {
     slug: 'electronics-shop',
+    category: 'Electronics',
     businessType: 'Electronics seller',
     company: 'ElectroHub Traders',
     headline: 'Urgent product inquiries stopped getting buried under routine questions.',
@@ -37,6 +40,7 @@ export const caseStudies = [
   },
   {
     slug: 'dry-fruit-bulk',
+    category: 'Dry Fruits',
     businessType: 'Dry fruits wholesaler',
     company: 'Sultan Dry Fruits',
     headline: 'Busy seasonal demand became easier to manage without hiring extra staff.',
@@ -49,6 +53,7 @@ export const caseStudies = [
   },
   {
     slug: 'beauty-retail',
+    category: 'Beauty',
     businessType: 'Beauty retailer',
     company: 'Glow Cart Studio',
     headline: 'Product recommendation chats started converting with less manual effort.',
@@ -61,6 +66,7 @@ export const caseStudies = [
   },
   {
     slug: 'home-appliances',
+    category: 'Home Appliances',
     businessType: 'Home appliances dealer',
     company: 'Urban Home Deals',
     headline: 'High-value appliance buyers stopped getting lost in routine support chats.',

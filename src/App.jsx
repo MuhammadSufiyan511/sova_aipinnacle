@@ -6,7 +6,6 @@ import {
   CaseStudiesPage,
   HomePage,
   IndustriesPage,
-  PricingPage,
   PrivacyPage,
   TermsPage,
 } from './pages/index.js'
@@ -18,7 +17,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/industries" element={<IndustriesPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/about" element={<AboutContactPage />} />
           <Route path="/auth" element={<AuthPage />} />

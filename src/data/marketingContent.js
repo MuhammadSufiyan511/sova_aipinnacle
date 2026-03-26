@@ -10,6 +10,8 @@ export const features = [
   { title: 'Auto Replies', description: 'Answer common questions instantly, even when you are offline.', icon: Bot },
   { title: 'Smart Follow-ups', description: 'Send timely reminders so interested buyers come back and order.', icon: BellRing },
   { title: 'Spam Filtering', description: 'Mute low-value chats and keep your inbox focused on real demand.', icon: Filter },
+  { title: 'Broadcast', description: 'Send updates, offers and announcements to your entire customer list in one click.', icon: ScanSearch },
+  { title: 'Built-in Integrations', description: 'Connect Sova with your favorite apps to sync leads and automate workflows.', icon: ScanSearch },
 ]
 
 export const pricingPlans = [
@@ -26,12 +28,6 @@ export const pricingPlans = [
     blurb: 'For growing teams managing daily sales and lead follow-ups.',
     points: ['Advanced automation', 'Smart lead filtering', 'Follow-up flows', 'Priority support'],
     badge: 'Popular',
-  },
-  {
-    name: 'Premium',
-    price: '$99',
-    blurb: 'For high-volume sellers who want a full virtual sales assistant.',
-    points: ['Full automation', 'Priority features', 'Lead routing', 'Dedicated success help'],
   },
 ]
 

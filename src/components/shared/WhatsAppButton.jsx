@@ -1,16 +1,19 @@
 import { ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { whatsappLink } from '../../data'
 
 export function WhatsAppButton() {
+  const { t } = useTranslation()
+
   return (
     <a
       href={whatsappLink}
       target="_blank"
       rel="noreferrer"
-      className="mt-6 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-[#173247] px-6 text-base font-semibold text-white transition hover:bg-[#214257]"
+      className="mt-8 inline-flex h-16 items-center justify-center gap-4 rounded-[22px] bg-[#0061FF] px-8 text-[1.1rem] font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] shadow-lg shadow-blue-500/20"
     >
-      Chat on WhatsApp
-      <ArrowRight className="h-5 w-5" />
+      {t('common.chatOnWhatsApp')}
+      <ArrowRight className="h-6 w-6" />
     </a>
   )
 }

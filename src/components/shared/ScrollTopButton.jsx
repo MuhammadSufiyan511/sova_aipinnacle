@@ -29,14 +29,15 @@ export function ScrollTopButton() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-5 left-5 z-50 inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#cfe6e9] bg-white/95 text-[#12373D] shadow-[0_16px_36px_rgba(15,23,42,0.12)] transition hover:translate-y-[-2px] hover:border-[#0f9f8f]"
+      className="fixed bottom-5 left-5 z-50 inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-[20px] border border-[#bde5de] bg-white/92 text-[#0061FF] shadow-[0_18px_40px_rgba(15,159,143,0.18)] outline-none backdrop-blur transition hover:translate-y-[-2px] hover:border-[#0f9f8f] focus:outline-none focus:ring-0 active:scale-100 active:translate-y-0"
       aria-label="Scroll to top"
     >
       <span
-        className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#9ff3e8_0%,#0f9f8f_100%)] transition-[height] duration-150 ease-out"
+        className="absolute inset-x-0 bottom-0 bg-[#5DA2FA] transition-[height] duration-150 ease-out"
         style={{ height: `${scrollProgress * 100}%` }}
         aria-hidden="true"
       />
+      <span className="pointer-events-none absolute inset-0 rounded-[18px] border border-white/60" />
       <ArrowUp className="relative z-10 h-5 w-5" />
     </button>
   )

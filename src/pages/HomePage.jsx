@@ -7,7 +7,8 @@ import {
   IndustriesPreviewSection,
   PricingPreviewSection,
   ReviewsSection,
-  TrustedBusinessesSection,
+  BrandFeatureSection,
+  FaqSection,
 } from '../components/specific/home'
 import { FinalCta } from '../components'
 import { industries } from '../data'
@@ -19,12 +20,13 @@ export function HomePage() {
   return (
     <>
       <HeroSection onWatchDemo={() => setShowDemo(true)} />
+      <BrandFeatureSection />
       <IndustriesPreviewSection activeIndustry={activeIndustry} onSelectIndustry={setActiveIndustry} />
-      <TrustedBusinessesSection />
+      <HowItWorksSection />
       <FeaturesGridSection />
       <PricingPreviewSection />
       <ReviewsSection />
-      <HowItWorksSection />
+      <FaqSection />
       <FinalCta />
       {showDemo ? <DemoModal onClose={() => setShowDemo(false)} /> : null}
     </>

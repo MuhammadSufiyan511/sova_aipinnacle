@@ -1,7 +1,7 @@
 export const ROUTES = {
   home: '/',
   industries: '/industries',
-  pricing: '/pricing',
+  pricing: '/#pricing',
   caseStudies: '/case-studies',
   terms: '/terms',
   privacyPolicy: '/privacy_policy',
