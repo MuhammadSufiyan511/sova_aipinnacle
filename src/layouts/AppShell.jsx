@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react'
+﻿import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { FloatingWhatsApp, ScrollTopButton, SiteFooter, SiteHeader } from '../components/shared'
@@ -17,6 +17,7 @@ const pageAnimation = {
 export function AppShell({ children }) {
   const location = useLocation()
   const { i18n } = useTranslation()
+  const [bgOpacity, setBgOpacity] = useState(1)
 
   useEffect(() => {
     if (location.hash) {
@@ -44,17 +45,36 @@ export function AppShell({ children }) {
     document.body.dir = direction
   }, [i18n.resolvedLanguage])
 
+  // Listen for the custom language change events to trigger crossfade
+  useEffect(() => {
+    const handleStart = () => setBgOpacity(0)
+    const handleEnd = () => setBgOpacity(1)
+    
+    window.addEventListener('language-change-start', handleStart)
+    window.addEventListener('language-change-end', handleEnd)
+    return () => {
+      window.removeEventListener('language-change-start', handleStart)
+      window.removeEventListener('language-change-end', handleEnd)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-white text-[#1D1D1F]">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#1E293B]">
       <SiteHeader />
-      <AnimatePresence mode="wait">
-        <MotionMain key={location.pathname} {...pageAnimation} className="flex-1 w-full">
-          {children}
-        </MotionMain>
-      </AnimatePresence>
-      <SiteFooter />
+      <div 
+        style={{ opacity: bgOpacity, transition: 'opacity 0.3s ease-in-out' }}
+        className="flex min-h-screen flex-col"
+      >
+        <AnimatePresence mode="wait">
+          <MotionMain key={location.pathname} {...pageAnimation} className="flex-1 w-full flex flex-col">
+            {children}
+          </MotionMain>
+        </AnimatePresence>
+        <SiteFooter />
+      </div>
       <ScrollTopButton />
       <FloatingWhatsApp />
     </div>
   )
 }
+

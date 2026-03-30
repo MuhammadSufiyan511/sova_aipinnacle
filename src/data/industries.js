@@ -1,4 +1,4 @@
-import { ShoppingBag, Store, Users, Zap } from 'lucide-react'
+import { ShoppingBag, Store, Users, Zap, Gem, BookOpen, Palette, Stethoscope, Scissors, Hammer, Sparkles } from 'lucide-react'
 
 export const industries = [
   {
@@ -12,6 +12,15 @@ export const industries = [
     icon: ShoppingBag,
   },
   {
+    id: 'jewellery',
+    label: 'Jewellery',
+    title: 'Show premium catalogs and handle purity or weight queries.',
+    description: 'Automate responses for gold rates, certifications, and design availability.',
+    useCase: 'Instant catalog sharing and gold rate updates.',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a18b5ce7142?auto=format&fit=crop&w=1200&q=80',
+    icon: Gem,
+  },
+  {
     id: 'toys',
     label: 'Toys',
     title: 'Detect bulk buyers and repeated reseller interest early.',
@@ -20,6 +29,15 @@ export const industries = [
     image:
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80',
     icon: Users,
+  },
+  {
+    id: 'books-stationary',
+    label: 'Books & Stationary',
+    title: 'Help students and readers find titles and stock instantly.',
+    description: 'Handle inquiries for book availability, school stationary lists, and office supplies.',
+    useCase: 'Automated stock checks and stationary list pricing.',
+    image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
+    icon: BookOpen,
   },
   {
     id: 'dry-fruits',
@@ -32,6 +50,15 @@ export const industries = [
     icon: Store,
   },
   {
+    id: 'decoration',
+    label: 'Decoration',
+    title: 'Share event themes and package prices for home or party decor.',
+    description: 'Manage queries for birthday, wedding, and interior decor themes automatically.',
+    useCase: 'Theme selection guides and package cost automation.',
+    image: 'https://images.unsplash.com/photo-1513519247388-19346447e622?auto=format&fit=crop&w=1200&q=80',
+    icon: Palette,
+  },
+  {
     id: 'electronics',
     label: 'Electronics',
     title: 'Manage product inquiries with cleaner handoff to sales.',
@@ -40,5 +67,41 @@ export const industries = [
     image:
       'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
     icon: Zap,
+  },
+  {
+    id: 'medical-instruments',
+    label: 'Medical Instruments',
+    title: 'Provide specs and availability for hospital and clinic gear.',
+    description: 'Speed up inquiries for medical devices, diagnostic tools, and clinical equipment.',
+    useCase: 'Technical spec replies and stock availability status.',
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
+    icon: Stethoscope,
+  },
+  {
+    id: 'surgical-instruments',
+    label: 'Surgical Instruments',
+    title: 'Manage precision tool inquiries for hospitals and distributors.',
+    description: 'Automate responses for surgical sets, steel quality, and bulk order discounts.',
+    useCase: 'Order set customization and quality certification sharing.',
+    image: 'https://images.unsplash.com/photo-1579154235602-3815a181962a?auto=format&fit=crop&w=1200&q=80',
+    icon: Scissors,
+  },
+  {
+    id: 'hardware',
+    label: 'Hardware',
+    title: 'Handle builder and contractor queries for tools and materials.',
+    description: 'Automate replies for power tools, plumbing fixtures, and construction essentials.',
+    useCase: 'Bulk price lists and tool specifications.',
+    image: 'https://images.unsplash.com/photo-1581244273443-c7da9c75AD31?auto=format&fit=crop&w=1200&q=80',
+    icon: Hammer,
+  },
+  {
+    id: 'fireworks',
+    label: 'Fireworks',
+    title: 'Manage seasonal demand for displays and celebrations safely.',
+    description: 'Handle inquiries for firework bundles, safety instructions, and event packages.',
+    useCase: 'Seasonal catalog sharing and safety guidelines.',
+    image: 'https://images.unsplash.com/photo-1533230393121-818833174474?auto=format&fit=crop&w=1200&q=80',
+    icon: Sparkles,
   },
 ]

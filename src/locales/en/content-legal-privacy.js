@@ -1,0 +1,7 @@
+export const privacySections = [
+  { title: 'Introduction', items: ['This Privacy Policy explains how SOVA collects, uses, stores, and protects data related to your use of the service.', 'It applies to business owners, team members, and connected messaging interactions processed through the platform.'] },
+  { title: 'Data collection', items: ['We may collect business contact details, account credentials needed for connection, customer conversation content, metadata, and support messages.', 'We may also collect device, browser, and analytics information to improve performance, reliability, and security.'] },
+  { title: 'Data usage', items: ['Data is used to automate conversations, identify intent, send follow-ups, maintain service quality, and provide customer support.', 'We may use aggregated and de-identified insights to improve the platform without exposing private customer identities.'] },
+  { title: 'Security', items: ['We use reasonable technical and organizational safeguards to protect stored and processed information.', 'Access to operational data is limited to authorized systems and personnel with a legitimate service need.'] },
+  { title: 'User rights', items: ['You may request access to your account information, ask for corrections, or request deletion where legally available.', 'You can contact us to raise questions about processing, retention, or your privacy rights.'] },
+]

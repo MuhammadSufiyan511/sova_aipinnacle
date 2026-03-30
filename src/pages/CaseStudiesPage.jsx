@@ -1,110 +1,185 @@
-import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useMemo, useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { caseStudies } from '../data'
 import { FinalCta } from '../components'
 
+const MotionDiv = motion.div
+const ITEMS_PER_PAGE = 3
+
 export function CaseStudiesPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('all')
-  const localizedStudies = i18n.resolvedLanguage?.startsWith('ur')
-    ? {
-        'abaya-store': { category: 'عبایا', businessType: 'فیشن ریٹیلر', company: 'نور عبایا ہاؤس', headline: 'تیز جوابوں نے شام کے WhatsApp رش کو آرڈرز میں بدل دیا۔', summary: 'ایک بڑھتے ہوئے عبایا اسٹور کو مصروف چیٹس میں خریدار ضائع ہونے سے بچنا تھا۔', problem: 'ٹیم بار بار سائز اور اسٹاک کے سوالوں میں وقت ضائع کر رہی تھی۔', solution: 'Sova نے ابتدائی جواب دیے، ہاٹ بائر ٹیگ کیے، اور فوری چیٹس آگے بڑھائیں۔', result: 'ہر ہفتے 12 گھنٹے بچے اور تیار خریدار 31% بڑھے۔', metrics: ['12 گھنٹے ہفتہ وار بچت', '31% زیادہ تیار خریدار'] },
-        'toy-wholesale': { category: 'کھلونے', businessType: 'ٹوی ہول سیلر', company: 'رفیق ٹویز ہول سیل', headline: 'شور والی ان باکس میں بلک خریدار فوراً سامنے آنے لگے۔', summary: 'اس ہول سیل ٹیم کو ری سیلر ڈیمانڈ کے لیے تیز روٹنگ چاہیے تھی۔', problem: 'ری سیلر لیڈز عام پوچھ گچھ اور اسپام کے ساتھ مل رہی تھیں۔', solution: 'Sova نے بلک انٹینٹ فلٹر کی، کارٹن بائرز ہائی لائٹ کیے، اور فالو اپ خود بھیجے۔', result: 'لیڈ کوالٹی 42% بہتر ہوئی اور جواب کی رفتار دوگنی ہو گئی۔', metrics: ['42% بہتر لیڈ کوالٹی', '2x تیز جواب'] },
-        'electronics-shop': { category: 'الیکٹرونکس', businessType: 'الیکٹرونکس سیلر', company: 'الیکٹروہب ٹریڈرز', headline: 'اہم پروڈکٹ انکوائریز عام سوالوں میں دبنا بند ہو گئیں۔', summary: 'مصروف اسٹور کو بہت زیادہ WhatsApp انکوائریز میں واضح سگنل چاہیے تھا۔', problem: 'فوری سیلز چیٹس باآسانی رہ جاتی تھیں۔', solution: 'Sova نے سوال منظم کیے، عام جوابات دیے، اور ہائی انٹینٹ چیٹس پہلے دکھائیں۔', result: 'ہر ہفتے 9 گھنٹے بچے اور مس ہونے والی لیڈز 28% کم ہوئیں۔', metrics: ['9 گھنٹے بچت', '28% کم مسڈ لیڈز'] },
-        'dry-fruit-bulk': { category: 'ڈرائی فروٹس', businessType: 'ڈرائی فروٹس ہول سیلر', company: 'سلطان ڈرائی فروٹس', headline: 'سیزنل ڈیمانڈ بغیر اضافی اسٹاف کے سنبھلنے لگی۔', summary: 'ایک ہول سیلر کو قیمت اور مقدار کے بار بار سوالوں کے لیے مدد چاہیے تھی۔', problem: 'سیلز ٹیم ریٹس، وزن، اور ڈلیوری سوالوں میں الجھی ہوئی تھی۔', solution: 'Sova نے عام سوال سنبھالے اور ہائی انٹینٹ بلک بائرز الگ دکھائے۔', result: 'ہر ہفتے 11 گھنٹے بچے اور ہول سیل کنورژن 26% بہتر ہوا۔', metrics: ['11 گھنٹے بچت', '26% زیادہ کنورژن'] },
-        'beauty-retail': { category: 'بیوٹی', businessType: 'بیوٹی ریٹیلر', company: 'گلو کارٹ اسٹوڈیو', headline: 'پروڈکٹ ریکمینڈیشن چیٹس کم دستی کام کے ساتھ کنورٹ ہونے لگیں۔', summary: 'اس بیوٹی سیلر کو شیڈز، اسٹاک، اور ڈلیوری سوالوں کے لیے تیز جواب چاہیے تھے۔', problem: 'سیل ڈیز میں سست جوابوں کی وجہ سے خریدار نکل رہے تھے۔', solution: 'Sova نے پروڈکٹ معلومات دی، لیڈز کو نَج کیا، اور ہاٹ چیٹس کو چیک آؤٹ تک پہنچایا۔', result: 'جواب کا وقت 53% کم ہوا اور ریپیٹ لیڈز 22% بڑھیں۔', metrics: ['53% تیز جواب', '22% زیادہ ریپیٹ لیڈز'] },
-        'home-appliances': { category: 'ہوم اپلائنسز', businessType: 'ہوم اپلائنسز ڈیلر', company: 'اربن ہوم ڈیلز', headline: 'قیمتی خریدار اب روٹین سپورٹ چیٹس میں نہیں کھوتے۔', summary: 'اس ٹیم کو انکوائری اسپائکس کے دوران واضح لیڈ ترجیح درکار تھی۔', problem: 'وارنٹی اور ڈلیوری سوال سیلز قطار کو سست کر رہے تھے۔', solution: 'Sova نے ابتدائی سپورٹ سنبھالی، قیمت پوچھنے والے خریدار ٹیگ کیے، اور یاد دہانی خود بھیجی۔', result: 'مس ہونے والی سیلز لیڈز 33% کم ہوئیں اور ہر ہفتے 8 گھنٹے بچے۔', metrics: ['33% کم مسڈ لیڈز', '8 گھنٹے بچت'] },
-      }
-    : null
-  const enrichedStudies = caseStudies.map((study) => ({ ...study, ...(localizedStudies?.[study.slug] || {}) }))
+  const [page, setPage] = useState(1)
+  const localizedStudyItems = t('content.caseStudies.items', { returnObjects: true }) || {}
+  const enrichedStudies = caseStudies.map((study) => ({ ...study, ...(localizedStudyItems[study.slug] || {}) }))
   const uniqueTabs = [{ key: 'all', label: t('common.all') }, ...[...new Set(enrichedStudies.map((study) => study.category))].map((category) => ({ key: category, label: category }))]
-  const filteredStudies =
-    activeTab === 'all' ? enrichedStudies : enrichedStudies.filter((study) => study.category === activeTab)
+  const activeTabIndex = uniqueTabs.findIndex((tab) => tab.key === activeTab)
+  const currentTabIndex = activeTabIndex >= 0 ? activeTabIndex : 0
+  const visibleTabStart = Math.max(0, Math.min(currentTabIndex - 2, Math.max(uniqueTabs.length - 6, 0)))
+  const visibleTabs = uniqueTabs.slice(visibleTabStart, visibleTabStart + 6)
+  const filteredStudies = activeTab === 'all' ? enrichedStudies : enrichedStudies.filter((study) => study.category === activeTab)
+  const totalPages = activeTab === 'all' ? Math.ceil(filteredStudies.length / ITEMS_PER_PAGE) : 1
+  const visibleStudies = useMemo(() => {
+    if (activeTab !== 'all') return filteredStudies
+    const startIndex = (page - 1) * ITEMS_PER_PAGE
+    return filteredStudies.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+  }, [activeTab, filteredStudies, page])
+
+  const handleSwitchTab = (direction) => {
+    const nextIndex = (currentTabIndex + direction + uniqueTabs.length) % uniqueTabs.length
+    setActiveTab(uniqueTabs[nextIndex].key)
+    setPage(1)
+  }
 
   return (
-    <section className="mx-auto max-w-[1160px] pt-30 pb-10 px-5">
+    <section className="mx-auto max-w-[1160px] px-5 pb-8 pt-24">
       <div className="mx-auto max-w-4xl text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#0061FF]">{t('sections.caseEyebrow')}</p>
-        <h1 className="mt-5 font-display text-[2.8rem] font-extrabold tracking-[-0.04em] text-[#111827] sm:text-5xl">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
+        <h1 className="mt-5 font-display text-[2.8rem] font-extrabold tracking-[-0.04em] text-[#0F172A] sm:text-5xl">
           {t('sections.caseTitle')}
         </h1>
-        <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#6E6E73] sm:text-lg">
+        <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#48617A] sm:text-lg">
           {t('sections.caseDescription')}
         </p>
       </div>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-3">
-        {uniqueTabs.map((tab) => (
+      <div className="mt-8 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => handleSwitchTab(-1)}
+          className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
+          aria-label="Previous case study tab"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        <div className="flex max-w-[950px] flex-wrap justify-center gap-1">
+          {visibleTabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setActiveTab(tab.key)
+                setPage(1)
+              }}
+              className={`min-w-[138px] rounded-full px-4 py-2.5 text-center text-sm font-semibold whitespace-nowrap transition ${
+                activeTab === tab.key
+                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
+                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => handleSwitchTab(1)}
+          className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
+          aria-label="Next case study tab"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      <AnimatePresence mode="wait">
+        <MotionDiv
+          key={`${activeTab}-${page}`}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.28, ease: 'easeOut' }}
+          className="mt-12 space-y-8"
+        >
+          {visibleStudies.map((study) => (
+            <article
+              key={study.slug}
+              className="rounded-[36px] border border-[#E2EFEA] bg-white p-5 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:p-8"
+            >
+              <div className="grid gap-6 lg:grid-cols-[0.95fr_2.2fr]">
+                <div className="overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-[#F8FAFC]">
+                  <img src={study.image} alt={study.company} className="h-64 w-full object-cover sm:h-72 lg:h-full" />
+                </div>
+
+                <div className="rounded-[28px] border border-[#E2EFEA] bg-[#F8FAFC] p-7 sm:p-8">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10B981]">{study.businessType}</p>
+                  <h2 className="mt-4 font-display text-[2rem] font-bold tracking-[-0.04em] text-[#0F172A] sm:text-[2.3rem]">
+                    {study.company}
+                  </h2>
+                  <p className="mt-3 text-[1.08rem] font-medium leading-[1.6] text-[#10B981]">{study.headline}</p>
+                  <p className="mt-4 text-[0.98rem] leading-[1.75] text-[#1E293B]">{study.summary}</p>
+
+                  <div className="mt-7 flex flex-wrap gap-2.5">
+                    {study.metrics.map((metric) => (
+                      <span
+                        key={metric}
+                        className="rounded-full border border-[#DCEEE7] bg-white px-4 py-2 text-[0.78rem] font-bold text-[#10B981] shadow-sm"
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-5 lg:grid-cols-3">
+                <div className="rounded-[24px] border border-[#E2EFEA] bg-white p-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10B981]">{t('common.problem')}</p>
+                  <p className="mt-3 text-[0.98rem] leading-[1.75] text-[#1E293B]">{study.problem}</p>
+                </div>
+
+                <div className="rounded-[24px] border border-[#E2EFEA] bg-white p-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10B981]">{t('common.solution')}</p>
+                  <p className="mt-3 text-[0.98rem] leading-[1.75] text-[#1E293B]">{study.solution}</p>
+                </div>
+
+                <div className="rounded-[24px] border border-[#E2EFEA] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] p-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10B981]">{t('common.results')}</p>
+                  <p className="mt-3 text-[0.98rem] font-medium leading-[1.75] text-[#10B981]">{study.result}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </MotionDiv>
+      </AnimatePresence>
+
+      {activeTab === 'all' && totalPages > 1 ? (
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
           <button
-            key={tab.key}
             type="button"
-            onClick={() => setActiveTab(tab.key)}
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
-              activeTab === tab.key
-                ? 'bg-[#0061FF] text-white shadow-[0_8px_20px_rgba(0,97,255,0.2)]'
-                : 'bg-[#F8FAFF] text-[#0061FF] hover:bg-[#EEF3FF]'
-            }`}
+            onClick={() => setPage((current) => Math.max(1, current - 1))}
+            disabled={page === 1}
+            className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            {tab.label}
+            <ChevronLeft className="h-4 w-4" /> Prev
           </button>
-        ))}
-      </div>
-
-      <div className="mt-16 space-y-12">
-        {filteredStudies.map((study) => (
-          <article
-            key={study.slug}
-            className="rounded-[36px] border border-[#F0F0F0] bg-white p-5 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:p-8"
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              type="button"
+              onClick={() => setPage(index + 1)}
+              className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
+                page === index + 1 ? 'bg-[#10B981] text-white' : 'border border-[#D1FAE5] bg-white text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+            disabled={page === totalPages}
+            className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            <div>
-              <div className="rounded-[28px] border border-[#F0F0F0] bg-[#F8FAFF] p-8">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0061FF]">{study.businessType}</p>
-                <h2 className="mt-4 font-display text-[2.4rem] font-bold tracking-[-0.04em] text-[#111827] sm:text-[2.6rem]">
-                  {study.company}
-                </h2>
-                <p className="mt-3 text-[1.2rem] font-medium leading-[1.6] text-[#0061FF]">{study.headline}</p>
-                <p className="mt-5 text-[1rem] leading-[1.7] text-[#6E6E73]">{study.summary}</p>
+            Next <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      ) : null}
 
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {study.metrics.map((metric) => (
-                    <span
-                      key={metric}
-                      className="rounded-full bg-white px-5 py-2.5 text-[0.8rem] font-bold text-[#0061FF] shadow-sm border border-black/5"
-                    >
-                      {metric}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-6 lg:grid-cols-[0.46fr_0.54fr]">
-              <div className="overflow-hidden rounded-[28px]">
-                <img src={study.image} alt={study.company} className="h-72 w-full object-cover sm:h-80" />
-              </div>
-
-              <div className="grid gap-5">
-                <div className="rounded-[24px] border border-[#F0F0F0] bg-white p-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0061FF]">{t('common.problem')}</p>
-                  <p className="mt-3 text-[1rem] leading-[1.7] text-[#6E6E73]">{study.problem}</p>
-                </div>
-
-                <div className="rounded-[24px] border border-[#F0F0F0] bg-white p-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0061FF]">{t('common.solution')}</p>
-                  <p className="mt-3 text-[1rem] leading-[1.7] text-[#6E6E73]">{study.solution}</p>
-                </div>
-
-                <div className="rounded-[24px] border border-[#F0F0F0] bg-gradient-to-br from-[#F8FAFF] to-[#F0F7FF] p-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0061FF]">{t('common.results')}</p>
-                  <p className="mt-3 text-[1rem] leading-[1.7] text-[#0061FF] font-medium">{study.result}</p>
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="mt-14">
+      <div className="mt-10">
         <FinalCta />
       </div>
     </section>

@@ -16,18 +16,26 @@ export const features = [
 
 export const pricingPlans = [
   {
-    name: 'Free',
-    price: '$0',
-    blurb: 'Best for businesses starting their first WhatsApp automation flow.',
-    points: ['Basic features', 'Limited usage', 'Simple auto replies', 'No card required'],
-    badge: 'Entry Plan',
+    name: 'Free Trial',
+    price: '30 Days Free',
+    blurb: 'Experience the full power of SOVA automation for 30 days. No credit card required.',
+    points: ['Full Features', 'High Usage Limits', 'Smart Auto Replies', 'Multi-Device Support'],
+    badge: 'Get Started',
   },
   {
     name: 'Pro',
     price: '$49',
     blurb: 'For growing teams managing daily sales and lead follow-ups.',
-    points: ['Advanced automation', 'Smart lead filtering', 'Follow-up flows', 'Priority support'],
+    points: ['Advanced Automation', 'Smart Lead Filtering', 'Follow-up Flows', 'Priority Support'],
     badge: 'Popular',
+  },
+  {
+    name: 'Custom',
+    price: 'Contact Us',
+    blurb: 'Scale your automation with custom solutions tailored for enterprise needs.',
+    points: ['Discuss your plan with us and we will approach you accordingly.'],
+    badge: 'Enterprise',
+    cta: 'Contact Us',
   },
 ]
 

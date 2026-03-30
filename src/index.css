@@ -1,9 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-sova-teal: #10B981;
+  --color-sova-teal-deep: #0F8F72;
+  --color-sova-navy: #1E293B;
+  --color-sova-navy-deep: #0F172A;
+  --color-sova-gold: #F59E0B;
+  --color-sova-purple: #A78BFA;
+  --color-sova-surface: #F8FAFC;
+  --color-sova-mint: #ECFDF5;
+  --color-sova-border: #E2EFEA;
+  --color-sova-text: #1E293B;
+  --color-sova-muted: #48617A;
 }
 
 @layer base {
@@ -33,12 +44,12 @@
   }
 
   @keyframes glow-ring {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 97, 255, 0.12); }
-    50% { box-shadow: 0 0 0 28px rgba(0, 97, 255, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.14); }
+    50% { box-shadow: 0 0 0 28px rgba(16, 185, 129, 0); }
   }
 
   :root {
-    color: #1D1D1F;
+    color: #1E293B;
     background: #ffffff;
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
@@ -53,7 +64,7 @@
   body {
     margin: 0;
     min-width: 320px;
-    background: #ffffff;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   }
 
   a {
@@ -71,7 +82,8 @@
   }
 
   ::selection {
-    background: rgba(0, 97, 255, 0.15);
-    color: #1D1D1F;
+    background: rgba(16, 185, 129, 0.16);
+    color: #1E293B;
   }
 }
+

@@ -1,46 +1,51 @@
 import { Check, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { ROUTES } from '../utils/routes'
 import { pricingPlans } from '../data'
 import { CTAButton, FinalCta, SectionHeading } from '../components'
 
 export function PricingPage() {
+  const { t } = useTranslation()
+  const localizedPlans = t('content.pricing.plans', { returnObjects: true }) || pricingPlans
+
   return (
     <section className="mx-auto max-w-[1160px] py-20 px-5">
       <SectionHeading
-        eyebrow="Pricing"
-        title="Simple pricing for growing WhatsApp sales teams."
-        description="Choose the plan that matches your message volume today and upgrade when your business grows."
+        eyebrow={t('sections.pricingEyebrow')}
+        title={t('sections.pricingTitle')}
+        description={t('sections.pricingDescription')}
       />
 
       <div className="mt-16 grid gap-6 lg:grid-cols-3">
-        {pricingPlans.map((plan, index) => (
+        {localizedPlans.map((plan, index) => (
           <div
             key={plan.name}
             className={`rounded-[32px] border p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)] transition-all hover:y-[-4px] ${
               index === 1
-                ? 'border-[#0061FF]/30 bg-white ring-1 ring-[#0061FF]/10'
-                : 'border-[#F0F0F0] bg-white'
+                ? 'border-[#10B981]/30 bg-white ring-1 ring-[#10B981]/10'
+                : 'border-[#E2EFEA] bg-white'
             }`}
           >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <h2 className="font-display text-[2.2rem] font-bold tracking-[-0.04em] text-[#1D1D1F]">
+                <h2 className="font-display text-[2.2rem] font-bold tracking-[-0.04em] text-[#1E293B]">
                   {plan.name}
                 </h2>
-                <p className="mt-2 text-[1rem] leading-[1.6] text-[#6E6E73]">{plan.blurb}</p>
+                <p className="mt-2 text-[1rem] leading-[1.6] text-[#48617A]">{plan.blurb}</p>
               </div>
               {plan.badge ? (
-                <span className="rounded-full bg-[#0061FF] px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">{plan.badge}</span>
+                <span className="rounded-full bg-gradient-to-r from-[#10B981] to-[#06B6D4] px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider shadow-sm">{plan.badge}</span>
               ) : null}
             </div>
             <div className="mt-8 flex items-end gap-2">
-              <span className="font-display text-5xl font-extrabold tracking-[-0.05em] text-[#1D1D1F]">{plan.price}</span>
-              <span className="pb-2 text-[1rem] font-medium text-[#0061FF]">/ month</span>
+              <span className={`${plan.price.length > 5 ? 'text-4xl' : 'text-5xl'} font-display font-extrabold tracking-[-0.05em] text-[#1E293B]`}>{plan.price}</span>
+              {plan.price.includes('$') && <span className="pb-2 text-[1rem] font-medium text-[#10B981]">/ month</span>}
             </div>
             <div className="mt-8 space-y-4">
               {plan.points.map((point) => (
-                <div key={point} className="flex items-center gap-3 text-[0.95rem] font-medium text-[#111827]">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#EBF5FF] text-[#0061FF]">
+                <div key={point} className="flex items-center gap-3 text-[0.95rem] font-medium text-[#0F172A]">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#ECFDF5] text-[#10B981]">
                     <Check className="h-4 w-4" />
                   </span>
                   {point}
@@ -48,15 +53,20 @@ export function PricingPage() {
               ))}
             </div>
             <div className="mt-10">
-              <CTAButton to="/auth" label="Start Free Trial" subtext="No card required" full />
+              <CTAButton 
+                to={plan.cta ? ROUTES.about : ROUTES.auth} 
+                label={plan.cta || t('common.startFreeTrial')} 
+                subtext={plan.cta ? "" : t('common.noCardRequired')} 
+                full 
+              />
             </div>
           </div>
         ))}
       </div>
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[32px] border border-[#F0F0F0] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0061FF]">Included in every plan</p>
+        <div className="rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#10B981]">Included in every plan</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
               'WhatsApp automation',
@@ -66,14 +76,14 @@ export function PricingPage() {
               'Spam control',
               'Mobile-friendly setup',
             ].map((item) => (
-              <div key={item} className="rounded-[20px] bg-[#F8FAFF] px-6 py-4 text-[0.9rem] font-bold text-[#111827]">
+              <div key={item} className="rounded-[20px] bg-[#F8FAFC] px-6 py-4 text-[0.9rem] font-bold text-[#0F172A]">
                 {item}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[32px] bg-gradient-to-br from-[#0061FF] via-[#3B82F6] to-[#60A5FA] p-10 text-white shadow-xl relative overflow-hidden">
+        <div className="rounded-[32px] bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-10 text-white shadow-[0_24px_60px_rgba(30,41,59,0.3)] relative overflow-hidden">
           {/* Subtle pattern */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -100,7 +110,7 @@ export function PricingPage() {
       </div>
 
       <div className="mt-10 flex justify-center">
-        <Link to="/terms" className="text-[1rem] font-bold text-[#0061FF] transition hover:opacity-70">
+        <Link to="/terms" className="text-[1rem] font-bold text-[#10B981] transition hover:opacity-70">
           View terms and conditions
         </Link>
       </div>
@@ -111,3 +121,4 @@ export function PricingPage() {
     </section>
   )
 }
+
