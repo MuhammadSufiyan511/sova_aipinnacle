@@ -6,6 +6,16 @@ import { reviews } from '../../../data'
 
 const MotionDiv = motion.div
 
+function initialsFor(name) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase()
+}
+
 export function ReviewsSection() {
   const { t, i18n } = useTranslation()
   const [isPaused, setIsPaused] = useState(false)
@@ -27,7 +37,7 @@ export function ReviewsSection() {
           <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">
             {t('sections.reviewsTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#48617A]">
+          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">
             {t('sections.reviewsDescription')}
           </p>
         </MotionDiv>
@@ -63,11 +73,12 @@ export function ReviewsSection() {
               <p className="mt-4 text-[0.88rem] leading-[1.75] text-[#1E293B]">"{review.feedback}"</p>
 
               <div className="mt-5 flex items-center gap-3 border-t border-[#ECFDF5] pt-4">
-                <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=10B981&color=ffffff&rounded=true&size=80`}
-                  alt={review.name}
-                  className="h-9 w-9 rounded-full object-cover"
-                />
+                <div
+                  aria-hidden="true"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#10B981_0%,#06B6D4_100%)] text-[0.76rem] font-bold text-white shadow-sm"
+                >
+                  {initialsFor(review.name)}
+                </div>
                 <div>
                   <p className="text-[0.85rem] font-bold text-[#1E293B]">{review.name}</p>
                   <p className="text-[0.78rem] font-medium text-[#10B981]">{review.businessType}</p>

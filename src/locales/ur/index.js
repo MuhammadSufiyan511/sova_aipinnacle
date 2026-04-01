@@ -3,6 +3,7 @@ import { nav } from './nav'
 import { languages } from './languages'
 import { hero } from './hero'
 import { sections } from './sections'
+import { aeoOverview } from './content-home-aeo'
 import { brandFeature, featuresGrid, howItWorks } from './content-home-core'
 import { industries, pricing, trustedBusinesses, reviews, faq } from './content-home-growth'
 import { about, auth, metaIntegration, metaModal } from './content-pages-basic'
@@ -19,6 +20,7 @@ const ur = {
     hero,
     sections,
     content: {
+      aeoOverview,
       brandFeature,
       featuresGrid,
       howItWorks,

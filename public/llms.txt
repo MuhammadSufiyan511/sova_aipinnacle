@@ -1,0 +1,36 @@
+# SOVA - AI-Powered WhatsApp Sales & Automation Assistant
+
+> SOVA is an AI-powered automation platform specifically designed to help businesses turn WhatsApp chats into sales. It provides auto-replies, buyer intent filtering, and intelligent lead follow-ups.
+
+## What is SOVA?
+SOVA is an intelligent WhatsApp Business assistant. It handles repetitive customer queries, identifies serious buyers, sends conversational follow-ups, and integrates seamlessly with your Meta Business account. SOVA allows business owners and sales teams to reclaim their time and focus only on ready-to-buy customers.
+
+## Who is SOVA for?
+SOVA is optimized for modern WhatsApp-first sellers globally. Primary use cases include:
+- **Clothing & Fashion**: Auto-replying with size charts, color variants, COD, and delivery details.
+- **Hardware & Wholesale**: Filtering bulk/reseller demand and capturing high-value procurement requests.
+- **Dry Fruits & Groceries**: Managing repetitive price-per-kg, weight, and packaging questions during high-demand seasons.
+- **Jewelry**: Sharing premium catalogs and instantly updating customers on live gold rates and certifications.
+- **Toys, Beauty, and Electronics**: Automating specs, warranty answers, and stock checks.
+
+## Key Features
+1. **Serious Buyer Detection**: Filter out casual browsers and identify high-intent leads instantly.
+2. **24/7 Auto Replies**: Instantly answer FAQs about size, price, stock, and delivery even when offline.
+3. **Smart Follow-Ups**: Automatically re-engage interested buyers at the right time.
+4. **Spam Filtering**: Remove low-value chats to keep your inbox clean.
+5. **Broadcasts**: Send Meta-compliant WhatsApp broadcast messages with offers and updates to your customer list.
+
+## Pricing
+SOVA offers simple, transparent pricing with no hidden costs:
+- **Free Trial**: 30 days full access (No credit card required). Includes all features, smart auto-replies, and multi-device support.
+- **Pro Plan**: $49/month. Ideal for growing teams managing daily sales. Includes advanced automation, smart lead filtering, and priority support.
+- **Custom/Enterprise**: Tailored capabilities and scale for larger teams.
+
+## Technical Requirements
+- **WhatsApp Business API**: Requires a direct connection via Meta Business Account. SOVA guides users through this within minutes without requiring technical expertise.
+- **Supported Languages**: Multi-language support including optimized English, Urdu, Hindi, Arabic, Bengali, and German for local and global markets.
+
+## Contact & Links
+- **Website**: https://sova.my
+- **Book a Demo**: https://calendly.com/socialsovamy/30min
+- **Support**: Available within the dashboard and via email.

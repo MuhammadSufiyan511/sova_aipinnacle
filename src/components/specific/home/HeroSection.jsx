@@ -91,7 +91,7 @@ export function HeroSection({ onWatchDemo }) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="mx-auto max-w-[860px] px-4 text-center font-display text-[1.5rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2change secntenrem]"
+            className="mx-auto max-w-[860px] px-4 text-center font-display text-[1.5rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
           >
             {t('hero.titlePrefix')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] via-[#06B6D4] to-[#F1990A] bg-clip-text text-transparent">
@@ -123,13 +123,14 @@ export function HeroSection({ onWatchDemo }) {
                 to={ROUTES.auth}
                 className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-8 py-3.5 text-[0.95rem] font-bold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition hover:scale-[1.03] active:scale-[0.98]"
               >
-                {t('common.getStartedFree')} <ArrowUpRight className="h-4 w-4" />
+                {t('common.startFreeTrial')} <ArrowUpRight className="h-4 w-4" />
               </Link>
               <p className="mt-2 text-[0.72rem] font-medium text-[#F1990A]">{t('common.noCardRequired')}</p>
             </div>
             <button
               type="button"
               onClick={onWatchDemo}
+              aria-label="Watch the SOVA product demo"
               className="inline-flex items-center gap-2.5 rounded-full border border-[#1E293B] bg-white px-8 py-3.5 text-[0.95rem] font-bold text-[#1E293B] transition hover:bg-[#F8FAFC] hover:text-[#10B981] hover:border-[#10B981] hover:scale-[1.02]"
             >
               {t('common.watchDemo')} <Play className="h-4 w-4 fill-current" />

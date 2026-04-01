@@ -21,7 +21,13 @@ export const common = {
   accountAccess: 'Account access',
   ourMission: 'Our mission',
   contact: 'Contact',
+  getInTouch: 'Get in touch',
+  close: 'Close',
   faq: 'FAQ',
   support: 'Support',
+  cookiesSettings: 'Cookie Settings',
+  allRightsReserved: 'All Rights Reserved.',
+  previous: 'Previous',
+  next: 'Next',
   termsAndPolicies: 'Terms and Policies',
 }

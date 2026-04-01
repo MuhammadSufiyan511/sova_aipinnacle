@@ -1,8 +1,8 @@
-import ar from './ar'
-import bn from './bn'
-import de from './de'
+import ar from './ar/index'
+import bn from './bn/index'
+import de from './de/index'
 import en from './en/index'
-import hi from './hi'
+import hi from './hi/index'
 import ur from './ur/index'
 
 export const localeResources = {

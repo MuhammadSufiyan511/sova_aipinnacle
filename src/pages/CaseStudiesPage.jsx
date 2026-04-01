@@ -1,15 +1,18 @@
-import { AnimatePresence, motion } from 'framer-motion'
+﻿import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { caseStudies } from '../data'
-import { FinalCta } from '../components'
+import { FinalCta, InternalLinksGrid, SeoHead } from '../components'
+import { ROUTES } from '../utils/routes'
+import { createBreadcrumbSchema } from '../seo/schemas'
 
 const MotionDiv = motion.div
 const ITEMS_PER_PAGE = 3
 
 export function CaseStudiesPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const [activeTab, setActiveTab] = useState('all')
   const [page, setPage] = useState(1)
   const localizedStudyItems = t('content.caseStudies.items', { returnObjects: true }) || {}
@@ -26,6 +29,12 @@ export function CaseStudiesPage() {
     const startIndex = (page - 1) * ITEMS_PER_PAGE
     return filteredStudies.slice(startIndex, startIndex + ITEMS_PER_PAGE)
   }, [activeTab, filteredStudies, page])
+  const relatedLinks = [
+    { to: ROUTES.industries, label: t('nav.industries'), description: t('sections.industriesPageDescription') },
+    { to: ROUTES.pricing, label: t('nav.pricing'), description: t('sections.pricingDescription') },
+    { to: ROUTES.about, label: t('nav.about'), description: t('sections.aboutDescription') },
+    { to: ROUTES.auth, label: t('common.continueWithMeta'), description: t('sections.authDescription') },
+  ]
 
   const handleSwitchTab = (direction) => {
     const nextIndex = (currentTabIndex + direction + uniqueTabs.length) % uniqueTabs.length
@@ -34,13 +43,23 @@ export function CaseStudiesPage() {
   }
 
   return (
-    <section className="mx-auto max-w-[1160px] px-5 pb-8 pt-24">
+    <section className="mx-auto max-w-[1160px] px-5 pb-8 pt-30 ">
+      <SeoHead
+        title="Case Studies | SOVA Results on WhatsApp"
+        description="Read how businesses use SOVA to automate WhatsApp replies, save team time, filter buyers faster, and improve lead conversion."
+        schema={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Case Studies', path: '/case-studies' },
+          ]),
+        ]}
+      />
       <div className="mx-auto max-w-4xl text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
-        <h1 className="mt-5 font-display text-[2.8rem] font-extrabold tracking-[-0.04em] text-[#0F172A] sm:text-5xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
+         <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:text-4xl">
           {t('sections.caseTitle')}
         </h1>
-        <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#48617A] sm:text-lg">
+        <p className="mt-3 text-[1.1rem] leading-7 text-[#5a9e88]">
           {t('sections.caseDescription')}
         </p>
       </div>
@@ -52,7 +71,7 @@ export function CaseStudiesPage() {
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
           aria-label="Previous case study tab"
         >
-          <ChevronLeft className="h-5 w-5" />
+          {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
         <div className="flex max-w-[950px] flex-wrap justify-center gap-1">
@@ -81,7 +100,7 @@ export function CaseStudiesPage() {
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
           aria-label="Next case study tab"
         >
-          <ChevronRight className="h-5 w-5" />
+          {isRtl ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
         </button>
       </div>
 
@@ -101,10 +120,16 @@ export function CaseStudiesPage() {
             >
               <div className="grid gap-6 lg:grid-cols-[0.95fr_2.2fr]">
                 <div className="overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-[#F8FAFC]">
-                  <img src={study.image} alt={study.company} className="h-64 w-full object-cover sm:h-72 lg:h-full" />
+                  <img
+                    src={study.image}
+                    alt={`${study.company} case study`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-64 w-full object-cover sm:h-72 lg:h-full"
+                  />
                 </div>
 
-                <div className="rounded-[28px] border border-[#E2EFEA] bg-[#F8FAFC] p-7 sm:p-8">
+                <div className="rounded-[28px] border border-[#E2EFEA] bg-[#f0faf6] p-7 sm:p-8">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10B981]">{study.businessType}</p>
                   <h2 className="mt-4 font-display text-[2rem] font-bold tracking-[-0.04em] text-[#0F172A] sm:text-[2.3rem]">
                     {study.company}
@@ -154,7 +179,15 @@ export function CaseStudiesPage() {
             disabled={page === 1}
             className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            <ChevronLeft className="h-4 w-4" /> Prev
+            {isRtl ? (
+              <>
+                {t('common.previous')} <ChevronRight className="h-4 w-4" />
+              </>
+            ) : (
+              <>
+                <ChevronLeft className="h-4 w-4" /> {t('common.previous')}
+              </>
+            )}
           </button>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
@@ -174,10 +207,20 @@ export function CaseStudiesPage() {
             disabled={page === totalPages}
             className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            Next <ChevronRight className="h-4 w-4" />
+            {isRtl ? (
+              <>
+                <ChevronLeft className="h-4 w-4" /> {t('common.next')}
+              </>
+            ) : (
+              <>
+                {t('common.next')} <ChevronRight className="h-4 w-4" />
+              </>
+            )}
           </button>
         </div>
       ) : null}
+
+      <InternalLinksGrid links={relatedLinks} className="mt-10" />
 
       <div className="mt-10">
         <FinalCta />

@@ -1,4 +1,5 @@
 export { HeroSection } from './HeroSection'
+export { AeoOverviewSection } from './AeoOverviewSection'
 export { IndustriesPreviewSection } from './IndustriesPreviewSection'
 export { BrandFeatureSection } from './BrandFeatureSection'
 export { FeaturesGridSection } from './FeaturesGridSection'

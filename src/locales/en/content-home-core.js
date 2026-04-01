@@ -11,7 +11,16 @@ export const brandFeature = {
     { value: '90%', title: 'better conversion', body: 'Keep conversations where buyers are most active and turn more leads into orders.' },
     { value: '24/7', title: 'always online', body: 'Keep a sales assistant running on WhatsApp so serious buyers are never missed.' },
   ],
-  micro: { userOne: 'Hi, I found your page on Instagram.', userTwo: 'Do you have this available in bulk?', userThree: 'Can you share the price list?', customer: 'Customer', faq: 'Answer FAQs', support: 'Contact Support' },
+  micro: {
+    userOne: 'Hi, I found your page on Instagram.',
+    userTwo: 'Do you have this available in bulk?',
+    userThree: 'Can you share the price list?',
+    customer: 'Customer',
+    company: 'Retail buyer',
+    faq: 'Answer FAQs',
+    support: 'Contact Support',
+    inputPlaceholder: 'Type a message...',
+  },
 }
 
 export const featuresGrid = {

@@ -72,20 +72,19 @@ export function HowItWorksSection() {
               {t('sections.howTitle').split(' ').slice(-1)[0]}
             </span>
           </h2>
-          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#48617A]">
+          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">
             {t('sections.howDescription')}
           </p>
         </MotionDiv>
 
-        <div className="grid gap-6 lg:grid-cols-[1.08fr_1fr_1fr] lg:items-start">
-          <div className="grid gap-6">
+        <div className="grid gap-6 lg:grid-cols-3 lg:items-stretch">
+          <div className="grid h-full gap-6">
             <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: 0.08 }}
-              className="group relative overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-white p-8 shadow-[0_8px_36px_rgba(30,41,59,0.04)] transition-all hover:border-[#10B981]/40 hover:shadow-[0_12px_48px_rgba(16,185,129,0.1)] hover:-translate-y-1"
-            >
+      className="group relative flex h-full min-h-[40px] flex-col overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-white p-8 shadow-[0_8px_36px_rgba(30,41,59,0.04)] transition-all hover:border-[#10B981]/40 hover:shadow-[0_12px_48px_rgba(16,185,129,0.1)] hover:-translate-y-1"            >
               <div className="mb-5 overflow-hidden rounded-[22px] border border-[#DCEEE7] bg-[#F8FAFC] shadow-[0_10px_28px_rgba(18,105,213,0.08)]">
                 <div className="relative aspect-video w-full lg:aspect-[16/10]">
                   {!loadedVideos[0] && (
@@ -101,7 +100,7 @@ export function HowItWorksSection() {
                   <iframe
                     className={`h-full w-full transition-opacity duration-500 ${loadedVideos[0] ? 'opacity-100' : 'opacity-0'}`}
                     src={stepVideoUrls[0]}
-                    title="Meta sign in demo"
+                    title={`${localizedSteps[0].title} - ${t('common.watchDemo')}`}
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
@@ -132,7 +131,7 @@ export function HowItWorksSection() {
                 </div>
               </div>
 
-              <p className="text-[0.9rem] leading-[1.75] text-[#1E293B]">{localizedSteps[0].description}</p>
+              <p className="mt-auto text-[0.9rem] leading-[1.75] text-[#1E293B]">{localizedSteps[0].description}</p>
             </MotionDiv>
           </div>
 
@@ -143,7 +142,7 @@ export function HowItWorksSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: 0.14 + index * 0.08 }}
-              className="group relative self-center overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-white p-8 shadow-[0_8px_36px_rgba(30,41,59,0.04)] transition-all hover:border-[#10B981]/40 hover:shadow-[0_12px_48px_rgba(16,185,129,0.1)] hover:-translate-y-1"
+                className="group relative flex h-full min-h-[40px] flex-col self-stretch overflow-hidden rounded-[28px] border border-[#E2EFEA] bg-white p-8 shadow-[0_8px_36px_rgba(30,41,59,0.04)] transition-all hover:border-[#10B981]/40 hover:shadow-[0_12px_48px_rgba(16,185,129,0.1)] hover:-translate-y-1"
             >
               <div
                 className="absolute left-0 right-0 top-0 h-[3px] rounded-t-[28px]"
@@ -165,7 +164,7 @@ export function HowItWorksSection() {
                   <iframe
                     className={`h-full w-full transition-opacity duration-500 ${loadedVideos[index + 1] ? 'opacity-100' : 'opacity-0'}`}
                     src={stepVideoUrls[index + 1]}
-                    title={`${step.title} demo`}
+                    title={`${step.title} - ${t('common.watchDemo')}`}
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
@@ -187,7 +186,7 @@ export function HowItWorksSection() {
                 </h3>
               </div>
 
-              <p className="text-[0.9rem] leading-[1.75] text-[#1E293B]">{step.description}</p>
+              <p className="mt-auto text-[0.9rem] leading-[1.75] text-[#1E293B]">{step.description}</p>
             </MotionDiv>
           ))}
         </div>

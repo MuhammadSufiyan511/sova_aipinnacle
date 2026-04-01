@@ -111,8 +111,8 @@ export function SiteHeader() {
               }`}
           >
             <div className="flex items-center justify-between gap-4 px-5 py-2.5">
-              <Link to={ROUTES.home} className="flex shrink-0 items-center gap-2.5">
-                <img src={sovaLogo} alt={t('common.brand')} className="h-8 w-8 rounded-xl object-cover" />
+              <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1">
+                <img src={sovaLogo} alt={t('common.brand')} decoding="async" className="h-8 w-14 rounded-xl" />
                 <span className="font-display text-[1.05rem] font-bold tracking-[-0.03em] text-[#1E293B]">
                   {t('common.brand')}
                 </span>
@@ -252,7 +252,7 @@ export function SiteHeader() {
               className="flex flex-col items-center gap-5"
             >
               <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-[#E2EFEA]">
-                <img src={sovaLogo} alt="Loading Sova" className="h-12 w-12 object-cover rounded-xl animate-pulse" />
+                <img src={sovaLogo} alt="Loading Sova" decoding="async" className="h-12 w-12 object-cover rounded-xl animate-pulse" />
               </div>
               <div className="mt-2 flex gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#10B981] animate-bounce" style={{ animationDelay: '0ms' }} />

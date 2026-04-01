@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sova.my/sitemap.xml
+# Answer Engine Optimization (AEO) file
+Allow: /llms.txt

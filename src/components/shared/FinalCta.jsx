@@ -43,7 +43,7 @@ export function FinalCta() {
               to={ROUTES.auth}
               className="inline-flex h-[64px] items-center justify-center gap-2 rounded-[20px] bg-[#10B981] px-9 text-[1rem] font-bold text-white shadow-[0_18px_38px_rgba(16,185,129,0.28)] transition hover:scale-[1.04]"
             >
-              {t('sections.finalButton')} <ArrowUpRight className="h-4 w-4" />
+              {t('common.startFreeTrial')} <ArrowUpRight className="h-4 w-4" />
             </Link>
             <p className="mt-2 text-[0.72rem] font-medium text-[#FCD34D]">{t('common.noCardRequired')}</p>
           </div>

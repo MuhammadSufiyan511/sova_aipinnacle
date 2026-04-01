@@ -8,7 +8,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 const MotionDiv = motion.div
 
 export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const localizedIndustryItems = t('content.industries.items', { returnObjects: true }) || {}
   const enrichedIndustries = industries.map((industry) => ({
     ...industry,
@@ -25,7 +26,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
   }
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-white to-[#F4F8FF] py-14">
+    <section className="relative w-full bg-gradient-to-b from-white to-[#F4F8FF] py-10">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -38,10 +39,21 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
           <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">
             {t('sections.industriesTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#48617A]">
+          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">
             {t('sections.industriesDescription')}
           </p>
         </MotionDiv>
+
+        <div className="sr-only">
+          <h3>Industry use cases</h3>
+          <ul>
+            {enrichedIndustries.map((industry) => (
+              <li key={industry.id}>
+                {industry.label}: {industry.title}. {industry.useCase}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="mb-8 flex items-center justify-center gap-3">
           <button
@@ -50,7 +62,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
             className="hidden h-10 w-10 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition hover:-translate-x-0.5 hover:bg-[#ECFDF5] lg:inline-flex"
             aria-label="Previous industry tab"
           >
-            <ArrowLeft className="h-4.5 w-4.5" />
+            {isRtl ? <ArrowRight className="h-4.5 w-4.5" /> : <ArrowLeft className="h-4.5 w-4.5" />}
           </button>
 
           <div className="flex max-w-[820px] flex-nowrap justify-center gap-2.5 overflow-hidden">
@@ -59,7 +71,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
                 key={industry.id}
                 type="button"
                 onClick={() => onSelectIndustry(industry.id)}
-                className={`min-w-[132px] rounded-full px-5 py-2 text-center text-[0.865rem] font-semibold whitespace-nowrap transition-all ${
+                className={`min-w-[192px] rounded-full px-5 py-2 text-center text-[0.865rem] font-semibold whitespace-nowrap transition-all ${
                   activeIndustry === industry.id
                     ? 'bg-[#10B981] text-white shadow-[0_4px_14px_rgba(16,185,129,0.28)]'
                     : 'border border-[#D1FAE5] bg-white text-[#1E293B] hover:border-[#10B981] hover:text-[#10B981]'
@@ -76,7 +88,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
             className="hidden h-10 w-10 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition hover:translate-x-0.5 hover:bg-[#ECFDF5] lg:inline-flex"
             aria-label="Next industry tab"
           >
-            <ArrowRight className="h-4.5 w-4.5" />
+            {isRtl ? <ArrowLeft className="h-4.5 w-4.5" /> : <ArrowRight className="h-4.5 w-4.5" />}
           </button>
         </div>
 
@@ -97,7 +109,9 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
                   <div className="overflow-hidden">
                     <img
                       src={selectedIndustry.image}
-                      alt={selectedIndustry.label}
+                      alt={`${selectedIndustry.label} business using SOVA on WhatsApp`}
+                      loading="lazy"
+                      decoding="async"
                       className="h-72 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-full lg:min-h-[360px]"
                     />
                   </div>

@@ -1,6 +1,8 @@
-﻿import { privacySections, termsSections } from '../data'
 import { useTranslation } from 'react-i18next'
-import { FinalCta, ListItem, SectionHeading } from '../components'
+import { FinalCta, InternalLinksGrid, ListItem, SectionHeading, SeoHead } from '../components'
+import { privacySections, termsSections } from '../data'
+import { createBreadcrumbSchema } from '../seo/schemas'
+import { ROUTES } from '../utils/routes'
 
 export function TermsPage() {
   const { t } = useTranslation()
@@ -13,6 +15,9 @@ export function TermsPage() {
       description={t('sections.termsDescription')}
       sections={localizedSections}
       updatedAt="March 25, 2026"
+      seoTitle="Terms and Conditions | SOVA"
+      seoDescription="Read the terms and conditions for using SOVA, including account responsibilities, service use, intellectual property, and legal limitations."
+      seoPath="/terms"
     />
   )
 }
@@ -28,16 +33,35 @@ export function PrivacyPage() {
       description={t('sections.privacyDescription')}
       sections={localizedSections}
       updatedAt="March 25, 2026"
+      seoTitle="Privacy Policy | SOVA"
+      seoDescription="Review how SOVA collects, uses, stores, and protects information across its WhatsApp automation platform."
+      seoPath="/privacy_policy"
     />
   )
 }
 
-function LegalPage({ eyebrow, title, description, sections, updatedAt }) {
+function LegalPage({ eyebrow, title, description, sections, updatedAt, seoTitle, seoDescription, seoPath }) {
   const { t } = useTranslation()
+  const relatedLinks = [
+    { to: ROUTES.about, label: t('nav.about'), description: t('sections.aboutDescription') },
+    { to: ROUTES.industries, label: t('nav.industries'), description: t('sections.industriesPageDescription') },
+    { to: ROUTES.caseStudies, label: t('nav.caseStudies'), description: t('sections.caseDescription') },
+    { to: ROUTES.auth, label: t('common.continueWithMeta'), description: t('sections.authDescription') },
+  ]
 
   return (
     <section className="mx-auto max-w-[1100px] px-5 pb-16 pt-30">
-      <SectionHeading eyebrow={eyebrow} title={title} description={description} centered />
+      <SeoHead
+        title={seoTitle}
+        description={seoDescription}
+        schema={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: title, path: seoPath },
+          ]),
+        ]}
+      />
+      <SectionHeading eyebrow={eyebrow} title={title} description={description} centered as="h1" />
       <p className="mt-6 text-center text-[0.85rem] font-bold uppercase tracking-widest text-[#10B981]">
         {t('common.lastUpdated')}: {updatedAt}
       </p>
@@ -66,10 +90,10 @@ function LegalPage({ eyebrow, title, description, sections, updatedAt }) {
           )
         })}
       </div>
+      <InternalLinksGrid links={relatedLinks} className="mt-12" />
       <div className="mt-14">
         <FinalCta />
       </div>
     </section>
   )
 }
-

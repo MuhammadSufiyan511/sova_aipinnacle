@@ -17,7 +17,7 @@ export const industries = [
     title: 'Show premium catalogs and handle purity or weight queries.',
     description: 'Automate responses for gold rates, certifications, and design availability.',
     useCase: 'Instant catalog sharing and gold rate updates.',
-    image: 'https://images.unsplash.com/photo-1515562141207-7a18b5ce7142?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1660860547079-fd4845880af9??auto=format&fit=crop&w=1200&q=80',
     icon: Gem,
   },
   {
@@ -27,7 +27,7 @@ export const industries = [
     description: 'Sort casual browsing chats from serious wholesale buyers asking for cartons and repeat supply.',
     useCase: 'Bulk inquiry filtering, catalog replies, and faster routing for reseller leads.',
     image:
-      'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1741389544696-0750a7ac6bbb?auto=format&fit=crop&w=1200&q=80',
     icon: Users,
   },
   {
@@ -46,7 +46,7 @@ export const industries = [
     description: 'Stay quick during busy seasonal demand without repeating the same details all day.',
     useCase: 'Per-kilo pricing, packaging sizes, delivery zones, and wholesale quantity support.',
     image:
-      'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1763140877786-5dc3287a6629?auto=format&fit=crop&w=1200&q=80',
     icon: Store,
   },
   {
@@ -55,7 +55,7 @@ export const industries = [
     title: 'Share event themes and package prices for home or party decor.',
     description: 'Manage queries for birthday, wedding, and interior decor themes automatically.',
     useCase: 'Theme selection guides and package cost automation.',
-    image: 'https://images.unsplash.com/photo-1513519247388-19346447e622?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1564688283805-6a7938547329?auto=format&fit=crop&w=1200&q=80',
     icon: Palette,
   },
   {
@@ -83,7 +83,7 @@ export const industries = [
     title: 'Manage precision tool inquiries for hospitals and distributors.',
     description: 'Automate responses for surgical sets, steel quality, and bulk order discounts.',
     useCase: 'Order set customization and quality certification sharing.',
-    image: 'https://images.unsplash.com/photo-1579154235602-3815a181962a?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1643660527070-426a4aa8593d?auto=format&fit=crop&w=1200&q=80',
     icon: Scissors,
   },
   {
@@ -92,7 +92,7 @@ export const industries = [
     title: 'Handle builder and contractor queries for tools and materials.',
     description: 'Automate replies for power tools, plumbing fixtures, and construction essentials.',
     useCase: 'Bulk price lists and tool specifications.',
-    image: 'https://images.unsplash.com/photo-1581244273443-c7da9c75AD31?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1519520104014-df63821cb6f9?auto=format&fit=crop&w=1200&q=80',
     icon: Hammer,
   },
   {
@@ -101,7 +101,7 @@ export const industries = [
     title: 'Manage seasonal demand for displays and celebrations safely.',
     description: 'Handle inquiries for firework bundles, safety instructions, and event packages.',
     useCase: 'Seasonal catalog sharing and safety guidelines.',
-    image: 'https://images.unsplash.com/photo-1533230393121-818833174474?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1772461287108-461909407b66?q=80&w=875&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=1200&q=80',
     icon: Sparkles,
   },
 ]

@@ -9,12 +9,12 @@ export const about = {
     { title: 'Smarter follow-through', body: 'Turn product questions and order chats into a smoother sales process with less manual work.' },
   ],
   calendly: {
-    title: 'Book a quick Calendly call',
+    title: 'Schedule a Discovery Call',
     description: 'See how SOVA can help your business improve WhatsApp communication and handle more customer chats with less effort.',
     cardTitle: '15-minute walkthrough',
     cardText: 'Choose a time that suits you and get a practical look at how SOVA fits your business flow.',
     button: 'Book on Calendly',
-    url: 'https://calendly.com/',
+    url: 'https://calendly.com/socialsovamy/30min',
   },
 }
 

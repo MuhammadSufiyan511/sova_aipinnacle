@@ -56,7 +56,7 @@ export function PricingPage() {
               <CTAButton 
                 to={plan.cta ? ROUTES.about : ROUTES.auth} 
                 label={plan.cta || t('common.startFreeTrial')} 
-                subtext={plan.cta ? "" : t('common.noCardRequired')} 
+                subtext={!plan.cta && index === 0 ? t('common.noCardRequired') : ''} 
                 full 
               />
             </div>

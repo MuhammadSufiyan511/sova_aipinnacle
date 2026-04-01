@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
-import { Bell, Calendar, Mail, MessageSquare } from 'lucide-react'
+import { Mail, MessageSquare } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 
@@ -80,7 +80,7 @@ export function BrandFeatureSection() {
                 {copy.heading[1]}
               </span>
             </h2>
-            <p className="mx-auto mt-4 max-w-[600px] text-[1.1rem] leading-[1.6] text-[#48617A]">
+            <p className="mx-auto mt-4 max-w-[600px] text-[1.1rem] leading-[1.6] text-[#5a9e88]">
               {copy.subheading}
             </p>
           </MotionDiv>
@@ -127,7 +127,7 @@ export function BrandFeatureSection() {
                 perspective: 1200,
                 willChange: 'transform, opacity',
               }}
-              className="relative z-10 w-full max-w-[340px]"
+              className="relative z-10 w-full max-w-[340px] drop-shadow-[0_20px_50px_rgba(16,185,129,0.15)]"
             >
               {/* 3D float + tilt wrapper */}
               <motion.div
@@ -201,114 +201,114 @@ export function BrandFeatureSection() {
 
                   {/* Screen content */}
                   <div className="h-[580px] px-4 pb-5 pt-3">
-                    {/* Chat header */}
-                    <div className="flex items-center gap-3 border-b border-white/5 pb-4">
-                      <div className="relative h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-br from-[#10B981] to-[#F59E0B]">
-                        {/* Spinning ring */}
-                        <motion.div
-                          className="absolute -inset-[3px] rounded-full"
-                          style={{
-                            background:
-                              'conic-gradient(from 0deg, #10B981, #A78BFA, #06B6D4, #10B981)',
-                            zIndex: -1,
-                            willChange: 'transform',
-                          }}
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                        />
+                    {/* Chat header - WhatsApp style */}
+                    <div className="flex items-center gap-2.5 border-b border-[#075E54] bg-[#00897B] pb-3 pl-1 pr-3">
+                      <div className="relative h-9 w-9 flex-shrink-0 rounded-full bg-white/20">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/>
+                          </svg>
+                        </div>
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <p className="text-xs font-bold text-white">{copy.phoneTitle}</p>
-                        <p className="text-[10px] text-green-400">● {copy.phoneStatus}</p>
+                        <p className="text-[10px] text-green-100">● {copy.phoneStatus}</p>
                       </div>
                     </div>
 
-                    {/* Messages with live chat loop */}
-                    <div className="mt-5 flex flex-col gap-3">
-                      {copy.messages.map((message, index) => (
+                    {/* Chat background */}
+                    <div className="relative h-[calc(100%-50px)] w-full overflow-hidden" style={{ background: 'linear-gradient(to bottom, #E8DED2 0%, #D5BFA6 100%)' }}>
+                      {/* Subtle dot pattern */}
+                      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
+
+                      {/* Messages area */}
+                      <div className="relative z-10 flex flex-col gap-1.5 px-3 pt-3">
+                        {/* Timestamp chip */}
+                        <div className="mb-2 flex justify-center">
+                          <span className="rounded-lg bg-[#E8DED2]/90 px-3 py-1 text-[9px] font-medium text-[#5b6470] shadow-sm" style={{ background: 'rgba(255,255,255,0.7)' }}>
+                            {copy.timestamp || '11:43 PM'}
+                          </span>
+                        </div>
+                        {copy.messages.map((message, index) => (
+                          <motion.div
+                            key={message}
+                            initial={{ opacity: 0, y: 14, scale: 0.92 }}
+                            animate={{
+                              opacity: [0, 0, 1, 1, 0],
+                              y: [14, 14, 0, 0, -4],
+                              scale: [0.92, 0.92, 1, 1, 0.98],
+                            }}
+                            transition={{
+                              duration: chatLoopDuration,
+                              repeat: Infinity,
+                              repeatDelay: 0.4,
+                              ease: 'easeInOut',
+                              times: [
+                                0,
+                                Math.max(0, 0.08 + index * 0.16 - 0.04),
+                                0.08 + index * 0.16,
+                                0.88,
+                                1,
+                              ],
+                            }}
+                            className={`${
+                              index % 2 === 0
+                                ? 'ml-auto rounded-br-lg rounded-tl-lg rounded-tr-sm'
+                                : 'mr-auto rounded-bl-lg rounded-br-lg rounded-tl-sm'
+                            } ${index % 2 === 0 ? 'bg-[#DCF8C6]' : 'bg-white'} max-w-[80%] px-3 py-2 text-[11px] leading-[1.45] text-[#1E293B] shadow-sm`}
+                          >
+                            {message}
+                          </motion.div>
+                        ))}
+
+                        {/* Typing indicator — WhatsApp style */}
                         <motion.div
-                          key={message}
-                          initial={{ opacity: 0, y: 14, scale: 0.92 }}
+                          initial={{ opacity: 0, y: 10, scale: 0.9 }}
                           animate={{
                             opacity: [0, 0, 1, 1, 0],
-                            y: [14, 14, 0, 0, -4],
-                            scale: [0.92, 0.92, 1, 1, 0.98],
+                            y: [10, 10, 0, 0, -2],
+                            scale: [0.9, 0.9, 1, 1, 0.96],
                           }}
                           transition={{
                             duration: chatLoopDuration,
                             repeat: Infinity,
                             repeatDelay: 0.4,
                             ease: 'easeInOut',
-                            times: [
-                              0,
-                              Math.max(0, 0.08 + index * 0.16 - 0.04),
-                              0.08 + index * 0.16,
-                              0.88,
-                              1,
-                            ],
+                            times: [0, 0.72, 0.78, 0.92, 1],
                           }}
-                          className={`${
-                            index % 2 === 0
-                              ? 'ml-auto rounded-br-none bg-[#10B981] text-white'
-                              : 'mr-auto rounded-bl-none bg-white text-[#1E293B]'
-                          } max-w-[85%] rounded-[18px] p-3 text-[11px] leading-[1.45]`}
+                          className="mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none bg-white px-4 py-3 shadow-sm"
                         >
-                          {message}
+                          {[0, 0.18, 0.36].map((delay, i) => (
+                            <motion.span
+                              key={i}
+                              className="block h-2 w-2 rounded-full"
+                              style={{ background: '#999', opacity: 0.6, willChange: 'transform, opacity' }}
+                              animate={{ y: [0, -3, 0], opacity: [0.6, 1, 0.6] }}
+                              transition={{ duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }}
+                            />
+                          ))}
                         </motion.div>
-                      ))}
+                      </div>
 
-                      {/* Typing indicator — appears before loop restarts */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                        animate={{
-                          opacity: [0, 0, 1, 1, 0],
-                          y: [10, 10, 0, 0, -2],
-                          scale: [0.9, 0.9, 1, 1, 0.96],
-                        }}
-                        transition={{
-                          duration: chatLoopDuration,
-                          repeat: Infinity,
-                          repeatDelay: 0.4,
-                          ease: 'easeInOut',
-                          times: [0, 0.72, 0.78, 0.92, 1],
-                        }}
-                        className="mr-auto flex items-center gap-1 rounded-[14px] rounded-bl-none px-3 py-2.5"
-                        style={{ background: 'rgba(255,255,255,0.08)' }}
-                      >
-                        {[0, 0.18, 0.36].map((delay, i) => (
-                          <motion.span
-                            key={i}
-                            className="block h-[5px] w-[5px] rounded-full"
-                            style={{ background: 'rgba(255,255,255,0.6)', opacity: 0.4, willChange: 'transform, opacity' }}
-                            animate={{ y: [0, -4, 0], opacity: [0.4, 1, 0.4] }}
-                            transition={{ duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }}
-                          />
-                        ))}
-                      </motion.div>
-                    </div>
-
-                    {/* Input bar */}
+                    {/* Input bar - WhatsApp style */}
                     <div
-                      className="absolute bottom-4 left-4 right-4 flex items-center gap-2 rounded-[20px] px-3 py-2"
-                      style={{
-                        background: 'rgba(255,255,255,0.06)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                      }}
+                      className="absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-[20px] bg-white px-3 py-2 shadow-sm"
                     >
-                      <span className="flex-1 text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                        Type a message...
+                      <span className="flex-1 text-[11px]" style={{ color: '#888' }}>
+                        {copy.micro.inputPlaceholder}
                       </span>
                       <motion.div
-                        className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10B981]"
+                        className="flex h-6 w-6 items-center justify-center rounded-full bg-[#00BFA5]"
                         whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
-                          <path d="M1 8L8 4.5L1 1V4L6 4.5L1 5V8Z" fill="white" />
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                         </svg>
                       </motion.div>
                     </div>
                   </div>
+                </div>
                 </div>
               </motion.div>
 
@@ -376,18 +376,59 @@ export function BrandFeatureSection() {
                 className="rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
               >
                 <div className="mb-8 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#F8FAFC]">
-                  <svg width="100%" height="100%" viewBox="0 0 400 200" className="opacity-80">
-                    <path
+                  <svg width="100%" height="100%" viewBox="0 0 400 200" className="opacity-80 overflow-visible">
+                    <motion.path
+                      id="graph-path"
                       d="M0,150 C50,150 100,50 150,120 C200,190 250,80 300,100 C350,120 400,20 400,20"
                       fill="none"
                       stroke="#10B981"
                       strokeWidth="6"
                       strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: [0, 1, 1, 0] }}
+                      style={{ willChange: 'pathLength' }}
+                      transition={{ 
+                        duration: 4, 
+                        repeat: Infinity, 
+                        repeatDelay: 1,
+                        times: [0, 0.4, 0.8, 1],
+                        ease: 'easeInOut' 
+                      }}
                     />
-                    <path
+                    {/* Glowing Dot following the path */}
+                    <motion.circle
+                      r="6"
+                      fill="#10B981"
+                      initial={{ opacity: 0 }}
+                      animate={{ 
+                        offsetDistance: ['0%', '100%'],
+                        opacity: [0, 1, 1, 0]
+                      }}
+                      style={{ 
+                        offsetPath: "path('M0,150 C50,150 100,50 150,120 C200,190 250,80 300,100 C350,120 400,20 400,20')",
+                        willChange: 'offset-distance, opacity'
+                      }}
+                      transition={{ 
+                        duration: 4, 
+                        repeat: Infinity, 
+                        repeatDelay: 1,
+                        times: [0, 0.4, 0.8, 1],
+                        ease: 'easeInOut' 
+                      }}
+                    />
+                    <motion.path
                       d="M0,150 C50,150 100,50 150,120 C200,190 250,80 300,100 C350,120 400,20 400,20 V200 H0 Z"
                       fill="url(#grad1)"
-                      opacity="0.1"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0, 0.1, 0.1, 0] }}
+                      style={{ willChange: 'opacity' }}
+                      transition={{ 
+                        duration: 4, 
+                        repeat: Infinity, 
+                        repeatDelay: 1,
+                        times: [0, 0.4, 0.8, 1],
+                        delay: 0.5 
+                      }}
                     />
                     <defs>
                       <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -414,23 +455,38 @@ export function BrandFeatureSection() {
                     { name: 'Mark Winston', color: '#FEE2E2' },
                     { name: 'Johnny Parker', color: '#FFFFFF' },
                   ].map((user, i) => (
-                    <div
+                    <MotionDiv
                       key={i}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ 
+                        x: [ -20, 0, 0, -20 ], 
+                        opacity: [ 0, 1, 1, 0 ],
+                        scale: [ 1, 1.02, 1.02, 1 ]
+                      }}
+                      transition={{ 
+                        duration: 5, 
+                        repeat: Infinity, 
+                        delay: i * 0.4,
+                        repeatDelay: 2,
+                        times: [0, 0.15, 0.85, 1],
+                        ease: 'easeInOut'
+                      }}
                       className="flex w-full items-center gap-3 rounded-xl border border-[#E2EFEA] p-3 shadow-sm"
                       style={{
                         backgroundColor: user.color,
                         transform: `translateY(${(2 - i) * 10}px)`,
                         zIndex: i,
+                        willChange: 'transform, opacity'
                       }}
                     >
                       <div className="h-8 w-8 rounded-full bg-[#FEF3C7]" />
                       <div className="flex-1">
                         <p className="text-[10px] font-bold text-[#1E293B]">{user.name}</p>
                         <p className="text-[8px] text-[#1E293B]">
-                          {i === 2 ? 'Apple Inc.' : copy.micro.customer}
+                          {i === 2 ? (copy.micro.company || copy.micro.customer) : copy.micro.customer}
                         </p>
                       </div>
-                    </div>
+                    </MotionDiv>
                   ))}
                 </div>
                 <h3 className="font-display text-[1.6rem] font-bold text-[#1E293B]">
@@ -446,14 +502,104 @@ export function BrandFeatureSection() {
               >
                 <div className="mb-8 flex h-48 w-full items-center justify-center gap-4 rounded-2xl bg-[#F0FDF4] p-5">
                   <div className="flex w-full max-w-[240px] flex-col gap-2">
-                    <div className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] shadow-sm">
-                      {copy.micro.userOne}
+                    <div className="relative">
+                      {/* Typing simulation dots */}
+                      <MotionDiv
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0] }}
+                        style={{ willChange: 'opacity' }}
+                        transition={{ duration: 0.8, repeat: Infinity, times: [0, 0.5, 1], repeatDelay: 4.2, delay: 0 }}
+                        className="absolute -top-6 left-0 flex gap-1 px-2 py-1 rounded-full bg-emerald-50"
+                      >
+                        {[0, 0.2, 0.4].map(d => (
+                          <motion.div key={d} animate={{ y: [0, -3, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: d }} className="w-1 h-1 rounded-full bg-emerald-400" style={{ willChange: 'transform' }} />
+                        ))}
+                      </MotionDiv>
+                      <MotionDiv
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ 
+                          scale: [ 0.8, 1, 1, 0.8 ], 
+                          opacity: [ 0, 1, 1, 0 ] 
+                        }}
+                        style={{ willChange: 'transform, opacity' }}
+                        transition={{ 
+                          duration: 5, 
+                          repeat: Infinity, 
+                          delay: 0.8,
+                          repeatDelay: 2,
+                          times: [0, 0.1, 0.9, 1],
+                          ease: 'easeOut'
+                        }}
+                        className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] shadow-sm"
+                      >
+                        {copy.micro.userOne}
+                      </MotionDiv>
                     </div>
-                    <div className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] opacity-80 shadow-sm">
-                      {copy.micro.userTwo}
+
+                    <div className="relative">
+                      <MotionDiv
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0] }}
+                        style={{ willChange: 'opacity' }}
+                        transition={{ duration: 0.8, repeat: Infinity, times: [0, 0.5, 1], repeatDelay: 4.2, delay: 0.3 }}
+                        className="absolute -top-6 left-0 flex gap-1 px-2 py-1 rounded-full bg-emerald-50"
+                      >
+                        {[0, 0.2, 0.4].map(d => (
+                          <motion.div key={d} animate={{ y: [0, -3, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: d }} className="w-1 h-1 rounded-full bg-emerald-400" style={{ willChange: 'transform' }} />
+                        ))}
+                      </MotionDiv>
+                      <MotionDiv
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ 
+                          scale: [ 0.8, 1, 1, 0.8 ], 
+                          opacity: [ 0, 1, 1, 0 ] 
+                        }}
+                        style={{ willChange: 'transform, opacity' }}
+                        transition={{ 
+                          duration: 5, 
+                          repeat: Infinity, 
+                          delay: 1.1,
+                          repeatDelay: 2,
+                          times: [0, 0.1, 0.9, 1],
+                          ease: 'easeOut'
+                        }}
+                        className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] opacity-80 shadow-sm"
+                      >
+                        {copy.micro.userTwo}
+                      </MotionDiv>
                     </div>
-                    <div className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] opacity-60 shadow-sm">
-                      {copy.micro.userThree}
+
+                    <div className="relative">
+                      <MotionDiv
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 0] }}
+                        style={{ willChange: 'opacity' }}
+                        transition={{ duration: 0.8, repeat: Infinity, times: [0, 0.5, 1], repeatDelay: 4.2, delay: 0.6 }}
+                        className="absolute -top-6 left-0 flex gap-1 px-2 py-1 rounded-full bg-emerald-50"
+                      >
+                        {[0, 0.2, 0.4].map(d => (
+                          <motion.div key={d} animate={{ y: [0, -3, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: d }} className="w-1 h-1 rounded-full bg-emerald-400" style={{ willChange: 'transform' }} />
+                        ))}
+                      </MotionDiv>
+                      <MotionDiv
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ 
+                          scale: [ 0.8, 1, 1, 0.8 ], 
+                          opacity: [ 0, 1, 1, 0 ] 
+                        }}
+                        style={{ willChange: 'transform, opacity' }}
+                        transition={{ 
+                          duration: 5, 
+                          repeat: Infinity, 
+                          delay: 1.4,
+                          repeatDelay: 2,
+                          times: [0, 0.1, 0.9, 1],
+                          ease: 'easeOut'
+                        }}
+                        className="mr-auto rounded-xl rounded-bl-none border border-[#E2EFEA] bg-white p-2.5 text-[9px] opacity-60 shadow-sm"
+                      >
+                        {copy.micro.userThree}
+                      </MotionDiv>
                     </div>
                   </div>
                 </div>
@@ -468,21 +614,73 @@ export function BrandFeatureSection() {
                 whileHover={{ y: -6 }}
                 className="rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
               >
-                <div className="mb-8 flex h-48 w-full items-center justify-center rounded-2xl bg-[#F5F3FF] p-5">
-                  <div className="relative h-24 w-32 rounded-2xl border border-[#E2EFEA] bg-white p-4 shadow-xl">
-                    <Calendar className="mb-2 text-[#8B5CF6]" size={20} />
-                    <div className="mb-2 h-2 w-full rounded-full bg-slate-100" />
-                    <div className="h-2 w-2/3 rounded-full bg-slate-100" />
-                    <div className="absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#10B981] text-white shadow-lg">
-                      <Bell size={14} />
+                <div className="mb-8 flex h-48 w-full items-center justify-center rounded-2xl bg-[#F0FDF4] p-5">
+                  <div className="relative h-full w-full max-w-[270px] overflow-hidden rounded-[24px] border border-[#D1FAE5] bg-[#e5ddd5] shadow-[0_18px_38px_rgba(15,23,42,0.08)]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.55)_0%,transparent_58%)] opacity-90" />
+                    <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(rgba(15,23,42,0.08) 0.8px, transparent 0.8px)', backgroundSize: '14px 14px' }} />
+
+                    <div className="relative z-10 flex items-center gap-2.5  px-3 py-2.5 text-left text-white">
+                      <div className="flex h-7 w-7 items-center justify-center ">
+                        {/* <FaWhatsapp size={14} /> */}
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        {/* <div>
+                          <p className="text-[9px] font-bold leading-none">SOVA Support</p>
+                          <p className="mt-1 text-[8px] text-white/80">online</p>
+                        </div> */}
+                      </div>
                     </div>
-                    <div className="mt-4 flex flex-col gap-1.5">
-                      <div className="center rounded-full bg-[#ECFDF5] px-2 py-1 text-center text-[8px] font-bold text-[#10B981]">
+
+                    <div className="relative z-10 flex h-[calc(100%-46px)] flex-col justify-end gap-2.5 px-3 py-3">
+                      <div className="mb-1 flex justify-center">
+                        <span className="rounded-full bg-white/80 px-2.5 py-1 text-[8px] font-semibold tracking-[0.16em] text-[#5b6470] shadow-sm">
+                          11:43 PM
+                        </span>
+                      </div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: [0, 1, 1, 0], x: [-10, 0, 0, -6] }}
+                        transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.15, 0.78, 1], ease: 'easeInOut' }}
+                        className="mr-auto max-w-[78%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
+                      >
+                        {copy.micro.userOne}
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: [0, 0, 1, 1, 0], x: [10, 10, 0, 0, 6] }}
+                        transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.22, 0.36, 0.82, 1], ease: 'easeInOut' }}
+                        className="ml-auto max-w-[74%] rounded-2xl rounded-br-md bg-[#dcf8c6] px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
+                      >
                         {copy.micro.faq}
-                      </div>
-                      <div className="center rounded-full bg-slate-50 px-2 py-1 text-center text-[8px] font-bold text-slate-400">
-                        {copy.micro.support}
-                      </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: [0, 0, 1, 1, 0], x: [-10, -10, 0, 0, -4] }}
+                        transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.44, 0.58, 0.9, 1], ease: 'easeInOut' }}
+                        className="mr-auto max-w-[82%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
+                      >
+                        {copy.micro.userThree}
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 0, 1, 1, 0] }}
+                        transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.64, 0.7, 0.85, 1], ease: 'easeInOut' }}
+                        className="ml-auto flex items-center gap-1 rounded-full bg-[#dcf8c6] px-3 py-2 shadow-sm"
+                      >
+                        {[0, 0.18, 0.36].map((delay, index) => (
+                          <motion.span
+                            key={index}
+                            className="block h-1.5 w-1.5 rounded-full bg-[#0f9f8f]"
+                            animate={{ y: [0, -3, 0], opacity: [0.35, 1, 0.35] }}
+                            transition={{ duration: 0.95, repeat: Infinity, delay, ease: 'easeInOut' }}
+                            style={{ willChange: 'transform, opacity' }}
+                          />
+                        ))}
+                      </motion.div>
                     </div>
                   </div>
                 </div>

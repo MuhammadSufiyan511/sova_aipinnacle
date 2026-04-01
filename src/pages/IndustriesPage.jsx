@@ -3,14 +3,17 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { industries } from '../data'
-import { FinalCta, SectionHeading } from '../components'
+import { FinalCta, InternalLinksGrid, SectionHeading, SeoHead } from '../components'
+import { ROUTES } from '../utils/routes'
+import { createBreadcrumbSchema } from '../seo/schemas'
 
 const MotionSection = motion.section
 const MotionDiv = motion.div
 const ITEMS_PER_PAGE = 6
 
 export function IndustriesPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const [activeTab, setActiveTab] = useState('all')
   const [page, setPage] = useState(1)
   const localizedIndustryItems = t('content.industries.items', { returnObjects: true }) || {}
@@ -27,6 +30,12 @@ export function IndustriesPage() {
     const startIndex = (page - 1) * ITEMS_PER_PAGE
     return filteredIndustries.slice(startIndex, startIndex + ITEMS_PER_PAGE)
   }, [activeTab, filteredIndustries, page])
+  const relatedLinks = [
+    { to: ROUTES.caseStudies, label: t('nav.caseStudies'), description: t('sections.caseDescription') },
+    { to: ROUTES.pricing, label: t('nav.pricing'), description: t('sections.pricingDescription') },
+    { to: ROUTES.about, label: t('nav.about'), description: t('sections.aboutDescription') },
+    { to: ROUTES.auth, label: t('common.continueWithMeta'), description: t('sections.authDescription') },
+  ]
 
   const handleSwitchTab = (direction) => {
     const nextIndex = (currentTabIndex + direction + tabs.length) % tabs.length
@@ -36,11 +45,22 @@ export function IndustriesPage() {
 
   return (
     <div className="mx-auto max-w-[1160px] px-5 pb-10 pt-30">
+      <SeoHead
+        title="Industries | SOVA WhatsApp Automation"
+        description="See how SOVA supports clothing, electronics, toys, dry fruits, and other businesses that sell through high-volume WhatsApp conversations."
+        schema={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Industries', path: '/industries' },
+          ]),
+        ]}
+      />
       <SectionHeading
         eyebrow={t('sections.industriesPageEyebrow')}
         title={t('sections.industriesPageTitle')}
         description={t('sections.industriesPageDescription')}
         centered
+        as="h1"
       />
 
       <div className="mt-10 flex items-center justify-center gap-3">
@@ -50,7 +70,7 @@ export function IndustriesPage() {
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
           aria-label="Previous industry tab"
         >
-          <ChevronLeft className="h-5 w-5" />
+          {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
         <div className="flex max-w-[900px] flex-nowrap justify-center gap-3 overflow-hidden">
@@ -62,7 +82,7 @@ export function IndustriesPage() {
                 setActiveTab(tab.key)
                 setPage(1)
               }}
-              className={`min-w-[158px] rounded-full px-5 py-2.5 text-center text-sm font-semibold whitespace-nowrap transition ${
+              className={`min-w-[178px] rounded-full px-5 py-2.5 text-center text-sm font-semibold whitespace-nowrap transition ${
                 activeTab === tab.key
                   ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
                   : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
@@ -79,8 +99,19 @@ export function IndustriesPage() {
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
           aria-label="Next industry tab"
         >
-          <ChevronRight className="h-5 w-5" />
+          {isRtl ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
         </button>
+      </div>
+
+      <div className="sr-only">
+        <h2>Industry summaries</h2>
+        <ul>
+          {enrichedIndustries.map((industry) => (
+            <li key={industry.id}>
+              {industry.label}: {industry.title}. {industry.useCase}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <AnimatePresence mode="wait">
@@ -105,7 +136,13 @@ export function IndustriesPage() {
                 className={`grid items-center gap-8 rounded-[32px] border border-[#E2EFEA] bg-white p-8 shadow-[0_12px_44px_rgba(0,0,0,0.03)] lg:grid-cols-2 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}
               >
                 <div className="overflow-hidden rounded-[24px] bg-[#F8FAFC]">
-                  <img src={industry.image} alt={industry.label} className="h-72 w-full object-cover sm:h-80" />
+                  <img
+                    src={industry.image}
+                    alt={`${industry.label} WhatsApp automation workflow`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-72 w-full object-cover sm:h-80"
+                  />
                 </div>
                 <div className="rounded-[24px] bg-white p-2">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#F1990A]">{industry.label}</p>
@@ -113,7 +150,7 @@ export function IndustriesPage() {
                     {industry.title}
                   </h2>
                   <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#1E293B]">{industry.description}</p>
-                  <div className="mt-8 rounded-[24px] border border-[#E2EFEA] bg-[#F8FAFC] p-6">
+                  <div className="mt-8 rounded-[24px] border border-[#E2EFEA] bg-[#e6faf3] p-6">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10B981]">{t('common.useCase')}</p>
                     <p className="mt-3 text-[1rem] leading-[1.6] text-[#1E293B]">{industry.useCase}</p>
                   </div>
@@ -132,7 +169,15 @@ export function IndustriesPage() {
             disabled={page === 1}
             className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            <ChevronLeft className="h-4 w-4" /> Prev
+            {isRtl ? (
+              <>
+                {t('common.previous')} <ChevronRight className="h-4 w-4" />
+              </>
+            ) : (
+              <>
+                <ChevronLeft className="h-4 w-4" /> {t('common.previous')}
+              </>
+            )}
           </button>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
@@ -152,10 +197,20 @@ export function IndustriesPage() {
             disabled={page === totalPages}
             className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
           >
-            Next <ChevronRight className="h-4 w-4" />
+            {isRtl ? (
+              <>
+                <ChevronLeft className="h-4 w-4" /> {t('common.next')}
+              </>
+            ) : (
+              <>
+                {t('common.next')} <ChevronRight className="h-4 w-4" />
+              </>
+            )}
           </button>
         </div>
       ) : null}
+
+      <InternalLinksGrid links={relatedLinks} className="mt-12" />
 
       <div className="mt-14">
         <FinalCta />

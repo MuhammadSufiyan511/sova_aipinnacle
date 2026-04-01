@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Check, Globe, ShieldCheck } from 'lucide-react'
 import { FaMeta } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
+import { SeoHead } from '../components'
 import { MetaConnectModal, MetaIntegrationShowcase } from '../components/specific/auth'
+import { createBreadcrumbSchema } from '../seo/schemas'
 
 export function AuthPage() {
   const { t } = useTranslation()
@@ -11,6 +13,16 @@ export function AuthPage() {
 
   return (
     <>
+      <SeoHead
+        title="Connect with Meta | SOVA"
+        description="Connect your Meta and WhatsApp setup with SOVA to start automating customer chats, product replies, and lead handling."
+        schema={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Connect with Meta', path: '/auth' },
+          ]),
+        ]}
+      />
       <section className="mx-auto max-w-[1160px] px-5 py-20">
         <div className="grid gap-8 rounded-[44px] border border-[#E2EFEA] bg-white p-6 shadow-[0_12px_44px_rgba(30,41,59,0.04)] lg:grid-cols-[0.92fr_1.08fr] lg:p-10">
           <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-10 text-white shadow-[0_24px_60px_rgba(30,41,59,0.3)]">
@@ -78,4 +90,3 @@ export function AuthPage() {
     </>
   )
 }
-

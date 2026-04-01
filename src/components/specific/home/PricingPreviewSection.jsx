@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Check, ArrowUpRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { pricingPlans } from '../../../data'
@@ -25,14 +25,14 @@ export function PricingPreviewSection() {
           <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">
             {t('sections.pricingTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#48617A]">
+          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">
             {t('sections.pricingDescription')}
           </p>
         </MotionDiv>
 
         <div className="mx-auto grid max-w-[1100px] gap-5 lg:grid-cols-3">
           {localizedPlans.map((plan, index) => {
-            const isPopular = plan.badge === 'Popular' || plan.badge === 'سب سے مقبول'
+            const isPopular = index === 1
             return (
               <MotionDiv
                 key={plan.name}
@@ -103,7 +103,9 @@ export function PricingPreviewSection() {
                   {plan.cta || t('common.startFreeTrial')} <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
 
-                <p className="mt-2.5 text-center text-[0.72rem] text-[#F1990A]">{t('common.noCardRequired')}</p>
+                {index === 0 ? (
+                  <p className="mt-2.5 text-center text-[0.72rem] text-[#F1990A]">{t('common.noCardRequired')}</p>
+                ) : null}
               </MotionDiv>
             )
           })}

@@ -18,7 +18,7 @@ export function DemoModal({ onClose }) {
           <div>
             <h3 className="font-display text-[2.2rem] text-[#10B981] font-bold tracking-[-0.04em]">{t('common.watchDemo')}</h3>
           </div>
-          <button type="button" onClick={onClose} className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10" aria-label="Close demo modal">
+          <button type="button" onClick={onClose} className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10" aria-label={t('common.close')}>
             <X className="h-6 w-6 text-[#10B981]" />
           </button>
         </div>
@@ -37,7 +37,7 @@ export function DemoModal({ onClose }) {
             <iframe
               className={`h-full w-full transition-opacity duration-500 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
               src={autoplayVideoUrl}
-              title="Sova product demo"
+              title={`${t('common.brand')} ${t('common.watchDemo')}`}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
