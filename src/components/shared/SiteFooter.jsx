@@ -5,10 +5,10 @@ import sovaLogo from '../../assets/logos/sova.png'
 import { ROUTES } from '../../utils/routes'
 
 const socialLinks = [
-  { icon: FaYoutube, href: 'https://youtube.com' },
-  { icon: FaInstagram, href: 'https://instagram.com' },
-  { icon: FaLinkedin, href: 'https://linkedin.com' },
-  { icon: FaEnvelope, href: 'mailto:hello@sova.ai' },
+  { icon: FaYoutube, href: 'https://youtube.com', color: '#FF0000', bg: 'rgba(255,0,0,0.08)' },
+  { icon: FaInstagram, href: 'https://instagram.com', color: '#E4405F', bg: 'rgba(228,64,95,0.08)' },
+  { icon: FaLinkedin, href: 'https://linkedin.com', color: '#0A66C2', bg: 'rgba(10,102,194,0.08)' },
+  { icon: FaEnvelope, href: 'mailto:hello@sova.ai', color: '#10B981', bg: 'rgba(16,185,129,0.08)' },
 ]
 
 export function SiteFooter() {
@@ -25,7 +25,7 @@ export function SiteFooter() {
             </Link>
           </div>
 
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             {socialLinks.map((item, index) => (
               <a
                 key={index}
@@ -33,7 +33,8 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Open ${item.href.replace(/^https?:\/\//, '').replace(/^mailto:/, '')}`}
-                className="text-[#5a9e88] transition hover:text-[#10B981]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)]"
+                style={{ color: item.color, backgroundColor: item.bg }}
               >
                 <item.icon size={18} />
               </a>

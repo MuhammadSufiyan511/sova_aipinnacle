@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, Globe, ShieldCheck } from 'lucide-react'
+import { Check, ShieldCheck } from 'lucide-react'
 import { FaMeta } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
 import { SeoHead } from '../components'
@@ -23,7 +23,7 @@ export function AuthPage() {
           ]),
         ]}
       />
-      <section className="mx-auto max-w-[1160px] px-5 py-20">
+      <section className="mx-auto max-w-[1160px] px-5 pb-8 pt-30">
         <div className="grid gap-8 rounded-[44px] border border-[#E2EFEA] bg-white p-6 shadow-[0_12px_44px_rgba(30,41,59,0.04)] lg:grid-cols-[0.92fr_1.08fr] lg:p-10">
           <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-10 text-white shadow-[0_24px_60px_rgba(30,41,59,0.3)]">
             <div className="pointer-events-none absolute inset-0 opacity-10">
@@ -62,10 +62,9 @@ export function AuthPage() {
               <button
                 type="button"
                 onClick={() => setShowMetaModal(true)}
-                className="mt-10 inline-flex h-[72px] w-full items-center justify-center gap-4 rounded-[22px] bg-[#1269d5] px-8 text-[1.1rem] font-bold text-white shadow-[0_20px_40px_rgba(18, 105, 213,0.25)] transition hover:shadow-[0_24px_50px_rgba(18, 105, 213,0.76)] hover:-translate-y-1 active:scale-[0.98]"
+                className="mt-10 inline-flex h-[72px] w-full items-center justify-center gap-4 rounded-[22px] bg-[#1269d5] px-8 text-[1.1rem] font-bold text-white shadow-[0_20px_40px_rgba(18,105,213,0.25)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(18,105,213,0.76)] active:scale-[0.98]"
               >
-                {/* <Globe className="h-6 w-6" /> */}
-                 <FaMeta className="h-6 w-6 text-white" />
+                <FaMeta className="h-6 w-6 text-white" />
                 {t('common.continueWithMeta')}
               </button>
               <p className="mt-4 text-center text-[0.85rem] font-medium text-[#F1990A]">{t('common.noCardRequired')}</p>

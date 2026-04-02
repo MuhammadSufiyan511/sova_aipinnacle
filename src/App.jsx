@@ -8,6 +8,8 @@ import {
   IndustriesPage,
   PrivacyPage,
   TermsPage,
+  OnboardingPage,
+  DashboardPage,
 } from './pages/index.js'
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/about" element={<AboutContactPage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
+          <Route path="/admin" element={<DashboardPage />} />
+          <Route path="/admin/*" element={<DashboardPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy_policy" element={<PrivacyPage />} />
         </Routes>

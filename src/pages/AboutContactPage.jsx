@@ -34,7 +34,7 @@ export function AboutContactPage() {
   ]
 
   return (
-    <div className="w-full bg-[#F8FAFC]">
+    <div className="w-full bg-[#ebf2ff]">
       <SeoHead
         title="About SOVA | WhatsApp Communication Growth"
         description="Learn how SOVA helps businesses improve WhatsApp communication, automate customer replies, and keep sales conversations moving with less manual work."
@@ -46,7 +46,7 @@ export function AboutContactPage() {
         ]}
       />
       {/* ── HERO SECTION WITH CALENDLY ── */}
-      <section className="relative overflow-hidden bg-white pb-8 pt-24 lg:pt-16">
+      <section className="relative overflow-hidden bg-[#ebf2ff] pb-8 pt-24 lg:pt-16">
         <div className="absolute inset-0 z-0">
           <div className="absolute left-[-10%] top-[-10%] h-[500px] w-[500px] rounded-full bg-emerald-50/50 blur-[120px]" />
           <div className="absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-50/40 blur-[100px]" />

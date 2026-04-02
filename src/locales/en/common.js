@@ -29,5 +29,5 @@ export const common = {
   allRightsReserved: 'All Rights Reserved.',
   previous: 'Previous',
   next: 'Next',
-  termsAndPolicies: 'Terms and Policies',
+  termsAndPolicies: 'Terms and Conditions'
 }

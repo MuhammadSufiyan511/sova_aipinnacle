@@ -1,4 +1,5 @@
 import { Globe } from 'lucide-react'
+import { FaMeta } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
 
 const steps = [
@@ -74,4 +75,3 @@ export function MetaIntegrationShowcase({ onOpenModal }) {
     </div>
   )
 }
-

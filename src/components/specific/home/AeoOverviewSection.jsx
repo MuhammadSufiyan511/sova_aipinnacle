@@ -27,11 +27,12 @@ const defaultCards = [
 ]
 
 export function AeoOverviewSection() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const cards = t('content.aeoOverview.cards', { returnObjects: true }) || defaultCards
+  const isRtl = i18n.dir() === 'rtl'
 
   return (
-    <section className="w-full bg-white py-8">
+    <section className="w-full bg-[#ebf2ff] py-8">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 18 }}
@@ -62,7 +63,14 @@ export function AeoOverviewSection() {
               className="rounded-[28px] border border-[#D1FAE5] bg-[linear-gradient(180deg,#FFFFFF_0%,#F7FFFC_100%)] p-6 shadow-[0_10px_28px_rgba(16,185,129,0.08)]"
             >
               {/* <p className="text-[0.74rem] font-bold uppercase tracking-[0.18em] text-[#F59E0B]">SOVA</p> */}
-              <h3 className="mt-3 text-[1.1rem] font-bold text-[#10B981]">{item.question}</h3>
+              <h3 className="mt-3 text-[1.1rem] font-bold text-[#10B981]">
+                {isRtl ? (
+                  <>
+                    {item.question.replace('?', '')}
+                    <span className="rtl-punctuation-flip inline-block">?</span>
+                  </>
+                ) : item.question}
+              </h3>
               <p className="mt-3 text-[0.96rem] leading-[1.8] text-[#1E293B]">{item.answer}</p>
             </MotionDiv>
           ))}

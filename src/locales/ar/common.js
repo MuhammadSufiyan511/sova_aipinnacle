@@ -1,5 +1,5 @@
 export const common = {
-  brand: 'SOVA',
+  brand: 'سوفا',
   login: 'تسجيل الدخول',
   startFreeTrial: 'ابدأ مجانًا',
   getStartedFree: 'ابدأ مجانًا الآن!',
@@ -25,7 +25,7 @@ export const common = {
   close: 'إغلاق',
   faq: 'الأسئلة الشائعة',
   support: 'الدعم',
-  cookiesSettings: 'إعدادات ملفات تعريف الارتباط',
+  cookiesSettings: 'إعدادات ملفات الارتباط',
   allRightsReserved: 'جميع الحقوق محفوظة.',
   previous: 'السابق',
   next: 'التالي',

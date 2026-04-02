@@ -1,4 +1,4 @@
-﻿import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
@@ -58,23 +58,28 @@ export function AppShell({ children }) {
     }
   }, [])
 
+  const isAppRoute = location.pathname.startsWith('/onboarding') || location.pathname.startsWith('/admin')
+
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#1E293B]">
-      <SiteHeader />
+    <div className="min-h-screen bg-[#ebf2ff] text-[#1E293B]">
+      {!isAppRoute && <SiteHeader />}
       <div 
         style={{ opacity: bgOpacity, transition: 'opacity 0.3s ease-in-out' }}
         className="flex min-h-screen flex-col"
       >
         <AnimatePresence mode="wait">
-          <MotionMain key={location.pathname} {...pageAnimation} className="flex-1 w-full flex flex-col">
+          <MotionMain 
+            key={isAppRoute ? 'app-shell-main' : location.pathname} 
+            {...(isAppRoute ? {} : pageAnimation)} 
+            className="flex-1 w-full flex flex-col"
+          >
             {children}
           </MotionMain>
         </AnimatePresence>
-        <SiteFooter />
+        {!isAppRoute && <SiteFooter />}
       </div>
-      <ScrollTopButton />
-      <FloatingWhatsApp />
+      {!isAppRoute && <ScrollTopButton />}
+      {!isAppRoute && <FloatingWhatsApp />}
     </div>
   )
 }
-

@@ -1,5 +1,7 @@
 import { Check, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../../utils/routes'
 
 const successItems = [
   'Meta business account verified',
@@ -9,8 +11,14 @@ const successItems = [
 
 export function MetaConnectModal({ onClose }) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const copy = t('content.metaModal', { returnObjects: true }) || {}
   const localizedItems = copy.items || successItems
+
+  const handleContinue = () => {
+    onClose()
+    navigate(ROUTES.onboarding)
+  }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/40 px-4 backdrop-blur-md">
@@ -47,7 +55,7 @@ export function MetaConnectModal({ onClose }) {
         </div>
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleContinue}
           className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-[16px] bg-gradient-to-r from-[#10B981] to-[#1E293B] px-5 text-[0.9rem] font-bold text-white shadow-[0_14px_28px_rgba(16,185,129,0.2)] transition hover:scale-[1.01] active:scale-[0.99]"
         >
           {copy.button}

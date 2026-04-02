@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -84,6 +84,25 @@
   ::selection {
     background: rgba(16, 185, 129, 0.16);
     color: #1E293B;
+  }
+
+  /* RTL Support Utilities */
+  [dir="rtl"] .flip-rtl,
+  [dir="rtl"] .lucide-chevron-right,
+  [dir="rtl"] .lucide-chevron-left,
+  [dir="rtl"] .lucide-arrow-right,
+  [dir="rtl"] .lucide-arrow-left,
+  [dir="rtl"] .lucide-move-right,
+  [dir="rtl"] .lucide-move-left,
+  [dir="rtl"] .lucide-arrow-up-right {
+    transform: scaleX(-1);
+  }
+
+  /* Specific punctuation needs to be flipped sparingly or handled by font, 
+     but a global flip for specific symbols can be used if they're in spans. */
+  [dir="rtl"] .rtl-punctuation-flip {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 }
 

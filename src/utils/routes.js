@@ -7,4 +7,13 @@ export const ROUTES = {
   privacyPolicy: '/privacy_policy',
   about: '/about',
   auth: '/auth',
+  onboarding: '/onboarding',
+  admin: '/admin',
+  adminProducts: '/admin/products',
+  adminConversations: '/admin/conversations',
+  adminBroadcasts: '/admin/broadcasts',
+  adminNotifications: '/admin/notifications',
+  adminReports: '/admin/reports',
+  adminSettings: '/admin/settings',
+  adminProfile: '/admin/profile',
 }

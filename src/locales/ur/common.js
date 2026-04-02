@@ -1,5 +1,5 @@
 export const common = {
-  brand: 'SOVA',
+  brand: 'سوفا',
   login: 'لاگ اِن',
   startFreeTrial: 'فری ٹرائل شروع کریں',
   getStartedFree: 'ابھی فری شروع کریں!',

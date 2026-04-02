@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { localeResources } from './locales'
 
-export const rtlLanguages = ['ur', 'ar']
+export const rtlLanguages = ['ur', 'ar', 'bn', 'hi']
 
 i18n.use(initReactI18next).init({
   resources: localeResources,
