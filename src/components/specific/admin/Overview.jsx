@@ -106,7 +106,7 @@ function SourceDonut() {
   })
 
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex flex-col items-center gap-6 sm:flex-row">
       <div className="relative flex h-40 w-40 items-center justify-center">
         <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
           <circle cx="60" cy="60" r={radius} fill="none" stroke="#E6F5EE" strokeWidth="14" />
@@ -161,20 +161,22 @@ export function Overview() {
   }
 
   return (
-    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-5">
-      <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-2.5 shadow-sm">
-        <div className="flex flex-wrap items-center gap-3">
+    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-4 sm:gap-5 admin-overview-shell">
+      <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-2 sm:p-2.5 shadow-sm admin-card-shell">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {quickTabs.map((tab) => (
             <button
               key={tab.label}
               onClick={() => handleQuickAction(tab.action)}
-              className="group inline-flex items-center gap-2.5 rounded-full border border-[#DDEFE7] bg-[#F2FBF7] px-3.5 py-2 text-[0.82rem] font-bold text-[#295565] transition hover:border-emerald-200 hover:bg-[#ECF8F3] hover:text-[#10B981]"
+              className="group inline-flex w-full items-center justify-between gap-2.5 rounded-full border border-[#DDEFE7] bg-[#F2FBF7] px-3.5 py-2.5 text-left text-[0.8rem] font-bold text-[#295565] transition hover:border-emerald-200 hover:bg-[#ECF8F3] hover:text-[#10B981] admin-quick-tab"
             >
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#10B981] shadow-sm">
-                <tab.icon className="h-4 w-4" />
+              <span className="flex min-w-0 items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#10B981] shadow-sm admin-tab-icon">
+                  <tab.icon className="h-4 w-4" />
+                </span>
+                <span className="truncate">{tab.label}</span>
               </span>
-              <span>{tab.label}</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#86A29B] transition group-hover:translate-x-1 group-hover:text-[#10B981]" />
+              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#86A29B] transition group-hover:translate-x-1 group-hover:text-[#10B981]" />
             </button>
           ))}
         </div>
@@ -182,41 +184,41 @@ export function Overview() {
 
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4">
         {stats.map((stat) => (
-          <Motion.div key={stat.name} variants={item} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm">
+          <Motion.div key={stat.name} variants={item} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm admin-stat-box">
             <div className="flex items-center justify-between">
-              <span className={`flex h-10 w-10 items-center justify-center rounded-2xl ${stat.color} shadow-sm`}>
+              <span className={`flex h-10 w-10 items-center justify-center rounded-2xl ${stat.color} shadow-sm admin-stat-icon`}>
                 <stat.icon className="h-4.5 w-4.5" />
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#059669]">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#059669] admin-stat-change">
                 <ArrowUpRight className="h-3 w-3" />
                 {stat.change}
               </span>
             </div>
-            <p className="mt-3 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#6D8A88]">{stat.name}</p>
-            <p className="mt-1 font-display text-[1.7rem] font-extrabold text-[#173247]">{stat.value}</p>
+            <p className="mt-3 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#6D8A88] admin-stat-label">{stat.name}</p>
+            <p className="mt-1 font-display text-[1.7rem] font-extrabold text-[#173247] admin-stat-value">{stat.value}</p>
           </Motion.div>
         ))}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-[1.45fr_0.95fr]">
-        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Conversation to sale trend</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D]">Live weekly automation performance</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Conversation to sale trend</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">Live weekly automation performance</p>
             </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[0.66rem] font-bold text-emerald-600">
+            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[0.66rem] font-bold text-emerald-600 admin-pill">
               <TrendingUp className="h-3.5 w-3.5" /> +28% this month
             </div>
           </div>
           <MainChart />
         </Motion.div>
 
-        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Lead quality mix</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D]">Where SOVA is focusing next</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Lead quality mix</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">Where SOVA is focusing next</p>
             </div>
             <ShieldCheck className="h-4.5 w-4.5 text-[#10B981]" />
           </div>
@@ -227,28 +229,28 @@ export function Overview() {
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Qualified leads by day</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D]">Real-time lead capture volume</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Qualified leads by day</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">Real-time lead capture volume</p>
             </div>
-            <div className="rounded-full bg-violet-50 px-2.5 py-1 text-[0.66rem] font-bold text-violet-600">Updated live</div>
+            <div className="rounded-full bg-violet-50 px-2.5 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">Updated live</div>
           </div>
           <LeadsBarChart />
         </Motion.div>
 
-        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-activity-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Recent automation activity</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D]">What SOVA handled just now</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Recent automation activity</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">What SOVA handled just now</p>
             </div>
             <div className="h-2.5 w-2.5 rounded-full bg-[#10B981] shadow-[0_0_0_6px_rgba(16,185,129,0.12)]" />
           </div>
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 space-y-2.5">
             {activityFeed.map((entry) => (
-              <div key={entry.title} className="rounded-[20px] bg-[#F2FBF7] p-3">
+              <div key={entry.title} className="rounded-[20px] bg-[#F2FBF7] p-3 sm:p-3.5 admin-activity-item">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-[0.84rem] font-bold text-[#173247]">{entry.title}</p>
                   <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">{entry.time}</span>

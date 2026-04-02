@@ -10,11 +10,11 @@ export function HeaderLanguageSelector({
   t,
 }) {
   return (
-    <div ref={languageMenuRef} className="relative">
+    <div ref={languageMenuRef} className="language-selector-wrapper relative">
       <button
         type="button"
         onClick={() => setLanguageOpen((prev) => !prev)}
-        className="flex h-10 items-center gap-2 rounded-[12px] border border-[#ECFDF5] bg-white/80 px-3 text-[0.8rem] font-semibold text-[#1E293B]"
+        className="language-selector-button flex h-10 items-center gap-2 rounded-[12px] border border-[#ECFDF5] bg-white/80 px-3 text-[0.8rem] font-semibold text-[#1E293B]"
       >
         <activeLanguage.Flag className="h-4 w-5 rounded-sm" />
         <span>{t(`languages.${activeLanguage.lng}.short`)}</span>
@@ -22,8 +22,8 @@ export function HeaderLanguageSelector({
       </button>
 
       {languageOpen && (
-        <div className="absolute right-0 top-[118%] z-20 w-[220px] rounded-[14px] border border-[#E2EFEA] bg-white py-2 shadow-[0_24px_60px_rgba(30,41,59,0.14)]">
-          <div className="absolute -top-2 right-6 h-4 w-4 rotate-45 border-l border-t border-[#E2EFEA] bg-white" />
+        <div className="language-selector-dropdown absolute right-0 top-[118%] z-20 w-[220px] rounded-[14px] border border-[#E2EFEA] bg-white py-2 shadow-[0_24px_60px_rgba(30,41,59,0.14)]">
+          <div className="language-selector-arrow absolute -top-2 right-6 h-4 w-4 rotate-45 border-l border-t border-[#E2EFEA] bg-white" />
           {languageOptions.map((option) => (
             <button
               key={option.lng}

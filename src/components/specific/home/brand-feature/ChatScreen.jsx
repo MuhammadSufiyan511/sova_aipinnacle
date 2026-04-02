@@ -19,9 +19,9 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
       </div>
 
       {/* Chat background */}
-      <div className="relative h-[calc(100%-50px)] w-full overflow-hidden" style={{ background: 'linear-gradient(to bottom, #E8DED2 0%, #D5BFA6 100%)' }}>
+      <div className="chat-simulation-bg relative h-[calc(100%-50px)] w-full overflow-hidden">
         {/* Subtle dot pattern */}
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(rgba(0,0,0,0.15) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
 
         {/* Messages area */}
         <div className="relative z-10 flex flex-col gap-1.5 px-3 pt-3">
@@ -55,9 +55,9 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
               }}
               className={`${
                 index % 2 === 0
-                  ? 'ml-auto rounded-br-lg rounded-tl-lg rounded-tr-sm'
-                  : 'mr-auto rounded-bl-lg rounded-br-lg rounded-tl-sm'
-              } ${index % 2 === 0 ? 'bg-[#DCF8C6]' : 'bg-white'} max-w-[80%] px-3 py-2 text-[11px] leading-[1.45] text-[#1E293B] shadow-sm`}
+                  ? 'chat-bubble-sent ml-auto rounded-br-lg rounded-tl-lg rounded-tr-sm'
+                  : 'chat-bubble-received mr-auto rounded-bl-lg rounded-br-lg rounded-tl-sm'
+              } max-w-[80%] px-3 py-2 text-[11px] leading-[1.45] text-[#1E293B] shadow-sm`}
             >
               {message}
             </motion.div>
@@ -78,7 +78,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
               ease: 'easeInOut',
               times: [0, 0.72, 0.78, 0.92, 1],
             }}
-            className="mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none bg-white px-4 py-3 shadow-sm"
+            className="chat-bubble-received mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none px-4 py-3 shadow-sm"
           >
             {[0, 0.18, 0.36].map((delay, i) => (
               <motion.span
@@ -93,7 +93,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
         </div>
 
         {/* Input bar - WhatsApp style */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-[20px] bg-white px-3 py-2 shadow-sm">
+        <div className="chat-input-bar absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-[20px] px-3 py-2 shadow-sm">
           <span className="flex-1 text-[11px]" style={{ color: '#888' }}>
             {copy.micro.inputPlaceholder}
           </span>

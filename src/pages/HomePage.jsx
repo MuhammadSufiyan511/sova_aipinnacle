@@ -22,7 +22,7 @@ export function HomePage() {
   const [showDemo, setShowDemo] = useState(false)
 
   return (
-    <>
+    <div className="home-page-shell">
       <SeoHead
         title="SOVA | WhatsApp Automation for Sales and Support"
         description="Turn WhatsApp chats into sales with SOVA. Automate replies, find serious buyers, follow up faster, and handle customer conversations without the manual load."
@@ -43,6 +43,6 @@ export function HomePage() {
       <FaqSection />
       <FinalCta />
       {showDemo ? <DemoModal onClose={() => setShowDemo(false)} /> : null}
-    </>
+    </div>
   )
 }

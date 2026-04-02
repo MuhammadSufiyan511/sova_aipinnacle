@@ -8,6 +8,25 @@ import { trustedBusinesses } from '../../../data'
 
 const MotionDiv = motion.div
 const MotionH1 = motion.h1
+const businessLogoStyles = [
+  'from-[#10B981] to-[#06B6D4]',
+  'from-[#A78BFA] to-[#06B6D4]',
+  'from-[#F59E0B] to-[#10B981]',
+  'from-[#1E293B] to-[#10B981]',
+  'from-[#FB7185] to-[#A78BFA]',
+  'from-[#06B6D4] to-[#1E293B]',
+]
+
+function getBusinessMonogram(name) {
+  const words = String(name || '')
+    .split(' ')
+    .filter(Boolean)
+
+  if (words.length === 0) return 'SV'
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+
+  return `${words[0][0] || ''}${words[1][0] || ''}`.toUpperCase()
+}
 
 function HeroBusinessTrack({ items }) {
   return (
@@ -15,10 +34,15 @@ function HeroBusinessTrack({ items }) {
       {items.map((business, index) => (
         <div
           key={`${business}-${index}`}
-          className="flex shrink-0 items-center gap-2 rounded-full border border-[#ECFDF5] bg-[#F8FAFC] px-4 py-1.5 shadow-sm"
+          className="flex shrink-0 items-center gap-2.5 rounded-full border border-[#DDEFE7] bg-white px-3.5 py-1.5 shadow-sm shadow-emerald-500/5"
         >
-          <span className="h-1 w-1 rounded-full bg-[#10B981]" />
-          <span className="whitespace-nowrap text-[0.72rem] font-bold text-[#10B981] opacity-60">
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br text-[0.58rem] font-extrabold text-white shadow-sm ${businessLogoStyles[index % businessLogoStyles.length]}`}
+            aria-hidden="true"
+          >
+            {getBusinessMonogram(business)}
+          </span>
+          <span className="whitespace-nowrap text-[0.72rem] font-bold text-[#295565]">
             {business}
           </span>
         </div>
@@ -32,7 +56,7 @@ export function HeroSection({ onWatchDemo }) {
   const businessItems = t('content.trustedBusinesses.items', { returnObjects: true }) || trustedBusinesses
 
   return (
-    <section className="relative w-full overflow-hidden bg-white pt-30 pb-10 text-center">
+    <section className="home-hero-section relative w-full overflow-hidden bg-white pb-10 pt-20 text-center sm:pt-24 lg:pt-30">
       {/* Animated radial gradient background - centered */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <motion.div
@@ -91,7 +115,7 @@ export function HeroSection({ onWatchDemo }) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="mx-auto max-w-[860px] px-4 text-center font-display text-[1.5rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
+            className="mx-auto max-w-[860px] px-4 text-center font-display text-[1.8rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
           >
             {t('hero.titlePrefix')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] via-[#06B6D4] to-[#F1990A] bg-clip-text text-transparent">
@@ -106,22 +130,21 @@ export function HeroSection({ onWatchDemo }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
           >
-            <p className="mt-7 mx-auto max-w-[780px] text-center text-[1.05rem] leading-[1.6] text-[#1E293B] sm:text-[1.2rem]">
+            <p className="mt-6 mx-auto max-w-[780px] px-4 text-center text-[0.95rem] leading-[1.6] text-[#1E293B] sm:mt-7 sm:text-[1.1rem] lg:text-[1.2rem]">
               {t('hero.description')}
             </p>
           </MotionDiv>
 
-          {/* CTAs */}
           <MotionDiv
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-            className="mt-10 flex flex-wrap items-start justify-center gap-4"
+            transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start"
           >
-            <div className="flex flex-col items-center">
+            <div className="flex w-full flex-col items-center sm:w-auto">
               <Link
                 to={ROUTES.auth}
-                className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-8 py-3.5 text-[0.95rem] font-bold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition hover:scale-[1.03] active:scale-[0.98]"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#10B981] px-8 py-3.5 text-[0.95rem] font-bold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition hover:scale-[1.03] active:scale-[0.98] sm:w-auto"
               >
                 {t('common.startFreeTrial')} <ArrowUpRight className="h-4 w-4" />
               </Link>
@@ -131,7 +154,7 @@ export function HeroSection({ onWatchDemo }) {
               type="button"
               onClick={onWatchDemo}
               aria-label="Watch the SOVA product demo"
-              className="inline-flex items-center gap-2.5 rounded-full border border-[#1E293B] bg-white px-8 py-3.5 text-[0.95rem] font-bold text-[#1E293B] transition hover:bg-[#F8FAFC] hover:text-[#10B981] hover:border-[#10B981] hover:scale-[1.02]"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-[#1E293B] bg-white px-8 py-3.5 text-[0.95rem] font-bold text-[#1E293B] transition hover:border-[#10B981] hover:bg-[#F8FAFC] hover:text-[#10B981] active:scale-[0.98] sm:w-auto"
             >
               {t('common.watchDemo')} <Play className="h-4 w-4 fill-current" />
             </button>
@@ -169,13 +192,8 @@ export function HeroSection({ onWatchDemo }) {
         </MotionDiv>
       </div>
 
-      {/* Blue wash at bottom of hero */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[100px]"
-        style={{
-          background: 'linear-gradient(to bottom, transparent, #F8FAFC)',
-        }}
-      />
+      {/* Bottom wash for smooth section transition */}
+      <div className="hero-bottom-wash absolute bottom-0 left-0 right-0 h-[120px]" />
     </section>
   )
 }

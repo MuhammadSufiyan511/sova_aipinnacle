@@ -27,17 +27,17 @@ function Toggle({ enabled, onChange }) {
 
 function SettingRow({ icon, iconBg, title, desc, children }) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-center gap-3.5">
+    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+      <div className="flex items-start gap-3.5 sm:items-center">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
           {icon}
         </span>
-        <div>
+        <div className="min-w-0">
           <p className="text-[0.82rem] font-bold text-[#173247]">{title}</p>
-          <p className="text-[0.7rem] text-[#62808D]">{desc}</p>
+          <p className="text-[0.7rem] leading-4 text-[#62808D] sm:leading-normal">{desc}</p>
         </div>
       </div>
-      <div className="shrink-0">{children}</div>
+      <div className="flex w-full justify-end sm:w-auto sm:shrink-0">{children}</div>
     </div>
   )
 }
@@ -59,7 +59,7 @@ export function SettingsOverview() {
         <p className="mt-0.5 text-[0.74rem] text-[#62808D]">Manage your SOVA voice, alert preferences, and automation rules.</p>
       </Motion.div>
 
-      <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm">
+      <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] p-4 shadow-sm admin-card-shell">
         <div className="mb-4 flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
             <Sparkles className="h-4.5 w-4.5" />
@@ -69,7 +69,7 @@ export function SettingsOverview() {
             <p className="text-[0.7rem] text-[#62808D]">Controls how SOVA talks to your customers</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 sm:grid-cols-4">
           {toneOptions.map((tone) => {
             const isActive = activeTone === tone.id
             const style = toneColors[tone.color]
@@ -78,9 +78,9 @@ export function SettingsOverview() {
                 key={tone.id}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setTones([tone.id])}
-                className={`relative rounded-2xl border-2 p-3 text-left transition-all ${isActive ? style.active : 'border-[#DDEFE7] bg-[#F2FBF7] hover:border-[#CFE6DC] hover:bg-[#EEF8F3]'}`}
+                className={`admin-tone-card relative rounded-2xl border-2 p-3 text-left transition-all ${isActive ? 'is-active ' + style.active : 'border-[#DDEFE7] bg-[#F2FBF7] hover:border-[#CFE6DC] hover:bg-[#EEF8F3]'}`}
               >
-                {isActive ? <Motion.div layoutId="tone-dot" className={`absolute right-3 top-3 h-2 w-2 rounded-full ${style.dot}`} /> : null}
+                {isActive ? <Motion.div layoutId="tone-dot" className={`tone-dot absolute right-3 top-3 h-2 w-2 rounded-full ${style.dot}`} /> : null}
                 <p className="text-[0.8rem] font-bold">{tone.label}</p>
                 <p className={`mt-0.5 text-[0.66rem] ${isActive ? 'opacity-70' : 'text-[#62808D]'}`}>{tone.desc}</p>
               </Motion.button>
@@ -89,31 +89,31 @@ export function SettingsOverview() {
         </div>
       </Motion.section>
 
-      <Motion.section variants={rowItem} className="divide-y divide-[#ECF8F3] rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm">
+      <Motion.section variants={rowItem} className="divide-y divide-[#ECF8F3] rounded-[22px] border border-[#DDEFE7] shadow-sm admin-card-shell">
         <div className="px-4 pb-3 pt-4">
           <div className="flex items-center gap-2">
             <Bot className="h-4 w-4 text-[#62808D]" />
-            <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#62808D]">Automation Rules</h3>
+            <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#62808D] admin-card-title">Automation Rules</h3>
           </div>
         </div>
-        <div className="px-4 py-3.5">
-          <SettingRow icon={<MessageSquare className="h-4.5 w-4.5" />} iconBg="bg-emerald-50 text-emerald-500" title="Auto-Reply to Buyers" desc="Instantly respond to new WhatsApp messages using SOVA.">
+        <div className="px-4 py-3.5 admin-setting-item">
+          <SettingRow icon={<MessageSquare className="h-4.5 w-4.5" />} iconBg="bg-emerald-50 text-emerald-500 admin-stat-icon" title="Auto-Reply to Buyers" desc="Instantly respond to new WhatsApp messages using SOVA.">
             <Toggle enabled={autoReply} onChange={setAutoReply} />
           </SettingRow>
         </div>
-        <div className="px-4 py-3.5">
-          <SettingRow icon={<Zap className="h-4.5 w-4.5" />} iconBg="bg-violet-50 text-violet-500" title="Spam Filter" desc="Automatically detect and ignore spam or bot messages.">
+        <div className="px-4 py-3.5 admin-setting-item">
+          <SettingRow icon={<Zap className="h-4.5 w-4.5" />} iconBg="bg-violet-50 text-violet-500 admin-stat-icon" title="Spam Filter" desc="Automatically detect and ignore spam or bot messages.">
             <Toggle enabled={spamFilter} onChange={setSpamFilter} />
           </SettingRow>
         </div>
-        <div className="px-4 py-3.5">
-          <SettingRow icon={<Bell className="h-4.5 w-4.5" />} iconBg="bg-blue-50 text-blue-500" title="High-Intent Alerts" desc="Get notified when SOVA detects a serious buyer.">
+        <div className="px-4 py-3.5 admin-setting-item">
+          <SettingRow icon={<Bell className="h-4.5 w-4.5" />} iconBg="bg-blue-50 text-blue-500 admin-stat-icon" title="High-Intent Alerts" desc="Get notified when SOVA detects a serious buyer.">
             <Toggle enabled={alerts} onChange={setAlerts} />
           </SettingRow>
         </div>
-        <div className="px-4 py-3.5 opacity-60">
-          <SettingRow icon={<Shield className="h-4.5 w-4.5" />} iconBg="bg-[#F2FBF7] text-[#86A29B]" title="Two-Factor Authentication" desc="Add an extra layer of security to your workspace.">
-            <span className="rounded-full bg-[#F2FBF7] px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">Coming Soon</span>
+        <div className="px-4 py-3.5 opacity-60 admin-setting-item">
+          <SettingRow icon={<Shield className="h-4.5 w-4.5" />} iconBg="bg-[#F2FBF7] text-[#86A29B] admin-stat-icon" title="Two-Factor Authentication" desc="Add an extra layer of security to your workspace.">
+            <span className="rounded-full bg-[#F2FBF7] px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88] admin-pill">Coming Soon</span>
           </SettingRow>
         </div>
       </Motion.section>

@@ -12,7 +12,7 @@ export function HeaderLanguageOverlay({ isChangingLanguage }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/80 backdrop-blur-md"
+          className="language-overlay-container fixed inset-0 z-[100] flex flex-col items-center justify-center backdrop-blur-md"
         >
           <MotionDiv
             initial={{ scale: 0.85, opacity: 0 }}
@@ -21,7 +21,7 @@ export function HeaderLanguageOverlay({ isChangingLanguage }) {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="flex flex-col items-center gap-5"
           >
-            <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-[#E2EFEA] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+            <div className="language-overlay-card relative flex h-20 w-20 items-center justify-center rounded-2xl border border-[#E2EFEA] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
               <img src={sovaLogo} alt="Loading Sova" decoding="async" className="h-12 w-12 animate-pulse rounded-xl object-cover" />
             </div>
             <div className="mt-2 flex gap-1.5">

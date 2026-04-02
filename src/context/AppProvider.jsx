@@ -15,14 +15,22 @@ export function AppProvider({ children }) {
 
   const [user, setUser] = useState({ name: 'User', plan: 'Free' })
   const [showCelebration, setShowCelebration] = useState(false)
+  const [homeDarkMode, setHomeDarkMode] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return localStorage.getItem('sova-home-theme') === 'dark'
+  })
 
   useEffect(() => {
-    localStorage.setItem('sova_products', JSON.stringify(products))
+    localStorage.setItem('sova-products', JSON.stringify(products))
   }, [products])
 
   useEffect(() => {
-    localStorage.setItem('sova_tones', JSON.stringify(tones))
+    localStorage.setItem('sova-tones', JSON.stringify(tones))
   }, [tones])
+
+  useEffect(() => {
+    localStorage.setItem('sova-home-theme', homeDarkMode ? 'dark' : 'light')
+  }, [homeDarkMode])
 
   const addProduct = (product) => setProducts([...products, product])
   const updateProduct = (updatedProduct) =>
@@ -40,7 +48,9 @@ export function AppProvider({ children }) {
     updateProduct,
     removeProduct,
     showCelebration,
-    setShowCelebration
+    setShowCelebration,
+    homeDarkMode,
+    setHomeDarkMode
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

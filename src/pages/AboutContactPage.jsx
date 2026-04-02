@@ -34,7 +34,7 @@ export function AboutContactPage() {
   ]
 
   return (
-    <div className="w-full bg-[#ebf2ff]">
+    <div className="w-full bg-[#ebf2ff] about-page-shell">
       <SeoHead
         title="About SOVA | WhatsApp Communication Growth"
         description="Learn how SOVA helps businesses improve WhatsApp communication, automate customer replies, and keep sales conversations moving with less manual work."
@@ -46,27 +46,27 @@ export function AboutContactPage() {
         ]}
       />
       {/* ── HERO SECTION WITH CALENDLY ── */}
-      <section className="relative overflow-hidden bg-[#ebf2ff] pb-8 pt-24 lg:pt-16">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute left-[-10%] top-[-10%] h-[500px] w-[500px] rounded-full bg-emerald-50/50 blur-[120px]" />
-          <div className="absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-50/40 blur-[100px]" />
+      <section className="relative overflow-hidden bg-[#ebf2ff] pb-8 pt-24 lg:pt-16 about-hero-section">
+        <div className="absolute inset-0 z-0 about-hero-blur-container">
+          <div className="absolute left-[-10%] top-[-10%] h-[500px] w-[500px] rounded-full bg-emerald-50/50 blur-[120px] about-blur-1" />
+          <div className="absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-50/40 blur-[100px] about-blur-2" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-[1160px] px-5">
           <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#10B981]">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#10B981] about-eyebrow">
                 {t('sections.aboutEyebrow')}
               </p>
-              <h1 className="font-display text-[2.45rem] font-extrabold leading-[1.08] tracking-[-0.05em] text-[#1E293B] sm:text-[3.15rem] lg:text-[3.35rem]">
+              <h1 className="font-display text-[2.45rem] font-extrabold leading-[1.08] tracking-[-0.05em] text-[#1E293B] sm:text-[3.15rem] lg:text-[3.35rem] about-title">
                 {t('sections.aboutTitle')}
               </h1>
-              <p className="mt-6 max-w-[560px] text-[1rem] leading-[1.75] text-[#5a9e88] lg:text-[1.05rem]">
+              <p className="mt-6 max-w-[560px] text-[1rem] leading-[1.75] text-[#5a9e88] lg:text-[1.05rem] about-description">
                 {t('sections.aboutDescription')}
               </p>
             </div>
    <div className=" rounded-[14px]  p-6 text-wshadow-2xl sm:p-7">
-          <div className="rounded-[30px] border border-[#E2EFEA] bg-white p-3 shadow-[0_18px_50px_rgba(15,23,42,0.08)] lg:mt-16">
+          <div className="rounded-[30px] border border-[#E2EFEA] bg-white p-3 shadow-[0_18px_50px_rgba(15,23,42,0.08)] lg:mt-16 calendly-container-shell">
               <h2 className="font-display p-6 text-[1.45rem] font-bold leading-tight tracking-[-0.03em] sm:text-[1.6rem] text-[#10B981]">
                 {calendly.title}
               </h2>

@@ -21,7 +21,7 @@ const featureImageTransition = (duration, delay = 0) => ({
 
 export function CardOne({ feature, image, micro }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="md:col-span-2 flex flex-col justify-between rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_20px_60px_rgba(16,185,129,0.1)]">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass md:col-span-2 flex flex-col justify-between rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_20px_60px_rgba(16,185,129,0.1)]">
       <div>
         <h3 className="font-display text-[1.42rem] font-bold text-[#10B981]">{feature?.title}</h3>
         <p className="mt-2 max-w-[320px] text-[0.94rem] text-[#1E293B]">{feature?.description}</p>
@@ -45,7 +45,7 @@ export function CardOne({ feature, image, micro }) {
 
 export function CardTwo({ feature, image }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] p-7 text-white shadow-[0_20px_50px_rgba(167,139,250,0.3)]">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass card-automation flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] p-7 text-white shadow-[0_20px_50px_rgba(167,139,250,0.3)]">
       <div className="relative z-10">
         <h3 className="font-display text-[1.42rem] font-bold">{feature?.title}</h3>
         <p className="mt-2 text-[0.9rem] opacity-90">{feature?.description}</p>
@@ -62,7 +62,7 @@ export function CardTwo({ feature, image }) {
 
 export function CardThree({ feature, image }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="md:row-span-2 flex flex-col rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass md:row-span-2 flex flex-col rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
       <h3 className="font-display text-[1.42rem] font-bold text-[#F59E0B]">{feature?.title}</h3>
       <p className="mt-2 text-[0.94rem] text-[#1E293B]">{feature?.description}</p>
       <div className="mt-8 flex flex-1 items-center justify-center">
@@ -77,7 +77,7 @@ export function CardThree({ feature, image }) {
 
 export function CardFour({ feature, image }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="md:col-span-2 flex flex-col items-center gap-6 rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)] md:flex-row">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass md:col-span-2 flex flex-col items-center gap-6 rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)] md:flex-row">
       <div className="flex-1">
         <h3 className="font-display text-[1.42rem] font-bold text-[#FB7185]">{feature?.title}</h3>
         <p className="mt-2 text-[0.94rem] text-[#1E293B]">{feature?.description}</p>
@@ -94,7 +94,7 @@ export function CardFour({ feature, image }) {
 
 export function CardFive({ feature, image }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-7 text-white shadow-[0_20px_50px_rgba(30,41,59,0.35)]">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass card-broadcast flex flex-col justify-between rounded-[32px] bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-7 text-white shadow-[0_20px_50px_rgba(30,41,59,0.35)]">
       <div className="flex-1">
         <h3 className="font-display text-[1.42rem] font-bold">{feature?.title}</h3>
         <p className="mt-2 text-[0.9rem] opacity-90">{feature?.description}</p>
@@ -111,7 +111,7 @@ export function CardFive({ feature, image }) {
 
 export function CardSix({ feature, image }) {
   return (
-    <MotionDiv whileHover={{ y: -5 }} className="flex flex-col justify-between rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
+    <MotionDiv whileHover={{ y: -5 }} className="feature-card-glass flex flex-col justify-between rounded-[32px] border border-[#E2EFEA] bg-white p-7 shadow-[0_12px_44px_rgba(0,0,0,0.03)]">
       <div>
         <h3 className="font-display text-[1.42rem] font-bold text-[#10B981]">{feature?.title}</h3>
         <p className="mt-2 text-[0.94rem] text-[#1E293B]">{feature?.description}</p>

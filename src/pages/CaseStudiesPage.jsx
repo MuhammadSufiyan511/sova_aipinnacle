@@ -44,7 +44,7 @@ export function CaseStudiesPage() {
   }
 
   return (
-    <section className="mx-auto max-w-[1160px] px-5 pb-8 pt-30 ">
+    <section className="page-top-spacing mx-auto max-w-[1160px] px-5 pb-8">
       <SeoHead
         title="Case Studies | SOVA Results on WhatsApp"
         description="Read how businesses use SOVA to automate WhatsApp replies, save team time, filter buyers faster, and improve lead conversion."
@@ -57,7 +57,7 @@ export function CaseStudiesPage() {
       />
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
-         <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:text-4xl">
+         <h1 className="mt-4 font-display text-[1.75rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:text-3xl md:text-4xl">
           {t('sections.caseTitle')}
         </h1>
         <p className="mt-3 text-[1.1rem] leading-7 text-[#5a9e88]">
@@ -75,7 +75,7 @@ export function CaseStudiesPage() {
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="flex max-w-[950px] flex-wrap justify-center gap-1">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-4 pb-2 sm:max-w-[950px] sm:flex-wrap sm:justify-center sm:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}

@@ -10,7 +10,7 @@ export function FinalCta() {
   const { t } = useTranslation()
 
   return (
-    <section className="mx-auto max-w-[1160px] px-5 pb-20 pt-10">
+    <section className="home-final-cta-section mx-auto max-w-[1160px] px-5 pb-20 pt-10">
       <MotionDiv
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

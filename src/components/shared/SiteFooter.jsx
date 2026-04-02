@@ -1,4 +1,4 @@
-﻿import { FaEnvelope, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaEnvelope, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import sovaLogo from '../../assets/logos/sova.png'
@@ -15,7 +15,7 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="w-full bg-white border-t border-[#E2E8F0] pt-12 pb-12 text-[#1E293B]">
+    <footer className="site-footer-shell w-full bg-white border-t border-[#E2E8F0] pt-12 pb-12 text-[#1E293B]">
       <div className="mx-auto max-w-[1160px] px-5">
         <div className="flex flex-col items-center justify-between gap-8 pb-12 md:flex-row">
           <div className="flex items-center gap-3">
@@ -33,7 +33,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Open ${item.href.replace(/^https?:\/\//, '').replace(/^mailto:/, '')}`}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)]"
+                className="social-icon-box inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)]"
                 style={{ color: item.color, backgroundColor: item.bg }}
               >
                 <item.icon size={18} />

@@ -6,9 +6,9 @@ export function ChatSimulationCard({ cardCopy, microCopy }) {
   return (
     <MotionDiv
       whileHover={{ y: -6 }}
-      className="rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
+      className="feature-card-glass rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
     >
-      <div className="mb-8 flex h-48 w-full items-center justify-center rounded-2xl bg-[#F0FDF4] p-5">
+      <div className="inner-sim-box mb-8 flex h-48 w-full items-center justify-center rounded-2xl bg-[#F0FDF4] p-5">
         <div className="relative h-full w-full max-w-[270px] overflow-hidden rounded-[24px] border border-[#D1FAE5] bg-[#e5ddd5] shadow-[0_18px_38px_rgba(15,23,42,0.08)]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.55)_0%,transparent_58%)] opacity-90" />
           <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(rgba(15,23,42,0.08) 0.8px, transparent 0.8px)', backgroundSize: '14px 14px' }} />
@@ -28,45 +28,35 @@ export function ChatSimulationCard({ cardCopy, microCopy }) {
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: [0, 1, 1, 0], x: [-10, 0, 0, -6] }}
-              transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.15, 0.78, 1], ease: 'easeInOut' }}
-              className="mr-auto max-w-[78%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
+              transition={{ duration: 6, repeat: Infinity, repeatDelay: 1, times: [0, 0.12, 0.45, 0.52], ease: 'easeInOut' }}
+              className="chat-bubble-received mr-auto max-w-[78%] rounded-2xl rounded-bl-md px-3 py-2 text-[9px] font-medium leading-[1.45] shadow-sm"
             >
               {microCopy.userOne}
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: [0, 0, 1, 1, 0], x: [10, 10, 0, 0, 6] }}
-              transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.22, 0.36, 0.82, 1], ease: 'easeInOut' }}
-              className="ml-auto max-w-[74%] rounded-2xl rounded-br-md bg-[#dcf8c6] px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
-            >
-              {microCopy.faq}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: [0, 0, 1, 1, 0], x: [-10, -10, 0, 0, -4] }}
-              transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.44, 0.58, 0.9, 1], ease: 'easeInOut' }}
-              className="mr-auto max-w-[82%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-[9px] font-medium leading-[1.45] text-[#0F172A] shadow-sm"
-            >
-              {microCopy.userThree}
-            </motion.div>
-
-            <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0, 1, 1, 0] }}
-              transition={{ duration: 5.2, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.64, 0.7, 0.85, 1], ease: 'easeInOut' }}
-              className="ml-auto flex items-center gap-1 rounded-full bg-[#dcf8c6] px-3 py-2 shadow-sm"
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 6, repeat: Infinity, repeatDelay: 1, times: [0, 0.52, 0.65, 0.76] }}
+              className="chat-bubble-sent ml-auto flex items-center gap-1 rounded-full px-3 py-2 shadow-sm"
             >
               {[0, 0.18, 0.36].map((delay, index) => (
                 <motion.span
                   key={index}
-                  className="block h-1.5 w-1.5 rounded-full bg-[#0f9f8f]"
-                  animate={{ y: [0, -3, 0], opacity: [0.35, 1, 0.35] }}
-                  transition={{ duration: 0.95, repeat: Infinity, delay, ease: 'easeInOut' }}
-                  style={{ willChange: 'transform, opacity' }}
+                  className="block h-1 w-1 rounded-full bg-emerald-500"
+                  animate={{ y: [0, -2, 0], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 0.8, repeat: Infinity, delay, ease: 'easeInOut' }}
                 />
               ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: [0, 0, 1, 1, 0], x: [10, 10, 0, 0, 6] }}
+              transition={{ duration: 6, repeat: Infinity, repeatDelay: 1, times: [0, 0.76, 0.85, 0.95, 1], ease: 'easeInOut' }}
+              className="chat-bubble-sent ml-auto max-w-[74%] rounded-2xl rounded-br-md px-3 py-2 text-[9px] font-medium leading-[1.45] shadow-sm"
+            >
+              {microCopy.faq}
             </motion.div>
           </div>
         </div>

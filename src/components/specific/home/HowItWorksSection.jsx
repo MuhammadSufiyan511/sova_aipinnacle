@@ -26,10 +26,10 @@ export function HowItWorksSection() {
   }))
 
   return (
-    <section className="w-full bg-gradient-to-b from-white to-[#F8FAFC] pb-10 pt-16">
+    <section className="home-how-it-works-section w-full pb-10 pt-16">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
-          <p className="mb-4 inline-flex rounded-full border border-[#CDEDE5] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] px-5 py-2 text-[0.74rem] font-bold tracking-[0.08em] text-[#10B981] shadow-[0_8px_24px_rgba(16,185,129,0.1)]">
+          <p className="section-eyebrow mb-4 inline-flex rounded-full border border-[#CDEDE5] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] px-5 py-2 text-[0.74rem] font-bold tracking-[0.08em] text-[#10B981] shadow-[0_8px_24px_rgba(16,185,129,0.1)]">
             {t('sections.howEyebrow')}
           </p>
           <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">

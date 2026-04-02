@@ -44,7 +44,7 @@ export function IndustriesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-[1160px] px-5 pb-10 pt-30">
+    <div className="page-top-spacing mx-auto max-w-[1160px] px-5 pb-10">
       <SeoHead
         title="Industries | SOVA WhatsApp Automation"
         description="See how SOVA supports clothing, electronics, toys, dry fruits, and other businesses that sell through high-volume WhatsApp conversations."
@@ -73,7 +73,7 @@ export function IndustriesPage() {
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="flex max-w-[900px] flex-nowrap justify-center gap-3 overflow-hidden">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-4 pb-2 sm:max-w-[900px] sm:flex-wrap sm:justify-center sm:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}

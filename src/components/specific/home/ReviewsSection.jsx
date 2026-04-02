@@ -24,7 +24,7 @@ export function ReviewsSection() {
   const reviewDirection = i18n.dir()
 
   return (
-    <section className="w-full overflow-hidden bg-[#F4F8FF] py-14">
+    <section className="home-reviews-section w-full overflow-hidden bg-[#F4F8FF] py-14">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

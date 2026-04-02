@@ -55,7 +55,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-3">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -81,12 +81,12 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
               {isEditMode ? 'Edit the product details SOVA uses in buyer chats.' : 'Give your product a name, short description, and an optional photo.'}
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Product Image</label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="group relative flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 transition hover:border-emerald-500 hover:bg-emerald-50/30"
+                  className="group relative flex h-24 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 transition hover:border-emerald-500 hover:bg-emerald-50/30"
                 >
                   {imagePreview ? (
                     <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
@@ -126,7 +126,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="e.g. Premium silk scarf with soft finish and gift packaging."
-                  rows={3}
+                  rows={2}
                   className="w-full resize-none rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-slate-900 placeholder-slate-300 outline-none transition focus:border-emerald-500 focus:bg-white"
                 />
               </div>

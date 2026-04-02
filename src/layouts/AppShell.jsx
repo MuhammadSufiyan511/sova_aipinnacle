@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { FloatingWhatsApp, ScrollTopButton, SiteFooter, SiteHeader } from '../components/shared'
 import { rtlLanguages } from '../i18n'
+import { useApp } from '../context/AppProvider'
 
 const MotionMain = motion.main
 
@@ -17,7 +18,11 @@ const pageAnimation = {
 export function AppShell({ children }) {
   const location = useLocation()
   const { i18n } = useTranslation()
+  const { homeDarkMode, setHomeDarkMode } = useApp()
   const [bgOpacity, setBgOpacity] = useState(1)
+  
+  const isAppRoute = location.pathname.startsWith('/onboarding') || location.pathname.startsWith('/admin')
+  const isHomeRoute = !isAppRoute && location.pathname === '/'
 
   useEffect(() => {
     if (location.hash) {
@@ -58,14 +63,18 @@ export function AppShell({ children }) {
     }
   }, [])
 
-  const isAppRoute = location.pathname.startsWith('/onboarding') || location.pathname.startsWith('/admin')
-
   return (
-    <div className="min-h-screen bg-[#ebf2ff] text-[#1E293B]">
-      {!isAppRoute && <SiteHeader />}
+    <div className={`min-h-screen bg-[#ebf2ff] text-[#1E293B] ${homeDarkMode ? 'home-dark-mode' : ''}`}>
+      {!isAppRoute && (
+        <SiteHeader
+          isHomeDarkMode={homeDarkMode}
+          onToggleHomeDarkMode={() => setHomeDarkMode(!homeDarkMode)}
+          showThemeToggle={!isAppRoute}
+        />
+      )}
       <div 
         style={{ opacity: bgOpacity, transition: 'opacity 0.3s ease-in-out' }}
-        className="flex min-h-screen flex-col"
+        className={`flex min-h-screen flex-col ${homeDarkMode ? 'home-page-theme' : ''}`}
       >
         <AnimatePresence mode="wait">
           <MotionMain 

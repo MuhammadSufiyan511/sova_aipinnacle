@@ -27,7 +27,7 @@ export function FeaturesGridSection() {
   ]
 
   return (
-    <section className="w-full overflow-hidden bg-[#F4F8FF] pb-16 pt-8">
+    <section className="home-features-grid-section w-full overflow-hidden bg-[#F4F8FF] pb-16 pt-8">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

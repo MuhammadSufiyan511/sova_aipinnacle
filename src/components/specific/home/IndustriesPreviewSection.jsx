@@ -1,4 +1,4 @@
-﻿import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { industries } from '../../../data'
 import { ROUTES } from '../../../utils/routes'
@@ -26,7 +26,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
   }
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-white to-[#F4F8FF] py-10">
+    <section className="home-industries-preview-section relative w-full py-10">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -71,9 +71,9 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
                 key={industry.id}
                 type="button"
                 onClick={() => onSelectIndustry(industry.id)}
-                className={`min-w-[192px] rounded-full px-5 py-2 text-center text-[0.865rem] font-semibold whitespace-nowrap transition-all ${
+                className={`industry-tab-btn min-w-[192px] rounded-full px-5 py-2 text-center text-[0.865rem] font-semibold whitespace-nowrap transition-all ${
                   activeIndustry === industry.id
-                    ? 'bg-[#10B981] text-white shadow-[0_4px_14px_rgba(16,185,129,0.28)]'
+                    ? 'is-active bg-[#10B981] text-white shadow-[0_4px_14px_rgba(16,185,129,0.28)]'
                     : 'border border-[#D1FAE5] bg-white text-[#1E293B] hover:border-[#10B981] hover:text-[#10B981]'
                 }`}
               >
@@ -103,29 +103,29 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.26, ease: 'easeOut' }}
-                className="overflow-hidden rounded-[32px] border border-[#D1FAE5] bg-white shadow-[0_16px_60px_rgba(16,185,129,0.1)]"
+                className="industry-card-shell overflow-hidden rounded-[32px] border border-[#D1FAE5] bg-white shadow-[0_16px_60px_rgba(16,185,129,0.1)]"
               >
-                <div className="grid lg:grid-cols-2">
+                <div className="flex flex-col lg:grid lg:grid-cols-2">
                   <div className="overflow-hidden">
                     <img
                       src={selectedIndustry.image}
                       alt={`${selectedIndustry.label} business using SOVA on WhatsApp`}
                       loading="lazy"
                       decoding="async"
-                      className="h-72 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-full lg:min-h-[360px]"
+                      className="h-64 w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-72 lg:h-full lg:min-h-[360px]"
                     />
                   </div>
 
-                  <div className="flex flex-col justify-between p-8">
+                  <div className="flex flex-col justify-between p-6 sm:p-8">
                     <div>
-                      <span className="inline-block rounded-full bg-[#ECFDF5] px-3 py-1 text-xs font-semibold text-[#10B981]">
+                      <span className="inline-block rounded-full bg-[#ECFDF5] px-3 py-1 text-[0.65rem] font-semibold text-[#10B981] sm:text-xs">
                         {t('common.useCase')}
                       </span>
-                      <h3 className="mt-4 font-display text-[1.6rem] font-bold tracking-[-0.03em] text-[#10B981]">
+                      <h3 className="industry-card-title mt-4 font-display text-[1.4rem] font-bold tracking-[-0.03em] text-[#10B981] sm:text-[1.6rem]">
                         {selectedIndustry.label}
                       </h3>
-                      <p className="mt-3 text-[1rem] leading-[1.75] text-[#1E293B]">{selectedIndustry.title}</p>
-                      <p className="mt-2 text-[0.9rem] leading-[1.7] text-[#1E293B]">{selectedIndustry.useCase}</p>
+                      <p className="industry-card-desc mt-3 text-[0.92rem] leading-[1.7] text-[#1E293B] sm:text-[1rem] sm:leading-[1.75]">{selectedIndustry.title}</p>
+                      <p className="industry-card-desc mt-2 text-[0.85rem] leading-[1.6] text-[#1E293B] sm:text-[0.9rem] sm:leading-[1.7]">{selectedIndustry.useCase}</p>
                     </div>
 
                     <div className="mt-7 flex flex-wrap items-start gap-3">

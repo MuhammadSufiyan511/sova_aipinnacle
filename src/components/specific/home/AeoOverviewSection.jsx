@@ -32,7 +32,7 @@ export function AeoOverviewSection() {
   const isRtl = i18n.dir() === 'rtl'
 
   return (
-    <section className="w-full bg-[#ebf2ff] py-8">
+    <section className="aeo-overview-section w-full bg-[#ebf2ff] py-8">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 18 }}
@@ -41,13 +41,13 @@ export function AeoOverviewSection() {
           transition={{ duration: 0.45 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#10B981]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#10B981] aeo-eyebrow">
             {t('content.aeoOverview.eyebrow')}
           </p>
-          <h2 className="font-display text-[2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.5rem]">
+          <h2 className="font-display text-[2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.5rem] aeo-title">
             {t('content.aeoOverview.title')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[720px] text-[0.98rem] leading-[1.75] text-[#48617A]">
+          <p className="mx-auto mt-3 max-w-[720px] text-[0.98rem] leading-[1.75] text-[#48617A] aeo-description">
             {t('content.aeoOverview.description')}
           </p>
         </MotionDiv>
@@ -60,7 +60,7 @@ export function AeoOverviewSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="rounded-[28px] border border-[#D1FAE5] bg-[linear-gradient(180deg,#FFFFFF_0%,#F7FFFC_100%)] p-6 shadow-[0_10px_28px_rgba(16,185,129,0.08)]"
+              className="aeo-overview-card rounded-[28px] border border-[#D1FAE5] bg-[linear-gradient(180deg,#FFFFFF_0%,#F7FFFC_100%)] p-6 shadow-[0_10px_28px_rgba(16,185,129,0.08)]"
             >
               {/* <p className="text-[0.74rem] font-bold uppercase tracking-[0.18em] text-[#F59E0B]">SOVA</p> */}
               <h3 className="mt-3 text-[1.1rem] font-bold text-[#10B981]">

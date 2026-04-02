@@ -12,7 +12,7 @@ export function PricingPreviewSection() {
   const localizedPlans = t('content.pricing.plans', { returnObjects: true }) || pricingPlans
 
   return (
-    <section id="pricing" className="w-full bg-white py-16 scroll-mt-28">
+    <section id="pricing" className="home-pricing-preview-section w-full bg-white py-16 scroll-mt-28">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

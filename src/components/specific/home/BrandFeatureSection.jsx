@@ -35,9 +35,9 @@ export function BrandFeatureSection() {
   const iconsY = useTransform(smoothProgress, [0, 1], [50, -50])
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="home-brand-feature-section relative w-full overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#F8FAFC] via-[#ECFDF5] to-[#D1FAE5]" />
+      <div className="brand-feature-bg absolute inset-0" />
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}

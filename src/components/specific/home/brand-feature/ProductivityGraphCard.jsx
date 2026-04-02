@@ -6,9 +6,9 @@ export function ProductivityGraphCard({ cardCopy }) {
   return (
     <MotionDiv
       whileHover={{ y: -6 }}
-      className="rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
+      className="feature-card-glass rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
     >
-      <div className="mb-8 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#F8FAFC]">
+      <div className="inner-sim-box mb-8 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#F8FAFC]">
         <svg width="100%" height="100%" viewBox="0 0 400 200" className="opacity-80 overflow-visible">
           <motion.path
             id="graph-path"

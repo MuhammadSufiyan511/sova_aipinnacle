@@ -32,12 +32,12 @@ export function ConversationsOverview() {
   const filtered = allChats.filter((chat) => chat.user.toLowerCase().includes(search.toLowerCase()) || chat.message.toLowerCase().includes(search.toLowerCase()))
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex h-[calc(100vh-7rem)] gap-3 overflow-hidden">
-      <div className="flex w-full flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm lg:w-80 lg:shrink-0">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="admin-chat-layout flex h-[calc(100vh-6rem)] gap-3 overflow-hidden md:h-[calc(100vh-7.5rem)] lg:h-[calc(100vh-7rem)]">
+      <div className={`flex w-full flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm transition-all duration-300 lg:w-80 lg:shrink-0 ${selected ? 'hidden lg:flex' : 'flex'}`}>
         <div className="border-b border-[#E8F6EF] p-3.5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-[0.98rem] font-bold text-[#173247]">WhatsApp Inbox</h2>
-            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[0.62rem] font-bold text-emerald-600">
+            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[0.6rem] font-bold text-emerald-600 sm:px-2.5 sm:py-1 sm:text-[0.62rem]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               {filtered.length} Active
             </div>
@@ -80,11 +80,14 @@ export function ConversationsOverview() {
         </div>
       </div>
 
-      <div className="hidden flex-1 flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm lg:flex">
+      <div className={`flex-1 flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm lg:flex ${selected ? 'flex' : 'hidden'}`}>
         {selected ? (
           <>
-            <div className="flex items-center justify-between border-b border-[#E8F6EF] px-4 py-3">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between border-b border-[#E8F6EF] px-3 py-2.5 sm:px-4 sm:py-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <button onClick={() => setSelected(null)} className="rounded-full p-1.5 text-[#62808D] hover:bg-[#F2FBF7] lg:hidden">
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
                 <div className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatarColors[allChats.findIndex((chat) => chat.id === selected.id) % avatarColors.length]} text-[0.66rem] font-bold text-white shadow`}>
                   {selected.avatar}
                 </div>
@@ -99,31 +102,28 @@ export function ConversationsOverview() {
               </div>
             </div>
 
-            <div className="flex-1 space-y-3 overflow-y-auto p-4">
-              {(mockThreads[selected.id] || [{ from: 'user', text: selected.message }, { from: 'sova', text: "Hi! Thanks for reaching out. I'm SOVA, your sales assistant. How can I help you today?" }]).map((msg, i) => (
-                <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 text-[0.8rem] leading-5 ${msg.from === 'user' ? 'rounded-br-sm bg-emerald-500 text-white' : 'rounded-bl-sm bg-[#F2FBF7] text-[#295565]'}`}>
-                    {msg.from === 'sova' ? <p className="mb-1 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">SOVA AI</p> : null}
+            <div className="flex-1 space-y-3 overflow-y-auto p-4 admin-chat-container">
+              {(mockThreads[selected.id] || [
+                { from: 'user', text: selected.message },
+                { from: 'sova', text: "Hi! Thanks for reaching out. I'm SOVA, your sales assistant. How can I help you today?" }
+              ]).map((msg, i) => (
+                <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} admin-msg-row`}>
+                  <div className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 text-[0.8rem] leading-5 admin-chat-bubble ${
+                    msg.from === 'user' 
+                      ? 'rounded-br-sm bg-emerald-500 text-white is-user' 
+                      : 'rounded-bl-sm bg-[#F2FBF7] text-[#295565] is-sova'
+                    }`}
+                  >
+                    {msg.from === 'sova' ? <p className="mb-1 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88] admin-bubble-label">SOVA AI</p> : null}
                     {msg.text}
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="border-t border-[#E8F6EF] p-3.5">
-              <div className="flex items-center gap-2 rounded-xl border border-[#DDEFE7] bg-[#F2FBF7] px-3.5 py-2.5">
-                <MessageSquare className="h-4 w-4 text-[#86A29B]" />
-                <p className="flex-1 text-[0.74rem] text-[#62808D]">SOVA is handling this conversation automatically...</p>
-                <span className={`rounded-full px-2 py-0.5 text-[0.58rem] font-bold ${statusStyles[selected.status]}`}>
-                  {selected.status === 'Automated' ? <Check className="mr-0.5 inline h-3 w-3" /> : <User className="mr-0.5 inline h-3 w-3" />}
-                  {selected.status}
-                </span>
-              </div>
-            </div>
           </>
         ) : (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F2FBF7]">
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center admin-empty-state">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F2FBF7] admin-empty-icon">
               <MessageSquare className="h-6 w-6 text-[#86A29B]" />
             </div>
             <p className="text-[0.84rem] font-bold text-[#62808D]">Select a conversation to view it</p>

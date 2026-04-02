@@ -25,7 +25,7 @@ export function CelebrationModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 24 }}
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-            className="fixed left-1/2 top-1/2 z-[110] w-full max-w-[680px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[34px] border border-[#DDEFE7] bg-white p-6 shadow-2xl"
+            className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-full sm:p-6"
           >
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
             <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />
@@ -39,8 +39,8 @@ export function CelebrationModal({ isOpen, onClose }) {
               />
             ))}
 
-            <div className="relative grid items-center gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-              <div className="rounded-[28px] bg-gradient-to-br from-[#164E46] via-[#0F6A63] to-[#10B981] p-6 text-white shadow-[0_24px_80px_rgba(16,185,129,0.22)]">
+            <div className="relative flex flex-col items-center gap-6 lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+              <div className="w-full rounded-[28px] bg-gradient-to-br from-[#164E46] via-[#0F6A63] to-[#10B981] p-6 text-white shadow-[0_24px_80px_rgba(16,185,129,0.22)]">
                 <div className="flex items-center gap-3">
                   <span className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur">
                     <img src={sovaLogo} alt="SOVA logo" className="h-10 w-10 object-contain" />
@@ -67,15 +67,15 @@ export function CelebrationModal({ isOpen, onClose }) {
                   <Sparkles className="h-10 w-10" />
                 </Motion.div>
 
-                <Motion.h2 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="font-display text-[2rem] font-extrabold tracking-tight text-[#173247]">
+                <Motion.h2 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="font-display text-[1.6rem] font-extrabold tracking-tight text-[#173247] sm:text-[2rem]">
                   Your chats are now <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent">automated</span>
                 </Motion.h2>
 
-                <Motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-3 max-w-xl text-[0.92rem] font-medium leading-relaxed text-[#62808D]">
+                <Motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-3 max-w-xl text-[0.84rem] font-medium leading-relaxed text-[#62808D] sm:text-[0.92rem]">
                   SOVA is now live in your workspace. It can reply faster, spot serious buyers, and keep your WhatsApp sales moving even when your team is offline.
                 </Motion.p>
 
-                <div className="mt-6 grid w-full grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="mt-6 grid w-full grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-3">
                   {featureHighlights.map((feature, index) => (
                     <Motion.div
                       key={feature.text}

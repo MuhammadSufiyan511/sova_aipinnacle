@@ -12,7 +12,7 @@ export function FaqSection() {
   const localizedFaqs = t('content.faq.items', { returnObjects: true }) || faqs
 
   return (
-    <section className="w-full bg-white py-16">
+    <section className="home-faq-section w-full bg-white py-16">
       <div className="mx-auto max-w-[800px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

@@ -1,4 +1,4 @@
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import sovaLogo from '../../assets/logos/sova.png'
 import { useHeaderUi } from '../../hooks/useHeaderUi'
@@ -8,7 +8,7 @@ import { HeaderLanguageOverlay } from './header/HeaderLanguageOverlay'
 import { HeaderLanguageSelector } from './header/HeaderLanguageSelector'
 import { HeaderMobileMenu } from './header/HeaderMobileMenu'
 
-export function SiteHeader() {
+export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showThemeToggle = false }) {
   const {
     activeLanguage,
     changeLanguage,
@@ -29,16 +29,16 @@ export function SiteHeader() {
       <header className="pointer-events-none fixed left-0 right-0 top-0 z-[70] flex justify-center px-4 pt-4 sm:pt-6">
         <div className="relative flex w-full max-w-[1340px] items-center justify-center">
           <div
-            className={`pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 ${
+            className={`site-header-shell pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 ${
               scrolled
                 ? 'border-[#d8e9e3] bg-white/92 shadow-[0_10px_32px_rgba(30,41,59,0.12)] backdrop-blur-xl'
                 : 'border-[#e4efeb] bg-white/82 shadow-[0_4px_24px_rgba(30,41,59,0.08)] backdrop-blur-lg'
             }`}
           >
             <div className="flex items-center justify-between gap-4 px-5 py-2.5">
-              <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1">
-                <img src={sovaLogo} alt={t('common.brand')} decoding="async" className="h-8 w-14 rounded-xl" />
-                <span className="font-display text-[1.05rem] font-bold tracking-[-0.03em] text-[#1E293B]">{t('common.brand')}</span>
+              <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
+                <img src={sovaLogo} alt={t('common.brand')} decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
+                <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
               </Link>
 
               <div className="hidden items-center gap-3 md:flex">
@@ -46,6 +46,17 @@ export function SiteHeader() {
               </div>
 
               <div className="hidden shrink-0 items-center gap-3 md:flex">
+                {showThemeToggle ? (
+                  <button
+                    type="button"
+                    onClick={onToggleHomeDarkMode}
+                    aria-label={isHomeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#1E293B] transition hover:border-[#10B981] hover:text-[#10B981]"
+                  >
+                    {isHomeDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  </button>
+                ) : null}
+
                 <Link
                   to={ROUTES.auth}
                   className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[0.86rem] font-semibold text-[#10B981] transition hover:bg-[#F8FAFC]"
@@ -73,13 +84,25 @@ export function SiteHeader() {
                 />
               </div>
 
-              <button
-                type="button"
-                className="rounded-full p-2 text-[#1E293B] hover:bg-[#F8FAFC] md:hidden"
-                onClick={() => setMenuOpen((prev) => !prev)}
-              >
-                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </button>
+              <div className="flex items-center gap-1.5 md:hidden">
+                {showThemeToggle ? (
+                  <button
+                    type="button"
+                    onClick={onToggleHomeDarkMode}
+                    aria-label={isHomeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                    className="inline-flex h-8.5 w-8.5 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#1E293B] transition hover:border-[#10B981] active:scale-[0.9] sm:h-9 sm:w-9"
+                  >
+                    {isHomeDarkMode ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  className="rounded-full p-2 text-[#1E293B] hover:bg-[#F8FAFC] active:scale-[0.9]"
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                >
+                  {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
 
             {menuOpen && (
