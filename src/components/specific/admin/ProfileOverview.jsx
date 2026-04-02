@@ -14,18 +14,18 @@ export function ProfileOverview() {
   const { i18n } = useTranslation()
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-6">
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="rounded-[30px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
+      <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+        <div className="rounded-[24px] border border-[#DDEFE7] bg-white p-5 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div className="flex items-start gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-[22px] bg-gradient-to-br from-emerald-400 to-teal-500 text-xl font-bold text-white shadow-[0_16px_34px_rgba(16,185,129,0.22)]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-[20px] bg-gradient-to-br from-emerald-400 to-teal-500 text-lg font-bold text-white shadow-[0_16px_34px_rgba(16,185,129,0.22)]">
                 {(user.name || 'U')[0]}
               </div>
               <div>
                 <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-emerald-500">SOVA Workspace Profile</p>
-                <h2 className="mt-2 font-display text-[1.6rem] font-bold text-slate-900">{user.name || 'User'}</h2>
-                <p className="mt-1 text-[0.92rem] text-slate-500">Manage your workspace identity, language, and automation readiness from one place.</p>
+                <h2 className="mt-2 font-display text-[1.35rem] font-bold text-[#173247]">{user.name || 'User'}</h2>
+                <p className="mt-1 text-[0.82rem] text-[#62808D]">Manage your workspace identity, language, and automation readiness from one place.</p>
               </div>
             </div>
 
@@ -35,49 +35,49 @@ export function ProfileOverview() {
             </span>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {activity.map((item) => (
-              <div key={item.label} className="rounded-[22px] bg-[#F8FAFC] p-4">
+              <div key={item.label} className="rounded-[20px] bg-[#F2FBF7] p-3.5">
                 <span className={`flex h-10 w-10 items-center justify-center rounded-2xl ${item.tint}`}>
                   <item.icon className="h-4.5 w-4.5" />
                 </span>
-                <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">{item.label}</p>
-                <p className="mt-1 font-display text-2xl font-extrabold text-slate-900">{item.value}</p>
+                <p className="mt-3 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">{item.label}</p>
+                <p className="mt-1 font-display text-[1.4rem] font-extrabold text-[#173247]">{item.value}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[30px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
-          <h3 className="font-display text-[1.15rem] font-bold text-slate-900">Workspace details</h3>
-          <div className="mt-5 space-y-4">
-            <div className="rounded-[22px] bg-[#F8FAFC] p-4">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">Current language</p>
-              <div className="mt-2 flex items-center gap-3 text-slate-700">
+        <div className="rounded-[24px] border border-[#DDEFE7] bg-white p-5 shadow-sm sm:p-5">
+          <h3 className="font-display text-[1rem] font-bold text-[#173247]">Workspace details</h3>
+          <div className="mt-4 space-y-3">
+            <div className="rounded-[20px] bg-[#F2FBF7] p-3.5">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">Current language</p>
+              <div className="mt-2 flex items-center gap-3 text-[#295565]">
                 <Globe2 className="h-4.5 w-4.5 text-emerald-500" />
-                <span className="text-[0.92rem] font-semibold">{i18n.language.toUpperCase()}</span>
+                <span className="text-[0.84rem] font-semibold">{i18n.language.toUpperCase()}</span>
               </div>
             </div>
-            <div className="rounded-[22px] bg-[#F8FAFC] p-4">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">Products in catalog</p>
-              <p className="mt-2 text-[0.96rem] font-semibold text-slate-700">{products.length} ready for automated replies</p>
+            <div className="rounded-[20px] bg-[#F2FBF7] p-3.5">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">Products in catalog</p>
+              <p className="mt-2 text-[0.84rem] font-semibold text-[#295565]">{products.length} ready for automated replies</p>
             </div>
-            <div className="rounded-[22px] bg-[#F8FAFC] p-4">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">Business tone profiles</p>
-              <p className="mt-2 text-[0.96rem] font-semibold text-slate-700">{tones.length} tone setting{tones.length === 1 ? '' : 's'} configured</p>
+            <div className="rounded-[20px] bg-[#F2FBF7] p-3.5">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">Business tone profiles</p>
+              <p className="mt-2 text-[0.84rem] font-semibold text-[#295565]">{tones.length} tone setting{tones.length === 1 ? '' : 's'} configured</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded-[30px] border border-slate-100 bg-white p-6 shadow-sm sm:p-7">
+      <div className="rounded-[24px] border border-[#DDEFE7] bg-white p-5 shadow-sm sm:p-5">
         <div className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
             <UserRound className="h-5 w-5" />
           </span>
           <div>
-            <h3 className="font-display text-[1.1rem] font-bold text-slate-900">Profile summary</h3>
-            <p className="text-[0.85rem] text-slate-500">This workspace is ready to manage WhatsApp conversations, route qualified leads, and automate replies with SOVA.</p>
+            <h3 className="font-display text-[0.96rem] font-bold text-[#173247]">Profile summary</h3>
+            <p className="text-[0.78rem] text-[#62808D]">This workspace is ready to manage WhatsApp conversations, route qualified leads, and automate replies with SOVA.</p>
           </div>
         </div>
       </div>

@@ -17,21 +17,21 @@ const weeklyRows = [
 
 export function ReportsOverview() {
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-6">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-[1.45rem] font-bold text-slate-800">Sales Reports</h2>
-          <p className="mt-0.5 text-[0.82rem] text-slate-400">Track how SOVA conversations turn into orders, revenue, and faster customer replies.</p>
+          <h2 className="font-display text-[1.2rem] font-bold text-[#173247]">Sales Reports</h2>
+          <p className="mt-0.5 text-[0.74rem] text-[#62808D]">Track how SOVA conversations turn into orders, revenue, and faster customer replies.</p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-[0.78rem] font-bold text-slate-600 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600">
+        <button className="inline-flex items-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-3.5 py-2 text-[0.74rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600">
           <Download className="h-4 w-4" />
           Export report
         </button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-3">
         {reportStats.map((stat) => (
-          <div key={stat.label} className="rounded-[24px] border border-slate-100 bg-white p-5 shadow-sm">
+          <div key={stat.label} className="rounded-[20px] border border-[#DDEFE7] bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between">
               <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${stat.color}`}>
                 <stat.icon className="h-5 w-5" />
@@ -41,30 +41,30 @@ export function ReportsOverview() {
                 {stat.change}
               </span>
             </div>
-            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">{stat.label}</p>
-            <p className="mt-1 font-display text-3xl font-extrabold text-slate-900">{stat.value}</p>
+            <p className="mt-3 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">{stat.label}</p>
+            <p className="mt-1 font-display text-[1.7rem] font-extrabold text-[#173247]">{stat.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-[28px] border border-slate-100 bg-white p-5 shadow-sm">
+      <div className="rounded-[24px] border border-[#DDEFE7] bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-display text-[1.05rem] font-bold text-slate-800">Weekly performance snapshot</h3>
-            <p className="text-[0.8rem] text-slate-400">A simple view of chat volume, orders, and revenue influenced by automation.</p>
+            <h3 className="font-display text-[0.96rem] font-bold text-[#173247]">Weekly performance snapshot</h3>
+            <p className="text-[0.74rem] text-[#62808D]">A simple view of chat volume, orders, and revenue influenced by automation.</p>
           </div>
           <ChartNoAxesCombined className="h-5 w-5 text-[#10B981]" />
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-[22px] border border-slate-100">
-          <div className="grid grid-cols-[0.8fr_1fr_1fr_1fr] bg-[#F8FAFC] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-slate-400">
+        <div className="mt-4 overflow-hidden rounded-[20px] border border-[#DDEFE7]">
+          <div className="grid grid-cols-[0.8fr_1fr_1fr_1fr] bg-[#F2FBF7] px-3 py-2.5 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">
             <span>Day</span>
             <span>Chats</span>
             <span>Orders</span>
             <span>Revenue</span>
           </div>
           {weeklyRows.map((row) => (
-            <div key={row.label} className="grid grid-cols-[0.8fr_1fr_1fr_1fr] items-center border-t border-slate-100 px-4 py-3 text-[0.88rem] font-semibold text-slate-700">
+            <div key={row.label} className="grid grid-cols-[0.8fr_1fr_1fr_1fr] items-center border-t border-[#DDEFE7] px-3 py-2.5 text-[0.8rem] font-semibold text-[#295565]">
               <span>{row.label}</span>
               <span>{row.chats}</span>
               <span>{row.orders}</span>

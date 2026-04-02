@@ -30,10 +30,10 @@ function MainChart() {
   const points = chartData.map((value, index) => `${index * (100 / (chartData.length - 1))},${100 - value}`).join(' ')
 
   return (
-    <div className="relative h-[320px] w-full px-2 pt-6">
+    <div className="relative h-[250px] w-full px-1 pt-4">
       <div className="pointer-events-none absolute inset-x-0 bottom-10 top-6 grid grid-rows-4">
         {[...Array(4)].map((_, index) => (
-          <div key={index} className="border-t border-dashed border-slate-100" />
+          <div key={index} className="border-t border-dashed border-[#DBEEE7]" />
         ))}
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full overflow-visible">
@@ -59,7 +59,7 @@ function MainChart() {
           <circle key={`${value}-${index}`} cx={index * (100 / (chartData.length - 1))} cy={100 - value} r="1.6" fill="white" stroke="#10B981" strokeWidth="1" />
         ))}
       </svg>
-      <div className="mt-3 flex items-center justify-between px-1 text-[0.7rem] font-semibold text-slate-400">
+      <div className="mt-2 flex items-center justify-between px-1 text-[0.64rem] font-semibold text-[#6D8A88]">
         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
           <span key={day}>{day}</span>
         ))}
@@ -72,7 +72,7 @@ function LeadsBarChart() {
   const maxValue = Math.max(...leadData)
 
   return (
-    <div className="flex h-[220px] items-end justify-between gap-3 pt-8">
+    <div className="flex h-[170px] items-end justify-between gap-2.5 pt-5">
       {leadData.map((value, index) => (
         <div key={`${value}-${index}`} className="flex flex-1 flex-col items-center gap-3">
           <Motion.div
@@ -81,7 +81,7 @@ function LeadsBarChart() {
             transition={{ duration: 0.7, delay: index * 0.05 }}
             className="w-full rounded-t-[18px] bg-gradient-to-t from-[#10B981] via-[#34D399] to-[#A78BFA] shadow-[0_10px_25px_rgba(16,185,129,0.18)]"
           />
-          <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+          <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index]}
           </span>
         </div>
@@ -109,7 +109,7 @@ function SourceDonut() {
     <div className="flex items-center gap-6">
       <div className="relative flex h-40 w-40 items-center justify-center">
         <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="#EAF4F1" strokeWidth="14" />
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="#E6F5EE" strokeWidth="14" />
           {segments.map((item) => (
             <circle
               key={item.label}
@@ -126,18 +126,18 @@ function SourceDonut() {
           ))}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">Lead mix</p>
-          <p className="mt-1 font-display text-2xl font-bold text-slate-900">64%</p>
+          <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">Lead mix</p>
+          <p className="mt-1 font-display text-xl font-bold text-[#173247]">64%</p>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-3">
         {sourceData.map((item) => (
-          <div key={item.label} className="flex items-center justify-between rounded-2xl bg-[#F8FAFC] px-4 py-3">
+          <div key={item.label} className="flex items-center justify-between rounded-2xl bg-[#F2FBF7] px-3 py-2.5">
             <div className="flex items-center gap-3">
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
-              <span className="text-sm font-medium text-slate-600">{item.label}</span>
+              <span className="text-[0.84rem] font-medium text-[#476977]">{item.label}</span>
             </div>
-            <span className="text-sm font-bold text-slate-900">{item.value}%</span>
+            <span className="text-[0.84rem] font-bold text-[#173247]">{item.value}%</span>
           </div>
         ))}
       </div>
@@ -161,99 +161,99 @@ export function Overview() {
   }
 
   return (
-    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-8">
-      <Motion.div variants={item} className="rounded-[28px] border border-slate-100 bg-white p-3 shadow-sm">
+    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-5">
+      <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-2.5 shadow-sm">
         <div className="flex flex-wrap items-center gap-3">
           {quickTabs.map((tab) => (
             <button
               key={tab.label}
               onClick={() => handleQuickAction(tab.action)}
-              className="group inline-flex items-center gap-3 rounded-full border border-slate-200 bg-[#F8FAFC] px-4 py-3 text-sm font-bold text-slate-700 transition hover:border-emerald-200 hover:bg-[#F4FBF8] hover:text-[#10B981]"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-[#DDEFE7] bg-[#F2FBF7] px-3.5 py-2 text-[0.82rem] font-bold text-[#295565] transition hover:border-emerald-200 hover:bg-[#ECF8F3] hover:text-[#10B981]"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#10B981] shadow-sm">
-                <tab.icon className="h-4.5 w-4.5" />
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#10B981] shadow-sm">
+                <tab.icon className="h-4 w-4" />
               </span>
               <span>{tab.label}</span>
-              <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#10B981]" />
+              <ArrowRight className="h-3.5 w-3.5 text-[#86A29B] transition group-hover:translate-x-1 group-hover:text-[#10B981]" />
             </button>
           ))}
         </div>
       </Motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4">
         {stats.map((stat) => (
-          <Motion.div key={stat.name} variants={item} className="rounded-[26px] border border-slate-100 bg-white p-5 shadow-sm">
+          <Motion.div key={stat.name} variants={item} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${stat.color} shadow-sm`}>
-                <stat.icon className="h-5 w-5" />
+              <span className={`flex h-10 w-10 items-center justify-center rounded-2xl ${stat.color} shadow-sm`}>
+                <stat.icon className="h-4.5 w-4.5" />
               </span>
               <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#059669]">
                 <ArrowUpRight className="h-3 w-3" />
                 {stat.change}
               </span>
             </div>
-            <p className="mt-4 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-slate-400">{stat.name}</p>
-            <p className="mt-1 font-display text-3xl font-extrabold text-slate-900">{stat.value}</p>
+            <p className="mt-3 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#6D8A88]">{stat.name}</p>
+            <p className="mt-1 font-display text-[1.7rem] font-extrabold text-[#173247]">{stat.value}</p>
           </Motion.div>
         ))}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.45fr_0.95fr]">
-        <Motion.div variants={item} className="rounded-[32px] border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+      <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-[1.45fr_0.95fr]">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-xl font-bold text-slate-800">Conversation to sale trend</h3>
-              <p className="text-sm font-semibold text-slate-400">Live weekly automation performance</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Conversation to sale trend</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D]">Live weekly automation performance</p>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600">
-              <TrendingUp className="h-4 w-4" /> +28% this month
+            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[0.66rem] font-bold text-emerald-600">
+              <TrendingUp className="h-3.5 w-3.5" /> +28% this month
             </div>
           </div>
           <MainChart />
         </Motion.div>
 
-        <Motion.div variants={item} className="rounded-[32px] border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-xl font-bold text-slate-800">Lead quality mix</h3>
-              <p className="text-sm font-semibold text-slate-400">Where SOVA is focusing next</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Lead quality mix</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D]">Where SOVA is focusing next</p>
             </div>
-            <ShieldCheck className="h-5 w-5 text-[#10B981]" />
+            <ShieldCheck className="h-4.5 w-4.5 text-[#10B981]" />
           </div>
-          <div className="mt-6">
+          <div className="mt-4">
             <SourceDonut />
           </div>
         </Motion.div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-        <Motion.div variants={item} className="rounded-[32px] border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+      <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-xl font-bold text-slate-800">Qualified leads by day</h3>
-              <p className="text-sm font-semibold text-slate-400">Real-time lead capture volume</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Qualified leads by day</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D]">Real-time lead capture volume</p>
             </div>
-            <div className="rounded-full bg-violet-50 px-3 py-1 text-xs font-bold text-violet-600">Updated live</div>
+            <div className="rounded-full bg-violet-50 px-2.5 py-1 text-[0.66rem] font-bold text-violet-600">Updated live</div>
           </div>
           <LeadsBarChart />
         </Motion.div>
 
-        <Motion.div variants={item} className="rounded-[32px] border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+        <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-xl font-bold text-slate-800">Recent automation activity</h3>
-              <p className="text-sm font-semibold text-slate-400">What SOVA handled just now</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#173247]">Recent automation activity</h3>
+              <p className="text-[0.76rem] font-semibold text-[#62808D]">What SOVA handled just now</p>
             </div>
             <div className="h-2.5 w-2.5 rounded-full bg-[#10B981] shadow-[0_0_0_6px_rgba(16,185,129,0.12)]" />
           </div>
-          <div className="mt-6 space-y-4">
+          <div className="mt-4 space-y-3">
             {activityFeed.map((entry) => (
-              <div key={entry.title} className="rounded-[24px] bg-[#F8FAFC] p-4">
+              <div key={entry.title} className="rounded-[20px] bg-[#F2FBF7] p-3">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-bold text-slate-800">{entry.title}</p>
-                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">{entry.time}</span>
+                  <p className="text-[0.84rem] font-bold text-[#173247]">{entry.title}</p>
+                  <span className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">{entry.time}</span>
                 </div>
-                <p className="mt-2 text-sm leading-6 text-slate-500">{entry.meta}</p>
+                <p className="mt-1.5 text-[0.8rem] leading-5 text-[#4F7281]">{entry.meta}</p>
               </div>
             ))}
           </div>

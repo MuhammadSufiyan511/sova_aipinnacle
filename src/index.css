@@ -104,5 +104,29 @@
     display: inline-block;
     transform: scaleX(-1);
   }
+
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #10B981 #ECF8F3;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-track {
+    border-radius: 999px;
+    background: #ECF8F3;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: linear-gradient(180deg, #10B981 0%, #06B6D4 100%);
+    border: 1px solid #ECF8F3;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0F8F72 0%, #0891B2 100%);
+  }
 }
 
