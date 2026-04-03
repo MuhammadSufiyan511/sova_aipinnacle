@@ -52,16 +52,16 @@ export function AboutContactPage() {
           <div className="absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-50/40 blur-[100px] about-blur-2" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1160px] px-5">
+        <div className="relative z-10 mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
           <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#10B981] about-eyebrow">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#10B981] about-eyebrow 2xl:text-base 3xl:text-lg">
                 {t('sections.aboutEyebrow')}
               </p>
-              <h1 className="font-display text-[2.45rem] font-extrabold leading-[1.08] tracking-[-0.05em] text-[#1E293B] sm:text-[3.15rem] lg:text-[3.35rem] about-title">
+              <h1 className="font-display text-[2.45rem] font-extrabold leading-[1.08] tracking-[-0.05em] text-[#1E293B] sm:text-[3.15rem] lg:text-[3.35rem] about-title 2xl:text-[4.8rem] 3xl:text-[5.5rem]">
                 {t('sections.aboutTitle')}
               </h1>
-              <p className="mt-6 max-w-[560px] text-[1rem] leading-[1.75] text-[#5a9e88] lg:text-[1.05rem] about-description">
+              <p className="mt-6 max-w-[560px] text-[1rem] leading-[1.75] text-[#5a9e88] lg:text-[1.05rem] about-description 2xl:max-w-[700px] 2xl:text-[1.4rem] 3xl:max-w-[850px] 3xl:text-[1.6rem]">
                 {t('sections.aboutDescription')}
               </p>
             </div>
@@ -86,7 +86,7 @@ export function AboutContactPage() {
 
       {/* ── MISSION SECTION ── */}
       <AeoOverviewSection />
-      <section className="mx-auto max-w-[1160px] px-5 pt-16 pb-3 lg:pt-20 lg:pb-6">
+      <section className="mx-auto max-w-[1160px] px-5 pt-16 pb-3 lg:pt-20 lg:pb-6 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:pt-32 3xl:pt-40">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
           <div className="space-y-8">
             <h2 className="font-display text-[2.2rem] font-bold tracking-[-0.03em] text-[#1E293B]">
@@ -119,7 +119,7 @@ export function AboutContactPage() {
       </section>
 
       {/* ── FAQ SECTION WITH PAGINATION ── */}
-      <section className="mx-auto max-w-[1160px] px-5 py-14 lg:py-24">
+      <section className="mx-auto max-w-[1160px] px-5 py-14 lg:py-24 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:py-32 3xl:py-40">
         <div className="mb-16 flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
           <div className="text-center sm:text-left">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#10B981]">{t('common.faq')}</p>

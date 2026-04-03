@@ -120,7 +120,7 @@ export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="mx-auto max-w-[860px] px-1 text-center font-display text-[2.3rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:px-4 sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
+            className="mx-auto max-w-[860px] px-1 text-center font-display text-[2.3rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:px-4 sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem] 2xl:max-w-[1100px] 2xl:text-[4rem] 3xl:max-w-[1300px] 3xl:text-[4.8rem]"
           >
             {t('hero.titlePrefix')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] via-[#06B6D4] to-[#F1990A] bg-clip-text text-transparent">
@@ -135,7 +135,7 @@ export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
           >
-            <p className="mx-auto mt-5 max-w-[780px] px-2 text-center text-[0.98rem] leading-[1.65] text-[#1E293B]/80 sm:mt-7 sm:text-[1.1rem] lg:text-[1.2rem]">
+            <p className="mx-auto mt-5 max-w-[780px] px-2 text-center text-[0.98rem] leading-[1.65] text-[#1E293B]/80 sm:mt-7 sm:text-[1.1rem] lg:text-[1.2rem] 2xl:mt-10 2xl:max-w-[1000px] 2xl:text-[1.4rem] 3xl:max-w-[1150px] 3xl:text-[1.6rem]">
               {t('hero.description')}
             </p>
           </MotionDiv>

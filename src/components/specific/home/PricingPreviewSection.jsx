@@ -18,8 +18,8 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
   const prevPlan = () => setActivePlan((prev) => (prev - 1 + localizedPlans.length) % localizedPlans.length)
 
   return (
-    <section id="pricing" className="home-pricing-preview-section w-full bg-white py-10 sm:py-16 scroll-mt-28">
-      <div className="mx-auto max-w-[1160px] px-5">
+    <section id="pricing" className="home-pricing-preview-section w-full bg-white py-10 sm:py-16 2xl:py-24 3xl:py-32 scroll-mt-28">
+      <div className="mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -28,17 +28,17 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
           className="mb-10 text-center"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#10B981]">{t('sections.pricingEyebrow')}</p>
-          <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">
+          <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem] 2xl:text-[3.6rem] 3xl:text-[4.2rem]">
             {t('sections.pricingTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">
+          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#5a9e88] 2xl:mt-5 2xl:max-w-[500px] 2xl:text-[1.2rem] 3xl:max-w-[650px] 3xl:text-[1.4rem]">
             {t('sections.pricingDescription')}
           </p>
         </MotionDiv>
 
         {/* Carousel Container */}
         <div className="relative mx-auto mt-6">
-          <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-6 2xl:gap-10 3xl:gap-14">
             {/* Mobile View - Animated Carousel */}
             <div className="overflow-visible lg:hidden">
               <AnimatePresence mode="wait" initial={false}>

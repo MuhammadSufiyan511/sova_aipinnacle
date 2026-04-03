@@ -28,9 +28,9 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
   return (
     <>
       <header className="pointer-events-none fixed left-0 right-0 top-0 z-[70] flex justify-center px-4 pt-4 sm:pt-6">
-        <div className="relative flex w-full max-w-[1340px] items-center justify-center">
+        <div className="relative flex w-full max-w-[1340px] items-center justify-center 2xl:max-w-[1600px] 3xl:max-w-[1800px]">
           <div
-            className={`site-header-shell pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 ${
+            className={`site-header-shell pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 2xl:max-w-[1240px] 3xl:max-w-[1440px] ${
               scrolled
                 ? 'border-[#d8e9e3] bg-white/92 shadow-[0_10px_32px_rgba(30,41,59,0.12)] backdrop-blur-xl'
                 : 'border-[#e4efeb] bg-white/82 shadow-[0_4px_24px_rgba(30,41,59,0.08)] backdrop-blur-lg'

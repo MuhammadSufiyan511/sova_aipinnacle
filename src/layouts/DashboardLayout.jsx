@@ -269,7 +269,7 @@ export function DashboardLayout({ children }) {
 
         {/* Page Content */}
         <main className="flex-1 w-full min-w-0 overflow-x-hidden p-3 sm:p-6 lg:p-8">
-          <div className="mx-auto w-full min-w-0 max-w-[76rem]">
+          <div className="mx-auto w-full min-w-0 max-w-[76rem] 2xl:max-w-[90rem] 3xl:max-w-[110rem]">
             <AnimatePresence mode="wait">
               <Motion.div
                 key={location.pathname}

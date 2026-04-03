@@ -44,7 +44,7 @@ export function CaseStudiesPage() {
   }
 
   return (
-    <section className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32">
+    <section className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:pb-40 3xl:pb-48">
       <SeoHead
         title="Case Studies | SOVA Results on WhatsApp"
         description="Read how businesses use SOVA to automate WhatsApp replies, save team time, filter buyers faster, and improve lead conversion."
@@ -56,11 +56,11 @@ export function CaseStudiesPage() {
         ]}
       />
       <div className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
-         <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981] 2xl:text-base 3xl:text-lg">{t('sections.caseEyebrow')}</p>
+         <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl 2xl:text-5xl 3xl:text-6xl">
           {t('sections.caseTitle')}
         </h1>
-        <p className="mt-3 text-[0.96rem] leading-6 text-[#5a9e88] sm:text-[1.1rem] sm:leading-7">
+        <p className="mt-3 text-[0.96rem] leading-6 text-[#5a9e88] sm:text-[1.1rem] sm:leading-7 2xl:mt-6 2xl:text-[1.3rem] 2xl:leading-8 3xl:text-[1.5rem] 3xl:leading-9">
           {t('sections.caseDescription')}
         </p>
       </div>

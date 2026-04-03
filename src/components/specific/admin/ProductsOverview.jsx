@@ -78,7 +78,18 @@ export function ProductsOverview() {
               >
                 <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]} admin-item-img-shell`}>
                   {product.imagePreview ? (
-                    <img src={product.imagePreview} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+                    product.mediaType === 'video' ? (
+                      <video
+                        src={product.imagePreview}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : (
+                      <img src={product.imagePreview} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+                    )
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-black/5 text-black/20">
                       <Package className="h-10 w-10" />

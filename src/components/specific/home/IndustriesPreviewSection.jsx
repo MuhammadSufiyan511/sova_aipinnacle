@@ -55,8 +55,8 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
   }
 
   return (
-    <section className="home-industries-preview-section relative w-full py-10">
-      <div className="mx-auto max-w-[1160px] px-5">
+    <section className="home-industries-preview-section relative w-full py-10 2xl:py-16 3xl:py-20">
+      <div className="mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,10 +65,10 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
           className="mb-10 text-center"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#10B981]">{t('sections.industriesEyebrow')}</p>
-          <h2 className="font-display text-[1.7rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.5rem]">
+          <h2 className="font-display text-[1.7rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.5rem] 2xl:text-[3.4rem] 3xl:text-[4rem]">
             {t('sections.industriesTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[420px] text-[0.9rem] leading-[1.6] text-[#5a9e88] sm:text-[0.96rem] sm:leading-[1.75]">
+          <p className="mx-auto mt-3 max-w-[420px] text-[0.9rem] leading-[1.6] text-[#5a9e88] sm:text-[0.96rem] sm:leading-[1.75] 2xl:mt-5 2xl:max-w-[600px] 2xl:text-[1.2rem] 3xl:max-w-[800px] 3xl:text-[1.4rem]">
             {t('sections.industriesDescription')}
           </p>
         </MotionDiv>

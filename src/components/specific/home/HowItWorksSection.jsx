@@ -45,17 +45,17 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
   }
 
   return (
-    <section className="home-how-it-works-section w-full pb-8 pt-10 sm:pb-12 sm:pt-16">
-      <div className="mx-auto max-w-[1160px] px-5">
+    <section className="home-how-it-works-section w-full pb-8 pt-10 sm:pb-12 sm:pt-16 2xl:pb-24 2xl:pt-28 3xl:pb-32 3xl:pt-36">
+      <div className="mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
         <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
           <p className="section-eyebrow mb-4 inline-flex rounded-full border border-[#CDEDE5] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] px-5 py-2 text-[0.74rem] font-bold tracking-[0.08em] text-[#10B981] shadow-[0_8px_24px_rgba(16,185,129,0.1)]">
             {t('sections.howEyebrow')}
           </p>
-          <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem]">
+          <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem] 2xl:text-[3.8rem] 3xl:text-[4.5rem]">
             {t('sections.howTitle').split(' ').slice(0, -1).join(' ')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] to-[#F59E0B] bg-clip-text text-transparent">{t('sections.howTitle').split(' ').slice(-1)[0]}</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">{t('sections.howDescription')}</p>
+          <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88] 2xl:mt-5 2xl:max-w-[600px] 2xl:text-[1.2rem] 3xl:max-w-[800px] 3xl:text-[1.4rem]">{t('sections.howDescription')}</p>
         </MotionDiv>
 
         <div 

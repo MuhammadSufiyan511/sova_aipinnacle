@@ -96,7 +96,7 @@ export function OnboardingPage() {
         key="onboarding-main-container"
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative z-10 w-full max-w-5xl onboarding-main-container"
+        className="relative z-10 w-full max-w-5xl 2xl:max-w-6xl 3xl:max-w-7xl onboarding-main-container"
       >
         {/* Step Progress Dots */}
         {currentStepNum && (

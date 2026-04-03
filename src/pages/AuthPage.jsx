@@ -23,7 +23,7 @@ export function AuthPage() {
           ]),
         ]}
       />
-      <div className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32">
+      <div className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:pb-40 3xl:pb-48">
         <div className="overflow-hidden border-y border-[#D1FAE5] bg-white shadow-[0_24px_80px_rgba(16,185,129,0.12)] sm:rounded-[40px] sm:border">
           <div className="flex flex-col lg:grid lg:grid-cols-[0.92fr_1.08fr]">
             <div className="auth-banner-box relative overflow-hidden bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-6 sm:p-14 text-white">
@@ -36,12 +36,12 @@ export function AuthPage() {
 
               <div className="relative z-10">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#F1990A]">{t('sections.authEyebrow')}</p>
-                <h1 className="mt-6 font-display text-[2rem] font-extrabold leading-[1.1] tracking-[-0.04em] sm:text-[2.6rem]">
+                <h1 className="mt-6 font-display text-[2rem] font-extrabold leading-[1.1] tracking-[-0.04em] sm:text-[2.6rem] 2xl:text-[3.5rem] 3xl:text-[4rem]">
                   <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">
                     {t('sections.authTitle')}
                   </span>
                 </h1>
-                <p className="mt-5 text-[0.95rem] leading-[1.7] text-white/90 sm:text-[1.1rem]">{t('sections.authDescription')}</p>
+                <p className="mt-5 text-[0.95rem] leading-[1.7] text-white/90 sm:text-[1.1rem] 2xl:text-[1.25rem] 3xl:text-[1.4rem]">{t('sections.authDescription')}</p>
                 <div className="mt-10 space-y-5">
                   {localizedBenefits.map((point) => (
                     <div key={point} className="flex items-center gap-4 text-[0.9rem] font-medium text-white sm:text-[1rem]">

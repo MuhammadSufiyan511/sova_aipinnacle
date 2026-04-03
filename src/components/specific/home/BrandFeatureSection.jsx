@@ -92,17 +92,17 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1160px] px-5 py-10 sm:py-16">
+      <div className="relative z-10 mx-auto max-w-[1160px] px-5 py-10 sm:py-16 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:py-24 3xl:py-32">
         <div className="text-center">
           {/* Heading */}
-          <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-            <h2 className="font-display text-[2.8rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.5rem]">
+          <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-14 2xl:mb-20">
+            <h2 className="font-display text-[2.8rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.5rem] 2xl:text-[4.5rem] 3xl:text-[5.2rem]">
               {copy.heading[0]}{' '}
               <span className="bg-gradient-to-r from-[#10B981] via-[#06B6D4] to-[#A78BFA] bg-clip-text text-transparent">
                 {copy.heading[1]}
               </span>
             </h2>
-            <p className="mx-auto mt-4 max-w-[600px] text-[1.1rem] leading-[1.6] text-[#5a9e88]">
+            <p className="mx-auto mt-4 max-w-[600px] text-[1.1rem] leading-[1.6] text-[#5a9e88] 2xl:mt-6 2xl:max-w-[800px] 2xl:text-[1.4rem] 3xl:text-[1.6rem]">
               {copy.subheading}
             </p>
           </MotionDiv>
@@ -127,9 +127,9 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
 
         {/* Below fold — auto section */}
         <div className="relative z-10 -mt-[20%] will-change-transform">
-          <div className="bg-white pb-10 pt-10">
+          <div className="bg-white pb-10 pt-10 2xl:pb-20 2xl:pt-20">
             <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "150px" }} transition={{ duration: 0.6 }} className="text-center">
-              <h2 className="font-display text-[2.6rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.2rem]">
+              <h2 className="font-display text-[2.6rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.2rem] 2xl:text-[4rem] 3xl:text-[4.6rem]">
                 {copy.autoTitle[0]}{' '}
                 <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">
                   {copy.autoTitle[1]}
@@ -182,7 +182,7 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
             </div>
 
             {/* TABLET / DESKTOP ONLY: Grid */}
-            <div className="hidden mx-auto mt-4 max-w-[1000px] gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-2">
+            <div className="hidden mx-auto mt-4 max-w-[1000px] gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-2 2xl:max-w-[1240px] 2xl:gap-8 3xl:max-w-[1440px] 3xl:gap-12">
               <ProductivityGraphCard cardCopy={copy.cards[0]} />
               <ActiveUsersCard cardCopy={copy.cards[1]} microCopy={copy.micro} />
               <TypingSimulationCard cardCopy={copy.cards[2]} microCopy={copy.micro} />

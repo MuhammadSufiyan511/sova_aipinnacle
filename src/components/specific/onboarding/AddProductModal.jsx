@@ -6,6 +6,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
   const [name, setName] = useState(initialProduct?.name || '')
   const [description, setDescription] = useState(initialProduct?.description || '')
   const [imagePreview, setImagePreview] = useState(initialProduct?.imagePreview || null)
+  const [mediaType, setMediaType] = useState(initialProduct?.mediaType || 'image')
   const fileInputRef = useRef(null)
   const isEditMode = Boolean(initialProduct)
 
@@ -15,9 +16,12 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
     setImagePreview(null)
   }
 
-  const handleImageChange = (e) => {
+  const handleMediaChange = (e) => {
     const file = e.target.files?.[0]
     if (file) {
+      const isVideo = file.type.startsWith('video/')
+      setMediaType(isVideo ? 'video' : 'image')
+
       const reader = new FileReader()
       reader.onloadend = () => {
         setImagePreview(reader.result)
@@ -34,6 +38,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
         name: name.trim(),
         description: description.trim(),
         imagePreview,
+        mediaType,
       }
 
       if (isEditMode) {
@@ -83,13 +88,24 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Product Image</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Product Media</label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   className="group relative flex h-24 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 transition hover:border-emerald-500 hover:bg-emerald-50/30"
                 >
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
+                    mediaType === 'video' ? (
+                      <video
+                        src={imagePreview}
+                        className="h-full w-full rounded-2xl object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : (
+                      <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
+                    )
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-full bg-white p-2 shadow-sm group-hover:scale-110 transition">
@@ -101,8 +117,8 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                   <input
                     type="file"
                     ref={fileInputRef}
-                    onChange={handleImageChange}
-                    accept="image/*"
+                    onChange={handleMediaChange}
+                    accept="image/*,video/*"
                     className="hidden"
                   />
                 </div>

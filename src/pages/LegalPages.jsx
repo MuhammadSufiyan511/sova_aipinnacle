@@ -50,7 +50,7 @@ function LegalPage({ eyebrow, title, description, sections, updatedAt, seoTitle,
   ]
 
   return (
-    <section className="mx-auto max-w-[1100px] px-5 pb-16 pt-30">
+    <section className="mx-auto max-w-[1100px] px-5 pb-16 pt-30 2xl:max-w-[1300px] 3xl:max-w-[1450px] 2xl:pb-24 3xl:pb-32">
       <SeoHead
         title={seoTitle}
         description={seoDescription}
@@ -73,13 +73,13 @@ function LegalPage({ eyebrow, title, description, sections, updatedAt, seoTitle,
           return (
             <article
               key={section.title}
-              className="rounded-[36px] border border-[#E2EFEA] bg-white p-8 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
+              className="rounded-[36px] border border-[#E2EFEA] bg-white p-6 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:p-8"
             >
-              <div className="flex items-center gap-5">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ECFDF5] to-[#FEF3C7] text-[#10B981]">
-                  {Icon ? <Icon className="h-6 w-6" /> : null}
+              <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
+                <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ECFDF5] to-[#FEF3C7] text-[#10B981] 2xl:h-18 2xl:w-18">
+                  {Icon ? <Icon className="h-6 w-6 2xl:h-8 2xl:w-8" /> : null}
                 </div>
-                <h2 className="font-display text-[2.2rem] font-bold tracking-[-0.04em] text-[#0F172A]">{section.title}</h2>
+                <h2 className="font-display text-[1.8rem] font-bold tracking-[-0.04em] text-[#0F172A] sm:text-[2.2rem] 2xl:text-[2.8rem] 3xl:text-[3.2rem]">{section.title}</h2>
               </div>
               <div className="mt-8 space-y-5">
                 {section.items.map((item) => (

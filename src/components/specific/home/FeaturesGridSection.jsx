@@ -60,8 +60,8 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
   ]
 
   return (
-    <section className="home-features-grid-section w-full overflow-hidden bg-[#F4F8FF] pb-10 pt-8 sm:pb-16 sm:pt-12">
-      <div className="mx-auto max-w-[1160px] px-5">
+    <section className="home-features-grid-section w-full overflow-hidden bg-[#F4F8FF] pb-10 pt-8 sm:pb-16 sm:pt-12 2xl:pb-24 2xl:pt-20 3xl:pb-32 3xl:pt-28">
+      <div className="mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
           transition={{ duration: 0.6 }}
           className="mb-10 text-center"
         >
-          <h2 className="font-display text-[1.9rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3.2rem]">
+          <h2 className="font-display text-[1.9rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3.2rem] 2xl:text-[4rem] 3xl:text-[4.8rem]">
             {t('sections.featuresTitleA')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">
               {t('sections.featuresTitleB')}
@@ -82,7 +82,7 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
           initial={isMobile ? "hidden" : undefined}
           whileInView={isMobile ? "visible" : undefined}
           viewport={isMobile ? { once: true, margin: "0px 0px 200px 0px" } : undefined}
-          className="flex w-full flex-col gap-8 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible lg:auto-rows-[258px] lg:grid-cols-3"
+          className="flex w-full flex-col gap-8 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible lg:auto-rows-[258px] lg:grid-cols-3 2xl:gap-8 2xl:auto-rows-[320px] 3xl:gap-12 3xl:auto-rows-[380px]"
         >
           {cardProps.map((item, index) => {
             const Component = item.component
