@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppShell } from './layouts/AppShell'
+import { AppSplashScreen } from './components/shared/AppSplashScreen'
+import { useState, useEffect } from 'react'
 import {
   AboutContactPage,
   AuthPage,
@@ -23,8 +25,19 @@ const PageLoader = () => (
 )
 
 function App() {
+  const [isAppInitializing, setIsAppInitializing] = useState(true)
+
+  useEffect(() => {
+    // Initial hardware/asset stabilization window
+    const timer = setTimeout(() => {
+      setIsAppInitializing(false)
+    }, 2200)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <BrowserRouter>
+      <AppSplashScreen isVisible={isAppInitializing} />
       <AppShell>
         <Suspense fallback={<PageLoader />}>
           <Routes>
