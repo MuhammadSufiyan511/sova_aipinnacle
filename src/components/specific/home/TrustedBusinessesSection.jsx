@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { trustedBusinesses } from '../../../data'
 
@@ -18,7 +18,7 @@ function BusinessTrack({ items }) {
   )
 }
 
-export function TrustedBusinessesSection() {
+export const TrustedBusinessesSection = memo(function TrustedBusinessesSection() {
   const { t } = useTranslation()
   const [isPaused, setIsPaused] = useState(false)
   const copy = t('content.trustedBusinesses', { returnObjects: true }) || {}
@@ -63,5 +63,5 @@ export function TrustedBusinessesSection() {
       </div>
     </section>
   )
-}
+})
 

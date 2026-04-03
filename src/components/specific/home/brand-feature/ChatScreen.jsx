@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-export function ChatScreen({ copy, chatLoopDuration = 10 }) {
+export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
   return (
     <div className="h-[440px] px-4 pb-5 pt-3 sm:h-[580px]">
       {/* Chat header - WhatsApp style */}
@@ -37,8 +37,8 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
               initial={{ opacity: 0, y: 14, scale: 0.92 }}
               animate={{
                 opacity: [0, 0, 1, 1, 0],
-                y: [14, 14, 0, 0, -4],
-                scale: [0.92, 0.92, 1, 1, 0.98],
+                y: isMobile ? [0, 0, 0, 0, 0] : [14, 14, 0, 0, -4],
+                scale: isMobile ? [1, 1, 1, 1, 1] : [0.92, 0.92, 1, 1, 0.98],
               }}
               transition={{
                 duration: chatLoopDuration,
@@ -68,8 +68,8 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{
               opacity: [0, 0, 1, 1, 0],
-              y: [10, 10, 0, 0, -2],
-              scale: [0.9, 0.9, 1, 1, 0.96],
+              y: isMobile ? [0, 0, 0, 0, 0] : [10, 10, 0, 0, -2],
+              scale: isMobile ? [1, 1, 1, 1, 1] : [0.9, 0.9, 1, 1, 0.96],
             }}
             transition={{
               duration: chatLoopDuration,
@@ -85,7 +85,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
                 key={i}
                 className="block h-2 w-2 rounded-full"
                 style={{ background: '#999', opacity: 0.6, willChange: 'transform, opacity' }}
-                animate={{ y: [0, -3, 0], opacity: [0.6, 1, 0.6] }}
+                animate={isMobile ? { opacity: [0.6, 1, 0.6] } : { y: [0, -3, 0], opacity: [0.6, 1, 0.6] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }}
               />
             ))}

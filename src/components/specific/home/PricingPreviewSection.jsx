@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, ArrowUpRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const MotionDiv = motion.div
 
-export function PricingPreviewSection() {
+export const PricingPreviewSection = memo(function PricingPreviewSection() {
   const { t } = useTranslation()
   const localizedPlans = t('content.pricing.plans', { returnObjects: true }) || pricingPlans
   const [activePlan, setActivePlan] = useState(0)
@@ -102,9 +102,9 @@ export function PricingPreviewSection() {
       </div>
     </section>
   )
-}
+})
 
-function PlanCard({ plan, index, isPopular, t }) {
+const PlanCard = memo(function PlanCard({ plan, index, isPopular, t }) {
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 28 }}
@@ -179,4 +179,4 @@ function PlanCard({ plan, index, isPopular, t }) {
       ) : null}
     </MotionDiv>
   )
-}
+})

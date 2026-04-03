@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
@@ -26,7 +27,7 @@ const defaultCards = [
   },
 ]
 
-export function AeoOverviewSection() {
+export const AeoOverviewSection = memo(function AeoOverviewSection() {
   const { t, i18n } = useTranslation()
   const cards = t('content.aeoOverview.cards', { returnObjects: true }) || defaultCards
   const isRtl = i18n.dir() === 'rtl'
@@ -78,4 +79,4 @@ export function AeoOverviewSection() {
       </div>
     </section>
   )
-}
+})

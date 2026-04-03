@@ -1,8 +1,9 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 
 const MotionDiv = motion.div
 
-export function ActiveUsersCard({ cardCopy, microCopy }) {
+export const ActiveUsersCard = memo(function ActiveUsersCard({ cardCopy, microCopy }) {
   return (
     <MotionDiv
       whileHover={{ y: -6 }}
@@ -52,4 +53,4 @@ export function ActiveUsersCard({ cardCopy, microCopy }) {
       <p className="mt-2 text-[0.85rem] leading-[1.65] text-[#1E293B] sm:mt-3 sm:text-[0.92rem]">{cardCopy.body}</p>
     </MotionDiv>
   )
-}
+})

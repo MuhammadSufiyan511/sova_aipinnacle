@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 
 const MotionDiv = motion.div
@@ -19,7 +20,7 @@ const featureImageTransition = (duration, delay = 0) => ({
   ease: 'easeInOut',
 })
 
-export function CardOne({ feature, image, micro, disableAnimation = false }) {
+export const CardOne = memo(function CardOne({ feature, image, micro, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -50,9 +51,9 @@ export function CardOne({ feature, image, micro, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})
 
-export function CardTwo({ feature, image, disableAnimation = false }) {
+export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -76,9 +77,9 @@ export function CardTwo({ feature, image, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})
 
-export function CardThree({ feature, image, disableAnimation = false }) {
+export const CardThree = memo(function CardThree({ feature, image, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -100,9 +101,9 @@ export function CardThree({ feature, image, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})
 
-export function CardFour({ feature, image, disableAnimation = false }) {
+export const CardFour = memo(function CardFour({ feature, image, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -126,9 +127,9 @@ export function CardFour({ feature, image, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})
 
-export function CardFive({ feature, image, disableAnimation = false }) {
+export const CardFive = memo(function CardFive({ feature, image, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -152,9 +153,9 @@ export function CardFive({ feature, image, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})
 
-export function CardSix({ feature, image, disableAnimation = false }) {
+export const CardSix = memo(function CardSix({ feature, image, disableAnimation = false }) {
   return (
     <MotionDiv
       {...(!disableAnimation && {
@@ -177,4 +178,4 @@ export function CardSix({ feature, image, disableAnimation = false }) {
       </div>
     </MotionDiv>
   )
-}
+})

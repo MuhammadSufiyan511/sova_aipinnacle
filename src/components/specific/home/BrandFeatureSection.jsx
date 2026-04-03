@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect, memo } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -13,9 +13,17 @@ import { ChatSimulationCard } from './brand-feature/ChatSimulationCard'
 const MotionDiv = motion.div
 const chatLoopDuration = 10
 
-export function BrandFeatureSection() {
+export const BrandFeatureSection = memo(function BrandFeatureSection() {
   const { t } = useTranslation()
   const copy = t('content.brandFeature', { returnObjects: true })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const [stackOrder, setStackOrder] = useState([0, 1, 2, 3])
 
@@ -48,11 +56,14 @@ export function BrandFeatureSection() {
     restDelta: 0.001,
   })
 
-  const mockupY = useTransform(smoothProgress, [0, 0.15, 0.85, 1], [300, 0, 0, -300])
-  const mockupOpacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
-  const mockupScale = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], [0.9, 1, 1.05, 1, 0.95])
-  const mockupRotate = useTransform(smoothProgress, [0, 0.5, 1], [-2, 0, 2])
-  const iconsY = useTransform(smoothProgress, [0, 1], [50, -50])
+  // ON MOBILE: Bypass spring smoothing to reduce physics calculation overhead
+  const activeProgress = isMobile ? scrollYProgress : smoothProgress
+
+  const mockupY = useTransform(activeProgress, [0, 0.15, 0.85, 1], [300, 0, 0, -300])
+  const mockupOpacity = useTransform(activeProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
+  
+  // ON MOBILE: Limit transforms to y/opacity only for smoother 60fps scrolling
+  const mockupScale = useTransform(activeProgress, [0, 0.2, 0.5, 0.8, 1], isMobile ? [1, 1, 1, 1, 1] : [0.9, 1, 1.05, 1, 0.95])
 
   return (
     <section className="home-brand-feature-section relative w-full overflow-hidden">
@@ -107,6 +118,7 @@ export function BrandFeatureSection() {
               mockupRotate={mockupRotate}
               copy={copy}
               chatLoopDuration={chatLoopDuration}
+              isMobile={isMobile}
             />
           </div>
         </div>
@@ -179,4 +191,4 @@ export function BrandFeatureSection() {
       </div>
     </section>
   )
-}
+})

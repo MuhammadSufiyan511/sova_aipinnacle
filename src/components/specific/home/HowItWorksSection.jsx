@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
@@ -15,7 +16,7 @@ const defaultSteps = [
   { num: '03', title: 'You Are Live', description: 'Go live on WhatsApp with instant replies, smarter follow-ups, and better lead handling from day one.', gradientFrom: '#A78BFA', gradientTo: '#8B5CF6', shadowColor: 'rgba(167,139,250,0.24)' },
 ]
 
-export function HowItWorksSection() {
+export const HowItWorksSection = memo(function HowItWorksSection() {
   const { t } = useTranslation()
   const [loadedVideos, setLoadedVideos] = useState([false, false, false])
   const localizedSteps = (t('content.howItWorks.steps', { returnObjects: true }) || defaultSteps).map((step, index) => ({
@@ -65,4 +66,4 @@ export function HowItWorksSection() {
       </div>
     </section>
   )
-}
+})

@@ -38,7 +38,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
           >
             <div className="flex items-center justify-between gap-4 px-5 py-2.5">
               <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
-                <img src={sovaLogo} alt={t('common.brand')} decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
+                <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
                 <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
               </Link>
 

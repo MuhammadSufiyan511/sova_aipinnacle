@@ -1,6 +1,6 @@
+import { useState, useEffect, memo } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect } from 'react'
 import { features } from '../../../data'
 import { CardOne, CardTwo, CardThree, CardFour, CardFive, CardSix } from './features-grid/FeatureGridCards'
 
@@ -13,7 +13,7 @@ import smartFollowUpsImage from '../../../assets/home/Smart Follow-ups.png'
 
 const MotionDiv = motion.div
 
-export function FeaturesGridSection() {
+export const FeaturesGridSection = memo(function FeaturesGridSection() {
   const { t } = useTranslation()
   const gridFeatures = t('content.featuresGrid.items', { returnObjects: true }) || features.slice(0, 6)
   const micro = t('content.featuresGrid.micro', { returnObjects: true })
@@ -98,4 +98,4 @@ export function FeaturesGridSection() {
       </div>
     </section>
   )
-}
+})

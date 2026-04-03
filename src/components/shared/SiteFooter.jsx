@@ -20,7 +20,7 @@ export function SiteFooter() {
         <div className="flex flex-col items-center justify-between gap-5 pb-6 md:flex-row md:gap-8 md:pb-12">
           <div className="flex items-center gap-3">
             <Link to={ROUTES.home} className="flex shrink-0 items-center gap-2.5">
-              <img src={sovaLogo} alt={`${t('common.brand')} logo`} decoding="async" className="h-8 w-14 rounded-xl" />
+              <img src={sovaLogo} alt={`${t('common.brand')} logo`} width="56" height="32" loading="lazy" decoding="async" className="h-8 w-14 rounded-xl" />
               <span className="font-display text-2xl font-extrabold tracking-tight text-[#1E293B]">{t('common.brand')}</span>
             </Link>
           </div>

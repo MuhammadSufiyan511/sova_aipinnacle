@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useMemo } from 'react'
 
 const AppContext = createContext()
 
@@ -37,7 +37,7 @@ export function AppProvider({ children }) {
     setProducts(products.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)))
   const removeProduct = (id) => setProducts(products.filter(p => p.id !== id))
 
-  const value = {
+  const value = useMemo(() => ({
     products,
     setProducts,
     tones,
@@ -51,7 +51,7 @@ export function AppProvider({ children }) {
     setShowCelebration,
     homeDarkMode,
     setHomeDarkMode
-  }
+  }), [products, tones, user, showCelebration, homeDarkMode])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

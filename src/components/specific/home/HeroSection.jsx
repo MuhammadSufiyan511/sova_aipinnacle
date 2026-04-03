@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { Play, ArrowUpRight, ChevronDown } from 'lucide-react'
 import { FaMeta } from 'react-icons/fa6'
@@ -28,7 +29,7 @@ function getBusinessMonogram(name) {
   return `${words[0][0] || ''}${words[1][0] || ''}`.toUpperCase()
 }
 
-function HeroBusinessTrack({ items }) {
+const HeroBusinessTrack = memo(function HeroBusinessTrack({ items }) {
   return (
     <div className="flex shrink-0 items-center gap-4 pe-4">
       {items.map((business, index) => (
@@ -49,9 +50,9 @@ function HeroBusinessTrack({ items }) {
       ))}
     </div>
   )
-}
+})
 
-export function HeroSection({ onWatchDemo }) {
+export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
   const { t } = useTranslation()
   const businessItems = t('content.trustedBusinesses.items', { returnObjects: true }) || trustedBusinesses
 
@@ -202,4 +203,4 @@ export function HeroSection({ onWatchDemo }) {
       <div className="hero-bottom-wash absolute bottom-0 left-0 right-0 h-[100px]" />
     </section>
   )
-}
+})

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ function initialsFor(name) {
     .toUpperCase()
 }
 
-export function ReviewsSection() {
+export const ReviewsSection = memo(function ReviewsSection() {
   const { t, i18n } = useTranslation()
   const [isPaused, setIsPaused] = useState(false)
   const localizedReviews = t('content.reviews.items', { returnObjects: true }) || reviews
@@ -95,4 +95,4 @@ export function ReviewsSection() {
       </div>
     </section>
   )
-}
+})
