@@ -1,8 +1,9 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { Package, Pencil, Plus, Trash2, Zap } from 'lucide-react'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { useApp } from '../../../context/AppProvider'
 import { AddProductModal } from '../onboarding/AddProductModal'
+import { useTranslation } from 'react-i18next'
 
 const gradients = [
   'from-emerald-400/20 to-teal-400/20',
@@ -15,7 +16,8 @@ const gradients = [
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
 const cardItem = { hidden: { opacity: 0, scale: 0.94 }, show: { opacity: 1, scale: 1 } }
 
-export function ProductsOverview() {
+export const ProductsOverview = memo(function ProductsOverview() {
+  const { t } = useTranslation()
   const { products, addProduct, removeProduct, updateProduct } = useApp()
   const [modalOpen, setModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
@@ -31,26 +33,28 @@ export function ProductsOverview() {
   }
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
-      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full admin-products-shell">
+      <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
         <div>
-          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem] admin-card-title">Product Catalog</h2>
-          <p className="text-[0.72rem] text-[#62808D] sm:text-[0.78rem]">{products.length} item{products.length !== 1 ? 's' : ''} shared by SOVA in buyer chats</p>
+          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem] admin-card-title">{t('admin.products.title')}</h2>
+          <p className="text-[0.72rem] text-[#62808D] sm:text-[0.78rem]">
+            {t('admin.products.subtitle', { count: products.length, s: products.length !== 1 ? 's' : '' })}
+          </p>
         </div>
         <Motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
           onClick={openAddModal}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-[0.78rem] font-bold text-white shadow-md shadow-emerald-500/20 transition hover:bg-emerald-600 sm:w-auto"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-[0.78rem] font-bold text-white shadow-md shadow-emerald-500/20 transition hover:bg-emerald-600 sm:w-auto admin-btn-primary"
         >
-          <Plus className="h-4 w-4" /> Add Product
+          <Plus className="h-4 w-4" /> {t('admin.products.newBtn')}
         </Motion.button>
       </div>
 
-      <div className="flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 px-3.5 py-2.5">
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 px-3.5 py-3 text-center sm:flex-row sm:text-left">
         <Zap className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
         <p className="text-[0.74rem] text-emerald-700">
-          <span className="font-bold">SOVA uses your catalog</span> to answer questions about product availability, pricing, and features automatically.
+          {t('admin.products.banner')}
         </p>
       </div>
 
@@ -59,10 +63,10 @@ export function ProductsOverview() {
           <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F2FBF7] sm:h-12 sm:w-12">
             <Package className="h-5 w-5 text-[#86A29B] sm:h-6 sm:w-6" />
           </div>
-          <p className="font-bold text-[#295565]">No products yet</p>
-          <p className="mt-1 max-w-xs text-[0.74rem] text-[#62808D]">Add your first product so SOVA can share it with potential buyers on WhatsApp.</p>
+          <p className="font-bold text-[#295565]">{t('admin.products.empty.title')}</p>
+          <p className="mt-1 max-w-xs text-[0.74rem] text-[#62808D]">{t('admin.products.empty.desc')}</p>
           <Motion.button whileHover={{ scale: 1.03 }} onClick={openAddModal} className="mt-5 flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-[0.78rem] font-bold text-white shadow-md shadow-emerald-500/20">
-            <Plus className="h-4 w-4" /> Add your first product
+            <Plus className="h-4 w-4" /> {t('admin.products.empty.btn')}
           </Motion.button>
         </Motion.div>
       ) : (
@@ -96,17 +100,17 @@ export function ProductsOverview() {
                     </div>
                   )}
                   <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm admin-item-price">
-                    Rs. {product.price || '0'}
+                    {t('admin.products.item.price', { price: product.price || '0' })}
                   </div>
                 </div>
 
-                <div className="p-3.5 admin-item-content">
+                <div className="p-3.5 text-center sm:text-left admin-item-content">
                   <p className="text-[0.88rem] font-bold text-[#173247] admin-item-title">{product.name}</p>
                   {product.description ? <p className="mt-1 line-clamp-2 text-[0.72rem] leading-5 text-[#62808D] admin-item-desc">{product.description}</p> : null}
-                  <div className="mt-3 flex items-center gap-2">
+                  <div className="mt-3 flex items-center justify-center gap-2 sm:justify-start">
                     <button onClick={() => openEditModal(product)} className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary">
                       <Pencil className="h-3.5 w-3.5" />
-                      Edit
+                      {t('admin.common.edit')}
                     </button>
                     <button onClick={() => removeProduct(product.id)} className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger">
                       <Trash2 className="h-3.5 w-3.5" />
@@ -132,4 +136,4 @@ export function ProductsOverview() {
       />
     </Motion.div>
   )
-}
+})

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import { AppShell } from './layouts/AppShell'
 import { AppSplashScreen } from './components/shared/AppSplashScreen'
 import { useState, useEffect } from 'react'
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toaster position="top-center" reverseOrder={false} />
       <AppSplashScreen isVisible={isAppInitializing} />
       <AppShell>
         <Suspense fallback={<PageLoader />}>

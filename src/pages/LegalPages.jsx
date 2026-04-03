@@ -3,8 +3,9 @@ import { FinalCta, InternalLinksGrid, ListItem, SectionHeading, SeoHead } from '
 import { privacySections, termsSections } from '../data'
 import { createBreadcrumbSchema } from '../seo/schemas'
 import { ROUTES } from '../utils/routes'
+import { memo } from 'react'
 
-export function TermsPage() {
+export const TermsPage = memo(function TermsPage() {
   const { t } = useTranslation()
   const localizedSections = t('content.legal.termsSections', { returnObjects: true }) || termsSections
 
@@ -14,15 +15,15 @@ export function TermsPage() {
       title={t('sections.termsTitle')}
       description={t('sections.termsDescription')}
       sections={localizedSections}
-      updatedAt="March 25, 2026"
-      seoTitle="Terms and Conditions | SOVA"
-      seoDescription="Read the terms and conditions for using SOVA, including account responsibilities, service use, intellectual property, and legal limitations."
+      updatedAt={t('legal.terms.updated', { date: 'March 25, 2026' })}
+      seoTitle={t('legal.terms.seo.title')}
+      seoDescription={t('legal.terms.seo.desc')}
       seoPath="/terms"
     />
   )
-}
+})
 
-export function PrivacyPage() {
+export const PrivacyPage = memo(function PrivacyPage() {
   const { t } = useTranslation()
   const localizedSections = t('content.legal.privacySections', { returnObjects: true }) || privacySections
 
@@ -32,13 +33,13 @@ export function PrivacyPage() {
       title={t('sections.privacyTitle')}
       description={t('sections.privacyDescription')}
       sections={localizedSections}
-      updatedAt="March 25, 2026"
-      seoTitle="Privacy Policy | SOVA"
-      seoDescription="Review how SOVA collects, uses, stores, and protects information across its WhatsApp automation platform."
+      updatedAt={t('legal.privacy.updated', { date: 'March 25, 2026' })}
+      seoTitle={t('legal.privacy.seo.title')}
+      seoDescription={t('legal.privacy.seo.desc')}
       seoPath="/privacy_policy"
     />
   )
-}
+})
 
 function LegalPage({ eyebrow, title, description, sections, updatedAt, seoTitle, seoDescription, seoPath }) {
   const { t } = useTranslation()
@@ -56,14 +57,14 @@ function LegalPage({ eyebrow, title, description, sections, updatedAt, seoTitle,
         description={seoDescription}
         schema={[
           createBreadcrumbSchema([
-            { name: 'Home', path: '/' },
+            { name: t('nav.home'), path: '/' },
             { name: title, path: seoPath },
           ]),
         ]}
       />
       <SectionHeading eyebrow={eyebrow} title={title} description={description} centered as="h1" />
       <p className="mt-6 text-center text-[0.85rem] font-bold uppercase tracking-widest text-[#10B981]">
-        {t('common.lastUpdated')}: {updatedAt}
+        {updatedAt}
       </p>
       <div className="mt-12 grid gap-8">
         {sections.map((section, index) => {

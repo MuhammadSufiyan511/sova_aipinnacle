@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Trash2, ArrowRight, ChevronLeft } from 'lucide-react'
 import { AddProductModal } from './AddProductModal'
+import { toast } from 'react-hot-toast'
+import { useTranslation, Trans } from 'react-i18next'
 
-export function StepOneProducts({ products, setProducts, onNext, onBack }) {
+export const StepOneProducts = memo(function StepOneProducts({ products, setProducts, onNext, onBack }) {
+  const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleAddProduct = (newProduct) => {
@@ -14,6 +17,14 @@ export function StepOneProducts({ products, setProducts, onNext, onBack }) {
     setProducts(products.filter((p) => p.id !== id))
   }
 
+  const handleNext = () => {
+    if (products.length === 0) {
+      toast.error(t('onboarding.products.toastError'))
+      return
+    }
+    onNext()
+  }
+
   return (
     <div className="w-full onboarding-step-container">
       <motion.div
@@ -22,10 +33,12 @@ export function StepOneProducts({ products, setProducts, onNext, onBack }) {
         className="mb-10 text-center"
       >
         <h2 className="font-display text-[1.8rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          What products do you <span className="text-emerald-500 underline decoration-emerald-200 underline-offset-8">sell</span>?
+          <Trans i18nKey="onboarding.products.title">
+            What products do you <span className="text-emerald-500 underline decoration-emerald-200 underline-offset-8">sell</span>?
+          </Trans>
         </h2>
         <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-500 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
-          Add your bestsellers so SOVA can accurately handle inquiries and boost your sales.
+          {t('onboarding.products.subtitle')}
         </p>
       </motion.div>
  
@@ -74,7 +87,7 @@ export function StepOneProducts({ products, setProducts, onNext, onBack }) {
             <div className="rounded-full bg-white p-2.5 sm:p-3 shadow-sm transition group-hover:scale-110 onboarding-add-icon-shell">
               <Plus className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <span className="text-sm font-bold tracking-tight sm:text-base">Add Product</span>
+            <span className="text-sm font-bold tracking-tight sm:text-base">{t('onboarding.products.addBtn')}</span>
           </motion.button>
         </AnimatePresence>
       </div>
@@ -86,16 +99,14 @@ export function StepOneProducts({ products, setProducts, onNext, onBack }) {
             onClick={onBack}
             className="flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 rounded-full border-2 border-slate-100 bg-white px-6 text-[0.9rem] font-bold text-slate-400 transition hover:border-slate-200 hover:text-slate-600 sm:h-13 sm:w-auto onboarding-btn-back"
           >
-            <ChevronLeft className="h-4 w-4 sm:h-4.5 sm:w-4.5" /> Back
+            <ChevronLeft className="h-4 w-4 sm:h-4.5 sm:w-4.5" /> {t('common.previous')}
           </button>
         )}
         <button
-          onClick={onNext}
-          disabled={products.length === 0}
+          onClick={handleNext}
           className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 disabled:bg-slate-200 disabled:shadow-none disabled:text-slate-400 sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
-          <span className="relative z-10 transition group-hover:translate-x-[-4px]">Continue</span>
-          <ArrowRight className="relative z-10 h-4.5 w-4.5 transition group-hover:translate-x-[4px]" />
+          <span className="relative z-10">{t('onboarding.products.nextBtn')}</span>
         </button>
       </div>
 
@@ -106,4 +117,4 @@ export function StepOneProducts({ products, setProducts, onNext, onBack }) {
       />
     </div>
   )
-}
+})

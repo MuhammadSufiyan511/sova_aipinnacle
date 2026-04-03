@@ -1,34 +1,30 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { Check, MessageSquare, MoreVertical, Search, User, X } from 'lucide-react'
-import { useState } from 'react'
-
-const allChats = [
-  { id: '1', user: 'Faizan Ahmed', message: 'Hello, what is the price of that jacket?', time: '14:23', status: 'Automated', avatar: 'FA' },
-  { id: '2', user: 'Sarah Khan', message: 'Do you have size M available in the blue one?', time: '12:05', status: 'Automated', avatar: 'SK' },
-  { id: '3', user: 'Zubair Shah', message: 'I want to place an order for 3 pieces.', time: '09:44', status: 'Lead Captured', avatar: 'ZS' },
-  { id: '4', user: 'Nadia Malik', message: 'Can you send the catalog please?', time: 'Yesterday', status: 'Automated', avatar: 'NM' },
-  { id: '5', user: 'Bilal Raza', message: 'What are your delivery charges?', time: 'Yesterday', status: 'Automated', avatar: 'BR' },
-]
-
-const mockThreads = {
-  3: [
-    { from: 'user', text: 'I want to place an order for 3 pieces.' },
-    { from: 'sova', text: "Great choice! I've noted your order for 3 pieces. May I ask which product you're referring to?" },
-    { from: 'user', text: 'The premium silk scarf.' },
-    { from: 'sova', text: "Perfect! I'll prepare an invoice for 3x Premium Silk Scarf. Shall I confirm your order?" },
-  ],
-}
-
-const statusStyles = {
-  Automated: 'bg-emerald-50 text-emerald-600',
-  'Lead Captured': 'bg-violet-50 text-violet-600',
-}
+import { Check, ChevronLeft, MessageSquare, MoreVertical, Search, User, X } from 'lucide-react'
+import { useState, memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const avatarColors = ['from-emerald-400 to-teal-500', 'from-violet-400 to-purple-500', 'from-amber-400 to-orange-500', 'from-blue-400 to-indigo-500', 'from-rose-400 to-pink-500']
 
-export function ConversationsOverview() {
+export const ConversationsOverview = memo(function ConversationsOverview() {
+  const { t } = useTranslation()
   const [selected, setSelected] = useState(null)
   const [search, setSearch] = useState('')
+
+  const mockChats = t('admin.mockData.chats', { returnObjects: true }) || []
+  const mockThreads = t('admin.mockData.threads', { returnObjects: true }) || {}
+
+  const allChats = mockChats.map((chat, i) => ({
+    ...chat,
+    id: String(i + 1),
+    statusKey: (i + 1) === 3 ? 'captured' : 'automated',
+    avatar: chat.user.split(' ').map((n) => n[0]).join('').toUpperCase(),
+  }))
+  
+  const statusStyles = {
+    automated: 'bg-emerald-50 text-emerald-600',
+    captured: 'bg-violet-50 text-violet-600',
+  }
+
   const filtered = allChats.filter((chat) => chat.user.toLowerCase().includes(search.toLowerCase()) || chat.message.toLowerCase().includes(search.toLowerCase()))
 
   return (
@@ -36,10 +32,10 @@ export function ConversationsOverview() {
       <div className={`flex w-full flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm transition-all duration-300 lg:w-80 lg:shrink-0 ${selected ? 'hidden lg:flex' : 'flex'}`}>
         <div className="border-b border-[#E8F6EF] p-3.5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-display text-[0.98rem] font-bold text-[#173247] admin-card-title">WhatsApp Inbox</h2>
+            <h2 className="font-display text-[0.98rem] font-bold text-[#173247] admin-card-title">{t('admin.chat.title')}</h2>
             <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[0.6rem] font-bold text-emerald-600 sm:px-2.5 sm:py-1 sm:text-[0.62rem]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-              {filtered.length} Active
+              {filtered.length} {t('admin.chat.activeStatus')}
             </div>
           </div>
           <div className="relative">
@@ -47,7 +43,7 @@ export function ConversationsOverview() {
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search conversations..."
+              placeholder={t('admin.chat.searchPlaceholder')}
               className="w-full rounded-xl border border-[#DDEFE7] bg-[#F2FBF7] py-2 pl-9 pr-4 text-[0.78rem] text-[#295565] placeholder-[#86A29B] outline-none transition focus:border-emerald-400 focus:bg-white"
             />
           </div>
@@ -93,7 +89,9 @@ export function ConversationsOverview() {
                 </div>
                 <div>
                   <p className="text-[0.84rem] font-bold text-[#173247]">{selected.user}</p>
-                  <span className={`rounded-full px-2 py-0.5 text-[0.6rem] font-bold ${statusStyles[selected.status]}`}>{selected.status}</span>
+                  <span className={`rounded-full px-2 py-0.5 text-[0.6rem] font-bold ${statusStyles[selected.statusKey]}`}>
+                    {t(`admin.chat.status.${selected.statusKey}`)}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -114,7 +112,7 @@ export function ConversationsOverview() {
                       : 'rounded-bl-sm bg-[#F2FBF7] text-[#295565] is-sova'
                     }`}
                   >
-                    {msg.from === 'sova' ? <p className="mb-1 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88] admin-bubble-label">SOVA AI</p> : null}
+                    {msg.from === 'sova' ? <p className="mb-1 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88] admin-bubble-label">{t('admin.chat.sovaLabel')}</p> : null}
                     {msg.text}
                   </div>
                 </div>
@@ -126,10 +124,10 @@ export function ConversationsOverview() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F2FBF7] admin-empty-icon">
               <MessageSquare className="h-6 w-6 text-[#86A29B]" />
             </div>
-            <p className="text-[0.84rem] font-bold text-[#62808D]">Select a conversation to view it</p>
+            <p className="text-[0.84rem] font-bold text-[#62808D]">{t('admin.chat.emptyState')}</p>
           </div>
         )}
       </div>
     </Motion.div>
   )
-}
+})

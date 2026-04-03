@@ -1,15 +1,20 @@
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { Bell, X, MessageSquare, Package, Zap, User } from 'lucide-react'
 import { useApp } from '../../../context/AppProvider'
-const notifications = [
-  { id: 1, icon: MessageSquare, type: 'chat', text: 'New lead "Faizan" captured on WhatsApp!', time: '2m ago', color: 'text-emerald-500 bg-emerald-50' },
-  { id: 2, icon: Package, type: 'product', text: '5 items out of stock in your catalog.', time: '1h ago', color: 'text-amber-500 bg-amber-50' },
-  { id: 3, icon: Zap, type: 'system', text: 'SOVA automation rate increased by 12% today!', time: '3h ago', color: 'text-violet-500 bg-violet-50' },
-  { id: 4, icon: User, type: 'lead', text: 'Sarah Malik is interested in the "Premium Scarf".', time: '5h ago', color: 'text-blue-500 bg-blue-50' },
-]
+import { useTranslation } from 'react-i18next'
+import { memo } from 'react'
 
-export function NotificationDrawer({ isOpen, onClose }) {
+export const NotificationDrawer = memo(function NotificationDrawer({ isOpen, onClose }) {
+  const { t } = useTranslation()
   const { homeDarkMode } = useApp()
+
+  const mockDrawer = t('admin.mockData.drawer', { returnObjects: true }) || []
+  const notifications = [
+    { ...mockDrawer[0], id: 1, icon: MessageSquare, type: 'chat', color: 'text-emerald-500 bg-emerald-50' },
+    { ...mockDrawer[1], id: 2, icon: Package, type: 'product', color: 'text-amber-500 bg-amber-50' },
+    { ...mockDrawer[2], id: 3, icon: Zap, type: 'system', color: 'text-violet-500 bg-violet-50' },
+    { ...mockDrawer[3], id: 4, icon: User, type: 'lead', color: 'text-blue-500 bg-blue-50' },
+  ]
 
   return (
     <AnimatePresence>
@@ -31,7 +36,7 @@ export function NotificationDrawer({ isOpen, onClose }) {
               <div className="flex items-center gap-2.5">
                 <Bell className="h-5 w-5 text-emerald-500" />
                 <h3 className={`font-display text-[1rem] font-bold admin-drawer-title ${homeDarkMode ? 'text-white' : 'text-slate-900'
-                  }`}>Notifications</h3>
+                  }`}>{t('admin.drawer.title')}</h3>
               </div>
               <button
                 onClick={onClose}
@@ -75,7 +80,7 @@ export function NotificationDrawer({ isOpen, onClose }) {
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#142B2A] text-[#FAF7ED]/40">
                     <Bell className="h-8 w-8" />
                   </div>
-                  <p className="text-sm font-bold text-[#FAF7ED]/60">No new notifications</p>
+                  <p className="text-sm font-bold text-[#FAF7ED]/60">{t('admin.drawer.empty')}</p>
                 </div>
               )}
             </div>
@@ -86,7 +91,7 @@ export function NotificationDrawer({ isOpen, onClose }) {
                 ? 'bg-[#142B2A] border-[#1C3D3A] text-[#FAF7ED] hover:border-emerald-500/50'
                 : 'bg-slate-50 border-slate-100 text-slate-600 hover:border-emerald-500/30 hover:bg-white hover:text-emerald-600'
                 }`}>
-                MARK ALL AS READ
+                {t('admin.drawer.readAll')}
               </button>
             </div>
           </Motion.div>
@@ -94,4 +99,4 @@ export function NotificationDrawer({ isOpen, onClose }) {
       )}
     </AnimatePresence>
   )
-}
+})

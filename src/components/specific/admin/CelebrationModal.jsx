@@ -1,20 +1,24 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { CheckCircle2, MessageSquare, Rocket, ShieldCheck, Sparkles, TrendingUp, Zap } from 'lucide-react'
 import sovaLogo from '../../../assets/logos/sova.png'
+import { useTranslation, Trans } from 'react-i18next'
+import { memo } from 'react'
 
-const featureHighlights = [
-  { icon: Zap, text: 'Instant auto replies are active', color: 'bg-amber-50 text-amber-500' },
-  { icon: MessageSquare, text: 'Your WhatsApp chats are now automated', color: 'bg-emerald-50 text-emerald-500' },
-  { icon: TrendingUp, text: 'Serious buyers will be highlighted first', color: 'bg-violet-50 text-violet-500' },
-]
+export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose }) {
+  const { t } = useTranslation()
 
-const launchChecklist = [
-  { icon: Rocket, label: 'WhatsApp automation connected' },
-  { icon: ShieldCheck, label: 'Lead filtering is active' },
-  { icon: Sparkles, label: 'Follow-ups are ready to run' },
-]
+  const featureHighlights = [
+    { icon: Zap, text: t('admin.celebration.features.replies'), color: 'bg-amber-50 text-amber-500' },
+    { icon: MessageSquare, text: t('admin.celebration.features.whatsapp'), color: 'bg-emerald-50 text-emerald-500' },
+    { icon: TrendingUp, text: t('admin.celebration.features.buyers'), color: 'bg-violet-50 text-violet-500' },
+  ]
 
-export function CelebrationModal({ isOpen, onClose }) {
+  const launchChecklist = [
+    { icon: Rocket, label: t('admin.celebration.checklist.whatsapp') },
+    { icon: ShieldCheck, label: t('admin.celebration.checklist.filtering') },
+    { icon: Sparkles, label: t('admin.celebration.checklist.followups') },
+  ]
+
   return (
     <AnimatePresence>
       {isOpen ? (
@@ -46,8 +50,8 @@ export function CelebrationModal({ isOpen, onClose }) {
                     <img src={sovaLogo} alt="SOVA logo" className="h-10 w-10 object-contain" />
                   </span>
                   <div>
-                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-white/60">SOVA launch</p>
-                    <p className="mt-1 text-lg font-bold">Your workspace is ready</p>
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-white/60">{t('admin.celebration.eyebrow')}</p>
+                    <p className="mt-1 text-lg font-bold">{t('admin.celebration.title')}</p>
                   </div>
                 </div>
                 <div className="mt-6 space-y-3">
@@ -68,11 +72,16 @@ export function CelebrationModal({ isOpen, onClose }) {
                 </Motion.div>
 
                 <Motion.h2 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="font-display text-[1.6rem] font-extrabold tracking-tight text-[#173247] sm:text-[2rem]">
-                  Your chats are now <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent">automated</span>
+                  <Trans
+                    i18nKey="admin.celebration.headline"
+                    components={{
+                      gradient: <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent" />
+                    }}
+                  />
                 </Motion.h2>
 
                 <Motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-3 max-w-xl text-[0.84rem] font-medium leading-relaxed text-[#62808D] sm:text-[0.92rem]">
-                  SOVA is now live in your workspace. It can reply faster, spot serious buyers, and keep your WhatsApp sales moving even when your team is offline.
+                   {t('admin.celebration.desc')}
                 </Motion.p>
 
                 <div className="mt-6 grid w-full grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-3">
@@ -101,7 +110,7 @@ export function CelebrationModal({ isOpen, onClose }) {
                   onClick={onClose}
                   className="mt-8 flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[#10B981] text-[0.92rem] font-bold text-white shadow-[0_18px_40px_rgba(16,185,129,0.25)] transition hover:bg-[#0D9A73]"
                 >
-                  Continue to dashboard <CheckCircle2 className="h-5 w-5" />
+                  {t('admin.celebration.btn')} <CheckCircle2 className="h-5 w-5" />
                 </Motion.button>
               </div>
             </div>
@@ -110,4 +119,4 @@ export function CelebrationModal({ isOpen, onClose }) {
       ) : null}
     </AnimatePresence>
   )
-}
+})

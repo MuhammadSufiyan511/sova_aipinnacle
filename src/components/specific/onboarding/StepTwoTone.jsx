@@ -1,16 +1,19 @@
 import { Sparkles, Check, ChevronLeft, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useTranslation, Trans } from 'react-i18next'
 
 const availableTones = [
-  { id: 'professional', label: 'Professional', desc: 'Clear, polite, and business-focused.' },
-  { id: 'friendly', label: 'Friendly', desc: 'Warm, welcoming, and approachable.' },
-  { id: 'persuasive', label: 'Persuasive', desc: 'Sales-driven, highlights benefits.' },
-  { id: 'direct', label: 'Direct', desc: 'Short, concise, and to-the-point.' },
-  { id: 'playful', label: 'Playful', desc: 'Uses emojis, energetic and fun.' },
-  { id: 'empathetic', label: 'Empathetic', desc: 'Understanding, patient and helpful.' },
+  { id: 'professional' },
+  { id: 'friendly' },
+  { id: 'persuasive' },
+  { id: 'direct' },
+  { id: 'playful' },
+  { id: 'empathetic' },
 ]
 
 export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
+  const { t } = useTranslation()
+
   const toggleTone = (id) => {
     if (tones.includes(id)) {
       setTones(tones.filter(t => t !== id))
@@ -32,16 +35,20 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
           <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          Choose SOVA's <span className="text-emerald-500">Personality</span>
+          <Trans i18nKey="onboarding.tone.title">
+            Choose SOVA's <span className="text-emerald-500">Personality</span>
+          </Trans>
         </h2>
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
-          Select one or more tones that match your brand's voice.
+          {t('onboarding.tone.subtitle')}
         </p>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-3.5 xs:grid-cols-2 lg:grid-cols-3">
         {availableTones.map((tone, i) => {
           const isSelected = tones.includes(tone.id)
+          const labelKey = `onboarding.tone.profiles.${tone.id}.label`
+          const descKey = `onboarding.tone.profiles.${tone.id}.desc`
 
           return (
             <motion.button
@@ -60,7 +67,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
             >
               <div className="mb-3 flex w-full items-center justify-between">
                 <span className={`text-[1rem] font-bold tracking-tight onboarding-label ${isSelected ? 'text-emerald-600' : 'text-slate-900'}`}>
-                  {tone.label}
+                  {t(labelKey)}
                 </span>
                 <div className={`flex h-5.5 w-5.5 items-center justify-center rounded-full border-2 transition-all duration-300 onboarding-check-badge ${
                   isSelected ? 'border-emerald-500 bg-emerald-500 text-white scale-110' : 'border-slate-200 bg-transparent text-transparent'
@@ -69,7 +76,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
                 </div>
               </div>
               <p className="text-[0.84rem] font-medium leading-6 text-slate-500 onboarding-desc">
-                {tone.desc}
+                {t(descKey)}
               </p>
             </motion.button>
           )
@@ -82,7 +89,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
           onClick={onBack}
           className="flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 rounded-full border-2 border-slate-100 bg-white px-6 text-[0.9rem] font-bold text-slate-400 transition hover:border-slate-200 hover:text-slate-600 sm:h-13 sm:w-auto onboarding-btn-back"
         >
-          <ChevronLeft className="h-4 w-4 sm:h-4.5 sm:w-4.5" /> Back
+          <ChevronLeft className="h-4 w-4 sm:h-4.5 sm:w-4.5" /> {t('common.previous')}
         </button>
         
         <button
@@ -91,7 +98,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
           disabled={!isValid}
           className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 disabled:bg-slate-200 disabled:shadow-none sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
-          <span className="relative z-10 transition group-hover:translate-x-[-4px]">Launch Dashboard</span>
+          <span className="relative z-10 transition group-hover:translate-x-[-4px]">{t('onboarding.tone.completeBtn')}</span>
           <ArrowRight className="relative z-10 h-4.5 w-4.5 transition group-hover:translate-x-[4px]" />
         </button>
       </div>

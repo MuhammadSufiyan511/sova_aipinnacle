@@ -44,5 +44,15 @@ export const common = {
   menu: 'Menu',
   theme: 'Theme',
   lightMode: 'Light Mode',
-  darkMode: 'Dark Mode'
+  darkMode: 'Dark Mode',
+  exitWorkspace: 'Exit workspace',
+  days: {
+    mon: 'Mon',
+    tue: 'Tue',
+    wed: 'Wed',
+    thu: 'Thu',
+    fri: 'Fri',
+    sat: 'Sat',
+    sun: 'Sun'
+  }
 }

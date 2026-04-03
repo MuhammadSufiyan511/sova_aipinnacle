@@ -11,10 +11,13 @@ import { caseStudiesA } from './content-caseStudies-a'
 import { caseStudiesB } from './content-caseStudies-b'
 import { termsSections } from './content-legal-terms'
 import { privacySections } from './content-legal-privacy'
+import { onboarding, admin } from './content-app-flows'
 
 const bn = {
   translation: {
     common,
+    onboarding,
+    admin,
     nav,
     languages,
     hero,

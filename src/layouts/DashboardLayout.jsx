@@ -8,6 +8,8 @@ import { useApp } from '../context/AppProvider'
 import { ROUTES } from '../utils/routes'
 import sovaLogo from '../assets/logos/sova.png'
 
+const RTL_LANGUAGES = ['ar', 'ur']
+
 const navLinks = [
   { icon: LayoutDashboard, label: 'Sales Overview', path: ROUTES.admin },
   { icon: Package, label: 'Product Catalog', path: ROUTES.adminProducts },
@@ -28,6 +30,16 @@ const languages = [
 
 // ─── Dark Navy Sidebar ────────────────────────────────────────────────────────
 function SidebarContent({ location, navigate, onClose, collapseOnNavigate = false }) {
+  const { t } = useTranslation()
+  const links = [
+    { icon: LayoutDashboard, label: t('admin.nav.overview'), path: ROUTES.admin },
+    { icon: Package, label: t('admin.nav.products'), path: ROUTES.adminProducts },
+    { icon: MessageSquare, label: t('admin.nav.chat'), path: ROUTES.adminConversations },
+    { icon: Radio, label: t('admin.nav.broadcasts'), path: ROUTES.adminBroadcasts },
+    { icon: BarChart3, label: t('admin.nav.reports'), path: ROUTES.adminReports },
+    { icon: Settings, label: t('admin.nav.settings'), path: ROUTES.adminSettings },
+  ]
+
   return (
     <div className="sidebar-container   flex h-full min-h-0 flex-col bg-[#0F172A]">
       {/* Logo */}
@@ -50,9 +62,9 @@ function SidebarContent({ location, navigate, onClose, collapseOnNavigate = fals
 
       {/* Nav */}
       <div className="flex-1 min-h-0 px-2.5 py-3">
-        <p className="mb-2 px-2 text-[0.54rem] font-bold uppercase tracking-[0.24em] text-white/30">Workspace</p>
+        <p className="mb-2 px-2 text-[0.54rem] font-bold uppercase tracking-[0.24em] text-white/30">{t('admin.nav.workspace', 'Workspace')}</p>
         <nav className="sidebar-scroll space-y-2 overflow-y-auto pr-0.5">
-          {navLinks.map((link) => {
+          {links.map((link) => {
             const isActive = location.pathname === link.path
             return (
               <Link
@@ -78,15 +90,6 @@ function SidebarContent({ location, navigate, onClose, collapseOnNavigate = fals
         </nav>
       </div>
 
-      {/* SOVA Status Badge
-      <div className="mx-3 mb-3 flex items-center gap-2.5 rounded-xl border border-[#10B981]/20 bg-[#10B981]/10 px-3.5 py-3">
-        <div className="h-2 w-2 rounded-full bg-[#10B981] shadow-[0_0_8px_2px_rgba(16,185,129,0.5)]" />
-        <div className="min-w-0">
-          <p className="text-[0.72rem] font-bold text-[#10B981]">Automation active</p>
-          <p className="truncate text-[0.62rem] text-white/30">142 conversations handled</p>
-        </div>
-      </div> */}
-
       {/* Exit */}
       <div className="border-t border-white/[0.06] p-2.5">
         <button
@@ -94,7 +97,7 @@ function SidebarContent({ location, navigate, onClose, collapseOnNavigate = fals
           className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.78rem] font-medium text-white/30 transition hover:bg-red-500/10 hover:text-red-400"
         >
           <LogOut className="h-4 w-4 opacity-70" />
-          Exit workspace
+          {t('common.exitWorkspace', 'Exit workspace')}
         </button>
       </div>
     </div>
@@ -103,7 +106,7 @@ function SidebarContent({ location, navigate, onClose, collapseOnNavigate = fals
 
 // ─── Main Layout ──────────────────────────────────────────────────────────────
 export function DashboardLayout({ children }) {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const { user, homeDarkMode, setHomeDarkMode } = useApp()
@@ -113,13 +116,24 @@ export function DashboardLayout({ children }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 1024 : true))
 
+  const isRTL = RTL_LANGUAGES.includes(i18n.language)
+
+  const links = [
+    { icon: LayoutDashboard, label: t('admin.nav.overview'), path: ROUTES.admin },
+    { icon: Package, label: t('admin.nav.products'), path: ROUTES.adminProducts },
+    { icon: MessageSquare, label: t('admin.nav.chat'), path: ROUTES.adminConversations },
+    { icon: Radio, label: t('admin.nav.broadcasts'), path: ROUTES.adminBroadcasts },
+    { icon: BarChart3, label: t('admin.nav.reports'), path: ROUTES.adminReports },
+    { icon: Settings, label: t('admin.nav.settings'), path: ROUTES.adminSettings },
+  ]
+
   const activeLink =
-    navLinks.find((link) => location.pathname === link.path) ||
+    links.find((link) => location.pathname === link.path) ||
     (location.pathname === ROUTES.adminNotifications
-      ? { label: 'Notifications', path: ROUTES.adminNotifications }
+      ? { label: t('admin.nav.notifications'), path: ROUTES.adminNotifications }
       : location.pathname === ROUTES.adminProfile
-        ? { label: 'Profile', path: ROUTES.adminProfile }
-        : navLinks[0])
+        ? { label: t('admin.nav.profile'), path: ROUTES.adminProfile }
+        : links[0])
 
   const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0]
 
@@ -142,11 +156,13 @@ export function DashboardLayout({ children }) {
       <AnimatePresence initial={false}>
         {desktopSidebarOpen && (
           <Motion.aside
-            initial={{ x: -224 }}
+            initial={{ x: isRTL ? 224 : -224 }}
             animate={{ x: 0 }}
-            exit={{ x: -224 }}
+            exit={{ x: isRTL ? 224 : -224 }}
             transition={{ duration: 0.22, ease: 'easeInOut' }}
-            className="fixed bottom-0 left-0 top-0 hidden  w-56 shadow-[4px_0_24px_rgba(15,23,42,0.12)] lg:block"
+            className={`fixed bottom-0 top-0 hidden w-56 shadow-[4px_0_24px_rgba(15,23,42,0.12)] lg:block ${
+              isRTL ? 'right-0' : 'left-0'
+            }`}
           >
             <SidebarContent location={location} navigate={navigate} onClose={null} />
           </Motion.aside>
@@ -163,9 +179,11 @@ export function DashboardLayout({ children }) {
               onClick={() => setMobileOpen(false)}
             />
             <Motion.aside
-              initial={{ x: -224 }} animate={{ x: 0 }} exit={{ x: -224 }}
+              initial={{ x: isRTL ? 224 : -224 }} animate={{ x: 0 }} exit={{ x: isRTL ? 224 : -224 }}
               transition={{ type: 'spring', stiffness: 360, damping: 36 }}
-              className="fixed bottom-0 left-0 top-0 z-50 w-56 shadow-2xl lg:hidden"
+              className={`fixed bottom-0 top-0 z-50 w-56 shadow-2xl lg:hidden ${
+                isRTL ? 'right-0' : 'left-0'
+              }`}
             >
               <SidebarContent location={location} navigate={navigate} onClose={() => setMobileOpen(false)} collapseOnNavigate />
             </Motion.aside>
@@ -175,7 +193,10 @@ export function DashboardLayout({ children }) {
 
       {/* Main Content */}
       <Motion.div
-        animate={{ paddingLeft: isDesktop && desktopSidebarOpen ? '14rem' : '0rem' }}
+        animate={{
+          paddingLeft: isRTL ? '0rem' : (isDesktop && desktopSidebarOpen ? '14rem' : '0rem'),
+          paddingRight: isRTL ? (isDesktop && desktopSidebarOpen ? '14rem' : '0rem') : '0rem',
+        }}
         transition={{ duration: 0.22, ease: 'easeInOut' }}
         className="flex flex-1 flex-col"
       >
@@ -190,7 +211,9 @@ export function DashboardLayout({ children }) {
               <Menu className="h-4.5 w-4.5" />
             </button>
             <div className="min-w-0">
-              <p className="text-[0.54rem] font-bold uppercase tracking-[0.2em] text-[#10B981] sm:text-[0.6rem]">Current View</p>
+              <p className="text-[0.54rem] font-bold uppercase tracking-[0.2em] text-[#10B981] sm:text-[0.6rem]">
+                {t('admin.common.currentView', 'Current View')}
+              </p>
               <h1 className="truncate font-display text-[0.92rem] font-bold text-slate-800 sm:text-[0.95rem]">{activeLink.label}</h1>
             </div>
           </div>
@@ -201,7 +224,7 @@ export function DashboardLayout({ children }) {
               type="button"
               onClick={() => setHomeDarkMode(!homeDarkMode)}
               className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
-              aria-label={homeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={homeDarkMode ? t('common.lightMode') : t('common.darkMode')}
             >
               {homeDarkMode ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
             </button>
@@ -209,7 +232,9 @@ export function DashboardLayout({ children }) {
             {/* Automation live badge */}
             <div className="hidden items-center gap-2 rounded-full border border-[#10B981]/20 bg-[#10B981]/10 px-3 py-1.5 md:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] shadow-[0_0_4px_2px_rgba(16,185,129,0.4)]" />
-              <span className="text-[0.68rem] font-semibold text-[#10B981]">Automation live</span>
+              <span className="text-[0.68rem] font-semibold text-[#10B981]">
+                {t('admin.common.automationLive', 'Automation live')}
+              </span>
             </div>
 
             {/* Lang selector */}
@@ -258,7 +283,7 @@ export function DashboardLayout({ children }) {
             <button
               onClick={() => navigate(ROUTES.adminProfile)}
               className="h-8 w-8 overflow-hidden rounded-full border-2 border-emerald-200 bg-gradient-to-br from-emerald-400 to-teal-600 shadow-sm transition hover:scale-[1.05]"
-              aria-label="Profile"
+              aria-label={t('admin.nav.profile')}
             >
               <div className="flex h-full w-full items-center justify-center text-[0.7rem] font-bold text-white">
                 {(user.name || 'U')[0]}

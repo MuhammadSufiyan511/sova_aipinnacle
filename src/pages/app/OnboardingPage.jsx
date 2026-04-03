@@ -7,22 +7,10 @@ import { StepOneProducts } from '../../components/specific/onboarding/StepOnePro
 import { StepTwoTone } from '../../components/specific/onboarding/StepTwoTone'
 import { ROUTES } from '../../utils/routes'
 import { useApp } from '../../context/AppProvider'
-
-const LOADING_STEPS = [
-  'Building your catalog...',
-  'Applying AI persona...',
-  'Integrating with Meta API...',
-  'Preparing your workspace...',
-]
-
-// Step map:
-// 0 → initial loader
-// 1 → Choose Business Type  (NEW)
-// 2 → Add Products
-// 3 → Choose Tone
-// 4 → Final workspace setup loader → navigate to admin
+import { useTranslation } from 'react-i18next'
 
 export function OnboardingPage() {
+  const { t } = useTranslation()
   const { setProducts: setGlobalProducts, setTones: setGlobalTones, setShowCelebration, homeDarkMode, setHomeDarkMode } = useApp()
   const [step, setStep] = useState(0)
 
@@ -31,6 +19,13 @@ export function OnboardingPage() {
   const [tones, setTones] = useState([])
   const [loadingIndex, setLoadingIndex] = useState(0)
   const navigate = useNavigate()
+
+  const LOADING_STEPS = [
+    t('content.onboarding.loader.steps.catalog'),
+    t('content.onboarding.loader.steps.ai'),
+    t('content.onboarding.loader.steps.meta'),
+    t('content.onboarding.loader.steps.workspace'),
+  ]
 
   useEffect(() => {
     // Initial loader — auto-advance after 1.8s
@@ -50,7 +45,7 @@ export function OnboardingPage() {
         clearTimeout(timeout)
       }
     }
-  }, [step, navigate])
+  }, [step, navigate, LOADING_STEPS.length])
 
   const handleComplete = () => {
     setGlobalProducts(products)
@@ -71,7 +66,7 @@ export function OnboardingPage() {
           type="button"
           onClick={() => setHomeDarkMode(!homeDarkMode)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-500 shadow-lg backdrop-blur-md transition hover:border-emerald-500 hover:text-emerald-500 onboarding-theme-toggle"
-          aria-label={homeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={homeDarkMode ? t('common.lightMode') : t('common.darkMode')}
         >
           {homeDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </button>
@@ -142,9 +137,9 @@ export function OnboardingPage() {
                 <Loader2 className="h-12 w-12 animate-spin text-emerald-500" strokeWidth={1.5} />
               </div>
               <p className="mt-12 animate-pulse font-display text-lg font-bold text-slate-900 onboarding-init-title">
-                INITIALIZING ONBOARDING
+                {t('content.onboarding.loader.init')}
               </p>
-              <p className="mt-2 font-medium text-slate-400 onboarding-init-desc">Please wait while we prepare your setup.</p>
+              <p className="mt-2 font-medium text-slate-400 onboarding-init-desc">{t('content.onboarding.loader.wait')}</p>
             </motion.div>
           )}
 
@@ -230,7 +225,7 @@ export function OnboardingPage() {
                   </motion.p>
                 </AnimatePresence>
               </div>
-              <p className="mt-2 font-medium text-slate-400">Please wait while we finalize your setup.</p>
+              <p className="mt-2 font-medium text-slate-400">{t('content.onboarding.loader.finalWait')}</p>
             </motion.div>
           )}
         </AnimatePresence>
