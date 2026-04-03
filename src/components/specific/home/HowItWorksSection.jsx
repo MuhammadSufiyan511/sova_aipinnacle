@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '../../../utils/routes'
 import { HowItWorksCard } from './how-it-works/HowItWorksCard'
 import { stepVideoUrls } from './how-it-works/videoUrls'
+import { useRef } from 'react'
 
 const MotionDiv = motion.div
 
@@ -26,6 +27,23 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
     shadowColor: defaultSteps[index]?.shadowColor || 'rgba(16,185,129,0.24)',
   }))
 
+  const scrollRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return
+    const container = scrollRef.current
+    const scrollLeft = container.scrollLeft
+    const width = container.clientWidth
+    
+    // Each step on mobile is approx 290px + 24px gap = 314px
+    // But we can just use the percentage of total scroll
+    const index = Math.round(scrollLeft / 314)
+    if (index !== activeIndex) {
+      setActiveIndex(Math.min(index, localizedSteps.length - 1))
+    }
+  }
+
   return (
     <section className="home-how-it-works-section w-full pb-8 pt-10 sm:pb-12 sm:pt-16">
       <div className="mx-auto max-w-[1160px] px-5">
@@ -40,7 +58,11 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
           <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">{t('sections.howDescription')}</p>
         </MotionDiv>
 
-        <div className="no-scrollbar flex w-full flex-nowrap gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:items-stretch lg:px-0 lg:pb-0">
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="no-scrollbar flex w-full flex-nowrap gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:items-stretch lg:px-0 lg:pb-0"
+        >
           {localizedSteps.map((step, index) => (
             <div key={step.title} className="w-[290px] shrink-0 snap-center sm:w-[340px] md:w-auto md:snap-align-none">
               <HowItWorksCard
@@ -52,6 +74,18 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
                 videoUrl={stepVideoUrls[index]}
               />
             </div>
+          ))}
+        </div>
+
+        {/* Mobile Pagination Dots */}
+        <div className="flex justify-center gap-2 mb-6 md:hidden">
+          {localizedSteps.map((_, i) => (
+            <div 
+              key={i}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeIndex === i ? 'w-6 bg-[#10B981]' : 'w-1.5 bg-slate-200'
+              }`}
+            />
           ))}
         </div>
 
