@@ -56,9 +56,9 @@ export function BrandFeatureSection() {
 
   return (
     <section className="home-brand-feature-section relative w-full overflow-hidden">
-      {/* Background */}
-      <div className="brand-feature-bg absolute inset-0" />
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Background - Hidden on mobile for performance */}
+      <div className="brand-feature-bg absolute inset-0 hidden sm:block" />
+      <div className="absolute inset-0 overflow-hidden hidden sm:block">
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
@@ -133,7 +133,6 @@ export function BrandFeatureSection() {
                 return (
                   <motion.div
                     key={cardIndex}
-                    layout // Animate sorting automatically
                     drag={isFront ? 'x' : false}
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.6}
@@ -145,8 +144,8 @@ export function BrandFeatureSection() {
                       zIndex: 10 - i,
                       opacity: i > 2 ? 0 : 1,
                     }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    className="absolute left-0 top-0 w-full"
+                    transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
+                    className="absolute left-0 top-0 w-full will-change-transform"
                     style={{ touchAction: isFront ? 'none' : 'auto' }}
                   >
                     <div className="pointer-events-none rounded-[24px] border border-[#F1F5F9] bg-white shadow-[0_12px_44px_rgba(0,0,0,0.12)]">

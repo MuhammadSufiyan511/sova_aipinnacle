@@ -20,15 +20,15 @@ export function HeaderMobileMenu({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-[100] bg-[#1E293B]/40 backdrop-blur-sm md:hidden"
+        className="fixed inset-0 z-[100] bg-[#1E293B]/40 md:hidden"
       />
 
       <motion.div
         initial={{ x: '100%' }}
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
-        transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-        className="fixed bottom-0 right-0 top-0 z-[110] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl md:hidden"
+        transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
+        className="fixed bottom-0 right-0 top-0 z-[110] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl md:hidden will-change-transform"
       >
         <div className="flex items-center justify-between border-b border-[#E2EFEA] px-5 py-4">
           <span className="font-display font-bold text-[#1E293B]">{t('common.menu') || 'Menu'}</span>
