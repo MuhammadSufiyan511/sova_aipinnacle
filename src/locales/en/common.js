@@ -29,5 +29,7 @@ export const common = {
   allRightsReserved: 'All Rights Reserved.',
   previous: 'Previous',
   next: 'Next',
-  termsAndPolicies: 'Terms and Conditions'
+  termsAndPolicies: 'Terms and Conditions',
+  selectLanguage: 'Select Language',
+  navigation: 'Navigation'
 }

@@ -44,7 +44,7 @@ export function CaseStudiesPage() {
   }
 
   return (
-    <section className="page-top-spacing mx-auto max-w-[1160px] px-5 pb-8">
+    <section className="page-top-spacing mx-auto max-w-[1160px] px-4 pb-8 sm:px-5">
       <SeoHead
         title="Case Studies | SOVA Results on WhatsApp"
         description="Read how businesses use SOVA to automate WhatsApp replies, save team time, filter buyers faster, and improve lead conversion."
@@ -57,15 +57,15 @@ export function CaseStudiesPage() {
       />
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
-         <h1 className="mt-4 font-display text-[1.75rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:text-3xl md:text-4xl">
+         <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl">
           {t('sections.caseTitle')}
         </h1>
-        <p className="mt-3 text-[1.1rem] leading-7 text-[#5a9e88]">
+        <p className="mt-3 text-[0.96rem] leading-6 text-[#5a9e88] sm:text-[1.1rem] sm:leading-7">
           {t('sections.caseDescription')}
         </p>
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-3">
+      <div className="mt-8 flex items-center justify-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={() => handleSwitchTab(-1)}
@@ -75,7 +75,7 @@ export function CaseStudiesPage() {
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-4 pb-2 sm:max-w-[950px] sm:flex-wrap sm:justify-center sm:px-0">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:max-w-[950px] sm:flex-wrap sm:justify-center sm:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}
@@ -84,7 +84,7 @@ export function CaseStudiesPage() {
                 setActiveTab(tab.key)
                 setPage(1)
               }}
-              className={`min-w-[138px] rounded-full px-4 py-2.5 text-center text-sm font-semibold whitespace-nowrap transition ${
+              className={`min-w-[120px] rounded-full px-4 py-2.5 text-center text-[0.76rem] font-semibold whitespace-nowrap transition sm:min-w-[138px] sm:text-sm ${
                 activeTab === tab.key
                   ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
                   : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
@@ -112,7 +112,7 @@ export function CaseStudiesPage() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mt-12 space-y-8"
+          className="mt-10 space-y-6 sm:mt-12 sm:space-y-8"
         >
           {visibleStudies.map((study) => (
             <CaseStudyCard key={study.slug} study={study} />
@@ -169,9 +169,9 @@ export function CaseStudiesPage() {
         </div>
       ) : null}
 
-      <InternalLinksGrid links={relatedLinks} className="mt-10" />
+      <InternalLinksGrid links={relatedLinks} className="mt-8 sm:mt-10" />
 
-      <div className="mt-10">
+      <div className="mt-8 sm:mt-10">
         <FinalCta />
       </div>
     </section>

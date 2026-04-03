@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
-import { FloatingWhatsApp, ScrollTopButton, SiteFooter, SiteHeader } from '../components/shared'
+import { FloatingWhatsApp, MobileBottomNav, ScrollTopButton, SiteFooter, SiteHeader } from '../components/shared'
 import { rtlLanguages } from '../i18n'
 import { useApp } from '../context/AppProvider'
 
@@ -22,7 +22,6 @@ export function AppShell({ children }) {
   const [bgOpacity, setBgOpacity] = useState(1)
   
   const isAppRoute = location.pathname.startsWith('/onboarding') || location.pathname.startsWith('/admin')
-  const isHomeRoute = !isAppRoute && location.pathname === '/'
 
   useEffect(() => {
     if (location.hash) {
@@ -74,13 +73,13 @@ export function AppShell({ children }) {
       )}
       <div 
         style={{ opacity: bgOpacity, transition: 'opacity 0.3s ease-in-out' }}
-        className={`flex min-h-screen flex-col ${homeDarkMode ? 'home-page-theme' : ''}`}
+        className={`flex min-h-screen flex-col pb-[112px] sm:pb-[104px] md:pb-0 ${homeDarkMode ? 'home-page-theme' : ''}`}
       >
         <AnimatePresence mode="wait">
           <MotionMain 
             key={isAppRoute ? 'app-shell-main' : location.pathname} 
             {...(isAppRoute ? {} : pageAnimation)} 
-            className="flex-1 w-full flex flex-col"
+            className={`flex-1 w-full flex flex-col ${!isAppRoute ? 'pb-20 md:pb-0' : ''}`}
           >
             {children}
           </MotionMain>
@@ -89,6 +88,7 @@ export function AppShell({ children }) {
       </div>
       {!isAppRoute && <ScrollTopButton />}
       {!isAppRoute && <FloatingWhatsApp />}
+      {!isAppRoute && <MobileBottomNav />}
     </div>
   )
 }

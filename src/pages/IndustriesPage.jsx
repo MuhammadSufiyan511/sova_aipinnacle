@@ -44,7 +44,7 @@ export function IndustriesPage() {
   }
 
   return (
-    <div className="page-top-spacing mx-auto max-w-[1160px] px-5 pb-10">
+    <div className="page-top-spacing mx-auto max-w-[1160px] px-4 pb-8 sm:px-5 sm:pb-10">
       <SeoHead
         title="Industries | SOVA WhatsApp Automation"
         description="See how SOVA supports clothing, electronics, toys, dry fruits, and other businesses that sell through high-volume WhatsApp conversations."
@@ -63,7 +63,7 @@ export function IndustriesPage() {
         as="h1"
       />
 
-      <div className="mt-10 flex items-center justify-center gap-3">
+      <div className="mt-8 flex items-center justify-center gap-2 sm:mt-10 sm:gap-3">
         <button
           type="button"
           onClick={() => handleSwitchTab(-1)}
@@ -73,7 +73,7 @@ export function IndustriesPage() {
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-4 pb-2 sm:max-w-[900px] sm:flex-wrap sm:justify-center sm:px-0">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:max-w-[900px] sm:flex-wrap sm:justify-center sm:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}
@@ -82,7 +82,7 @@ export function IndustriesPage() {
                 setActiveTab(tab.key)
                 setPage(1)
               }}
-              className={`min-w-[178px] rounded-full px-5 py-2.5 text-center text-sm font-semibold whitespace-nowrap transition ${
+              className={`min-w-[138px] rounded-full px-4 py-2.5 text-center text-[0.76rem] font-semibold whitespace-nowrap transition sm:min-w-[178px] sm:px-5 sm:text-sm ${
                 activeTab === tab.key
                   ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
                   : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
@@ -121,7 +121,7 @@ export function IndustriesPage() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mt-16 space-y-12"
+          className="mt-10 space-y-6 sm:mt-16 sm:space-y-12"
         >
           {visibleIndustries.map((industry, index) => (
             <IndustryCard key={industry.id} industry={industry} index={index} />
@@ -178,9 +178,9 @@ export function IndustriesPage() {
         </div>
       ) : null}
 
-      <InternalLinksGrid links={relatedLinks} className="mt-12" />
+      <InternalLinksGrid links={relatedLinks} className="mt-10 sm:mt-12" />
 
-      <div className="mt-14">
+      <div className="mt-10 sm:mt-14">
         <FinalCta />
       </div>
     </div>

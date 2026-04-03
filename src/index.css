@@ -211,7 +211,7 @@
 
   /* Standard Responsive Page Top Padding */
   .page-top-spacing {
-    padding-top: 5.5rem; /* ~pt-22 */
+    padding-top: 6.25rem;
   }
   @media (min-width: 640px) {
     .page-top-spacing {

@@ -39,7 +39,10 @@ export function HowItWorksSection() {
           <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">{t('sections.howDescription')}</p>
         </MotionDiv>
 
-        <div className="grid gap-6 lg:grid-cols-3 lg:items-stretch">
+        <div className="relative grid gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6">
+          {/* Vertical line for mobile timeline */}
+          <div className="absolute bottom-10 left-[43px] top-20 w-[2px] border-l-2 border-dashed border-[#10B981]/20 lg:hidden" />
+          
           {localizedSteps.map((step, index) => (
             <HowItWorksCard
               key={step.title}

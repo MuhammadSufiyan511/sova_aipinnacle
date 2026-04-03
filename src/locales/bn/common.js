@@ -30,4 +30,6 @@ export const common = {
   previous: 'পেছনে',
   next: 'পরের',
   termsAndPolicies: 'শর্ত ও নীতিমালা',
+  selectLanguage: 'ভাষা নির্বাচন করুন',
+  navigation: 'ন্যাভিগেশন'
 }

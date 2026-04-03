@@ -56,7 +56,7 @@ export function HeroSection({ onWatchDemo }) {
   const businessItems = t('content.trustedBusinesses.items', { returnObjects: true }) || trustedBusinesses
 
   return (
-    <section className="home-hero-section relative w-full overflow-hidden bg-white pb-10 pt-20 text-center sm:pt-24 lg:pt-30">
+    <section className="home-hero-section relative w-full overflow-hidden bg-white pb-16 pt-20 text-center sm:pb-20 sm:pt-24 lg:pt-30">
       {/* Animated radial gradient background - centered */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <motion.div
@@ -74,36 +74,37 @@ export function HeroSection({ onWatchDemo }) {
             background: 'radial-gradient(ellipse, rgba(16,185,129,0.16) 0%, rgba(167,139,250,0.1) 45%, transparent 75%)',
           }}
         />
+        {/* Mobile Glow behind CTAs */}
+        <div className="absolute left-1/2 top-[55%] h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-emerald-400/10 blur-[80px] md:hidden" />
+        
         {/* Subtle circles overlay */}
-     
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.25]">
           <div className="h-[400px] w-[400px] rounded-full border border-[#10B981]" />
           <div className="absolute h-[600px] w-[600px] rounded-full border border-[#F1990A]" />
           <div className="absolute h-[800px] w-[800px] rounded-full border border-[#1E293B]" />
-          <div className="absolute h-[1000px] w-[1000px] rounded-full border border-[#10B981]" />
-          <div className="absolute h-[1200px] w-[1200px] rounded-full border border-[#F1990A]" />
+        </div>
       </div>
-      </div>
-     {/* Bottom badge */}
-          <MotionDiv
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-5 flex items-center justify-center"
-          >
-            <div className="group flex items-center gap-3 rounded-[18px]  px-3 py-2 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 ">
 
-              {/* Icon */}
-              <div className="flex items-center justify-center rounded-[12px] bg-[linear-gradient(135deg,#1269D5_0%,#0A4FB3_100%)] p-2 text-white shadow-[0_10px_22px_rgba(18,105,213,0.18)]">
-                <FaMeta className="h-7 w-7" />
-              </div>
+      {/* Bottom badge */}
+      <MotionDiv
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="mt-2 flex items-center justify-center sm:mt-5"
+      >
+        <div className="group flex items-center gap-2 rounded-[18px] px-3 py-1.5 transition-all duration-300 hover:-translate-y-0.5 sm:gap-3 sm:py-2">
+          {/* Icon */}
+          <div className="flex items-center justify-center rounded-[10px] bg-[linear-gradient(135deg,#1269D5_0%,#0A4FB3_100%)] p-1.5 text-white shadow-[0_8px_18px_rgba(18,105,213,0.15)] sm:rounded-[12px] sm:p-2">
+            <FaMeta className="h-5 w-5 sm:h-7 sm:w-7" />
+          </div>
 
-              {/* Text */}
-              <span className="rounded-full py-1 text-[1.5rem] font-semibold tracking-wide text-[#1269D5]">
-                {t('common.metaApproved')}
-              </span>
-            </div>
-          </MotionDiv>
+          {/* Text */}
+          <span className="text-[1.1rem] font-bold tracking-tight text-[#1269D5] sm:text-[1.5rem]">
+            {t('common.metaApproved')}
+          </span>
+        </div>
+      </MotionDiv>
+
       <div className="relative z-10 mx-auto max-w-[900px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -115,7 +116,7 @@ export function HeroSection({ onWatchDemo }) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="mx-auto max-w-[860px] px-4 text-center font-display text-[1.8rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
+            className="mx-auto max-w-[860px] px-1 text-center font-display text-[2.3rem] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1E293B] sm:px-4 sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem]"
           >
             {t('hero.titlePrefix')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] via-[#06B6D4] to-[#F1990A] bg-clip-text text-transparent">
@@ -130,7 +131,7 @@ export function HeroSection({ onWatchDemo }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
           >
-            <p className="mt-6 mx-auto max-w-[780px] px-4 text-center text-[0.95rem] leading-[1.6] text-[#1E293B] sm:mt-7 sm:text-[1.1rem] lg:text-[1.2rem]">
+            <p className="mx-auto mt-5 max-w-[780px] px-2 text-center text-[0.98rem] leading-[1.65] text-[#1E293B]/80 sm:mt-7 sm:text-[1.1rem] lg:text-[1.2rem]">
               {t('hero.description')}
             </p>
           </MotionDiv>
@@ -139,24 +140,23 @@ export function HeroSection({ onWatchDemo }) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start"
+            className="mt-8 flex flex-row items-center justify-center gap-2 sm:mt-12 sm:gap-4"
           >
-            <div className="flex w-full flex-col items-center sm:w-auto">
+            <div className="flex shrink-0 items-center">
               <Link
                 to={ROUTES.auth}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#10B981] px-8 py-3.5 text-[0.95rem] font-bold text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition hover:scale-[1.03] active:scale-[0.98] sm:w-auto"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#10B981] px-4 py-2.5 text-[0.78rem] font-extrabold text-white shadow-[0_12px_28px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.03] active:scale-[0.96] sm:px-8 sm:py-4 sm:text-[0.95rem]"
               >
-                {t('common.startFreeTrial')} <ArrowUpRight className="h-4 w-4" />
+                {t('common.startFreeTrial')} <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
-              <p className="mt-2 text-[0.72rem] font-medium text-[#F1990A]">{t('common.noCardRequired')}</p>
             </div>
             <button
               type="button"
               onClick={onWatchDemo}
               aria-label="Watch the SOVA product demo"
-              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-[#1E293B] bg-white px-8 py-3.5 text-[0.95rem] font-bold text-[#1E293B] transition hover:border-[#10B981] hover:bg-[#F8FAFC] hover:text-[#10B981] active:scale-[0.98] sm:w-auto"
+              className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full border-2 border-[#1E293B] bg-white px-4 py-2.5 text-[0.78rem] font-extrabold text-[#1E293B] transition-all hover:border-[#10B981] hover:bg-[#F8FAFC] hover:text-[#10B981] active:scale-[0.96] sm:px-8 sm:py-4 sm:text-[0.95rem]"
             >
-              {t('common.watchDemo')} <Play className="h-4 w-4 fill-current" />
+              {t('common.watchDemo')} <Play className="h-3.5 w-3.5 fill-current sm:h-4 sm:w-4" />
             </button>
           </MotionDiv>
 

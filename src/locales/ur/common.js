@@ -30,4 +30,6 @@ export const common = {
   previous: 'پچھلا',
   next: 'اگلا',
   termsAndPolicies: 'شرائط اور پالیسیاں',
+  selectLanguage: 'زبان منتخب کریں',
+  navigation: 'نیویگیشن'
 }

@@ -6,9 +6,9 @@ export function ProductivityGraphCard({ cardCopy }) {
   return (
     <MotionDiv
       whileHover={{ y: -6 }}
-      className="feature-card-glass rounded-[32px] border border-[#E2EFEA] bg-white p-10 shadow-[0_12px_44px_rgba(0,0,0,0.03)]"
+      className="feature-card-glass rounded-[28px] border border-white/50 bg-white/50 p-5 shadow-[0_12px_44px_rgba(16,185,129,0.04)] backdrop-blur-xl transition-all sm:p-7"
     >
-      <div className="inner-sim-box mb-8 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#F8FAFC]">
+      <div className="inner-sim-box mb-5 flex h-32 w-full items-center justify-center overflow-hidden rounded-2xl bg-[#F8FAFC]/50 backdrop-blur-sm sm:mb-6">
         <svg width="100%" height="100%" viewBox="0 0 400 200" className="opacity-80 overflow-visible">
           <motion.path
             id="graph-path"
@@ -71,10 +71,10 @@ export function ProductivityGraphCard({ cardCopy }) {
           </defs>
         </svg>
       </div>
-      <h3 className="font-display text-[1.6rem] font-bold text-[#1E293B]">
+      <h3 className="font-display text-[1.2rem] font-bold text-[#1E293B] sm:text-[1.4rem]">
         <span className="text-[#10B981]">{cardCopy.value}</span> {cardCopy.title}
       </h3>
-      <p className="mt-3 text-[1rem] leading-[1.7] text-[#1E293B]">{cardCopy.body}</p>
+      <p className="mt-2 text-[0.85rem] leading-[1.65] text-[#1E293B] sm:mt-3 sm:text-[0.92rem]">{cardCopy.body}</p>
     </MotionDiv>
   )
 }

@@ -16,7 +16,7 @@ export function FeaturesGridSection() {
   const { t } = useTranslation()
   const gridFeatures = t('content.featuresGrid.items', { returnObjects: true }) || features.slice(0, 6)
   const micro = t('content.featuresGrid.micro', { returnObjects: true })
-  
+
   const featureImages = [
     seriousBuyerDetectionImage,
     autoRepliesImage,

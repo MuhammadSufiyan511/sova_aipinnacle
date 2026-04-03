@@ -105,7 +105,7 @@ export function BrandFeatureSection() {
             </MotionDiv>
           </div>
 
-          <div className="-mt-8 rounded-2xl bg-white px-4 pb-10 sm:px-8">
+          <div className="-mt-8 rounded-2xl bg-white px-4 pb-10 sm:px-8 sm:w-full">
             <div className="mx-auto mt-4 grid max-w-[1000px] gap-6 sm:grid-cols-2 lg:grid-cols-2">
               <ProductivityGraphCard cardCopy={copy.cards[0]} />
               <ActiveUsersCard cardCopy={copy.cards[1]} microCopy={copy.micro} />

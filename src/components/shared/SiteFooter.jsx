@@ -15,7 +15,7 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="site-footer-shell w-full bg-white border-t border-[#E2E8F0] pt-12 pb-12 text-[#1E293B]">
+    <footer className="site-footer-shell mb-16 w-full border-t border-[#E2E8F0] bg-white pt-12 pb-12 text-[#1E293B] md:mb-0">
       <div className="mx-auto max-w-[1160px] px-5">
         <div className="flex flex-col items-center justify-between gap-8 pb-12 md:flex-row">
           <div className="flex items-center gap-3">
@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-[#F1F5F9] pt-8 text-[0.875rem] font-medium text-[#5a9e88] md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-[#F1F5F9] pt-8 text-[0.875rem] font-medium text-[#5a9e88] md:flex-row  ">
           <p>© {new Date().getFullYear()} {t('common.brand')} {t('common.allRightsReserved')}</p>
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 font-semibold text-[#1E293B]">
