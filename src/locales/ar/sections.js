@@ -35,4 +35,6 @@ export const sections = {
   privacyDescription: 'هنا نوضح ماذا نجمع، وكيف نستخدمه، وكيف نحميه، وما الحقوق التي يمكنك طلبها.',
   finalTitle: 'ابدأ الآن',
   finalButton: 'ابدأ الآن!',
+  industrySummaries: 'Industry summaries',
+  industryUseCases: 'Industry use cases'
 }

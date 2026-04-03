@@ -55,7 +55,7 @@ export function SettingsOverview() {
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="flex max-w-3xl flex-col gap-4">
       <Motion.div variants={rowItem}>
-        <h2 className="font-display text-[1.2rem] font-bold text-[#173247]">Automation Settings</h2>
+        <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title">Automation Settings</h2>
         <p className="mt-0.5 text-[0.74rem] text-[#62808D]">Manage your SOVA voice, alert preferences, and automation rules.</p>
       </Motion.div>
 
@@ -65,7 +65,7 @@ export function SettingsOverview() {
             <Sparkles className="h-4.5 w-4.5" />
           </span>
           <div>
-            <h3 className="text-[0.86rem] font-bold text-[#173247]">AI Voice & Tone</h3>
+            <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">AI Voice & Tone</h3>
             <p className="text-[0.7rem] text-[#62808D]">Controls how SOVA talks to your customers</p>
           </div>
         </div>

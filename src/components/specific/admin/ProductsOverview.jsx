@@ -34,7 +34,7 @@ export function ProductsOverview() {
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem]">Product Catalog</h2>
+          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem] admin-card-title">Product Catalog</h2>
           <p className="text-[0.72rem] text-[#62808D] sm:text-[0.78rem]">{products.length} item{products.length !== 1 ? 's' : ''} shared by SOVA in buyer chats</p>
         </div>
         <Motion.button

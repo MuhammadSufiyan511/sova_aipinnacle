@@ -24,9 +24,9 @@ export function ReviewsSection() {
   const reviewDirection = i18n.dir()
 
   return (
-    <section className="home-reviews-section relative w-full overflow-hidden bg-[#F8FAFC] py-16 sm:py-20">
+    <section className="home-reviews-section relative w-full overflow-hidden bg-[#F8FAFC] py-10 sm:py-16">
       {/* Background Decorative Element */}
-      <div className="absolute left-1/2 top-0 h-[500px] w-full -translate-x-1/2 opacity-[0.4]" style={{ background: 'radial-gradient(circle at center, #E0F2FE 0%, transparent 70%)' }} />
+      <div className="reviews-radial-bg absolute left-1/2 top-0 h-[500px] w-full -translate-x-1/2 opacity-[0.4]" />
 
       <div className="relative z-10 mx-auto max-w-[1160px] px-5">
         <MotionDiv

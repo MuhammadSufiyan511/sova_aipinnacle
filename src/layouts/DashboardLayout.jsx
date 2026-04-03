@@ -185,7 +185,7 @@ export function DashboardLayout({ children }) {
             {/* Hamburger — always shown on mobile, shown on desktop when sidebar collapsed */}
             <button
               onClick={() => { if (isDesktop) { setDesktopSidebarOpen(v => !v) } else { setMobileOpen(true) } }}
-              className={`rounded-xl p-1.5 text-slate-500 transition hover:bg-slate-100 ${isDesktop && desktopSidebarOpen ? 'lg:hidden' : ''}`}
+              className="rounded-xl p-1.5 text-slate-500 transition hover:bg-slate-100"
             >
               <Menu className="h-4.5 w-4.5" />
             </button>
@@ -200,7 +200,7 @@ export function DashboardLayout({ children }) {
             <button
               type="button"
               onClick={() => setHomeDarkMode(!homeDarkMode)}
-              className="hidden h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition hover:bg-slate-100 hover:text-emerald-600 sm:inline-flex sm:h-9 sm:w-9"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
               aria-label={homeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {homeDarkMode ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
@@ -268,8 +268,8 @@ export function DashboardLayout({ children }) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-x-hidden p-3 sm:p-6 lg:p-8">
-          <div className="mx-auto w-full max-w-[76rem]">
+        <main className="flex-1 w-full min-w-0 overflow-x-hidden p-3 sm:p-6 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-[76rem]">
             <AnimatePresence mode="wait">
               <Motion.div
                 key={location.pathname}
@@ -277,6 +277,7 @@ export function DashboardLayout({ children }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.18 }}
+                className="w-full min-w-0"
               >
                 {children}
               </Motion.div>

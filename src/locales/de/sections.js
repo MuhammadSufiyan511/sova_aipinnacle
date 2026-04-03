@@ -35,4 +35,6 @@ export const sections = {
   privacyDescription: 'Diese Seite erklärt, was wir erfassen, wie wir es nutzen, wie wir es schützen und welche Rechte Nutzer geltend machen können.',
   finalTitle: 'Jetzt loslegen',
   finalButton: 'Jetzt starten!',
+  industrySummaries: 'Industry summaries',
+  industryUseCases: 'Industry use cases'
 }

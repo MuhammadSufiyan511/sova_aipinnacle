@@ -44,7 +44,7 @@ export function IndustriesPage() {
   }
 
   return (
-    <div className="page-top-spacing mx-auto max-w-[1160px] px-4 pb-8 sm:px-5 sm:pb-10">
+    <div className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32">
       <SeoHead
         title="Industries | SOVA WhatsApp Automation"
         description="See how SOVA supports clothing, electronics, toys, dry fruits, and other businesses that sell through high-volume WhatsApp conversations."
@@ -68,12 +68,50 @@ export function IndustriesPage() {
           type="button"
           onClick={() => handleSwitchTab(-1)}
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label="Previous industry tab"
+          aria-label={t('common.previousIndustryTab')}
         >
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:max-w-[900px] sm:flex-wrap sm:justify-center sm:px-0">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:hidden">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setActiveTab(tab.key)
+                setPage(1)
+              }}
+              className={`min-w-[120px] rounded-full px-3 py-2 text-center text-[0.7rem] font-semibold whitespace-nowrap transition ${
+                activeTab === tab.key
+                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
+                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="no-scrollbar hidden max-w-full flex-wrap justify-center gap-2 sm:flex lg:hidden">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setActiveTab(tab.key)
+                setPage(1)
+              }}
+              className={`min-w-[140px] rounded-full px-4 py-2.5 text-center text-[0.78rem] font-semibold whitespace-nowrap transition sm:min-w-[168px] sm:px-5 sm:text-sm ${
+                activeTab === tab.key
+                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
+                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="no-scrollbar hidden max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 lg:flex lg:max-w-[900px] lg:justify-center lg:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}
@@ -82,7 +120,7 @@ export function IndustriesPage() {
                 setActiveTab(tab.key)
                 setPage(1)
               }}
-              className={`min-w-[138px] rounded-full px-4 py-2.5 text-center text-[0.76rem] font-semibold whitespace-nowrap transition sm:min-w-[178px] sm:px-5 sm:text-sm ${
+              className={`min-w-[160px] rounded-full px-4 py-2.5 text-center text-[0.82rem] font-semibold whitespace-nowrap transition sm:min-w-[178px] sm:px-5 sm:text-sm ${
                 activeTab === tab.key
                   ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
                   : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
@@ -97,14 +135,14 @@ export function IndustriesPage() {
           type="button"
           onClick={() => handleSwitchTab(1)}
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label="Next industry tab"
+          aria-label={t('common.nextIndustryTab')}
         >
           {isRtl ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
         </button>
       </div>
 
       <div className="sr-only">
-        <h2>Industry summaries</h2>
+        <h2>{t('sections.industrySummaries')}</h2>
         <ul>
           {enrichedIndustries.map((industry) => (
             <li key={industry.id}>
@@ -121,8 +159,8 @@ export function IndustriesPage() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mt-10 space-y-6 sm:mt-16 sm:space-y-12"
-        >
+        className="mt-10 space-y-10 sm:mt-16 sm:space-y-16 lg:mt-24 lg:space-y-24"
+      >
           {visibleIndustries.map((industry, index) => (
             <IndustryCard key={industry.id} industry={industry} index={index} />
           ))}

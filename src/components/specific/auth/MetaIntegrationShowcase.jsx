@@ -14,7 +14,7 @@ export function MetaIntegrationShowcase({ onOpenModal }) {
   const localizedSteps = copy.steps || steps
 
   return (
-    <div className="meta-showcase-shell rounded-[40px] border border-[#E2EFEA] bg-gradient-to-br from-[#F8FAFC] via-white to-[#F8FAFC] p-8 shadow-[0_12px_44px_rgba(0,0,0,0.03)] lg:col-span-2">
+    <div className="meta-showcase-shell mt-8 w-full border-y border-[#E2EFEA] bg-gradient-to-br from-[#F8FAFC] via-white to-[#F8FAFC] p-6 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:mt-12 sm:rounded-[40px] sm:border sm:p-10 lg:col-span-2 lg:p-14">
       <div className="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:p-4">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#10B981] meta-showcase-eyebrow">{copy.eyebrow}</p>
@@ -22,14 +22,14 @@ export function MetaIntegrationShowcase({ onOpenModal }) {
           <p className="mt-5 text-[1.1rem] leading-[1.7] text-[#48617A] meta-showcase-description">{copy.description}</p>
           <div className="mt-10 space-y-4">
             {localizedSteps.map((step, index) => (
-              <div key={step} className="meta-showcase-step flex items-center gap-4 rounded-[22px] border border-[#E2EFEA] bg-white px-6 py-5 text-[1rem] font-bold text-[#0F172A] shadow-sm">
+              <div key={step} className="meta-showcase-step flex items-start gap-4 rounded-[22px] border border-[#E2EFEA] bg-white px-5 py-4 text-[0.95rem] font-bold text-[#0F172A] shadow-sm sm:items-center sm:px-6 sm:py-5 sm:text-[1.1rem]">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F1990A] text-sm font-extrabold text-white shadow-lg">0{index + 1}</span>
                 {step}
               </div>
             ))}
           </div>
         </div>
-        <div className="meta-showcase-phone-shell rounded-[40px] border border-[#334155] bg-[#0F172A] p-2 shadow-[0_32px_80px_rgba(0,0,0,0.2)]">
+        <div className="meta-showcase-phone-shell mt-10 rounded-[32px] border border-[#334155] bg-[#0F172A] p-2 shadow-[0_32px_80px_rgba(0,0,0,0.2)] sm:mt-0 sm:rounded-[40px]">
           <div className="overflow-hidden rounded-[32px] bg-gradient-to-b from-[#0F172A] to-[#0F172A] p-6 text-white">
             <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
               <div>

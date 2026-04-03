@@ -23,20 +23,20 @@ const item = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }
 
 export function ReportsOverview() {
   return (
-    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-5 admin-reports-shell">
+    <Motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-5 admin-reports-shell w-full min-w-0">
       {/* Header */}
       <Motion.div variants={item} className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <div>
+        <div className="max-w-md">
           <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.35rem] admin-card-title">Sales Reports</h2>
           <p className="mt-0.5 text-[0.7rem] leading-5 text-[#62808D] sm:text-[0.74rem] admin-card-desc">Track how SOVA converts WhatsApp conversations into orders, revenue, and faster replies.</p>
         </div>
-        <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-4 py-2.5 text-[0.78rem] font-bold text-[#476977] shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 sm:w-auto admin-btn-secondary">
+        <button className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-4 py-2.5 text-[0.78rem] font-bold text-[#476977] shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
           <Download className="h-4 w-4" /> Export report
         </button>
       </Motion.div>
 
       {/* KPI Cards */}
-      <Motion.div variants={item} className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-3">
+      <Motion.div variants={item} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {reportStats.map((stat) => (
           <div key={stat.label} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm admin-stat-box">
             <div className="flex items-center justify-between">
@@ -48,19 +48,19 @@ export function ReportsOverview() {
               </span>
             </div>
             <p className="mt-3 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] admin-stat-label">{stat.label}</p>
-            <p className="mt-1 font-display text-[1.7rem] font-extrabold text-[#173247] admin-stat-value">{stat.value}</p>
+            <p className="mt-1 font-display text-[1.4rem] font-extrabold text-[#173247] 2xl:text-[1.6rem] admin-stat-value">{stat.value}</p>
           </div>
         ))}
       </Motion.div>
 
       {/* Revenue Bar Chart */}
-      <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-5 shadow-sm admin-card-shell">
-        <div className="mb-4 flex items-center justify-between">
+      <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:rounded-[26px] sm:p-5 admin-card-shell w-full min-w-0">
+        <div className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <div>
-            <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Revenue influenced by SOVA</h3>
-            <p className="text-[0.74rem] text-[#62808D] admin-card-desc">Daily tracked sales emerging from automated conversations</p>
+            <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">Revenue influenced by SOVA</h3>
+            <p className="text-[0.7rem] sm:text-[0.74rem] text-[#62808D] admin-card-desc">Daily tracked sales emerging from automated conversations</p>
           </div>
-          <div className="rounded-full bg-violet-50 px-3 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">This week</div>
+          <div className="self-start rounded-full bg-violet-50 px-3 py-1 text-[0.66rem] font-bold text-violet-600 sm:self-auto admin-pill">This week</div>
         </div>
         <div className="flex h-44 items-end justify-between gap-3 pt-4 admin-chart-container">
           {weeklyRows.map((row, i) => (
@@ -79,12 +79,53 @@ export function ReportsOverview() {
       </Motion.div>
 
       {/* Weekly Table */}
-      <Motion.div variants={item} className="overflow-hidden rounded-[26px] border border-[#DDEFE7] bg-white shadow-sm admin-card-shell">
-        <div className="border-b border-[#DDEFE7] px-5 py-4">
-          <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">Weekly performance snapshot</h3>
-          <p className="mt-0.5 text-[0.74rem] text-[#62808D] admin-card-desc">Chat volume, orders, conversion rate, and revenue influenced daily by automation.</p>
+      <Motion.div
+        variants={item}
+        className="overflow-hidden rounded-[24px] border border-[#DDEFE7] bg-white shadow-sm sm:rounded-[26px] admin-card-shell w-full min-w-0"
+      >
+        {/* Header */}
+        <div className="border-b border-[#DDEFE7] px-4 py-4 sm:px-5">
+          <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">
+            Weekly performance snapshot
+          </h3>
+          <p className="mt-0.5 text-[0.7rem] sm:text-[0.74rem] text-[#62808D] admin-card-desc">
+            Chat volume, orders, conversion rate, and revenue influenced daily by automation.
+          </p>
         </div>
-        <div className="overflow-x-auto">
+
+        {/* ── MOBILE: stacked cards (hidden on md+) ─────────────── */}
+        <div className="divide-y divide-[#DDEFE7] md:hidden">
+          {weeklyRows.map((row) => (
+            <div key={row.label} className="px-4 py-3.5 transition hover:bg-[#F8FDFB]">
+              {/* Day label row */}
+              <div className="mb-2.5 flex items-center justify-between">
+                <span className="text-[0.88rem] font-bold text-[#295565]">{row.label}</span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-0.5 text-[0.68rem] font-bold text-[#059669] admin-pill">
+                  <ArrowUpRight className="h-3 w-3" /> {row.rate}
+                </span>
+              </div>
+
+              {/* Stats grid: 3 cols */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-[10px] bg-[#F2FBF7] px-2.5 py-2">
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">Chats</p>
+                  <p className="mt-0.5 text-[0.82rem] text-[#476977]">{row.chats}</p>
+                </div>
+                <div className="rounded-[10px] bg-[#F2FBF7] px-2.5 py-2">
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">Orders</p>
+                  <p className="mt-0.5 text-[0.82rem] text-[#476977]">{row.orders}</p>
+                </div>
+                <div className="rounded-[10px] bg-[#F2FBF7] px-2.5 py-2">
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">Revenue</p>
+                  <p className="mt-0.5 text-[0.82rem] font-semibold text-[#173247]">{row.revenue}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── DESKTOP: standard table (hidden below md) ─────────── */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full min-w-[480px]">
             <thead>
               <tr className="bg-[#F2FBF7] text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] admin-table-header">

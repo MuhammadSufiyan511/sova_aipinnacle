@@ -18,7 +18,7 @@ export function PricingPreviewSection() {
   const prevPlan = () => setActivePlan((prev) => (prev - 1 + localizedPlans.length) % localizedPlans.length)
 
   return (
-    <section id="pricing" className="home-pricing-preview-section w-full bg-white py-16 scroll-mt-28">
+    <section id="pricing" className="home-pricing-preview-section w-full bg-white py-10 sm:py-16 scroll-mt-28">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

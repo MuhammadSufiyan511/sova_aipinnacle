@@ -14,7 +14,7 @@ export function MockupPhone({ mockupY, mockupOpacity, mockupScale, mockupRotate,
         perspective: 1200,
         willChange: 'transform, opacity',
       }}
-      className="relative z-10 w-full max-w-[340px] drop-shadow-[0_20px_50px_rgba(16,185,129,0.15)]"
+      className="relative z-10 w-full max-w-[260px] sm:max-w-[340px] drop-shadow-[0_20px_50px_rgba(16,185,129,0.15)] mx-auto"
     >
       {/* 3D float + tilt wrapper */}
       <motion.div

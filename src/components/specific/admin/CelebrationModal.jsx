@@ -25,7 +25,7 @@ export function CelebrationModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 24 }}
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-            className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-full sm:p-6"
+            className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-x-hidden overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-[92vw] sm:overflow-hidden sm:p-6"
           >
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
             <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />

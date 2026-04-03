@@ -26,7 +26,7 @@ export function HowItWorksSection() {
   }))
 
   return (
-    <section className="home-how-it-works-section w-full pb-10 pt-16">
+    <section className="home-how-it-works-section w-full pb-8 pt-10 sm:pb-12 sm:pt-16">
       <div className="mx-auto max-w-[1160px] px-5">
         <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
           <p className="section-eyebrow mb-4 inline-flex rounded-full border border-[#CDEDE5] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] px-5 py-2 text-[0.74rem] font-bold tracking-[0.08em] text-[#10B981] shadow-[0_8px_24px_rgba(16,185,129,0.1)]">
@@ -39,20 +39,18 @@ export function HowItWorksSection() {
           <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88]">{t('sections.howDescription')}</p>
         </MotionDiv>
 
-        <div className="relative grid gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6">
-          {/* Vertical line for mobile timeline */}
-          <div className="absolute bottom-10 left-[43px] top-20 w-[2px] border-l-2 border-dashed border-[#10B981]/20 lg:hidden" />
-          
+        <div className="no-scrollbar flex w-full flex-nowrap gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:items-stretch lg:px-0 lg:pb-0">
           {localizedSteps.map((step, index) => (
-            <HowItWorksCard
-              key={step.title}
-              isLoaded={loadedVideos[index]}
-              isMetaStep={index === 0}
-              onLoad={() => setLoadedVideos((current) => current.map((loaded, itemIndex) => (itemIndex === index ? true : loaded)))}
-              step={step}
-              title={`${step.title} - ${t('common.watchDemo')}`}
-              videoUrl={stepVideoUrls[index]}
-            />
+            <div key={step.title} className="w-[290px] shrink-0 snap-center sm:w-[340px] md:w-auto md:snap-align-none">
+              <HowItWorksCard
+                isLoaded={loadedVideos[index]}
+                isMetaStep={index === 0}
+                onLoad={() => setLoadedVideos((current) => current.map((loaded, itemIndex) => (itemIndex === index ? true : loaded)))}
+                step={step}
+                title={`${step.title} - ${t('common.watchDemo')}`}
+                videoUrl={stepVideoUrls[index]}
+              />
+            </div>
           ))}
         </div>
 

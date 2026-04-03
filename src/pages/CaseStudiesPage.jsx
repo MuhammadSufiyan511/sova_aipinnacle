@@ -44,7 +44,7 @@ export function CaseStudiesPage() {
   }
 
   return (
-    <section className="page-top-spacing mx-auto max-w-[1160px] px-4 pb-8 sm:px-5">
+    <section className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32">
       <SeoHead
         title="Case Studies | SOVA Results on WhatsApp"
         description="Read how businesses use SOVA to automate WhatsApp replies, save team time, filter buyers faster, and improve lead conversion."
@@ -55,7 +55,7 @@ export function CaseStudiesPage() {
           ]),
         ]}
       />
-      <div className="mx-auto max-w-4xl text-center">
+      <div className="mx-auto max-w-2xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981]">{t('sections.caseEyebrow')}</p>
          <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl">
           {t('sections.caseTitle')}
@@ -70,12 +70,50 @@ export function CaseStudiesPage() {
           type="button"
           onClick={() => handleSwitchTab(-1)}
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label="Previous case study tab"
+          aria-label={t('common.previousCaseStudyTab')}
         >
           {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </button>
 
-        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:max-w-[950px] sm:flex-wrap sm:justify-center sm:px-0">
+        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:hidden">
+          {uniqueTabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setActiveTab(tab.key)
+                setPage(1)
+              }}
+              className={`min-w-[110px] rounded-full px-3 py-2 text-center text-[0.7rem] font-semibold whitespace-nowrap transition ${
+                activeTab === tab.key
+                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
+                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="no-scrollbar hidden max-w-full flex-wrap justify-center gap-2 sm:flex lg:hidden">
+          {uniqueTabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setActiveTab(tab.key)
+                setPage(1)
+              }}
+              className={`min-w-[128px] rounded-full px-4 py-2.5 text-center text-[0.78rem] font-semibold whitespace-nowrap transition sm:min-w-[146px] sm:text-sm ${
+                activeTab === tab.key
+                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
+                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="no-scrollbar hidden max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 lg:flex lg:max-w-[950px] lg:justify-center lg:px-0">
           {visibleTabs.map((tab) => (
             <button
               key={tab.key}
@@ -84,7 +122,7 @@ export function CaseStudiesPage() {
                 setActiveTab(tab.key)
                 setPage(1)
               }}
-              className={`min-w-[120px] rounded-full px-4 py-2.5 text-center text-[0.76rem] font-semibold whitespace-nowrap transition sm:min-w-[138px] sm:text-sm ${
+              className={`min-w-[128px] rounded-full px-4 py-2.5 text-center text-[0.78rem] font-semibold whitespace-nowrap transition sm:min-w-[146px] sm:text-sm ${
                 activeTab === tab.key
                   ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
                   : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
@@ -99,7 +137,7 @@ export function CaseStudiesPage() {
           type="button"
           onClick={() => handleSwitchTab(1)}
           className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label="Next case study tab"
+          aria-label={t('common.nextCaseStudyTab')}
         >
           {isRtl ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
         </button>
@@ -112,7 +150,7 @@ export function CaseStudiesPage() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mt-10 space-y-6 sm:mt-12 sm:space-y-8"
+          className="mt-10 space-y-10 sm:mt-16 sm:space-y-16 lg:mt-24 lg:space-y-24"
         >
           {visibleStudies.map((study) => (
             <CaseStudyCard key={study.slug} study={study} />

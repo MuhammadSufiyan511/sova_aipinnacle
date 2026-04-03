@@ -8,12 +8,13 @@ import { useApp } from '../context/AppProvider'
 
 const MotionMain = motion.main
 
-const pageAnimation = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.28, ease: 'easeOut' },
+const pageVariants = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
 }
+
+const pageTransition = { duration: 0.2, ease: 'easeOut' }
 
 export function AppShell({ children }) {
   const location = useLocation()
@@ -73,17 +74,18 @@ export function AppShell({ children }) {
       )}
       <div 
         style={{ opacity: bgOpacity, transition: 'opacity 0.3s ease-in-out' }}
-        className={`flex min-h-screen flex-col pb-[112px] sm:pb-[104px] md:pb-0 ${homeDarkMode ? 'home-page-theme' : ''}`}
+        className={`flex min-h-screen flex-col pb-[50px] sm:pb-[104px] md:pb-0 ${homeDarkMode ? 'home-page-theme' : ''}`}
       >
-        <AnimatePresence mode="wait">
-          <MotionMain 
-            key={isAppRoute ? 'app-shell-main' : location.pathname} 
-            {...(isAppRoute ? {} : pageAnimation)} 
-            className={`flex-1 w-full flex flex-col ${!isAppRoute ? 'pb-20 md:pb-0' : ''}`}
-          >
-            {children}
-          </MotionMain>
-        </AnimatePresence>
+        <MotionMain 
+          key={isAppRoute ? 'app-shell-main' : location.pathname} 
+          variants={isAppRoute ? undefined : pageVariants}
+          initial="initial"
+          animate="animate"
+          transition={pageTransition}
+          className={`flex-1 w-full flex flex-col ${!isAppRoute ? 'pb-20 md:pb-0' : ''}`}
+        >
+          {children}
+        </MotionMain>
         {!isAppRoute && <SiteFooter />}
       </div>
       {!isAppRoute && <ScrollTopButton />}

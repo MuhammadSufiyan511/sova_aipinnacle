@@ -35,4 +35,6 @@ export const sections = {
   privacyDescription: 'یہاں بتایا گیا ہے کہ ہم کیا ڈیٹا لیتے ہیں، کیسے استعمال کرتے ہیں، اور کیسے محفوظ رکھتے ہیں۔',
   finalTitle: 'آج ہی شروع کریں',
   finalButton: 'ابھی شروع کریں!',
+  industrySummaries: 'Industry summaries',
+  industryUseCases: 'Industry use cases'
 }

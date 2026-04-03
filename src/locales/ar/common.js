@@ -31,5 +31,18 @@ export const common = {
   next: 'التالي',
   termsAndPolicies: 'الشروط والسياسات',
   selectLanguage: 'اختر اللغة',
-  navigation: 'التنقل'
+  navigation: 'التنقل',
+  previousIndustryTab: 'Previous industry tab',
+  nextIndustryTab: 'Next industry tab',
+  previousCaseStudyTab: 'Previous case study tab',
+  nextCaseStudyTab: 'Next case study tab',
+  watchProductDemo: 'Watch the SOVA product demo',
+  closeMetaModal: 'Close Meta connection modal',
+  openMenu: 'فتح القائمة',
+  closeMenu: 'إغلاق القائمة',
+  scrollToTop: 'إلى الأعلى',
+  menu: 'القائمة',
+  theme: 'المظهر',
+  lightMode: 'الوضع الفاتح',
+  darkMode: 'الوضع الداكن'
 }

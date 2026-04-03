@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export function ChatScreen({ copy, chatLoopDuration = 10 }) {
   return (
-    <div className="h-[580px] px-4 pb-5 pt-3">
+    <div className="h-[440px] px-4 pb-5 pt-3 sm:h-[580px]">
       {/* Chat header - WhatsApp style */}
       <div className="flex items-center gap-2.5 border-b border-[#075E54] bg-[#00897B] pb-3 pl-1 pr-3">
         <div className="relative h-9 w-9 flex-shrink-0 rounded-full bg-white/20">
@@ -55,8 +55,8 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
               }}
               className={`${
                 index % 2 === 0
-                  ? 'chat-bubble-sent ml-auto rounded-br-lg rounded-tl-lg rounded-tr-sm'
-                  : 'chat-bubble-received mr-auto rounded-bl-lg rounded-br-lg rounded-tl-sm'
+                  ? 'chat-bubble-sent ml-auto rounded-br-lg rounded-tl-lg rounded-tr-sm bg-[#DCF8C6]'
+                  : 'chat-bubble-received mr-auto rounded-bl-lg rounded-br-lg rounded-tl-sm bg-white'
               } max-w-[80%] px-3 py-2 text-[11px] leading-[1.45] text-[#1E293B] shadow-sm`}
             >
               {message}
@@ -78,7 +78,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10 }) {
               ease: 'easeInOut',
               times: [0, 0.72, 0.78, 0.92, 1],
             }}
-            className="chat-bubble-received mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none px-4 py-3 shadow-sm"
+            className="chat-bubble-received mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none px-4 py-3 bg-white shadow-sm"
           >
             {[0, 0.18, 0.36].map((delay, i) => (
               <motion.span

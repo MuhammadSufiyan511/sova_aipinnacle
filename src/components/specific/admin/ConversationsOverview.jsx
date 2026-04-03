@@ -36,7 +36,7 @@ export function ConversationsOverview() {
       <div className={`flex w-full flex-col overflow-hidden rounded-[22px] border border-[#DDEFE7] bg-white shadow-sm transition-all duration-300 lg:w-80 lg:shrink-0 ${selected ? 'hidden lg:flex' : 'flex'}`}>
         <div className="border-b border-[#E8F6EF] p-3.5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-display text-[0.98rem] font-bold text-[#173247]">WhatsApp Inbox</h2>
+            <h2 className="font-display text-[0.98rem] font-bold text-[#173247] admin-card-title">WhatsApp Inbox</h2>
             <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[0.6rem] font-bold text-emerald-600 sm:px-2.5 sm:py-1 sm:text-[0.62rem]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               {filtered.length} Active

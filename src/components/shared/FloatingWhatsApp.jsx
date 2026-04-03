@@ -8,7 +8,7 @@ export function FloatingWhatsApp() {
   return (
     <a
       href={whatsappLink}
-      className="group fixed bottom-[6.8rem] right-3 z-50 inline-flex h-11 items-center rounded-full bg-[#25D366] px-2.5 text-[0.92rem] font-bold text-white shadow-[0_20px_40px_rgba(16,185,129,0.26)] transition-all hover:scale-[1.05] active:scale-[0.95] sm:bottom-[6.3rem] sm:right-4 sm:h-12 sm:px-3 md:bottom-6 md:h-14"
+      className="group fixed bottom-[5.8rem] right-3 z-50 inline-flex h-11 items-center rounded-full bg-[#25D366] px-2.5 text-[0.92rem] font-bold text-white shadow-[0_20px_40px_rgba(16,185,129,0.26)] transition-all hover:scale-[1.05] active:scale-[0.95] sm:bottom-[5.3rem] sm:right-4 sm:h-12 sm:px-3 md:bottom-6 md:h-14"
       target="_blank"
       rel="noreferrer"
       aria-label={t('common.chatOnWhatsApp')}

@@ -1,5 +1,6 @@
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import sovaLogo from '../../assets/logos/sova.png'
 import { useHeaderUi } from '../../hooks/useHeaderUi'
 import { ROUTES } from '../../utils/routes'
@@ -85,38 +86,47 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
               </div>
 
               <div className="flex items-center gap-1.5 md:hidden">
-                {showThemeToggle ? (
-                  <button
-                    type="button"
-                    onClick={onToggleHomeDarkMode}
-                    aria-label={isHomeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-                    className="inline-flex h-8.5 w-8.5 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#1E293B] transition hover:border-[#10B981] active:scale-[0.9] sm:h-9 sm:w-9"
-                  >
-                    {isHomeDarkMode ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-                  </button>
-                ) : null}
+                <Link
+                  to={ROUTES.auth}
+                  className="hidden sm:inline-flex items-center rounded-full px-2 py-1.5 text-[0.75rem] font-bold text-[#10B981] transition hover:bg-[#F8FAFC]"
+                >
+                  {t('common.login')}
+                </Link>
+                <Link
+                  to={ROUTES.auth}
+                  className="inline-flex items-center rounded-full bg-[#10B981] px-3 py-1.5 text-[0.72rem] font-bold text-white shadow-sm transition hover:scale-[1.02] hover:bg-[#08a672]"
+                >
+                  {t('common.startFreeTrial')}
+                </Link>
                 <button
                   type="button"
-                  className="rounded-full p-2 text-[#1E293B] hover:bg-[#F8FAFC] active:scale-[0.9]"
-                  onClick={() => setMenuOpen((prev) => !prev)}
+                  className="ml-0.5 rounded-full p-1 text-[#1E293B] hover:bg-[#F8FAFC] active:scale-[0.9]"
+                  onClick={() => setMenuOpen(true)}
+                  aria-label={t('common.openMenu')}
                 >
-                  {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                  <Menu className="h-5 w-5" />
                 </button>
               </div>
+
             </div>
 
-            {menuOpen && (
-              <HeaderMobileMenu
-                activeLanguage={activeLanguage}
-                changeLanguage={changeLanguage}
-                isItemActive={isItemActive}
-                navItems={navItems}
-                t={t}
-              />
-            )}
           </div>
         </div>
       </header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <HeaderMobileMenu
+            activeLanguage={activeLanguage}
+            changeLanguage={changeLanguage}
+            t={t}
+            onClose={() => setMenuOpen(false)}
+            isHomeDarkMode={isHomeDarkMode}
+            onToggleHomeDarkMode={onToggleHomeDarkMode}
+            showThemeToggle={showThemeToggle}
+          />
+        )}
+      </AnimatePresence>
 
       <HeaderLanguageOverlay isChangingLanguage={isChangingLanguage} />
     </>

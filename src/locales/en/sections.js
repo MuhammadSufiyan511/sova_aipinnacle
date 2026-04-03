@@ -35,4 +35,6 @@ export const sections = {
   privacyDescription: 'This page explains what we collect, how we use it, how we protect it, and what rights users may request.',
   finalTitle: 'Start WhatsApp automation with SOVA',
   finalButton: 'Get Started Now!',
+  industrySummaries: 'Industry summaries',
+  industryUseCases: 'Industry use cases'
 }

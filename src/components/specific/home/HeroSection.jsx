@@ -82,6 +82,9 @@ export function HeroSection({ onWatchDemo }) {
           <div className="h-[400px] w-[400px] rounded-full border border-[#10B981]" />
           <div className="absolute h-[600px] w-[600px] rounded-full border border-[#F1990A]" />
           <div className="absolute h-[800px] w-[800px] rounded-full border border-[#1E293B]" />
+          <div className="absolute h-[1000px] w-[1000px] rounded-full border border-[#10B981]" />
+          <div className="absolute h-[1200px] w-[1200px] rounded-full border border-[#F1990A]" />
+          <div className="absolute h-[1400px] w-[1400px] rounded-full border border-[#1E293B]" />
         </div>
       </div>
 
@@ -153,12 +156,15 @@ export function HeroSection({ onWatchDemo }) {
             <button
               type="button"
               onClick={onWatchDemo}
-              aria-label="Watch the SOVA product demo"
+              aria-label={t('common.watchProductDemo')}
               className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full border-2 border-[#1E293B] bg-white px-4 py-2.5 text-[0.78rem] font-extrabold text-[#1E293B] transition-all hover:border-[#10B981] hover:bg-[#F8FAFC] hover:text-[#10B981] active:scale-[0.96] sm:px-8 sm:py-4 sm:text-[0.95rem]"
             >
               {t('common.watchDemo')} <Play className="h-3.5 w-3.5 fill-current sm:h-4 sm:w-4" />
             </button>
           </MotionDiv>
+          <p className="mt-3 text-[0.7rem] font-semibold text-[#F1990A] sm:mt-4 sm:text-[0.8rem]">
+            {t('common.noCardRequired')}
+          </p>
 
      
 
@@ -192,8 +198,8 @@ export function HeroSection({ onWatchDemo }) {
         </MotionDiv>
       </div>
 
-      {/* Bottom wash for smooth section transition */}
-      <div className="hero-bottom-wash absolute bottom-0 left-0 right-0 h-[120px]" />
+     {/* Blue wash at bottom of hero */}
+      <div className="hero-bottom-wash absolute bottom-0 left-0 right-0 h-[100px]" />
     </section>
   )
 }

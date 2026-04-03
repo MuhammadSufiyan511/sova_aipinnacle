@@ -11,7 +11,7 @@ export function MobileBottomNav() {
     { label: t('nav.industries'), to: ROUTES.industries, icon: Briefcase },
     { label: t('nav.pricing'), to: '/#pricing', icon: DollarSign },
     { label: t('nav.caseStudies'), to: ROUTES.caseStudies, icon: Layout },
-    { label: t('nav.aboutUs'), to: ROUTES.about, icon: Info },
+    { label: t('nav.about'), to: ROUTES.about, icon: Info },
   ]
 
   const isActive = (to) => {

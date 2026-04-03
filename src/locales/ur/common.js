@@ -31,5 +31,18 @@ export const common = {
   next: 'اگلا',
   termsAndPolicies: 'شرائط اور پالیسیاں',
   selectLanguage: 'زبان منتخب کریں',
-  navigation: 'نیویگیشن'
+  navigation: 'نیویگیشن',
+  previousIndustryTab: 'Previous industry tab',
+  nextIndustryTab: 'Next industry tab',
+  previousCaseStudyTab: 'Previous case study tab',
+  nextCaseStudyTab: 'Next case study tab',
+  watchProductDemo: 'Watch the SOVA product demo',
+  closeMetaModal: 'Close Meta connection modal',
+  openMenu: 'مینیو کھولیں',
+  closeMenu: 'مینیو بند کریں',
+  scrollToTop: 'اوپر جائیں',
+  menu: 'مینیو',
+  theme: 'تھیم',
+  lightMode: 'لائٹ موڈ',
+  darkMode: 'ڈارک موڈ'
 }

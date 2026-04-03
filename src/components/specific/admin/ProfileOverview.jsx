@@ -24,7 +24,7 @@ export function ProfileOverview() {
               </div>
               <div>
                 <p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-emerald-500 sm:text-[0.68rem]">SOVA Workspace Profile</p>
-                <h2 className="mt-1 font-display text-[1.2rem] font-bold text-[#173247] sm:mt-2 sm:text-[1.35rem]">{user.name || 'User'}</h2>
+                <h2 className="mt-1 font-display text-[1.2rem] font-bold text-[#173247] sm:mt-2 sm:text-[1.35rem] admin-card-title">{user.name || 'User'}</h2>
                 <p className="mt-1 text-[0.78rem] leading-5 text-[#62808D] sm:text-[0.82rem]">Manage your workspace identity, language, and automation readiness from one place.</p>
               </div>
             </div>
@@ -49,7 +49,7 @@ export function ProfileOverview() {
         </div>
 
         <div className="rounded-[24px] border border-[#DDEFE7] p-5 shadow-sm sm:p-5 admin-card-shell">
-          <h3 className="font-display text-[1rem] font-bold text-[#173247]">Workspace details</h3>
+          <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">Workspace details</h3>
           <div className="mt-4 space-y-3">
             <div className="rounded-[20px] bg-[#F2FBF7] p-3.5 admin-field-group">
               <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88]">Current language</p>
@@ -76,7 +76,7 @@ export function ProfileOverview() {
             <UserRound className="h-5 w-5" />
           </span>
           <div>
-            <h3 className="font-display text-[0.96rem] font-bold text-[#173247]">Profile summary</h3>
+            <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">Profile summary</h3>
             <p className="text-[0.78rem] text-[#62808D]">This workspace is ready to manage WhatsApp conversations, route qualified leads, and automate replies with SOVA.</p>
           </div>
         </div>

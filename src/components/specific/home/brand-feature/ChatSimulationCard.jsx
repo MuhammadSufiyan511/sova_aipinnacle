@@ -23,7 +23,7 @@ export function ChatSimulationCard({ cardCopy, microCopy }) {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: [0, 1, 1, 0], x: [-10, 0, 0, -6] }}
               transition={{ duration: 6, repeat: Infinity, repeatDelay: 1, times: [0, 0.12, 0.45, 0.52], ease: 'easeInOut' }}
-              className="chat-bubble-received mr-auto max-w-[85%] rounded-xl rounded-bl-sm px-2.5 py-1.5 text-[8px] font-medium leading-tight shadow-sm"
+              className="chat-bubble-received mr-auto bg-white max-w-[85%] rounded-xl rounded-bl-sm px-2.5 py-1.5 text-[8px] font-medium leading-tight shadow-sm"
             >
               {microCopy.userOne}
             </motion.div>

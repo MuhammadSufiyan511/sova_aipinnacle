@@ -23,10 +23,10 @@ export function AuthPage() {
           ]),
         ]}
       />
-      <div className="page-top-spacing mx-auto w-full max-w-[1020px] px-4 pb-12 lg:pb-20">
-        <div className="overflow-hidden rounded-[40px] border border-[#D1FAE5] bg-white shadow-[0_24px_80px_rgba(16,185,129,0.12)]">
+      <div className="page-top-spacing w-full px-0 pb-12 sm:px-6 sm:pb-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-32">
+        <div className="overflow-hidden border-y border-[#D1FAE5] bg-white shadow-[0_24px_80px_rgba(16,185,129,0.12)] sm:rounded-[40px] sm:border">
           <div className="flex flex-col lg:grid lg:grid-cols-[0.92fr_1.08fr]">
-            <div className="auth-banner-box relative overflow-hidden bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-8 sm:p-14 text-white">
+            <div className="auth-banner-box relative overflow-hidden bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#A78BFA] p-6 sm:p-14 text-white">
               <div className="pointer-events-none absolute inset-0 opacity-10">
                 <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <circle cx="20" cy="20" r="40" fill="white" />
@@ -56,9 +56,9 @@ export function AuthPage() {
             </div>
 
             <div className="flex items-center">
-              <div className="auth-form-wrapper w-full bg-[#F8FAFC] p-8 sm:p-12">
+              <div className="auth-form-wrapper w-full bg-[#F8FAFC] p-6 sm:p-12 md:p-16">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#10B981]">{t('common.accountAccess')}</p>
-                <h2 className="mt-4 font-display text-[1.8rem] font-bold tracking-[-0.04em] text-[#0F172A] sm:text-[2.2rem]">{t('common.continueWithMeta')}</h2>
+                <h2 className="mt-4 font-display text-[1.8rem] font-bold tracking-[-0.04em] text-[#0F172A] sm:text-[2.2rem] admin-card-title">{t('common.continueWithMeta')}</h2>
                 <p className="mt-4 text-[0.95rem] leading-[1.7] text-[#1E293B] sm:text-[1rem]">{t('sections.authDescription')}</p>
                 <button
                   type="button"

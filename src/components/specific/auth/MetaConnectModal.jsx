@@ -34,7 +34,7 @@ export function MetaConnectModal({ onClose }) {
             type="button"
             onClick={onClose}
             className="meta-modal-close-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#E2EFEA] bg-[#F8FAFC] transition hover:bg-[#ECFDF5]"
-            aria-label="Close Meta connection modal"
+            aria-label={t('common.closeMetaModal')}
           >
             <X className="h-4.5 w-4.5 text-[#F1990A]" />
           </button>

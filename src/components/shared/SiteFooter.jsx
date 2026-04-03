@@ -15,9 +15,9 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="site-footer-shell mb-16 w-full border-t border-[#E2E8F0] bg-white pt-12 pb-12 text-[#1E293B] md:mb-0">
+    <footer className="site-footer-shell w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
       <div className="mx-auto max-w-[1160px] px-5">
-        <div className="flex flex-col items-center justify-between gap-8 pb-12 md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-5 pb-6 md:flex-row md:gap-8 md:pb-12">
           <div className="flex items-center gap-3">
             <Link to={ROUTES.home} className="flex shrink-0 items-center gap-2.5">
               <img src={sovaLogo} alt={`${t('common.brand')} logo`} decoding="async" className="h-8 w-14 rounded-xl" />
@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-[#F1F5F9] pt-8 text-[0.875rem] font-medium text-[#5a9e88] md:flex-row  ">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-[#F1F5F9] pt-6 text-[0.875rem] font-medium text-[#5a9e88] md:flex-row md:gap-6 md:pt-8">
           <p>© {new Date().getFullYear()} {t('common.brand')} {t('common.allRightsReserved')}</p>
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 font-semibold text-[#1E293B]">
