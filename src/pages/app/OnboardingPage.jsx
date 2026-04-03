@@ -238,3 +238,5 @@ export function OnboardingPage() {
     </div>
   )
 }
+
+export default OnboardingPage

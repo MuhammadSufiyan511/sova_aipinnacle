@@ -64,6 +64,8 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
   
   // ON MOBILE: Limit transforms to y/opacity only for smoother 60fps scrolling
   const mockupScale = useTransform(activeProgress, [0, 0.2, 0.5, 0.8, 1], isMobile ? [1, 1, 1, 1, 1] : [0.9, 1, 1.05, 1, 0.95])
+  const mockupRotate = useTransform(activeProgress, [0, 0.5, 1], isMobile ? [0, 0, 0] : [5, 0, -5])
+  const iconsY = useTransform(activeProgress, [0, 1], [100, -100])
 
   return (
     <section className="home-brand-feature-section relative w-full overflow-hidden">
