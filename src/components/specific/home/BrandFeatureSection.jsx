@@ -126,9 +126,9 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
         </div>
 
         {/* Below fold — auto section */}
-        <div className="relative z-10 -mt-[20%]">
+        <div className="relative z-10 -mt-[20%] will-change-transform">
           <div className="bg-white pb-10 pt-10">
-            <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center">
+            <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "150px" }} transition={{ duration: 0.6 }} className="text-center">
               <h2 className="font-display text-[2.6rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.2rem]">
                 {copy.autoTitle[0]}{' '}
                 <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">

@@ -10,6 +10,7 @@ import {
   ReviewsSection,
   BrandFeatureSection,
   FaqSection,
+  ResourcePreloader,
 } from '../components/specific/home'
 import { FinalCta, SeoHead } from '../components'
 import { faqs, industries } from '../data'
@@ -33,6 +34,7 @@ export function HomePage() {
           createFaqSchema(localizedFaqs.slice(0, 5)),
         ]}
       />
+      <ResourcePreloader />
       <HeroSection onWatchDemo={() => setShowDemo(true)} />
       <BrandFeatureSection />
       <IndustriesPreviewSection activeIndustry={activeIndustry} onSelectIndustry={setActiveIndustry} />

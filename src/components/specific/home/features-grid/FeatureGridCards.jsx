@@ -26,7 +26,7 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
       {...(!disableAnimation && {
         initial: { opacity: 0, x: -30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
@@ -39,7 +39,7 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
       <div className="mt-3 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <motion.div animate={featureImageAnimations[0]} transition={featureImageTransition(4.8)} whileHover={{ scale: 1.04, y: -6 }} className="relative w-full max-w-[220px]">
           <div className="pointer-events-none absolute -inset-2 rounded-[24px] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.18)_0%,rgba(255,255,255,0)_72%)] blur-md" />
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="relative h-24 w-full rounded-2xl object-cover shadow-[0_14px_30px_rgba(16,185,129,0.12)] sm:h-28" />
+          <img src={image} alt={feature?.title} loading="eager" decoding="async" className="relative h-24 w-full rounded-2xl object-cover shadow-[0_14px_30px_rgba(16,185,129,0.12)] sm:h-28" />
         </motion.div>
         <div className="relative flex w-full min-w-0 flex-col gap-2 sm:min-w-[170px]">
           <div className="ml-auto max-w-[220px] rounded-2xl rounded-br-none bg-gradient-to-r from-[#10B981] to-[#047857] px-3 py-2 text-[10px] text-white shadow-md sm:px-4">{micro?.helpPrompt}</div>
@@ -59,7 +59,7 @@ export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation 
       {...(!disableAnimation && {
         initial: { opacity: 0, x: 30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
@@ -85,7 +85,7 @@ export const CardThree = memo(function CardThree({ feature, image, disableAnimat
       {...(!disableAnimation && {
         initial: { opacity: 0, y: 50 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
@@ -109,7 +109,7 @@ export const CardFour = memo(function CardFour({ feature, image, disableAnimatio
       {...(!disableAnimation && {
         initial: { opacity: 0, x: 30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
@@ -135,7 +135,7 @@ export const CardFive = memo(function CardFive({ feature, image, disableAnimatio
       {...(!disableAnimation && {
         initial: { opacity: 0, x: -30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
@@ -161,7 +161,7 @@ export const CardSix = memo(function CardSix({ feature, image, disableAnimation 
       {...(!disableAnimation && {
         initial: { opacity: 0, y: 40 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.1, margin: "0px 0px -50px 0px" },
+        viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}

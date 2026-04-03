@@ -81,7 +81,7 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
           variants={isMobile ? containerVariants : {}}
           initial={isMobile ? "hidden" : undefined}
           whileInView={isMobile ? "visible" : undefined}
-          viewport={isMobile ? { once: true } : undefined}
+          viewport={isMobile ? { once: true, margin: "0px 0px 200px 0px" } : undefined}
           className="flex w-full flex-col gap-8 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible lg:auto-rows-[258px] lg:grid-cols-3"
         >
           {cardProps.map((item, index) => {
