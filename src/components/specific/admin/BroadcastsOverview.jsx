@@ -87,7 +87,7 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
                 <p className="mt-1.5 text-[0.68rem] text-[#62808D]">{node.sub}</p>
                 <span className="mt-2 inline-block self-start rounded-full bg-white/70 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#476977]">{t(`admin.broadcasts.workflow.status.${node.status}`, node.status)}</span>
               </div>
-              {i < workflowNodes.length - 1 && (
+              {i < workflowNodes.length - 0 && (
                 <div className="flex items-center justify-center py-2 sm:px-0 sm:py-2 admin-workflow-separator">
                   <Zap className="h-4 w-4 shrink-0 text-[#10B981] opacity-60 rotate-90 sm:rotate-0" />
                 </div>

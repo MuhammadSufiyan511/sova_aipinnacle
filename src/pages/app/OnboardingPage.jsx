@@ -21,10 +21,10 @@ export function OnboardingPage() {
   const navigate = useNavigate()
 
   const LOADING_STEPS = [
-    t('content.onboarding.loader.steps.catalog'),
-    t('content.onboarding.loader.steps.ai'),
-    t('content.onboarding.loader.steps.meta'),
-    t('content.onboarding.loader.steps.workspace'),
+    t('onboarding.loader.steps.catalog'),
+    t('onboarding.loader.steps.ai'),
+    t('onboarding.loader.steps.meta'),
+    t('onboarding.loader.steps.workspace'),
   ]
 
   useEffect(() => {
@@ -137,9 +137,9 @@ export function OnboardingPage() {
                 <Loader2 className="h-12 w-12 animate-spin text-emerald-500" strokeWidth={1.5} />
               </div>
               <p className="mt-12 animate-pulse font-display text-lg font-bold text-slate-900 onboarding-init-title">
-                {t('content.onboarding.loader.init')}
+                {t('onboarding.loader.init')}
               </p>
-              <p className="mt-2 font-medium text-slate-400 onboarding-init-desc">{t('content.onboarding.loader.wait')}</p>
+              <p className="mt-2 font-medium text-slate-400 onboarding-init-desc">{t('onboarding.loader.wait')}</p>
             </motion.div>
           )}
 
@@ -225,7 +225,7 @@ export function OnboardingPage() {
                   </motion.p>
                 </AnimatePresence>
               </div>
-              <p className="mt-2 font-medium text-slate-400">{t('content.onboarding.loader.finalWait')}</p>
+              <p className="mt-2 font-medium text-slate-400">{t('onboarding.loader.finalWait')}</p>
             </motion.div>
           )}
         </AnimatePresence>

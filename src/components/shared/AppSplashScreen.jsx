@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import sovaLogo from '../../assets/logos/sova.png'
 
 const MotionDiv = motion.div
@@ -10,6 +11,8 @@ const MotionDiv = motion.div
  * Design matched to the language change overlay for consistency.
  */
 export const AppSplashScreen = memo(function AppSplashScreen({ isVisible }) {
+  const { t } = useTranslation()
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -40,7 +43,7 @@ export const AppSplashScreen = memo(function AppSplashScreen({ isVisible }) {
 
             <div className="flex flex-col items-center gap-2">
               <p className="font-display text-[0.8rem] font-bold uppercase tracking-[0.2em] text-[#1e293b]/60">
-                Initializing Sova AI
+                {t('common.initializingSova')}
               </p>
               <div className="flex gap-2">
                 <span className="h-2 w-2 animate-bounce rounded-full bg-[#10B981]" style={{ animationDelay: '0ms' }} />

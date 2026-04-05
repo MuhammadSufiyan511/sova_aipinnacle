@@ -1,9 +1,10 @@
 export const onboarding = {
   business: {
-    title: 'Welche Art von {emerald:Unternehmen} führen Sie?',
+    title: 'Welche Art von Unternehmen führen Sie?',
     subtitle: 'Dies hilft SOVA, Ihren Workflow und Ihre technischen Anforderungen zu verstehen.',
     searchPlaceholder: 'Branchen suchen...',
     customCategoryPlaceholder: 'Geben Sie Ihre Unternehmenskategorie ein...',
+    nextBtn: 'Meine Branche wählen →',
     categories: {
       clothing: { label: 'Kleidung & Mode', desc: 'Automatische Antworten für Größen, Lagerbestand und Lieferung' },
       jewellery: { label: 'Schmuck & Edelsteine', desc: 'Kataloge anzeigen und Fragen zum Goldpreis beantworten' },
@@ -23,9 +24,10 @@ export const onboarding = {
     }
   },
   products: {
-    title: 'Fügen Sie Ihre {emerald:Produkte} hinzu',
+    title: 'Fügen Sie Ihre Produkte hinzu',
     subtitle: 'SOVA nutzt diesen Katalog, um Kundenfragen automatisch zu beantworten.',
     addBtn: 'Produkt hinzufügen',
+    nextBtn: 'Speichern und fortfahren →',
     toastError: 'Bitte fügen Sie mindestens ein Produkt hinzu, damit SOVA mehr über Ihr Unternehmen erfahren kann.',
     modal: {
       titleAdd: 'Neues Produkt hinzufügen',
@@ -39,11 +41,12 @@ export const onboarding = {
       descLabel: 'Beschreibung',
       descPlaceholder: 'z.B. Premium-Seidenschal mit weichem Finish und Geschenkverpackung.',
       saveBtn: 'Produkt speichern',
-      updateBtn: 'Aktualisieren'
+      updateBtn: 'Aktualisieren',
+      invalidMediaType: 'Bitte laden Sie ein gültiges Bild hoch (JPG, PNG oder WebP)'
     }
   },
   tone: {
-    title: 'Wählen Sie SOVAs {emerald:Persönlichkeit}',
+    title: 'Wählen Sie SOVAs Persönlichkeit',
     subtitle: 'Wie soll SOVA mit Ihren Kunden sprechen? Sie können eine oder mehrere Optionen wählen.',
     profiles: {
       professional: { label: 'Professionell', desc: 'Klar, höflich und geschäftsorientiert' },
@@ -56,8 +59,17 @@ export const onboarding = {
     completeBtn: 'Dashboard starten'
   },
   loader: {
-    title: 'Ihr {emerald:AI-Vertriebsagent} wird vorbereitet',
-    subtitle: 'Wir konfigurieren SOVA mit Ihren Produkten und Präferenzen.'
+    title: 'Ihr AI-Vertriebsagent wird vorbereitet',
+    subtitle: 'Wir konfigurieren SOVA mit Ihren Produkten und Präferenzen.',
+    init: 'Onboarding wird gestartet',
+    wait: 'Bitte warten Sie, während wir Ihr Setup vorbereiten.',
+    finalWait: 'Bitte warten Sie, während wir Ihr Setup abschließen.',
+    steps: {
+      catalog: 'Ihr Katalog wird erstellt...',
+      ai: 'KI-Persönlichkeit wird angewendet...',
+      meta: 'Integration mit Meta API...',
+      workspace: 'Ihr Arbeitsbereich wird vorbereitet...'
+    }
   }
 }
 

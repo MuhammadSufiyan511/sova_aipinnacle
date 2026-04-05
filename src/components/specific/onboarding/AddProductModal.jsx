@@ -2,13 +2,13 @@ import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, Upload, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import toast from 'react-hot-toast'
 
 export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct = null }) {
   const { t } = useTranslation()
   const [name, setName] = useState(initialProduct?.name || '')
   const [description, setDescription] = useState(initialProduct?.description || '')
   const [imagePreview, setImagePreview] = useState(initialProduct?.imagePreview || null)
-  const [mediaType, setMediaType] = useState(initialProduct?.mediaType || 'image')
   const fileInputRef = useRef(null)
   const isEditMode = Boolean(initialProduct)
 
@@ -21,14 +21,14 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
   const handleMediaChange = (e) => {
     const file = e.target.files?.[0]
     if (file) {
-      const isVideo = file.type.startsWith('video/')
-      setMediaType(isVideo ? 'video' : 'image')
-
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImagePreview(reader.result)
+      const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
+      
+      if (!allowedImageTypes.includes(file.type)) {
+        toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image (JPG, PNG, or WebP)')
+        return
       }
-      reader.readAsDataURL(file)
+
+      setImagePreview(URL.createObjectURL(file))
     }
   }
 
@@ -40,7 +40,6 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
         name: name.trim(),
         description: description.trim(),
         imagePreview,
-        mediaType,
       }
 
       if (isEditMode) {
@@ -100,18 +99,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                   className="group relative flex h-24 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 transition hover:border-emerald-500 hover:bg-emerald-50/30"
                 >
                   {imagePreview ? (
-                    mediaType === 'video' ? (
-                      <video
-                        src={imagePreview}
-                        className="h-full w-full rounded-2xl object-cover"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                      />
-                    ) : (
-                      <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
-                    )
+                    <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-full bg-white p-2 shadow-sm group-hover:scale-110 transition">
@@ -126,7 +114,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                     type="file"
                     ref={fileInputRef}
                     onChange={handleMediaChange}
-                    accept="image/*,video/*"
+                    accept="image/jpeg,image/png,image/webp,image/jpg"
                     className="hidden"
                   />
                 </div>

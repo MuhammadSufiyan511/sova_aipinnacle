@@ -1,6 +1,6 @@
 const onboarding = {
   business: {
-    title: "What's your {emerald:business}?",
+    title: "What's your business?",
     subtitle: 'SOVA tailors its replies and lead detection to your specific industry.',
     searchPlaceholder: 'Search industries...',
     customCategoryPlaceholder: 'Enter your business category...',
@@ -24,7 +24,7 @@ const onboarding = {
     }
   },
   products: {
-    title: 'Add your {emerald:products}',
+    title: 'Add your products',
     subtitle: 'SOVA uses your catalog to answer buyer questions automatically.',
     addBtn: 'Add Product',
     nextBtn: 'Save & Continue →',
@@ -41,11 +41,12 @@ const onboarding = {
       descLabel: 'Description',
       descPlaceholder: 'e.g. Premium silk scarf with soft finish and gift packaging.',
       saveBtn: 'Save Product',
-      updateBtn: 'Update Product'
+      updateBtn: 'Update Product',
+      invalidMediaType: 'Please upload a valid image (JPG, PNG, or WebP)'
     }
   },
   tone: {
-    title: "Set SOVA's {emerald:voice}",
+    title: "Set SOVA's voice",
     subtitle: "Pick one or more tones that match how you speak to your customers.",
     profiles: {
       professional: { label: 'Professional', desc: 'Clear, polite, and business-focused.' },

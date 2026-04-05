@@ -36,7 +36,7 @@ export const common = {
   nextIndustryTab: 'Next industry tab',
   previousCaseStudyTab: 'Previous case study tab',
   nextCaseStudyTab: 'Next case study tab',
-  watchProductDemo: 'Watch the SOVA product demo',
+  watchProductDemo: 'Watch the سوفا product demo',
   closeMetaModal: 'Close Meta connection modal',
   openMenu: 'مینیو کھولیں',
   closeMenu: 'مینیو بند کریں',
@@ -44,5 +44,7 @@ export const common = {
   menu: 'مینیو',
   theme: 'تھیم',
   lightMode: 'لائٹ موڈ',
-  darkMode: 'ڈارک موڈ'
+  darkMode: 'ڈارک موڈ',
+  exitWorkspace: 'ورک اسپیس سے باہر نکلیں',
+  initializingسوفا: 'سوفا AI شروع ہو رہا ہے'
 }

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Check, ShieldCheck } from 'lucide-react'
 import { FaMeta } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
+import { AnimatePresence } from 'framer-motion'
 import { SeoHead } from '../components'
 import { MetaConnectModal, MetaIntegrationShowcase } from '../components/specific/auth'
 import { createBreadcrumbSchema } from '../seo/schemas'
@@ -87,7 +88,9 @@ export function AuthPage() {
         <MetaIntegrationShowcase onOpenModal={() => setShowMetaModal(true)} />
       </div>
 
-      {showMetaModal ? <MetaConnectModal onClose={() => setShowMetaModal(false)} /> : null}
+      <AnimatePresence>
+        {showMetaModal && <MetaConnectModal onClose={() => setShowMetaModal(false)} />}
+      </AnimatePresence>
     </>
   )
 }

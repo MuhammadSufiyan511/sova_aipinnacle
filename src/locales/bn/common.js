@@ -44,5 +44,7 @@ export const common = {
   menu: 'মেনু',
   theme: 'থিম',
   lightMode: 'লাইট মোড',
-  darkMode: 'ডার্ক মোড'
+  darkMode: 'ডার্ক মোড',
+  exitWorkspace: 'ওয়ার্কস্পেস থেকে বের হন',
+  initializingSova: 'Sova AI চালু হচ্ছে'
 }

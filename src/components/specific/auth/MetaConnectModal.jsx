@@ -1,6 +1,7 @@
 import { Check, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { ROUTES } from '../../../utils/routes'
 
 const successItems = [
@@ -21,8 +22,15 @@ export function MetaConnectModal({ onClose }) {
   }
 
   return (
-    <div className="meta-modal-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/40 px-4 backdrop-blur-md">
-      <div className="meta-modal-card relative w-full max-w-[460px] overflow-hidden rounded-[26px] border border-white/20 bg-white p-5 shadow-[0_20px_70px_rgba(16,185,129,0.18)]">
+    <div className="meta-modal-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/40 px-4 backdrop-blur-md" onClick={onClose}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        onClick={(e) => e.stopPropagation()}
+        className="meta-modal-card relative w-full max-w-[460px] overflow-hidden rounded-[26px] border border-white/20 bg-white p-5 shadow-[0_20px_70px_rgba(16,185,129,0.18)]"
+      >
         <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-emerald-500/10 blur-3xl opacity-20" />
 
         <div className="relative z-10 flex items-start justify-between gap-4">
@@ -60,7 +68,7 @@ export function MetaConnectModal({ onClose }) {
         >
           {copy.button}
         </button>
-      </div>
+        </motion.div>
     </div>
   )
 }

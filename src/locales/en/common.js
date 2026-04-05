@@ -46,6 +46,7 @@ export const common = {
   lightMode: 'Light Mode',
   darkMode: 'Dark Mode',
   exitWorkspace: 'Exit workspace',
+  initializingSova: 'Initializing Sova AI',
   days: {
     mon: 'Mon',
     tue: 'Tue',

@@ -35,9 +35,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
           <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          <Trans i18nKey="onboarding.tone.title">
-            Choose SOVA's <span className="text-emerald-500">Personality</span>
-          </Trans>
+          {t('onboarding.tone.title')}
         </h2>
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.tone.subtitle')}

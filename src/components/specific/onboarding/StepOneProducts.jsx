@@ -5,7 +5,7 @@ import { AddProductModal } from './AddProductModal'
 import { toast } from 'react-hot-toast'
 import { useTranslation, Trans } from 'react-i18next'
 
-export const StepOneProducts = memo(function StepOneProducts({ products, setProducts, onNext, onBack }) {
+function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
   const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -33,9 +33,7 @@ export const StepOneProducts = memo(function StepOneProducts({ products, setProd
         className="mb-10 text-center"
       >
         <h2 className="font-display text-[1.8rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          <Trans i18nKey="onboarding.products.title">
-            What products do you <span className="text-emerald-500 underline decoration-emerald-200 underline-offset-8">sell</span>?
-          </Trans>
+          {t('onboarding.products.title')}
         </h2>
         <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-500 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.products.subtitle')}
@@ -117,4 +115,7 @@ export const StepOneProducts = memo(function StepOneProducts({ products, setProd
       />
     </div>
   )
-})
+}
+
+export const StepOneProducts = memo(StepOneProductsComponent)
+export default StepOneProducts

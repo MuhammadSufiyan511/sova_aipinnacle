@@ -15,7 +15,7 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="site-footer-shell w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
+    <footer className=" w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
       <div className="mx-auto max-w-[1160px] px-5">
         <div className="flex flex-col items-center justify-between gap-5 pb-6 md:flex-row md:gap-8 md:pb-12">
           <div className="flex items-center gap-3">
