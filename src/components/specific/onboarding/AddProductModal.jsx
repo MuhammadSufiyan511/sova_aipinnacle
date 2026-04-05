@@ -4,6 +4,8 @@ import { X, Upload, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
+const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
+
 export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct = null }) {
   const { t } = useTranslation()
   const [name, setName] = useState(initialProduct?.name || '')
@@ -21,8 +23,6 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
   const handleMediaChange = (e) => {
     const file = e.target.files?.[0]
     if (file) {
-      const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
-      
       if (!allowedImageTypes.includes(file.type)) {
         toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image (JPG, PNG, or WebP)')
         return

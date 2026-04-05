@@ -1,24 +1,31 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
+import { featureImageAnimations, featureImageTransition } from './featureImageMotion'
 
 const MotionDiv = motion.div
 
-const featureImageAnimations = [
-  { y: [0, -8, 0], rotate: [0, -1.2, 0], scale: [1, 1.02, 1] },
-  { y: [0, -10, 0], rotate: [0, 1.6, 0], scale: [1, 1.03, 1] },
-  { y: [0, -9, 0], rotate: [0, -1, 0], scale: [1, 1.015, 1] },
-  { y: [0, -7, 0], rotate: [0, 1.2, 0], scale: [1, 1.02, 1] },
-  { y: [0, -8, 0], rotate: [0, -1.5, 0], scale: [1, 1.025, 1] },
-  { y: [0, -9, 0], rotate: [0, 1.4, 0], scale: [1, 1.025, 1] },
-]
+function SkeletonImage({ src, alt, className, imgClassName, loading = 'lazy', decoding = 'async' }) {
+  const [loaded, setLoaded] = useState(false)
 
-const featureImageTransition = (duration, delay = 0) => ({
-  duration,
-  delay,
-  repeat: Infinity,
-  repeatType: 'mirror',
-  ease: 'easeInOut',
-})
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <div
+        className={`absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 transition-opacity duration-500 ${
+          loaded ? 'opacity-0' : 'opacity-100'
+        }`}
+      />
+      <img
+        src={src}
+        alt={alt}
+        loading={loading}
+        decoding={decoding}
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+        className={`${imgClassName} transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      />
+    </div>
+  )
+}
 
 export const CardOne = memo(function CardOne({ feature, image, micro, disableAnimation = false }) {
   return (
@@ -39,7 +46,13 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
       <div className="mt-3 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <motion.div animate={featureImageAnimations[0]} transition={featureImageTransition(4.8)} whileHover={{ scale: 1.04, y: -6 }} className="relative w-full max-w-[220px]">
           <div className="pointer-events-none absolute -inset-2 rounded-[24px] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.18)_0%,rgba(255,255,255,0)_72%)] blur-md" />
-          <img src={image} alt={feature?.title} loading="eager" decoding="async" className="relative h-24 w-full rounded-2xl object-cover shadow-[0_14px_30px_rgba(16,185,129,0.12)] sm:h-28" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            loading="eager"
+            className="h-24 w-full rounded-2xl sm:h-28"
+            imgClassName="h-full w-full object-cover shadow-[0_14px_30px_rgba(16,185,129,0.12)]"
+          />
         </motion.div>
         <div className="relative flex w-full min-w-0 flex-col gap-2 sm:min-w-[170px]">
           <div className="ml-auto max-w-[220px] rounded-2xl rounded-br-none bg-gradient-to-r from-[#10B981] to-[#047857] px-3 py-2 text-[10px] text-white shadow-md sm:px-4">{micro?.helpPrompt}</div>
@@ -72,7 +85,12 @@ export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation 
       <div className="mt-3 flex justify-end">
         <motion.div animate={featureImageAnimations[1]} transition={featureImageTransition(4.4, 0.15)} whileHover={{ scale: 1.05, y: -6 }} className="relative w-full max-w-[120px]">
           <div className="pointer-events-none absolute -inset-2 rounded-[24px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_72%)] blur-md" />
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="relative h-24 w-full rounded-2xl object-cover shadow-[0_16px_32px_rgba(76,29,149,0.2)] sm:h-28" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            className="h-24 w-full rounded-2xl sm:h-28"
+            imgClassName="h-full w-full object-cover shadow-[0_16px_32px_rgba(76,29,149,0.2)]"
+          />
         </motion.div>
       </div>
     </MotionDiv>
@@ -96,7 +114,12 @@ export const CardThree = memo(function CardThree({ feature, image, disableAnimat
       <div className="mt-6 flex flex-1 items-center justify-center sm:mt-8">
         <motion.div animate={featureImageAnimations[2]} transition={featureImageTransition(5)} whileHover={{ scale: 1.02, y: -8 }} className="relative h-full w-full">
           <div className="pointer-events-none absolute -inset-3 rounded-[28px] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.16)_0%,rgba(255,255,255,0)_72%)] blur-lg" />
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="relative h-full max-h-[220px] w-full rounded-[20px] object-cover shadow-[0_20px_38px_rgba(245,158,11,0.14)] sm:max-h-[260px] sm:rounded-[24px]" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            className="h-full max-h-[220px] w-full rounded-[20px] sm:max-h-[260px] sm:rounded-[24px]"
+            imgClassName="h-full w-full object-cover shadow-[0_20px_38px_rgba(245,158,11,0.14)]"
+          />
         </motion.div>
       </div>
     </MotionDiv>
@@ -122,7 +145,12 @@ export const CardFour = memo(function CardFour({ feature, image, disableAnimatio
       <div className="flex h-24 w-full items-center justify-center rounded-2xl border border-[#D1FAE5] bg-[#F0FDF4] shadow-inner sm:h-26 sm:w-44">
         <motion.div animate={featureImageAnimations[3]} transition={featureImageTransition(4.6, 0.2)} whileHover={{ scale: 1.04, y: -5 }} className="relative h-full w-full">
           <div className="pointer-events-none absolute -inset-2 rounded-[22px] bg-[radial-gradient(circle_at_center,rgba(251,113,133,0.18)_0%,rgba(255,255,255,0)_72%)] blur-md" />
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="relative h-full w-full rounded-2xl object-cover shadow-[0_14px_28px_rgba(251,113,133,0.12)]" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            className="h-full w-full rounded-2xl"
+            imgClassName="h-full w-full object-cover shadow-[0_14px_28px_rgba(251,113,133,0.12)]"
+          />
         </motion.div>
       </div>
     </MotionDiv>
@@ -148,7 +176,12 @@ export const CardFive = memo(function CardFive({ feature, image, disableAnimatio
       <div className="mt-3 flex h-24 w-full items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-t from-white/10 to-transparent backdrop-blur-md sm:h-26">
         <motion.div animate={featureImageAnimations[4]} transition={featureImageTransition(4.7)} whileHover={{ scale: 1.03, y: -5 }} className="relative h-full w-full">
           <div className="pointer-events-none absolute -inset-2 rounded-[22px] bg-[radial-gradient(circle_at_center,rgba(167,139,250,0.16)_0%,rgba(255,255,255,0)_70%)] blur-md" />
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="relative h-full w-full rounded-2xl object-cover opacity-95 shadow-[0_16px_28px_rgba(15,23,42,0.25)]" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            className="h-full w-full rounded-2xl"
+            imgClassName="h-full w-full object-cover opacity-95 shadow-[0_16px_28px_rgba(15,23,42,0.25)]"
+          />
         </motion.div>
       </div>
     </MotionDiv>
@@ -173,7 +206,12 @@ export const CardSix = memo(function CardSix({ feature, image, disableAnimation 
       </div>
       <div className="mt-3 flex h-24 w-full items-center justify-center rounded-2xl bg-gradient-to-t from-[#F8FAFC] to-transparent sm:h-26">
         <motion.div animate={featureImageAnimations[5]} transition={featureImageTransition(4.3, 0.12)} className="flex h-18 w-32 items-center justify-center overflow-hidden rounded-xl border border-purple-200 bg-purple-500/10 sm:h-20 sm:w-36" whileHover={{ scale: 1.05, y: -6 }}>
-          <img src={image} alt={feature?.title} loading="lazy" decoding="async" className="h-full w-full object-cover shadow-[0_14px_28px_rgba(167,139,250,0.16)]" />
+          <SkeletonImage
+            src={image}
+            alt={feature?.title}
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover shadow-[0_14px_28px_rgba(167,139,250,0.16)]"
+          />
         </motion.div>
       </div>
     </MotionDiv>

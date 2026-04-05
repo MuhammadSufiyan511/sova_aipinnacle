@@ -29,7 +29,7 @@ export function IndustryCard({ industry, index }) {
         <h2 className="mt-3 font-display text-[1.25rem] font-bold tracking-[-0.04em] text-[#10B981] sm:mt-4 sm:text-[1.6rem] md:text-[1.9rem] lg:text-[2.2rem]">
           {industry.title}
         </h2>
-        <p className="mt-3 text-[0.92rem] leading-relax text-[#1E293B] sm:mt-4 sm:text-[1rem] sm:leading-[1.7] md:text-[1.05rem] lg:text-[1.1rem]">
+        <p className="mt-3 text-[0.92rem] leading-relaxed text-[#1E293B] sm:mt-4 sm:text-[1rem] sm:leading-[1.7] md:text-[1.05rem] lg:text-[1.1rem]">
           {industry.description}
         </p>
         <div className="industry-usecase-box mt-4 rounded-[16px] border border-[#E2EFEA] bg-[#e6faf3] p-3 sm:mt-6 sm:rounded-[20px] sm:p-4 lg:mt-8 lg:rounded-[24px] lg:p-6">

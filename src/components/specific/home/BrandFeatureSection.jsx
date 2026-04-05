@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, memo } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { FloatingIcons } from './brand-feature/FloatingIcons'
 
 import { MockupPhone } from './brand-feature/MockupPhone'
@@ -9,6 +8,7 @@ import { ProductivityGraphCard } from './brand-feature/ProductivityGraphCard'
 import { ActiveUsersCard } from './brand-feature/ActiveUsersCard'
 import { TypingSimulationCard } from './brand-feature/TypingSimulationCard'
 import { ChatSimulationCard } from './brand-feature/ChatSimulationCard'
+import { BrandFeatureSwipeStack } from './brand-feature/BrandFeatureSwipeStack'
 
 const MotionDiv = motion.div
 const chatLoopDuration = 10
@@ -24,24 +24,6 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
-
-  const [stackOrder, setStackOrder] = useState([0, 1, 2, 3])
-
-  const handleSwipe = (info) => {
-    if (info.offset.x < -40) {
-      setStackOrder((prev) => {
-        const next = [...prev]
-        next.push(next.shift())
-        return next
-      })
-    } else if (info.offset.x > 40) {
-      setStackOrder((prev) => {
-        const next = [...prev]
-        next.unshift(next.pop())
-        return next
-      })
-    }
-  }
 
   const containerRef = useRef(null)
 
@@ -141,45 +123,7 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
 
           <div className="-mt-8 rounded-2xl bg-white px-4 pb-20 sm:px-8 sm:w-full">
             {/* MOBILE ONLY: 3D Swipe Stack */}
-            <div className="relative mx-auto mt-6 h-[380px] w-full max-w-[320px] sm:hidden" style={{ perspective: '1000px' }}>
-              {stackOrder.map((cardIndex, i) => {
-                const isFront = i === 0
-                return (
-                  <motion.div
-                    key={cardIndex}
-                    drag={isFront ? 'x' : false}
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.6}
-                    onDragEnd={(_, info) => handleSwipe(info)}
-                    animate={{
-                      x: 0,
-                      y: i * 20,
-                      scale: 1 - i * 0.05,
-                      zIndex: 10 - i,
-                      opacity: i > 2 ? 0 : 1,
-                    }}
-                    transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
-                    className="absolute left-0 top-0 w-full will-change-transform"
-                    style={{ touchAction: isFront ? 'none' : 'auto' }}
-                  >
-                    <div className="pointer-events-none rounded-[24px] border border-[#F1F5F9] bg-white shadow-[0_12px_44px_rgba(0,0,0,0.12)]">
-                      {cardIndex === 0 && <ProductivityGraphCard cardCopy={copy.cards[0]} />}
-                      {cardIndex === 1 && <ActiveUsersCard cardCopy={copy.cards[1]} microCopy={copy.micro} />}
-                      {cardIndex === 2 && <TypingSimulationCard cardCopy={copy.cards[2]} microCopy={copy.micro} />}
-                      {cardIndex === 3 && <ChatSimulationCard cardCopy={copy.cards[3]} microCopy={copy.micro} />}
-                    </div>
-                  </motion.div>
-                )
-              })}
-              <div className="absolute -bottom-8 left-0 right-0 flex justify-center gap-1.5">
-                {[0, 1, 2, 3].map((dotIndex) => (
-                  <div key={dotIndex} className={`h-1.5 rounded-full transition-all duration-300 ${stackOrder[0] === dotIndex ? 'w-4 bg-[#10B981]' : 'w-1.5 bg-gray-200'}`} />
-                ))}
-              </div>
-              <div className="absolute -bottom-16 left-0 right-0 flex items-center justify-center gap-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                <ArrowLeft className="h-3 w-3" /> {t('Swipe') || 'Swipe'} <ArrowRight className="h-3 w-3" />
-              </div>
-            </div>
+            <BrandFeatureSwipeStack cards={copy.cards} microCopy={copy.micro} t={t} />
 
             {/* TABLET / DESKTOP ONLY: Grid */}
             <div className="hidden mx-auto mt-4 max-w-[1000px] gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-2 2xl:max-w-[1240px] 2xl:gap-8 3xl:max-w-[1440px] 3xl:gap-12">

@@ -10,11 +10,11 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleAddProduct = (newProduct) => {
-    setProducts([...products, newProduct])
+    setProducts((prev) => [...prev, newProduct])
   }
 
   const removeProduct = (id) => {
-    setProducts(products.filter((p) => p.id !== id))
+    setProducts((prev) => prev.filter((p) => p.id !== id))
   }
 
   const handleNext = () => {
@@ -33,7 +33,9 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
         className="mb-10 text-center"
       >
         <h2 className="font-display text-[1.8rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          {t('onboarding.products.title')}
+          <Trans i18nKey="onboarding.products.title">
+            Add your <span className="text-emerald-500">products</span>
+          </Trans>
         </h2>
         <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-500 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.products.subtitle')}
@@ -80,7 +82,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
           <motion.button
             layout
             onClick={() => setIsModalOpen(true)}
-            className="flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-200 bg-slate-50/50 text-slate-400 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
+            className="group flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-200 bg-slate-50/50 text-slate-400 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
           >
             <div className="rounded-full bg-white p-2.5 sm:p-3 shadow-sm transition group-hover:scale-110 onboarding-add-icon-shell">
               <Plus className="h-5 w-5 sm:h-6 sm:w-6" />

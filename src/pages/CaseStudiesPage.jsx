@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { caseStudies } from '../data'
 import { FinalCta, InternalLinksGrid, SeoHead } from '../components'
 import { CaseStudyCard } from '../components/specific/case-studies/CaseStudyCard'
 import { ROUTES } from '../utils/routes'
 import { createBreadcrumbSchema } from '../seo/schemas'
+import { CaseStudiesPagination } from './case-studies/CaseStudiesPagination'
+import { CaseStudiesTabs } from './case-studies/CaseStudiesTabs'
 
 const MotionDiv = motion.div
 const ITEMS_PER_PAGE = 3
@@ -37,10 +38,14 @@ export function CaseStudiesPage() {
     { to: ROUTES.auth, label: t('common.continueWithMeta'), description: t('sections.authDescription') },
   ]
 
+  const handleSelectTab = (key) => {
+    setActiveTab(key)
+    setPage(1)
+  }
+
   const handleSwitchTab = (direction) => {
     const nextIndex = (currentTabIndex + direction + uniqueTabs.length) % uniqueTabs.length
-    setActiveTab(uniqueTabs[nextIndex].key)
-    setPage(1)
+    handleSelectTab(uniqueTabs[nextIndex].key)
   }
 
   return (
@@ -57,7 +62,7 @@ export function CaseStudiesPage() {
       />
       <div className="mx-auto max-w-2xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#10B981] 2xl:text-base 3xl:text-lg">{t('sections.caseEyebrow')}</p>
-         <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl 2xl:text-5xl 3xl:text-6xl">
+        <h1 className="mt-3 font-display text-[1.45rem] font-extrabold leading-tight tracking-[-0.05em] text-[#1E293B] sm:mt-4 sm:text-3xl md:text-4xl 2xl:text-5xl 3xl:text-6xl">
           {t('sections.caseTitle')}
         </h1>
         <p className="mt-3 text-[0.96rem] leading-6 text-[#5a9e88] sm:text-[1.1rem] sm:leading-7 2xl:mt-6 2xl:text-[1.3rem] 2xl:leading-8 3xl:text-[1.5rem] 3xl:leading-9">
@@ -65,83 +70,15 @@ export function CaseStudiesPage() {
         </p>
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-2 sm:gap-3">
-        <button
-          type="button"
-          onClick={() => handleSwitchTab(-1)}
-          className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:-translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label={t('common.previousCaseStudyTab')}
-        >
-          {isRtl ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-        </button>
-
-        <div className="no-scrollbar flex max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 sm:hidden">
-          {uniqueTabs.map((tab) => (
-            <button
-              key={tab.key}
-              type="button"
-              onClick={() => {
-                setActiveTab(tab.key)
-                setPage(1)
-              }}
-              className={`min-w-[110px] rounded-full px-3 py-2 text-center text-[0.7rem] font-semibold whitespace-nowrap transition ${
-                activeTab === tab.key
-                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
-                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        <div className="no-scrollbar hidden max-w-full flex-wrap justify-center gap-2 sm:flex lg:hidden">
-          {uniqueTabs.map((tab) => (
-            <button
-              key={tab.key}
-              type="button"
-              onClick={() => {
-                setActiveTab(tab.key)
-                setPage(1)
-              }}
-              className={`min-w-[128px] rounded-full px-4 py-2.5 text-center text-[0.78rem] font-semibold whitespace-nowrap transition sm:min-w-[146px] sm:text-sm ${
-                activeTab === tab.key
-                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
-                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        <div className="no-scrollbar hidden max-w-full flex-nowrap justify-start gap-2 overflow-x-auto px-1 pb-2 lg:flex lg:max-w-[950px] lg:justify-center lg:px-0">
-          {visibleTabs.map((tab) => (
-            <button
-              key={tab.key}
-              type="button"
-              onClick={() => {
-                setActiveTab(tab.key)
-                setPage(1)
-              }}
-              className={`min-w-[128px] rounded-full px-4 py-2.5 text-center text-[0.78rem] font-semibold whitespace-nowrap transition sm:min-w-[146px] sm:text-sm ${
-                activeTab === tab.key
-                  ? 'bg-[#10B981] text-white shadow-[0_8px_20px_rgba(16,185,129,0.2)]'
-                  : 'bg-[#F8FAFC] text-[#10B981] hover:bg-[#ECFDF5]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={() => handleSwitchTab(1)}
-          className="hidden h-11 w-11 items-center justify-center rounded-full border border-[#D1FAE5] bg-white text-[#10B981] shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition enabled:hover:translate-x-0.5 enabled:hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45 lg:inline-flex"
-          aria-label={t('common.nextCaseStudyTab')}
-        >
-          {isRtl ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
-        </button>
-      </div>
+      <CaseStudiesTabs
+        activeTab={activeTab}
+        isRtl={isRtl}
+        onSelectTab={handleSelectTab}
+        onSwitchTab={handleSwitchTab}
+        t={t}
+        uniqueTabs={uniqueTabs}
+        visibleTabs={visibleTabs}
+      />
 
       <AnimatePresence mode="wait">
         <MotionDiv
@@ -158,54 +95,13 @@ export function CaseStudiesPage() {
         </MotionDiv>
       </AnimatePresence>
 
-      {activeTab === 'all' && totalPages > 1 ? (
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
-          <button
-            type="button"
-            onClick={() => setPage((current) => Math.max(1, current - 1))}
-            disabled={page === 1}
-            className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
-          >
-            {isRtl ? (
-              <>
-                {t('common.previous')} <ChevronRight className="h-4 w-4" />
-              </>
-            ) : (
-              <>
-                <ChevronLeft className="h-4 w-4" /> {t('common.previous')}
-              </>
-            )}
-          </button>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              type="button"
-              onClick={() => setPage(index + 1)}
-              className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
-                page === index + 1 ? 'bg-[#10B981] text-white' : 'border border-[#D1FAE5] bg-white text-[#10B981] hover:bg-[#ECFDF5]'
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-          <button
-            type="button"
-            onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
-            disabled={page === totalPages}
-            className="inline-flex items-center gap-1 rounded-full border border-[#D1FAE5] bg-white px-4 py-2 text-sm font-semibold text-[#10B981] transition hover:bg-[#ECFDF5] disabled:cursor-not-allowed disabled:opacity-45"
-          >
-            {isRtl ? (
-              <>
-                <ChevronLeft className="h-4 w-4" /> {t('common.next')}
-              </>
-            ) : (
-              <>
-                {t('common.next')} <ChevronRight className="h-4 w-4" />
-              </>
-            )}
-          </button>
-        </div>
-      ) : null}
+      <CaseStudiesPagination
+        isRtl={isRtl}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        t={t}
+      />
 
       <InternalLinksGrid links={relatedLinks} className="mt-8 sm:mt-10" />
 

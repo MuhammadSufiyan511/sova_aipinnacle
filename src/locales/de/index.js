@@ -37,7 +37,7 @@ const de = {
       metaIntegration,
       metaModal,
       caseStudies: { items: { ...caseStudiesA, ...caseStudiesB } },
-      legal: { termsSections, privacySections },
+      legal: { termsSections, privacySections, terms: { updated: 'Aktualisiert am {{date}}' }, privacy: { updated: 'Aktualisiert am {{date}}' } },
     },
   },
 }

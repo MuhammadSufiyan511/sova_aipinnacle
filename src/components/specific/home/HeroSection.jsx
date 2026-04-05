@@ -1,57 +1,16 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
-import { Play, ArrowUpRight, ChevronDown } from 'lucide-react'
+import { Play, ArrowUpRight } from 'lucide-react'
 import { FaMeta } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../../../utils/routes'
 import { Link } from 'react-router-dom'
 import { trustedBusinesses } from '../../../data'
+import { HeroBackground } from './hero/HeroBackground'
+import { HeroBusinessTicker } from './hero/HeroBusinessTicker'
 
 const MotionDiv = motion.div
 const MotionH1 = motion.h1
-const businessLogoStyles = [
-  'from-[#10B981] to-[#06B6D4]',
-  'from-[#A78BFA] to-[#06B6D4]',
-  'from-[#F59E0B] to-[#10B981]',
-  'from-[#1E293B] to-[#10B981]',
-  'from-[#FB7185] to-[#A78BFA]',
-  'from-[#06B6D4] to-[#1E293B]',
-]
-
-function getBusinessMonogram(name) {
-  const words = String(name || '')
-    .split(' ')
-    .filter(Boolean)
-
-  if (words.length === 0) return 'SV'
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
-
-  return `${words[0][0] || ''}${words[1][0] || ''}`.toUpperCase()
-}
-
-const HeroBusinessTrack = memo(function HeroBusinessTrack({ items }) {
-  return (
-    <div className="flex shrink-0 items-center gap-4 pe-4">
-      {items.map((business, index) => (
-        <div
-          key={`${business}-${index}`}
-          className="flex shrink-0 items-center gap-2.5 rounded-full border border-[#DDEFE7] bg-white px-3.5 py-1.5 shadow-sm shadow-emerald-500/5"
-        >
-          <span
-            className={`flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br text-[0.58rem] font-extrabold text-white shadow-sm ${businessLogoStyles[index % businessLogoStyles.length]}`}
-            aria-hidden="true"
-          >
-            {getBusinessMonogram(business)}
-          </span>
-          <span className="whitespace-nowrap text-[0.72rem] font-bold text-[#295565]">
-            {business}
-          </span>
-        </div>
-      ))}
-    </div>
-  )
-})
-
 export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
   const { t } = useTranslation()
   const businessItems = t('content.trustedBusinesses.items', { returnObjects: true }) || trustedBusinesses
@@ -59,35 +18,7 @@ export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
   return (
     <section className="home-hero-section relative w-full overflow-hidden bg-white pb-16 pt-20 text-center sm:pb-20 sm:pt-24 lg:pt-30">
       {/* Animated radial gradient background - centered */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.55, 0.75, 0.55],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute left-1/2 top-[-100px] h-[600px] w-[800px] -translate-x-1/2 rounded-full"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(16,185,129,0.16) 0%, rgba(167,139,250,0.1) 45%, transparent 75%)',
-          }}
-        />
-        {/* Mobile Glow behind CTAs */}
-        <div className="absolute left-1/2 top-[55%] h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-emerald-400/10 blur-[80px] md:hidden" />
-        
-        {/* Subtle circles overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.25]">
-          <div className="h-[400px] w-[400px] rounded-full border border-[#10B981]" />
-          <div className="absolute h-[600px] w-[600px] rounded-full border border-[#F1990A]" />
-          <div className="absolute h-[800px] w-[800px] rounded-full border border-[#1E293B]" />
-          <div className="absolute h-[1000px] w-[1000px] rounded-full border border-[#10B981]" />
-          <div className="absolute h-[1200px] w-[1200px] rounded-full border border-[#F1990A]" />
-          <div className="absolute h-[1400px] w-[1400px] rounded-full border border-[#1E293B]" />
-        </div>
-      </div>
+      <HeroBackground />
 
       {/* Bottom badge */}
       <MotionDiv
@@ -176,25 +107,7 @@ export const HeroSection = memo(function HeroSection({ onWatchDemo }) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-8 mx-auto max-w-[650px] overflow-hidden"
           >
-            <p className="mb-5 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-[#F1990A]">
-              {t('hero.trustedLabel')}
-            </p>
-            <div
-              className="group relative flex overflow-hidden"
-              dir="ltr"
-              style={{
-                maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-              }}
-            >
-              <div
-                className="flex w-max items-center py-2"
-                style={{ animation: 'ticker 30s linear infinite' }}
-              >
-                <HeroBusinessTrack items={businessItems} />
-                <HeroBusinessTrack items={businessItems} />
-              </div>
-            </div>
+            <HeroBusinessTicker items={businessItems} label={t('hero.trustedLabel')} />
           </MotionDiv>
         </MotionDiv>
       </div>

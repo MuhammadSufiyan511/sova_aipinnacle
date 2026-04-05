@@ -42,10 +42,9 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
           <Building2 className="h-5 w-5 sm:h-6 w-6" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          {/* <Trans i18nKey="onboarding.business.title">
+          <Trans i18nKey="onboarding.business.title">
             What's your <span className="text-emerald-500">business</span>?
-          </Trans> */}
-          {t('onboarding.business.title')}
+          </Trans>
         </h2>
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.business.subtitle')}

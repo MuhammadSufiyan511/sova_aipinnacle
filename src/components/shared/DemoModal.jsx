@@ -9,7 +9,7 @@ export function DemoModal({ onClose }) {
   const autoplayVideoUrl = `${heroVideoUrl}?autoplay=1&rel=0`
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[[#0F172A]/60] px-4 backdrop-blur-md">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/60 px-4 backdrop-blur-md">
       <div className="w-full max-w-4xl rounded-[40px] border border-white/10 p-6 text-white shadow-[0_32px_120px_rgba(0,0,0,0.5)] sm:p-8 relative overflow-hidden">
         {/* Decorative glow */}
         <div className="absolute -top-32 -right-32 h-64 w-64 bg-emerald-600/20 rounded-full blur-[100px] pointer-events-none" />

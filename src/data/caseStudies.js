@@ -23,7 +23,7 @@ export const caseStudies = [
     solution: 'Sova filtered bulk intent, highlighted carton buyers, and sent follow-up reminders automatically.',
     result: 'Lead quality improved by 42% and response speed doubled during peak demand.',
     metrics: ['42% higher lead quality', '2x faster response'],
-    image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1545731785-8cb2dc6551c9?auto=format&fit=crop&w=1200&q=80',
   },
   {
     slug: 'electronics-shop',
@@ -49,7 +49,7 @@ export const caseStudies = [
     solution: 'Sova answered common questions automatically and surfaced high-intent bulk buyers for manual follow-up.',
     result: 'Saved 11 hours weekly and improved wholesale inquiry conversion by 26%.',
     metrics: ['11 hrs saved weekly', '26% higher conversion'],
-    image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1710857397974-f0617001c39e?auto=format&fit=crop&w=1200&q=80',
   },
   {
     slug: 'beauty-retail',

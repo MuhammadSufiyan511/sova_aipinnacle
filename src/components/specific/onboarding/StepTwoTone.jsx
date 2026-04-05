@@ -15,11 +15,12 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
   const { t } = useTranslation()
 
   const toggleTone = (id) => {
-    if (tones.includes(id)) {
-      setTones(tones.filter(t => t !== id))
-    } else {
-      setTones([...tones, id])
-    }
+    setTones((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((tone) => tone !== id)
+      }
+      return [...prev, id]
+    })
   }
 
   const isValid = tones.length > 0
@@ -35,7 +36,9 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
           <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
-          {t('onboarding.tone.title')}
+          <Trans i18nKey="onboarding.tone.title">
+            Set SOVA's <span className="text-emerald-500">voice</span>
+          </Trans>
         </h2>
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.tone.subtitle')}

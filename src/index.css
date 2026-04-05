@@ -364,6 +364,12 @@
     background: linear-gradient(to bottom right, #F8FAFC, #ECFDF5, #f5e8fa);
   }
 
+  .home-dark-mode .home-industries-preview-section {
+    background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+      #040D0C !important;
+  }
+
 
   .home-dark-mode .home-brand-feature-section [class*="bg-white"] {
     background: #040D0C !important;
@@ -1168,6 +1174,25 @@
     border-color: #1C3D3A !important;
   }
 
+  /* Chat/profile pills & selected rows (buttons/spans) */
+  .home-dark-mode button[class*="bg-[#F2FBF7]"],
+  .home-dark-mode button[class*="bg-[#F4FBF8]"],
+  .home-dark-mode button[class*="bg-emerald-50"],
+  .home-dark-mode button[class*="bg-sky-50"],
+  .home-dark-mode button[class*="bg-violet-50"],
+  .home-dark-mode button[class*="bg-amber-50"],
+  .home-dark-mode button[class*="bg-blue-50"],
+  .home-dark-mode span[class*="bg-[#F2FBF7]"],
+  .home-dark-mode span[class*="bg-[#F4FBF8]"],
+  .home-dark-mode span[class*="bg-emerald-50"],
+  .home-dark-mode span[class*="bg-sky-50"],
+  .home-dark-mode span[class*="bg-violet-50"],
+  .home-dark-mode span[class*="bg-amber-50"],
+  .home-dark-mode span[class*="bg-blue-50"] {
+    background-color: #142B2A !important;
+    border-color: #1C3D3A !important;
+  }
+
   .home-dark-mode input,
   .home-dark-mode textarea,
   .home-dark-mode select {
@@ -1231,5 +1256,21 @@
 
   .home-dark-mode .admin-tone-card.is-active .tone-dot {
     background-color: #10B981 !important;
+  }
+
+  /* Legal Pages Dark Mode */
+  .home-dark-mode .legal-article {
+    background: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+    box-shadow: 0 12px 44px rgba(4, 13, 12, 0.6) !important;
+  }
+
+  .home-dark-mode .legal-heading {
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .legal-icon-box {
+    background: linear-gradient(to bottom right, #064E3B, #0A1B19) !important;
+    color: #34D399 !important;
   }
 }

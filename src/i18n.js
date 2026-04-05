@@ -10,6 +10,12 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
+    format: (value, format, lng) => {
+      if (value instanceof Date) {
+        return new Intl.DateTimeFormat(lng).format(value)
+      }
+      return value
+    },
   },
 })
 

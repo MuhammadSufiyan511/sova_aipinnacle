@@ -37,7 +37,7 @@ const ur = {
       metaIntegration,
       metaModal,
       caseStudies: { items: { ...caseStudiesA, ...caseStudiesB } },
-      legal: { termsSections, privacySections },
+      legal: { termsSections, privacySections, terms: { updated: 'اپ ڈیٹ شدہ {{date}}' }, privacy: { updated: 'اپ ڈیٹ شدہ {{date}}' } },
     },
   },
 }

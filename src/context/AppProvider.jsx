@@ -4,12 +4,12 @@ const AppContext = createContext()
 
 export function AppProvider({ children }) {
   const [products, setProducts] = useState(() => {
-    const saved = localStorage.getItem('sova_products')
+    const saved = localStorage.getItem('sova-products')
     return saved ? JSON.parse(saved) : []
   })
 
   const [tones, setTones] = useState(() => {
-    const saved = localStorage.getItem('sova_tones')
+    const saved = localStorage.getItem('sova-tones')
     return saved ? JSON.parse(saved) : []
   })
 
@@ -32,10 +32,10 @@ export function AppProvider({ children }) {
     localStorage.setItem('sova-home-theme', homeDarkMode ? 'dark' : 'light')
   }, [homeDarkMode])
 
-  const addProduct = (product) => setProducts([...products, product])
+  const addProduct = (product) => setProducts((prev) => [...prev, product])
   const updateProduct = (updatedProduct) =>
-    setProducts(products.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)))
-  const removeProduct = (id) => setProducts(products.filter(p => p.id !== id))
+    setProducts((prev) => prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)))
+  const removeProduct = (id) => setProducts((prev) => prev.filter((product) => product.id !== id))
 
   const value = useMemo(() => ({
     products,

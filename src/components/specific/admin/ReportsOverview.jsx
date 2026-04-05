@@ -44,7 +44,7 @@ export const ReportsOverview = memo(function ReportsOverview() {
       </Motion.div>
 
       {/* KPI Cards */}
-      <Motion.div variants={item} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <Motion.div variants={item} className="grid grid-cols-1 gap-3 xs:grid-cols-2 lg:grid-cols-3">
         {reportStats.map((stat) => (
           <div key={stat.label} className="flex flex-col items-center gap-4 rounded-[22px] border border-[#DDEFE7] bg-white p-4 text-center shadow-sm sm:flex-row sm:text-left admin-stat-box">
             <div className="flex w-full items-center justify-between sm:w-auto sm:flex-col sm:gap-2">
@@ -77,9 +77,10 @@ export const ReportsOverview = memo(function ReportsOverview() {
           </div>
           <div className="rounded-full bg-violet-50 px-3 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">{t('admin.reports.chart.pill')}</div>
         </div>
-        <div className="flex h-44 items-end justify-between gap-3 pt-4 admin-chart-container">
-          {weeklyRows.map((row, i) => (
-            <div key={row.label} className="group flex flex-1 flex-col items-center gap-2">
+        <div className="overflow-x-auto sm:overflow-visible -mx-2 px-2">
+          <div className="flex h-44 min-w-[320px] items-end justify-between gap-3 pt-4 sm:min-w-0 admin-chart-container">
+            {weeklyRows.map((row, i) => (
+              <div key={row.label} className="group flex min-w-[44px] flex-1 flex-col items-center gap-2">
               <span className="hidden text-[0.62rem] font-bold text-[#10B981] opacity-0 transition group-hover:opacity-100 sm:block">{row.revenue}</span>
               <Motion.div
                 initial={{ height: 0 }}
@@ -88,8 +89,9 @@ export const ReportsOverview = memo(function ReportsOverview() {
                 className="w-full rounded-t-[14px] bg-gradient-to-t from-[#10B981] via-[#34D399] to-[#A78BFA] shadow-[0_8px_20px_rgba(16,185,129,0.2)] transition group-hover:shadow-[0_8px_30px_rgba(16,185,129,0.35)] admin-chart-bar"
               />
               <span className="text-[0.66rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{row.label}</span>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </Motion.div>
 
@@ -112,14 +114,14 @@ export const ReportsOverview = memo(function ReportsOverview() {
         <div className="divide-y divide-[#DDEFE7] md:hidden">
           {weeklyRows.map((row) => (
             <div key={row.label} className="px-4 py-4 transition hover:bg-[#F8FDFB]">
-              <div className="mb-3.5 flex items-center justify-between">
+              <div className="mb-3.5 flex flex-col items-center justify-between gap-2 xs:flex-row xs:items-center">
                 <span className="text-[0.88rem] font-bold text-[#295565]">{row.label}</span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-0.5 text-[0.68rem] font-bold text-[#059669] admin-pill">
                   <ArrowUpRight className="h-3 w-3" /> {row.rate}
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 gap-2 xs:grid-cols-3">
                 <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
                   <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{t('admin.reports.table.headers.chats')}</p>
                   <p className="mt-0.5 text-[0.82rem] font-bold text-[#476977]">{row.chats}</p>

@@ -10,7 +10,7 @@ export function WhatsAppButton() {
     <a
       href={whatsappLink}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       className="mt-8 inline-flex h-16 items-center justify-center gap-4 rounded-[22px] bg-[#10B981] px-8 text-[1.1rem] font-bold text-white transition-all hover:bg-[#0F8F72] active:scale-[0.98] shadow-lg shadow-emerald-500/20"
     >
       {t('common.chatOnWhatsApp')}

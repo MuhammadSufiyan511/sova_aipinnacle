@@ -15,7 +15,7 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className=" w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
+    <footer className="w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
       <div className="mx-auto max-w-[1160px] px-5">
         <div className="flex flex-col items-center justify-between gap-5 pb-6 md:flex-row md:gap-8 md:pb-12">
           <div className="flex items-center gap-3">
@@ -26,12 +26,12 @@ export function SiteFooter() {
           </div>
 
           <div className="flex gap-4">
-            {socialLinks.map((item, index) => (
+            {socialLinks.map((item) => (
               <a
-                key={index}
+                key={item.href}
                 href={item.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={`Open ${item.href.replace(/^https?:\/\//, '').replace(/^mailto:/, '')}`}
                 className="social-icon-box inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)]"
                 style={{ color: item.color, backgroundColor: item.bg }}

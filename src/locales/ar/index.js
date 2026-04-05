@@ -37,7 +37,7 @@ const ar = {
       metaIntegration,
       metaModal,
       caseStudies: { items: { ...caseStudiesA, ...caseStudiesB } },
-      legal: { termsSections, privacySections },
+      legal: { termsSections, privacySections, terms: { updated: 'تم التحديث في {{date}}' }, privacy: { updated: 'تم التحديث في {{date}}' } },
     },
   },
 }
