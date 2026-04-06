@@ -37,7 +37,7 @@ const bn = {
       metaIntegration,
       metaModal,
       caseStudies: { items: { ...caseStudiesA, ...caseStudiesB } },
-      legal: { termsSections, privacySections, terms: { updated: 'আপডেট হয়েছে {{date}}' }, privacy: { updated: 'আপডেট হয়েছে {{date}}' } },
+      legal: { termsSections, privacySections },
     },
   },
 }

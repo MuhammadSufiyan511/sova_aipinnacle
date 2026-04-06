@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Sun, Moon, X } from 'lucide-react'
 import { ROUTES } from '../../../utils/routes'
@@ -7,6 +7,7 @@ import { languageOptions } from '../../../hooks/useHeaderUi'
 export function HeaderMobileMenu({ 
   activeLanguage, 
   changeLanguage, 
+  isRTL,
   t, 
   onClose,
   isHomeDarkMode,
@@ -15,7 +16,7 @@ export function HeaderMobileMenu({
 }) {
   return (
     <>
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -23,12 +24,14 @@ export function HeaderMobileMenu({
         className="fixed inset-0 z-[100] bg-[#1E293B]/40 md:hidden"
       />
 
-      <motion.div
-        initial={{ x: '100%' }}
+      <Motion.div
+        initial={{ x: isRTL ? '100%' : '-100%' }}
         animate={{ x: 0 }}
-        exit={{ x: '100%' }}
+        exit={{ x: isRTL ? '100%' : '-100%' }}
         transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
-        className="fixed bottom-0 right-0 top-0 z-[110] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl md:hidden will-change-transform"
+        className={`fixed bottom-0 top-0 z-[110] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl md:hidden will-change-transform ${
+          isRTL ? 'right-0' : 'left-0'
+        }`}
       >
         <div className="flex items-center justify-between border-b border-[#E2EFEA] px-5 py-4">
           <span className="font-display font-bold text-[#1E293B]">{t('common.menu') || 'Menu'}</span>
@@ -97,7 +100,7 @@ export function HeaderMobileMenu({
           </div>
           
         </div>
-      </motion.div>
+      </Motion.div>
     </>
   )
 }

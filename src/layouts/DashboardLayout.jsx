@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { BarChart3, LayoutDashboard, MessageSquare, Package, Radio, Settings } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { NotificationDrawer } from '../components/specific/admin/NotificationDrawer'
@@ -20,6 +20,7 @@ export function DashboardLayout({ children }) {
   const [desktopSidebarOpen, setDesktopSidebarOpen] = useState(true)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 1024 : true))
+  const langMenuRef = useRef(null)
 
   const isRTL = RTL_LANGUAGES.includes(i18n.language)
 
@@ -52,6 +53,22 @@ export function DashboardLayout({ children }) {
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!langMenuRef.current?.contains(event.target)) {
+        setLangOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('touchstart', handlePointerDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('touchstart', handlePointerDown)
+    }
   }, [])
 
   return (
@@ -116,6 +133,8 @@ export function DashboardLayout({ children }) {
           currentLanguage={currentLanguage}
           homeDarkMode={homeDarkMode}
           isDesktop={isDesktop}
+          isRTL={isRTL}
+          langMenuRef={langMenuRef}
           langOpen={langOpen}
           languages={LANGUAGES}
           onChangeLanguage={changeLanguage}

@@ -37,7 +37,7 @@ const hi = {
       metaIntegration,
       metaModal,
       caseStudies: { items: { ...caseStudiesA, ...caseStudiesB } },
-      legal: { termsSections, privacySections, terms: { updated: 'अपडेट किया गया {{date}}' }, privacy: { updated: 'अपडेट किया गया {{date}}' } },
+      legal: { termsSections, privacySections },
     },
   },
 }

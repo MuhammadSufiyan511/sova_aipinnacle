@@ -1099,10 +1099,29 @@
     color: #FFFFFF !important;
   }
 
-  .home-dark-mode .admin-card-desc {
-    color: #FAF7ED !important;
-    opacity: 0.6;
-  }
+.home-dark-mode .admin-card-desc {
+  color: #FAF7ED !important;
+  opacity: 0.6;
+}
+
+.home-dark-mode .settings-main-title {
+  color: #F4FFF9 !important;
+}
+
+.home-dark-mode .settings-main-subtitle {
+  color: #C8F1E5 !important;
+  opacity: 0.78;
+}
+
+.home-dark-mode .admin-modal-close {
+  background: #10302E !important;
+  border-color: #1C4D49 !important;
+  color: #C8F1E5 !important;
+}
+
+.home-dark-mode .admin-modal-close:hover {
+  background: #133B38 !important;
+}
 
   .home-dark-mode .admin-pill {
     background-color: rgba(16, 185, 129, 0.1) !important;

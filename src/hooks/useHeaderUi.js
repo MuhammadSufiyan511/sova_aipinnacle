@@ -31,6 +31,7 @@ export function useHeaderUi() {
     const language = i18n.resolvedLanguage?.split('-')[0] || 'en'
     return languageOptions.find((option) => option.lng === language) || languageOptions[0]
   }, [i18n.resolvedLanguage])
+  const isRTL = i18n.dir() === 'rtl'
 
   const navItems = useMemo(
     () => [
@@ -91,6 +92,7 @@ export function useHeaderUi() {
   return {
     activeLanguage,
     changeLanguage,
+    isRTL,
     isChangingLanguage,
     isItemActive,
     languageMenuRef,

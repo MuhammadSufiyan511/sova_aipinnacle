@@ -1,6 +1,6 @@
 import { useState, memo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Trash2, ArrowRight, ChevronLeft } from 'lucide-react'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
+import { Plus, Trash2, ChevronLeft, FileText, PlayCircle } from 'lucide-react'
 import { AddProductModal } from './AddProductModal'
 import { toast } from 'react-hot-toast'
 import { useTranslation, Trans } from 'react-i18next'
@@ -27,7 +27,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
 
   return (
     <div className="w-full onboarding-step-container">
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-10 text-center"
@@ -40,13 +40,13 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
         <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-500 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.products.subtitle')}
         </p>
-      </motion.div>
+      </Motion.div>
  
       <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {/* Product Cards */}
         <AnimatePresence mode="popLayout">
           {products.map((product) => (
-            <motion.div
+            <Motion.div
               layout
               key={product.id}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -56,7 +56,23 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
             >
               <div className="absolute inset-0 bg-slate-100 onboarding-card-img-placeholder">
                 {product.imagePreview ? (
-                  <img src={product.imagePreview} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+                  product.mediaType === 'video' ? (
+                    <div className="relative h-full w-full">
+                      <video src={product.imagePreview} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" muted loop playsInline />
+                      <span className="absolute inset-0 flex items-center justify-center bg-slate-900/20 text-white">
+                        <PlayCircle className="h-10 w-10" />
+                      </span>
+                    </div>
+                  ) : product.mediaType === 'file' ? (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#F2FBF7] px-5 text-center">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
+                        <FileText className="h-7 w-7 text-emerald-600" />
+                      </span>
+                      <span className="line-clamp-2 text-sm font-semibold text-[#295565]">{product.mediaName || product.name}</span>
+                    </div>
+                  ) : (
+                    <img src={product.imagePreview} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+                  )
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-slate-50">
                     <span className="font-display text-4xl font-bold text-slate-200">{product.name[0]}</span>
@@ -75,11 +91,11 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
               >
                 <Trash2 className="h-4 w-4" />
               </button>
-            </motion.div>
+            </Motion.div>
           ))}
  
           {/* Add Button Card */}
-          <motion.button
+          <Motion.button
             layout
             onClick={() => setIsModalOpen(true)}
             className="group flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-200 bg-slate-50/50 text-slate-400 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
@@ -88,7 +104,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
               <Plus className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <span className="text-sm font-bold tracking-tight sm:text-base">{t('onboarding.products.addBtn')}</span>
-          </motion.button>
+          </Motion.button>
         </AnimatePresence>
       </div>
  

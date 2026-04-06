@@ -12,9 +12,14 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
     <div className="sidebar-container flex h-full min-h-0 flex-col bg-[#0F172A]">
       <div className="sidebar-logo-box flex h-14 shrink-0 items-center justify-between border-b border-white/[0.06] px-4">
         <Link to={ROUTES.home} onClick={onClose} className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/10 shadow-md">
-            <img src={sovaLogo} alt="SOVA" className="h-7 w-7 object-contain" />
-          </span>
+{/* <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20">
+  <img 
+    src={sovaLogo} 
+    alt="SOVA" 
+    className="h-full w-full object-cover rounded-full scale-90"
+  />
+</span> */}
+  <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-10 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
           <div>
             <p className="font-display text-[0.95rem] font-bold tracking-tight text-white">SOVA</p>
             <p className="text-[0.55rem] font-bold uppercase tracking-[0.28em] text-[#10B981]">Workspace</p>

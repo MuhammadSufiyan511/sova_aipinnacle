@@ -1,8 +1,14 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState, useMemo } from 'react'
 
 const AppContext = createContext()
 
 export function AppProvider({ children }) {
+  const [businessProfile, setBusinessProfile] = useState(() => {
+    const saved = localStorage.getItem('sova-business-profile')
+    return saved ? JSON.parse(saved) : { type: 'clothing', customCategory: '' }
+  })
+
   const [products, setProducts] = useState(() => {
     const saved = localStorage.getItem('sova-products')
     return saved ? JSON.parse(saved) : []
@@ -32,12 +38,18 @@ export function AppProvider({ children }) {
     localStorage.setItem('sova-home-theme', homeDarkMode ? 'dark' : 'light')
   }, [homeDarkMode])
 
+  useEffect(() => {
+    localStorage.setItem('sova-business-profile', JSON.stringify(businessProfile))
+  }, [businessProfile])
+
   const addProduct = (product) => setProducts((prev) => [...prev, product])
   const updateProduct = (updatedProduct) =>
     setProducts((prev) => prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)))
   const removeProduct = (id) => setProducts((prev) => prev.filter((product) => product.id !== id))
 
   const value = useMemo(() => ({
+    businessProfile,
+    setBusinessProfile,
     products,
     setProducts,
     tones,
@@ -51,7 +63,7 @@ export function AppProvider({ children }) {
     setShowCelebration,
     homeDarkMode,
     setHomeDarkMode
-  }), [products, tones, user, showCelebration, homeDarkMode])
+  }), [businessProfile, products, tones, user, showCelebration, homeDarkMode])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

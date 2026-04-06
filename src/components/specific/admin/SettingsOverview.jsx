@@ -1,8 +1,23 @@
-import { motion as Motion } from 'framer-motion'
-import { Bell, Bot, MessageSquare, Shield, Sparkles, Zap } from 'lucide-react'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
+import { Bell, Bot, Briefcase, Check, MessageSquare, Shield, Sparkles, X, Zap } from 'lucide-react'
 import { useState, memo } from 'react'
 import { useApp } from '../../../context/AppProvider'
 import { useTranslation } from 'react-i18next'
+
+const businessTypes = [
+  { id: 'clothing', emoji: '🛍️' },
+  { id: 'jewellery', emoji: '💎' },
+  { id: 'toys', emoji: '🧸' },
+  { id: 'books-stationary', emoji: '📚' },
+  { id: 'dry-fruits', emoji: '🥜' },
+  { id: 'decoration', emoji: '🎨' },
+  { id: 'electronics', emoji: '⚡' },
+  { id: 'medical-instruments', emoji: '🩺' },
+  { id: 'surgical-instruments', emoji: '✂️' },
+  { id: 'hardware', emoji: '🔨' },
+  { id: 'fireworks', emoji: '✨' },
+  { id: 'other', emoji: '🌟' },
+]
 
 const toneColors = {
   emerald: { active: 'border-emerald-500 bg-emerald-50 text-emerald-700', dot: 'bg-emerald-500' },
@@ -41,11 +56,18 @@ const rowItem = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }
 
 export const SettingsOverview = memo(function SettingsOverview() {
   const { t } = useTranslation()
-  const { tones, setTones } = useApp()
+  const { businessProfile, setBusinessProfile, tones, setTones } = useApp()
   const activeTone = tones[0] || 'Professional'
   const [alerts, setAlerts] = useState(true)
   const [autoReply, setAutoReply] = useState(true)
   const [spamFilter, setSpamFilter] = useState(true)
+  const [businessModalOpen, setBusinessModalOpen] = useState(false)
+  const [draftBusinessType, setDraftBusinessType] = useState(businessProfile?.type || 'clothing')
+  const [draftCustomCategory, setDraftCustomCategory] = useState(businessProfile?.customCategory || '')
+
+  const businessLabel = draftBusinessType === 'other' && draftCustomCategory.trim()
+    ? draftCustomCategory.trim()
+    : t(`onboarding.business.categories.${businessProfile?.type || 'clothing'}.label`)
 
   const toneOptions = [
     { id: 'Professional', label: t('admin.settings.tones.professional.label'), desc: t('admin.settings.tones.professional.desc'), color: 'emerald' },
@@ -54,12 +76,27 @@ export const SettingsOverview = memo(function SettingsOverview() {
     { id: 'Creative', label: t('admin.settings.tones.creative.label'), desc: t('admin.settings.tones.creative.desc'), color: 'violet' },
   ]
 
+  const openBusinessModal = () => {
+    setDraftBusinessType(businessProfile?.type || 'clothing')
+    setDraftCustomCategory(businessProfile?.customCategory || '')
+    setBusinessModalOpen(true)
+  }
+
+  const saveBusinessProfile = () => {
+    if (draftBusinessType === 'other' && !draftCustomCategory.trim()) return
+    setBusinessProfile({
+      type: draftBusinessType,
+      customCategory: draftBusinessType === 'other' ? draftCustomCategory.trim() : '',
+    })
+    setBusinessModalOpen(false)
+  }
+
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">
-      <Motion.div variants={rowItem} className="text-center sm:text-left">
-        <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.title')}</h2>
-        <p className="mt-0.5 text-[0.74rem] text-[#62808D]">{t('admin.settings.subtitle')}</p>
-      </Motion.div>
+        <Motion.div variants={rowItem} className="text-center sm:text-left">
+          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title settings-main-title">{t('admin.settings.title')}</h2>
+          <p className="mt-0.5 text-[0.74rem] text-[#62808D] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
+        </Motion.div>
 
       <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] p-4 shadow-sm admin-card-shell">
         <div className="mb-4 flex flex-col items-center gap-3 text-center sm:flex-row sm:text-left">
@@ -91,6 +128,31 @@ export const SettingsOverview = memo(function SettingsOverview() {
         </div>
       </Motion.section>
 
+      <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] p-4 shadow-sm admin-card-shell">
+        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-500 admin-stat-icon">
+              <Briefcase className="h-4.5 w-4.5" />
+            </span>
+            <div>
+              <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.business.title')}</h3>
+              <p className="mt-0.5 text-[0.72rem] leading-5 text-[#62808D]">{t('admin.settings.sections.business.subtitle')}</p>
+              <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#10B981]">
+                {t('admin.settings.sections.business.current')}: {businessLabel}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={openBusinessModal}
+            className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02]"
+          >
+            {t('admin.settings.sections.business.button')}
+          </button>
+        </div>
+      </Motion.section>
+
       <Motion.section variants={rowItem} className="divide-y divide-[#ECF8F3] rounded-[22px] border border-[#DDEFE7] shadow-sm admin-card-shell">
         <div className="px-4 pb-3 pt-4">
           <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
@@ -119,6 +181,113 @@ export const SettingsOverview = memo(function SettingsOverview() {
           </SettingRow>
         </div>
       </Motion.section>
+
+      <AnimatePresence>
+        {businessModalOpen ? (
+          <>
+            <Motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[120] bg-[#1E293B]/45 backdrop-blur-sm"
+              onClick={() => setBusinessModalOpen(false)}
+            />
+            <Motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.97 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="fixed left-1/2 top-1/2 z-[130] w-[min(92vw,720px)] -translate-x-1/2 -translate-y-1/2 rounded-[28px] border border-[#DDEFE7] bg-white p-4 shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell sm:p-5"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#10B981]">
+                    {t('admin.settings.sections.business.title')}
+                  </p>
+                  <h3 className="mt-2 font-display text-[1.2rem] font-bold text-[#173247] admin-card-title">
+                    {t('admin.settings.sections.business.modalTitle')}
+                  </h3>
+                  <p className="mt-1.5 text-[0.8rem] leading-5 text-[#62808D] admin-card-desc">
+                    {t('admin.settings.sections.business.modalSubtitle')}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setBusinessModalOpen(false)}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#48617A] transition admin-modal-close hover:bg-white"
+                  aria-label={t('admin.settings.sections.business.close')}
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                {businessTypes.map((type) => {
+                  const isSelected = draftBusinessType === type.id
+                  return (
+                    <button
+                      key={type.id}
+                      type="button"
+                      onClick={() => setDraftBusinessType(type.id)}
+                      className={`relative rounded-[20px] border-2 p-3 text-left transition ${
+                        isSelected
+                          ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
+                          : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
+                      }`}
+                    >
+                      {isSelected ? (
+                        <span className="absolute right-3 top-3 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#10B981] text-white">
+                          <Check className="h-3 w-3" />
+                        </span>
+                      ) : null}
+                      <span className="text-[1.35rem] leading-none">{type.emoji}</span>
+                      <p className="mt-2 text-[0.8rem] font-bold text-[#173247]">
+                        {t(`onboarding.business.categories.${type.id}.label`)}
+                      </p>
+                      <p className="mt-1 text-[0.68rem] leading-4 text-[#62808D]">
+                        {t(`onboarding.business.categories.${type.id}.desc`)}
+                      </p>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {draftBusinessType === 'other' ? (
+                <div className="mt-4">
+                  <label className="mb-2 block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#648E89]">
+                    {t('onboarding.business.customCategoryPlaceholder')}
+                  </label>
+                  <input
+                    type="text"
+                    value={draftCustomCategory}
+                    onChange={(event) => setDraftCustomCategory(event.target.value)}
+                    placeholder={t('onboarding.business.customCategoryPlaceholder')}
+                    className="h-12 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] px-4 text-[0.88rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
+                  />
+                </div>
+              ) : null}
+
+              <div className="mt-5 flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
+                <button
+                  type="button"
+                  onClick={() => setBusinessModalOpen(false)}
+                  className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] px-4 py-2.5 text-[0.76rem] font-bold text-[#48617A] transition hover:bg-[#F8FAFC]"
+                >
+                  {t('admin.settings.sections.business.cancel')}
+                </button>
+                <button
+                  type="button"
+                  onClick={saveBusinessProfile}
+                  disabled={draftBusinessType === 'other' && !draftCustomCategory.trim()}
+                  className="inline-flex items-center justify-center rounded-full bg-[#10B981] px-4 py-2.5 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  {t('admin.settings.sections.business.save')}
+                </button>
+              </div>
+            </Motion.div>
+          </>
+        ) : null}
+      </AnimatePresence>
     </Motion.div>
   )
 })

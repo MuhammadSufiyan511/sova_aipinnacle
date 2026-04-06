@@ -152,7 +152,7 @@ export const admin = {
     quickActions: {
       products: 'Produkte hinzufügen',
       settings: 'Automatisierung setup',
-      notifications: 'Benachrichtigungen'
+      businessSettings: 'Business-Einstellungen'
     },
     charts: {
       saleTrend: {
@@ -216,6 +216,17 @@ export const admin = {
     title: 'Automatisierungseinstellungen',
     subtitle: 'Steuern Sie das Verhalten Ihres KI-Agenten.',
     sections: {
+      business: {
+        title: 'Business-Setup',
+        subtitle: 'Wenn Sie Ihre Kategorie ändern oder das geführte Setup neu starten möchten, können Sie das hier aktualisieren.',
+        button: 'Business ändern',
+        current: 'Aktuelles Business',
+        modalTitle: 'Ihre Business-Kategorie aktualisieren',
+        modalSubtitle: 'Wählen Sie den Business-Typ, den SOVA für Antworten, Lead-Filterung und Produktkontext verwenden soll.',
+        save: 'Änderungen speichern',
+        cancel: 'Abbrechen',
+        close: 'Schließen'
+      },
       voice: {
         title: 'Markenstimme',
         subtitle: 'Wählen Sie, wie SOVA mit Ihren Kunden spricht.'
@@ -238,6 +249,34 @@ export const admin = {
       tfa: { title: 'Zwei-Faktor-Authentifizierung', desc: 'Sichern Sie Ihren Workspace zusätzlich ab.' }
     },
     comingSoon: 'Demnächst'
+  },
+  profile: {
+    header: {
+      label: 'SOVA Workspace-Profil',
+      desc: 'Verwalten Sie Ihre Workspace-Identität, Sprache und Automatisierungsbereitschaft an einem Ort.'
+    },
+    plan: '{{name}}-Tarif',
+    activity: {
+      products: 'Verbundene Produkte',
+      automations: 'Aktive Automatisierungen',
+      alerts: 'Ungelesene Lead-Benachrichtigungen'
+    },
+    details: {
+      title: 'Workspace-Details',
+      language: 'Aktuelle Sprache',
+      products: {
+        label: 'Produkte im Katalog',
+        ready: '{{count}} bereit für automatische Antworten'
+      },
+      tones: {
+        label: 'Business-Tonprofile',
+        ready: '{{count}} Toneinstellung{{s}} konfiguriert'
+      }
+    },
+    summary: {
+      title: 'Profilübersicht',
+      desc: 'Dieser Workspace ist bereit, WhatsApp-Gespräche zu verwalten, qualifizierte Leads weiterzuleiten und Antworten mit SOVA zu automatisieren.'
+    }
   },
   chat: {
     title: 'WhatsApp-Posteingang',

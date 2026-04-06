@@ -28,7 +28,7 @@ export const Overview = memo(function Overview() {
   const quickTabs = [
     { label: t('admin.overview.quickActions.products'), icon: Box, action: 'products' },
     { label: t('admin.overview.quickActions.settings'), icon: Settings, action: 'settings' },
-    { label: t('admin.overview.quickActions.notifications'), icon: MessageCircle, action: 'notifications' },
+    { label: t('admin.overview.quickActions.businessSettings'), icon: MessageCircle, action: 'settings' },
   ]
 
   const activityFeed = [
@@ -40,13 +40,12 @@ export const Overview = memo(function Overview() {
   const handleQuickAction = (action) => {
     if (action === 'products') navigate(ROUTES.adminProducts)
     if (action === 'settings') navigate(ROUTES.adminSettings)
-    if (action === 'notifications') navigate(ROUTES.adminNotifications)
   }
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full sm:gap-5 admin-overview-shell">
       <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-2 sm:p-2.5 shadow-sm admin-card-shell">
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 xl:grid-cols-3">
           {quickTabs.map((tab) => (
             <button
               key={tab.label}

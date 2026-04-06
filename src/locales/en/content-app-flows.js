@@ -97,7 +97,7 @@ const admin = {
     quickActions: {
       products: 'View Products',
       settings: 'Business tone setting',
-      notifications: 'Read Notifications'
+      businessSettings: 'Business settings'
     },
     stats: {
       activeConversations: 'Active Conversations',
@@ -220,6 +220,17 @@ const admin = {
     title: 'Automation Settings',
     subtitle: 'Manage your SOVA voice, alert preferences, and automation rules.',
     sections: {
+      business: {
+        title: 'Business setup',
+        subtitle: 'Need to switch your category or restart the guided setup? Update your business flow here.',
+        button: 'Change business',
+        current: 'Current business',
+        modalTitle: 'Update your business category',
+        modalSubtitle: 'Choose the business type SOVA should use for replies, buyer filtering, and product context.',
+        save: 'Save changes',
+        cancel: 'Cancel',
+        close: 'Close'
+      },
       voice: {
         title: 'AI Voice & Tone',
         subtitle: 'Controls how SOVA talks to your customers'

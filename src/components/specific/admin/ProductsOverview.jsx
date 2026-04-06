@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { Package, Pencil, Plus, Trash2, Zap } from 'lucide-react'
+import { FileText, Package, Pencil, PlayCircle, Plus, Trash2, Zap } from 'lucide-react'
 import { useState, memo } from 'react'
 import { useApp } from '../../../context/AppProvider'
 import { AddProductModal } from '../onboarding/AddProductModal'
@@ -83,14 +83,26 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]} admin-item-img-shell`}>
                   {product.imagePreview ? (
                     product.mediaType === 'video' ? (
-                      <video
-                        src={product.imagePreview}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                      />
+                      <div className="relative h-full w-full">
+                        <video
+                          src={product.imagePreview}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                        <span className="absolute inset-0 flex items-center justify-center bg-slate-900/20 text-white">
+                          <PlayCircle className="h-9 w-9" />
+                        </span>
+                      </div>
+                    ) : product.mediaType === 'file' ? (
+                      <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#F2FBF7] px-4 text-center">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
+                          <FileText className="h-6 w-6 text-emerald-600" />
+                        </span>
+                        <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{product.mediaName || product.name}</span>
+                      </div>
                     ) : (
                       <img src={product.imagePreview} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
                     )

@@ -13,6 +13,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
   const {
     activeLanguage,
     changeLanguage,
+    isRTL,
     isChangingLanguage,
     isItemActive,
     languageMenuRef,
@@ -24,6 +25,17 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
     setMenuOpen,
     t,
   } = useHeaderUi()
+
+  const mobileMenuButton = (
+    <button
+      type="button"
+      className="rounded-full p-1 text-[#1E293B] hover:bg-[#F8FAFC] active:scale-[0.9]"
+      onClick={() => setMenuOpen(true)}
+      aria-label={t('common.openMenu')}
+    >
+      <Menu className="h-5 w-5" />
+    </button>
+  )
 
   return (
     <>
@@ -37,10 +49,13 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
             }`}
           >
             <div className="flex items-center justify-between gap-4 px-5 py-2.5">
-              <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
+              <div className={`flex shrink-0 items-center gap-1.5 ${isRTL ? 'order-2 md:order-none' : 'order-1 md:order-none'}`}>
+                {!isRTL && <div className="md:hidden">{mobileMenuButton}</div>}
+                <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
                 <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
                 <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
-              </Link>
+                </Link>
+              </div>
 
               <div className="hidden items-center gap-3 md:flex">
                 <HeaderDesktopNav navItems={navItems} isItemActive={isItemActive} />
@@ -85,7 +100,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
                 />
               </div>
 
-              <div className="flex items-center gap-1.5 md:hidden">
+              <div className={`flex items-center gap-1.5 md:hidden ${isRTL ? 'order-1' : 'order-2'}`}>
                 <Link
                   to={ROUTES.auth}
                   className="hidden sm:inline-flex items-center rounded-full px-2 py-1.5 text-[0.75rem] font-bold text-[#10B981] transition hover:bg-[#F8FAFC]"
@@ -98,14 +113,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
                 >
                   {t('common.startFreeTrial')}
                 </Link>
-                <button
-                  type="button"
-                  className="ml-0.5 rounded-full p-1 text-[#1E293B] hover:bg-[#F8FAFC] active:scale-[0.9]"
-                  onClick={() => setMenuOpen(true)}
-                  aria-label={t('common.openMenu')}
-                >
-                  <Menu className="h-5 w-5" />
-                </button>
+                {isRTL && mobileMenuButton}
               </div>
 
             </div>
@@ -119,6 +127,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
           <HeaderMobileMenu
             activeLanguage={activeLanguage}
             changeLanguage={changeLanguage}
+            isRTL={isRTL}
             t={t}
             onClose={() => setMenuOpen(false)}
             isHomeDarkMode={isHomeDarkMode}

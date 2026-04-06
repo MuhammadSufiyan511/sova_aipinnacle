@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { X, Upload, Check } from 'lucide-react'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
+import { X, Upload, Check, FileText, PlayCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
-
-const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
 
 export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct = null }) {
   const { t } = useTranslation()
   const [name, setName] = useState(initialProduct?.name || '')
   const [description, setDescription] = useState(initialProduct?.description || '')
   const [imagePreview, setImagePreview] = useState(initialProduct?.imagePreview || null)
+  const [mediaType, setMediaType] = useState(initialProduct?.mediaType || null)
+  const [mediaName, setMediaName] = useState(initialProduct?.mediaName || '')
   const fileInputRef = useRef(null)
   const isEditMode = Boolean(initialProduct)
 
@@ -18,17 +18,27 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
     setName('')
     setDescription('')
     setImagePreview(null)
+    setMediaType(null)
+    setMediaName('')
   }
 
   const handleMediaChange = (e) => {
     const file = e.target.files?.[0]
     if (file) {
-      if (!allowedImageTypes.includes(file.type)) {
-        toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image (JPG, PNG, or WebP)')
+      const nextMediaType = file.type.startsWith('image/')
+        ? 'image'
+        : file.type.startsWith('video/')
+          ? 'video'
+          : 'file'
+
+      if (!nextMediaType) {
+        toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image, video, or file')
         return
       }
 
       setImagePreview(URL.createObjectURL(file))
+      setMediaType(nextMediaType)
+      setMediaName(file.name)
     }
   }
 
@@ -40,6 +50,8 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
         name: name.trim(),
         description: description.trim(),
         imagePreview,
+        mediaType,
+        mediaName,
       }
 
       if (isEditMode) {
@@ -62,14 +74,14 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-3">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -99,7 +111,21 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                   className="group relative flex h-24 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 transition hover:border-emerald-500 hover:bg-emerald-50/30"
                 >
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
+                    mediaType === 'video' ? (
+                      <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                        <video src={imagePreview} className="h-full w-full object-cover" muted playsInline />
+                        <span className="absolute inset-0 flex items-center justify-center bg-slate-900/25 text-white">
+                          <PlayCircle className="h-8 w-8" />
+                        </span>
+                      </div>
+                    ) : mediaType === 'file' ? (
+                      <div className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#F2FBF7] px-4 text-center">
+                        <FileText className="h-7 w-7 text-emerald-600" />
+                        <span className="line-clamp-2 text-[0.7rem] font-semibold text-slate-600">{mediaName || 'File attached'}</span>
+                      </div>
+                    ) : (
+                      <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
+                    )
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-full bg-white p-2 shadow-sm group-hover:scale-110 transition">
@@ -114,7 +140,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                     type="file"
                     ref={fileInputRef}
                     onChange={handleMediaChange}
-                    accept="image/jpeg,image/png,image/webp,image/jpg"
+                    accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt"
                     className="hidden"
                   />
                 </div>
@@ -155,7 +181,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                 <Check className="h-5 w-5" /> {isEditMode ? t('onboarding.products.modal.updateBtn') : t('onboarding.products.modal.saveBtn')}
               </button>
             </form>
-          </motion.div>
+          </Motion.div>
         </div>
       )}
     </AnimatePresence>
