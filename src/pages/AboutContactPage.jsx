@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InternalLinksGrid, SeoHead } from '../components'
 import { faqs } from '../data'
+import { viewAboutSovaPdf } from '../utils/aboutSovaPdf'
 import { createBreadcrumbSchema } from '../seo/schemas'
 import { ROUTES } from '../utils/routes'
 import { AboutFaqSection } from './about/AboutFaqSection'
@@ -43,7 +44,7 @@ export function AboutContactPage() {
         ]}
       />
 
-      <AboutHero calendlyEmbedUrl={calendlyEmbedUrl} calendlyTitle={calendly.title} t={t} />
+      <AboutHero calendlyEmbedUrl={calendlyEmbedUrl} calendlyTitle={calendly.title} onViewAboutSova={viewAboutSovaPdf} t={t} />
       <AboutMissionSection focusCards={focusCards} missionParagraphs={missionParagraphs} t={t} />
       <AboutFaqSection
         faqPage={faqPage}

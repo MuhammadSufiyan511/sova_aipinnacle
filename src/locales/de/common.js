@@ -5,6 +5,7 @@ export const common = {
   getStartedFree: 'Jetzt kostenlos starten!',
   getStartedNow: 'Jetzt starten!',
   noCardRequired: 'Keine Karte erforderlich',
+  downloadPdf: 'PDF herunterladen',
   watchDemo: 'Demo ansehen',
   seeDemo: 'Demo ansehen',
   continueWithMeta: 'Mit Meta verbinden',

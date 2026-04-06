@@ -1,7 +1,43 @@
+import { Download } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { caseStudyPdfDrafts } from '../../../data/caseStudyPdfDrafts'
+import { downloadCaseStudyPdf } from '../../../utils/caseStudyPdf'
 
 export function CaseStudyCard({ study }) {
   const { t } = useTranslation()
+  const pdfDraft = caseStudyPdfDrafts[study.slug]
+  const hasPdfDraft = Boolean(pdfDraft)
+  const translateOr = (key, fallback) => {
+    const value = t(key)
+    return value === key ? fallback : value
+  }
+
+  const handleDownloadPdf = () => {
+    if (!pdfDraft) return
+
+    downloadCaseStudyPdf({
+      fileName: pdfDraft.fileName,
+      title: pdfDraft.title,
+      eyebrow: pdfDraft.eyebrow,
+      subtitle: pdfDraft.subtitle,
+      category: pdfDraft.category,
+      businessType: pdfDraft.businessType,
+      headline: pdfDraft.headline,
+      highlights: pdfDraft.highlights,
+      sections: pdfDraft.sections.map((section) => ({
+        heading: section.heading === 'Overview'
+          ? translateOr('common.overview', section.heading)
+          : section.heading === 'Solution by SOVA'
+            ? translateOr('common.sovaSolution', section.heading)
+            : section.heading === 'Conclusion'
+              ? translateOr('common.conclusion', section.heading)
+              : section.heading === 'Problem'
+                ? t('common.problem')
+                : (section.heading || ''),
+        body: section.body,
+      })),
+    })
+  }
 
   return (
     <article className="case-study-shell w-full rounded-[24px] border border-[#E2EFEA] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[36px] sm:p-8 md:p-10 lg:p-12">
@@ -34,6 +70,19 @@ export function CaseStudyCard({ study }) {
               </span>
             ))}
           </div>
+
+          {hasPdfDraft ? (
+            <div className="mt-5 sm:mt-7">
+              <button
+                type="button"
+                onClick={handleDownloadPdf}
+                className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2.5 text-[0.74rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] hover:bg-[#0E9F74]"
+              >
+                <Download className="h-4 w-4" />
+                {translateOr('common.downloadPdf', 'Download PDF')}
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
 

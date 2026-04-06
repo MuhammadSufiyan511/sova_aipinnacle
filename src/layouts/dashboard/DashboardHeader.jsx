@@ -95,17 +95,16 @@ export function DashboardHeader({
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
-              className={`language-selector-dropdown absolute mt-2 w-34 overflow-hidden rounded-2xl border border-slate-100 bg-white p-1.5 shadow-2xl ${isRTL ? 'left-0' : 'right-0'}`}
+                className={`language-selector-dropdown absolute mt-2 w-34 overflow-hidden rounded-2xl border border-slate-100 bg-white p-1.5 shadow-2xl ${isRTL ? 'left-0' : 'right-0'}`}
               >
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => onChangeLanguage(lang.code)}
-                    className={`language-option-btn flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] transition ${
-                      currentLanguage.code === lang.code
+                    className={`language-option-btn flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] transition ${currentLanguage.code === lang.code
                         ? 'is-active bg-emerald-50 font-bold text-emerald-700'
                         : 'font-medium text-slate-600 hover:bg-slate-50'
-                    } ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                      } ${isRTL ? 'flex-row-reverse text-right' : ''}`}
                   >
                     <span className="text-base leading-none">{lang.flag}</span>
                     <span className={`flex-1 ${isRTL ? 'text-right' : 'text-left'}`}>{lang.label}</span>

@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, CircleHelp } from 'lucide-react'
 
 const MotionDiv = motion.div
 
-export function AboutFaqSection({ faqPage, isRtl, onNext, onPrev, t, totalFaqPages, visibleFaqs }) {
+export function AboutFaqSection({ faqPage, isRtl, onNext, onPrev, t, totalFaqPages, visibleFaqs, actions = null }) {
   return (
     <section className="mx-auto max-w-[1160px] px-5 py-14 lg:py-24 2xl:max-w-[1440px] 3xl:max-w-[1600px] 2xl:py-32 3xl:py-40">
       <div className="mb-16 flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
@@ -12,6 +12,7 @@ export function AboutFaqSection({ faqPage, isRtl, onNext, onPrev, t, totalFaqPag
           <h2 className="font-display text-[2.5rem] font-bold tracking-[-0.03em] text-[#1E293B]">
             {t('sections.faqTitle')}
           </h2>
+          {actions ? <div className="mt-5 flex flex-wrap justify-center gap-3 sm:justify-start">{actions}</div> : null}
         </div>
 
         <div className="flex items-center gap-3">

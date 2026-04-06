@@ -1,4 +1,4 @@
-export function AboutHero({ calendlyEmbedUrl, calendlyTitle, t }) {
+export function AboutHero({ calendlyEmbedUrl, calendlyTitle, onViewAboutSova, t }) {
   return (
     <section className="relative overflow-hidden bg-[#ebf2ff] pb-8 pt-24 lg:pt-16 about-hero-section">
       <div className="absolute inset-0 z-0 about-hero-blur-container">
@@ -18,6 +18,15 @@ export function AboutHero({ calendlyEmbedUrl, calendlyTitle, t }) {
             <p className="mt-6 max-w-[560px] text-[1rem] leading-[1.75] text-[#5a9e88] lg:text-[1.05rem] about-description 2xl:max-w-[700px] 2xl:text-[1.4rem] 3xl:max-w-[850px] 3xl:text-[1.6rem]">
               {t('sections.aboutDescription')}
             </p>
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={onViewAboutSova}
+                className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-5 py-3 text-[0.84rem] font-bold text-white shadow-[0_12px_28px_rgba(16,185,129,0.18)] transition hover:-translate-y-0.5 hover:bg-[#0F8F72]"
+              >
+                Learn more about SOVA
+              </button>
+            </div>
           </div>
           <div className="rounded-[14px] p-6 sm:p-7">
             <div className="rounded-[30px] border border-[#E2EFEA] bg-white p-3 shadow-[0_18px_50px_rgba(15,23,42,0.08)] lg:mt-16 calendly-container-shell">
