@@ -14,7 +14,7 @@ export const about = {
     cardTitle: 'عرض خلال 15 دقيقة',
     cardText: 'اختر الوقت المناسب لك وخذ فكرة عملية عن طريقة عمل سوفا مع نشاطك.',
     button: 'احجز عبر Calendly',
-    url: 'https://calendly.com/socialسوفاmy/30min',
+    url: 'https://calendly.com/socialsovamy/30min',
   },
 }
 

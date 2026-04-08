@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { memo } from 'react'
 
 export const NotificationDrawer = memo(function NotificationDrawer({ isOpen, onClose }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { homeDarkMode } = useApp()
+  const isRTL = i18n.dir() === 'rtl'
 
   const mockDrawer = t('admin.mockData.drawer', { returnObjects: true }) || []
   const notifications = [
@@ -24,9 +25,11 @@ export const NotificationDrawer = memo(function NotificationDrawer({ isOpen, onC
             className="fixed inset-0 z-[60] bg-[#173247]/24 backdrop-blur-sm"
             onClick={onClose}
           />
-          <Motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+          <Motion.div initial={{ x: isRTL ? '-100%' : '100%' }} animate={{ x: 0 }} exit={{ x: isRTL ? '-100%' : '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className={`fixed right-0 top-0 z-[70] h-full w-full border-l shadow-2xl xs:max-w-sm sm:max-w-md admin-drawer-shell transition-colors duration-300 ${homeDarkMode
+            className={`fixed top-0 z-[70] h-full w-full shadow-2xl xs:max-w-sm sm:max-w-md admin-drawer-shell transition-colors duration-300 ${
+              isRTL ? 'left-0 border-r' : 'right-0 border-l'
+            } ${homeDarkMode
               ? 'bg-[#0A1B19] border-[#1C3D3A]'
               : 'bg-white border-slate-100'
               }`}

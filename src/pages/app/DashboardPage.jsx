@@ -6,6 +6,8 @@ import { BroadcastsOverview } from '../../components/specific/admin/BroadcastsOv
 import { ReportsOverview } from '../../components/specific/admin/ReportsOverview'
 import { ProfileOverview } from '../../components/specific/admin/ProfileOverview'
 import { ProductsOverview } from '../../components/specific/admin/ProductsOverview'
+import { FilesOverview } from '../../components/specific/admin/FilesOverview'
+import { UpgradeOverview } from '../../components/specific/admin/UpgradeOverview'
 import { ConversationsOverview } from '../../components/specific/admin/ConversationsOverview'
 import { SettingsOverview } from '../../components/specific/admin/SettingsOverview'
 import { useApp } from '../../context/AppProvider'
@@ -20,6 +22,10 @@ export function DashboardPage() {
     switch (location.pathname) {
       case ROUTES.adminProducts:
         return <ProductsOverview />
+      case ROUTES.adminFiles:
+        return <FilesOverview />
+      case ROUTES.adminUpgrade:
+        return <UpgradeOverview />
       case ROUTES.adminConversations:
         return <ConversationsOverview />
       case ROUTES.adminSettings:

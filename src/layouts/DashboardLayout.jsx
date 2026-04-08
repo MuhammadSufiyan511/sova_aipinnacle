@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { BarChart3, LayoutDashboard, MessageSquare, Package, Radio, Settings } from 'lucide-react'
+import { BarChart3, Box, Files, LayoutDashboard, MessageSquare, Radio, Settings } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -26,19 +26,31 @@ export function DashboardLayout({ children }) {
 
   const links = [
     { icon: LayoutDashboard, label: t('admin.nav.overview'), path: ROUTES.admin },
-    { icon: Package, label: t('admin.nav.products'), path: ROUTES.adminProducts },
+    {
+      icon: Box,
+      label: t('admin.nav.catalog'),
+      path: ROUTES.adminProducts,
+      children: [
+        { icon: Box, label: t('admin.nav.products'), path: ROUTES.adminProducts },
+        { icon: Files, label: t('admin.nav.files'), path: ROUTES.adminFiles },
+      ],
+    },
     { icon: MessageSquare, label: t('admin.nav.chat'), path: ROUTES.adminConversations },
     { icon: Radio, label: t('admin.nav.broadcasts'), path: ROUTES.adminBroadcasts },
     { icon: BarChart3, label: t('admin.nav.reports'), path: ROUTES.adminReports },
     { icon: Settings, label: t('admin.nav.settings'), path: ROUTES.adminSettings },
   ]
 
+  const flattenedLinks = links.flatMap((link) => (link.children ? link.children : [link]))
+
   const activeLink =
-    links.find((link) => location.pathname === link.path) ||
+    flattenedLinks.find((link) => location.pathname === link.path) ||
     (location.pathname === ROUTES.adminNotifications
       ? { label: t('admin.nav.notifications'), path: ROUTES.adminNotifications }
       : location.pathname === ROUTES.adminProfile
         ? { label: t('admin.nav.profile'), path: ROUTES.adminProfile }
+        : location.pathname === ROUTES.adminUpgrade
+          ? { label: t('admin.upgrade.navLabel'), path: ROUTES.adminUpgrade }
         : links[0])
 
   const currentLanguage = LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[0]
@@ -140,6 +152,7 @@ export function DashboardLayout({ children }) {
           onChangeLanguage={changeLanguage}
           onOpenMobile={() => setMobileOpen(true)}
           onOpenNotifications={() => setNotificationsOpen(true)}
+          onOpenUpgrade={() => navigate(ROUTES.adminUpgrade)}
           onToggleDesktopSidebar={() => setDesktopSidebarOpen((v) => !v)}
           onToggleLangOpen={() => setLangOpen((v) => !v)}
           onToggleTheme={() => setHomeDarkMode(!homeDarkMode)}

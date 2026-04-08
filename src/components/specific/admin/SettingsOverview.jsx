@@ -24,6 +24,8 @@ const toneColors = {
   blue: { active: 'border-blue-400 bg-blue-50 text-blue-700', dot: 'bg-blue-400' },
   amber: { active: 'border-amber-400 bg-amber-50 text-amber-700', dot: 'bg-amber-400' },
   violet: { active: 'border-violet-500 bg-violet-50 text-violet-700', dot: 'bg-violet-500' },
+  rose: { active: 'border-rose-400 bg-rose-50 text-rose-700', dot: 'bg-rose-400' },
+  cyan: { active: 'border-cyan-400 bg-cyan-50 text-cyan-700', dot: 'bg-cyan-400' },
 }
 
 function Toggle({ enabled, onChange }) {
@@ -73,7 +75,9 @@ export const SettingsOverview = memo(function SettingsOverview() {
     { id: 'Professional', label: t('admin.settings.tones.professional.label'), desc: t('admin.settings.tones.professional.desc'), color: 'emerald' },
     { id: 'Friendly', label: t('admin.settings.tones.friendly.label'), desc: t('admin.settings.tones.friendly.desc'), color: 'blue' },
     { id: 'Direct', label: t('admin.settings.tones.direct.label'), desc: t('admin.settings.tones.direct.desc'), color: 'amber' },
-    { id: 'Creative', label: t('admin.settings.tones.creative.label'), desc: t('admin.settings.tones.creative.desc'), color: 'violet' },
+    { id: 'Persuasive', label: t('admin.settings.tones.persuasive.label'), desc: t('admin.settings.tones.persuasive.desc'), color: 'rose' },
+    { id: 'Playful', label: t('admin.settings.tones.playful.label'), desc: t('admin.settings.tones.playful.desc'), color: 'violet' },
+    { id: 'Empathetic', label: t('admin.settings.tones.empathetic.label'), desc: t('admin.settings.tones.empathetic.desc'), color: 'cyan' },
   ]
 
   const openBusinessModal = () => {
@@ -108,7 +112,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
             <p className="text-[0.7rem] text-[#62808D]">{t('admin.settings.sections.voice.subtitle')}</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 md:grid-cols-3">
           {toneOptions.map((tone) => {
             const isActive = activeTone === tone.id
             const style = toneColors[tone.color]
@@ -197,81 +201,83 @@ export const SettingsOverview = memo(function SettingsOverview() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.97 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="fixed left-1/2 top-1/2 z-[130] w-[min(92vw,720px)] -translate-x-1/2 -translate-y-1/2 rounded-[28px] border border-[#DDEFE7] bg-white p-4 shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell sm:p-5"
+              className="fixed left-1/2 top-1/2 z-[130] flex w-[min(94vw,680px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2 flex-col rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell overflow-hidden"
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start justify-between gap-4 px-5 pt-5 sm:px-7 sm:pt-7">
                 <div>
-                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#10B981]">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#10B981]">
                     {t('admin.settings.sections.business.title')}
                   </p>
-                  <h3 className="mt-2 font-display text-[1.2rem] font-bold text-[#173247] admin-card-title">
+                  <h3 className="mt-1.5 font-display text-[1.15rem] font-bold text-[#173247] admin-card-title sm:text-[1.25rem]">
                     {t('admin.settings.sections.business.modalTitle')}
                   </h3>
-                  <p className="mt-1.5 text-[0.8rem] leading-5 text-[#62808D] admin-card-desc">
+                  <p className="mt-1 text-[0.76rem] leading-5 text-[#62808D] admin-card-desc">
                     {t('admin.settings.sections.business.modalSubtitle')}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setBusinessModalOpen(false)}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#48617A] transition admin-modal-close hover:bg-white"
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#48617A] transition admin-modal-close hover:bg-white"
                   aria-label={t('admin.settings.sections.business.close')}
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-                {businessTypes.map((type) => {
-                  const isSelected = draftBusinessType === type.id
-                  return (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => setDraftBusinessType(type.id)}
-                      className={`relative rounded-[20px] border-2 p-3 text-left transition ${
-                        isSelected
-                          ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
-                          : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
-                      }`}
-                    >
-                      {isSelected ? (
-                        <span className="absolute right-3 top-3 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#10B981] text-white">
-                          <Check className="h-3 w-3" />
-                        </span>
-                      ) : null}
-                      <span className="text-[1.35rem] leading-none">{type.emoji}</span>
-                      <p className="mt-2 text-[0.8rem] font-bold text-[#173247]">
-                        {t(`onboarding.business.categories.${type.id}.label`)}
-                      </p>
-                      <p className="mt-1 text-[0.68rem] leading-4 text-[#62808D]">
-                        {t(`onboarding.business.categories.${type.id}.desc`)}
-                      </p>
-                    </button>
-                  )
-                })}
+              <div className="no-scrollbar flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6">
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                  {businessTypes.map((type) => {
+                    const isSelected = draftBusinessType === type.id
+                    return (
+                      <button
+                        key={type.id}
+                        type="button"
+                        onClick={() => setDraftBusinessType(type.id)}
+                        className={`relative rounded-[20px] border-2 p-3 text-left transition ${
+                          isSelected
+                            ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
+                            : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
+                        }`}
+                      >
+                        {isSelected ? (
+                          <span className="absolute right-3 top-3 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#10B981] text-white">
+                            <Check className="h-3 w-3" />
+                          </span>
+                        ) : null}
+                        <span className="text-[1.3rem] leading-none">{type.emoji}</span>
+                        <p className="mt-1.5 text-[0.78rem] font-bold text-[#173247]">
+                          {t(`onboarding.business.categories.${type.id}.label`)}
+                        </p>
+                        <p className="mt-0.5 text-[0.66rem] leading-4 text-[#62808D]">
+                          {t(`onboarding.business.categories.${type.id}.desc`)}
+                        </p>
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {draftBusinessType === 'other' ? (
+                  <div className="mt-5">
+                    <label className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#648E89]">
+                      {t('onboarding.business.customCategoryPlaceholder')}
+                    </label>
+                    <input
+                      type="text"
+                      value={draftCustomCategory}
+                      onChange={(event) => setDraftCustomCategory(event.target.value)}
+                      placeholder={t('onboarding.business.customCategoryPlaceholder')}
+                      className="h-12 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] px-4 text-[0.88rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
+                    />
+                  </div>
+                ) : null}
               </div>
 
-              {draftBusinessType === 'other' ? (
-                <div className="mt-4">
-                  <label className="mb-2 block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#648E89]">
-                    {t('onboarding.business.customCategoryPlaceholder')}
-                  </label>
-                  <input
-                    type="text"
-                    value={draftCustomCategory}
-                    onChange={(event) => setDraftCustomCategory(event.target.value)}
-                    placeholder={t('onboarding.business.customCategoryPlaceholder')}
-                    className="h-12 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] px-4 text-[0.88rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
-                  />
-                </div>
-              ) : null}
-
-              <div className="mt-5 flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
+              <div className="flex flex-col-reverse gap-2.5 border-t border-[#ECF8F3] bg-[#F8FAFC]/50 px-5 py-4 sm:flex-row sm:justify-end sm:px-7 sm:py-5">
                 <button
                   type="button"
                   onClick={() => setBusinessModalOpen(false)}
-                  className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] px-4 py-2.5 text-[0.76rem] font-bold text-[#48617A] transition hover:bg-[#F8FAFC]"
+                  className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] bg-white px-5 py-2.5 text-[0.76rem] font-bold text-[#48617A] transition hover:bg-[#F8FAFC]"
                 >
                   {t('admin.settings.sections.business.cancel')}
                 </button>
@@ -279,7 +285,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
                   type="button"
                   onClick={saveBusinessProfile}
                   disabled={draftBusinessType === 'other' && !draftCustomCategory.trim()}
-                  className="inline-flex items-center justify-center rounded-full bg-[#10B981] px-4 py-2.5 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-45"
+                  className="inline-flex items-center justify-center rounded-full bg-[#10B981] px-5 py-2.5 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   {t('admin.settings.sections.business.save')}
                 </button>

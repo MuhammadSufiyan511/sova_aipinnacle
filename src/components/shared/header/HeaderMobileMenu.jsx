@@ -21,7 +21,7 @@ export function HeaderMobileMenu({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-[100] bg-[#1E293B]/40 md:hidden"
+        className="fixed inset-0 z-[100] bg-[#1E293B]/40 lg:hidden"
       />
 
       <Motion.div
@@ -29,7 +29,7 @@ export function HeaderMobileMenu({
         animate={{ x: 0 }}
         exit={{ x: isRTL ? '100%' : '-100%' }}
         transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
-        className={`fixed bottom-0 top-0 z-[110] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl md:hidden will-change-transform ${
+        className={`fixed bottom-0 top-0 z-[110] flex w-[320px] max-w-[88vw] flex-col bg-white shadow-2xl lg:hidden will-change-transform ${
           isRTL ? 'right-0' : 'left-0'
         }`}
       >

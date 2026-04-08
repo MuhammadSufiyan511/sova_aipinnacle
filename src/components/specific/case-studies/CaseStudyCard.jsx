@@ -1,7 +1,7 @@
-import { Download } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { caseStudyPdfDrafts } from '../../../data/caseStudyPdfDrafts'
-import { downloadCaseStudyPdf } from '../../../utils/caseStudyPdf'
+import { openCaseStudyPdf } from '../../../utils/caseStudyPdf'
 
 export function CaseStudyCard({ study }) {
   const { t } = useTranslation()
@@ -12,10 +12,11 @@ export function CaseStudyCard({ study }) {
     return value === key ? fallback : value
   }
 
-  const handleDownloadPdf = () => {
+  const handleOpenPdf = () => {
     if (!pdfDraft) return
 
-    downloadCaseStudyPdf({
+    openCaseStudyPdf({
+      slug: study.slug,
       fileName: pdfDraft.fileName,
       title: pdfDraft.title,
       eyebrow: pdfDraft.eyebrow,
@@ -24,18 +25,7 @@ export function CaseStudyCard({ study }) {
       businessType: pdfDraft.businessType,
       headline: pdfDraft.headline,
       highlights: pdfDraft.highlights,
-      sections: pdfDraft.sections.map((section) => ({
-        heading: section.heading === 'Overview'
-          ? translateOr('common.overview', section.heading)
-          : section.heading === 'Solution by SOVA'
-            ? translateOr('common.sovaSolution', section.heading)
-            : section.heading === 'Conclusion'
-              ? translateOr('common.conclusion', section.heading)
-              : section.heading === 'Problem'
-                ? t('common.problem')
-                : (section.heading || ''),
-        body: section.body,
-      })),
+      sections: pdfDraft.sections,
     })
   }
 
@@ -60,29 +50,29 @@ export function CaseStudyCard({ study }) {
           <p className="mt-2.5 text-[0.9rem] font-medium leading-6 text-[#10B981] sm:mt-3 sm:text-[1.05rem] sm:leading-[1.6]">{study.headline}</p>
           <p className="mt-3 text-[0.9rem] leading-6 text-[#1E293B] sm:mt-4 sm:text-[0.98rem] sm:leading-[1.75]">{study.summary}</p>
 
-          <div className="mt-5 flex flex-wrap gap-2 sm:mt-7 sm:gap-2.5">
-            {study.metrics.map((metric) => (
-              <span
-                key={metric}
-                className="case-study-metric-tag rounded-full border border-[#DCEEE7] bg-white px-2.5 py-1 text-[0.65rem] font-bold text-[#10B981] shadow-sm sm:px-4 sm:py-2 sm:text-[0.78rem]"
-              >
-                {metric}
-              </span>
-            ))}
-          </div>
+          <div className="mt-5 flex flex-col gap-4 sm:mt-7 sm:gap-5 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-wrap gap-2 sm:gap-2.5">
+              {study.metrics.map((metric) => (
+                <span
+                  key={metric}
+                  className="case-study-metric-tag rounded-full border border-[#DCEEE7] bg-white px-2.5 py-1 text-[0.65rem] font-bold text-[#10B981] shadow-sm sm:px-4 sm:py-2 sm:text-[0.78rem]"
+                >
+                  {metric}
+                </span>
+              ))}
+            </div>
 
-          {hasPdfDraft ? (
-            <div className="mt-5 sm:mt-7">
+            {hasPdfDraft ? (
               <button
                 type="button"
-                onClick={handleDownloadPdf}
-                className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2.5 text-[0.74rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] hover:bg-[#0E9F74]"
+                onClick={handleOpenPdf}
+                className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-[#10B981] px-4 py-2.5 text-[0.74rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02] hover:bg-[#0E9F74]"
               >
-                <Download className="h-4 w-4" />
-                {translateOr('common.downloadPdf', 'Download PDF')}
+                <Eye className="h-4 w-4" />
+                {translateOr('common.viewCaseStudy', 'View Case Study')}
               </button>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </div>
       </div>
 

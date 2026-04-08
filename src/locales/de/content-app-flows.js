@@ -138,9 +138,35 @@ export const admin = {
       desc: 'Fügen Sie Ihr erstes Produkt hinzu, damit SOVA es auf WhatsApp mit potenziellen Käufern teilen kann.',
       btn: 'Erstes Produkt hinzufügen'
     },
-    item: {
-      price: 'Rs. {{price}}'
-    }
+      item: {
+        price: 'Rs. {{price}}',
+        priceLabel: 'Preis',
+        mediaLabel: 'Medientyp',
+        view: 'Ansehen',
+        active: 'Aktiv',
+        inactive: 'Inaktiv',
+        activate: 'Aktivieren',
+        deactivate: 'Deaktivieren',
+        modalTitle: 'Produktübersicht',
+        noDescription: 'Noch keine Beschreibung hinzugefügt.',
+        none: 'Keine'
+      },
+      controls: {
+        searchPlaceholder: 'Produkte suchen...',
+        show: 'Anzeigen',
+        perPage: 'pro Seite',
+        all: 'Alle',
+        pageInfo: '{{start}}-{{end}} von {{total}} Produkten',
+        filters: {
+          all: 'Alle',
+          active: 'Aktiv',
+          inactive: 'Inaktiv'
+        },
+        empty: {
+          title: 'Keine passenden Produkte',
+          desc: 'Versuchen Sie einen anderen Suchbegriff oder ändern Sie den aktiven Filter.'
+        }
+      }
   },
   overview: {
     stats: {
@@ -240,6 +266,9 @@ export const admin = {
       professional: { label: 'Professionell', desc: 'Sachlich und formell' },
       friendly: { label: 'Freundlich', desc: 'Hilfsbereit und herzlich' },
       direct: { label: 'Direkt', desc: 'Prägnant und genau' },
+      persuasive: { label: 'Überzeugend', desc: 'Verkaufsstark und wirkungsvoll' },
+      playful: { label: 'Verspielt', desc: 'Locker, lebendig und freundlich' },
+      empathetic: { label: 'Einfühlsam', desc: 'Verständnisvoll, ruhig und hilfreich' },
       creative: { label: 'Kreativ', desc: 'Begeisternd und originell' }
     },
     rows: {
@@ -387,3 +416,140 @@ export const admin = {
     }
   }
 }
+
+admin.nav.files = 'Dateien'
+admin.files = {
+  title: 'Dateibibliothek',
+  subtitle: '{{count}} Datei{{s}} für SOVA-Antworten und Medienfreigabe bereit',
+  newBtn: 'Datei hinzufügen',
+  banner: 'Bewahren Sie Bilder, Videos, PDFs und wichtige Dateien an einem Ort auf, damit SOVA beim Führen von Käufern auf WhatsApp die richtigen Medien verwenden kann.',
+  empty: {
+    title: 'Noch keine Dateien',
+    desc: 'Fügen Sie Ihre erste Datei hinzu, damit SOVA sie in Käufer-Chats und im Support verwenden kann.',
+    btn: 'Erste Datei hinzufügen',
+  },
+  item: {
+    view: 'Ansehen',
+    active: 'Aktiv',
+    inactive: 'Inaktiv',
+    activate: 'Aktivieren',
+    deactivate: 'Deaktivieren',
+    modalTitle: 'Dateiübersicht',
+    noDescription: 'Noch keine Beschreibung hinzugefügt.',
+    none: 'Keine',
+    mediaLabel: 'Dateityp',
+    fileNameLabel: 'Dateiname',
+    types: {
+      image: 'Bild',
+      video: 'Video',
+      file: 'Datei',
+    },
+  },
+  controls: {
+    searchPlaceholder: 'Dateien suchen...',
+    show: 'Anzeigen',
+    perPage: 'pro Seite',
+    all: 'Alle',
+    pageInfo: '{{start}}-{{end}} von {{total}} Dateien',
+    filters: {
+      all: 'Alle',
+      image: 'Bilder',
+      video: 'Videos',
+      file: 'Dateien',
+    },
+    empty: {
+      title: 'Keine passenden Dateien',
+      desc: 'Versuchen Sie einen anderen Suchbegriff oder ändern Sie den Dateityp-Filter.',
+    },
+  },
+  modal: {
+    titleAdd: 'Neue Datei hinzufügen',
+    titleUpdate: 'Datei aktualisieren',
+    subtitleAdd: 'Laden Sie ein Bild, Video oder Dokument hoch, das SOVA in Chats teilen kann.',
+    subtitleUpdate: 'Bearbeiten Sie die Dateidetails, die SOVA beim Helfen von Käufern nutzt.',
+    mediaLabel: 'Dateimedien',
+    mediaHelp: 'Zum Hochladen klicken',
+    nameLabel: 'Dateiname',
+    namePlaceholder: 'z. B. Summer Catalog 2026',
+    descLabel: 'Beschreibung',
+    descPlaceholder: 'z. B. PDF-Katalog für neue Sommerartikel und aktualisierte Preise.',
+    saveBtn: 'Datei speichern',
+    updateBtn: 'Datei aktualisieren',
+    invalidMediaType: 'Bitte laden Sie ein gültiges Bild, Video oder eine Datei hoch',
+  },
+}
+
+admin.upgrade = {
+  navLabel: 'Plan upgraden',
+  cta: 'Plan upgraden',
+  mobileCta: 'Upgrade',
+  eyebrow: 'Plan-Upgrade',
+  title: 'Wählen Sie einen Plan, der mit Ihren WhatsApp-Verkäufen wächst',
+  subtitle: 'Schalten Sie mehr Automatisierung, höhere Nutzungslimits und stärkeren KI-Support frei, wenn Ihr Geschäft wächst.',
+  currentPlanLabel: 'Aktueller Plan',
+  currentPlanValue: '{{plan}}-Plan',
+  currentPlanHint: 'Upgraden Sie jederzeit für mehr Reichweite und mehr Automatisierung.',
+  popular: 'Am beliebtesten',
+  choosePlan: 'Plan wählen',
+  currentPlanButton: 'Aktueller Plan',
+  compareTitle: 'Warum Teams upgraden',
+  compareDesc: 'Wenn Ihre Chats wachsen, kann SOVA mehr Antworten, mehr Leads und größere Verkaufsabläufe übernehmen, ohne Ihr Team zu bremsen.',
+  summaryTitle: 'Was ein Upgrade bringt',
+  summaryDesc: 'Wechseln Sie von einfacher Automatisierung zu vollständigen WhatsApp-Wachstumsprozessen mit besserem Support und stärkerer KI-Abdeckung.',
+  steps: {
+    1: { title: 'Behalten Sie Ihr aktuelles Setup', desc: 'Ihr Katalog, Ihre Dateien, Ihr Posteingang und Ihre Toneinstellungen bleiben unverändert erhalten.' },
+    2: { title: 'Sofort mehr Kapazität freischalten', desc: 'Höhere Pläne geben Ihnen mehr Antwortvolumen, bessere Workflows und mehr Sichtbarkeit für Ihr Team.' },
+    3: { title: 'Ohne zusätzliche Handarbeit skalieren', desc: 'Nutzen Sie SOVA, um mehr Käufer, mehr Follow-ups und mehr Conversion-Chancen zu verwalten.' },
+  },
+  benefits: {
+    1: { title: 'Mehr automatisierte Gespräche', desc: 'Bearbeiten Sie mehr WhatsApp-Antworten, ohne Ihr Team zusätzlich zu belasten.' },
+    2: { title: 'Stärkere KI-Unterstützung', desc: 'Geben Sie SOVA mehr Spielraum, um Leads zu qualifizieren, Käufer zu führen und wiederholten manuellen Support zu reduzieren.' },
+    3: { title: 'Bessere Vertriebsübersicht', desc: 'Verfolgen Sie Wachstum, prüfen Sie die Performance und erkennen Sie, wo sich Conversions verbessern.' },
+    4: { title: 'Für wachsende Unternehmen gebaut', desc: 'Upgraden Sie, wenn Ihr Volumen steigt, damit Ihr Workflow reibungslos und zuverlässig bleibt.' },
+  },
+  plans: {
+    starter: {
+      badge: 'Starter',
+      name: 'Starter',
+      price: '$19/mo',
+      desc: 'Ideal für kleine Teams, die mit WhatsApp-Automatisierung starten.',
+      features: {
+        1: 'Bis zu 1.000 automatisierte Antworten pro Monat',
+        2: 'Basis-Support für Produkt- und Dateifreigabe',
+        3: 'Lead-Erkennung mit Standard-Automatisierungsregeln',
+        4: 'Ein Workspace mit grundlegenden Berichten',
+      },
+    },
+    growth: {
+      badge: 'Growth',
+      name: 'Growth',
+      price: '$49/mo',
+      desc: 'Für wachsende Unternehmen mit aktivem Käuferaufkommen.',
+      features: {
+        1: 'Bis zu 5.000 automatisierte Antworten pro Monat',
+        2: 'Erweiterte Katalog-, Datei- und Medien-Workflows',
+        3: 'Stärkere Lead-Bewertung und Follow-up-Automatisierung',
+        4: 'Priorisierte Analysen und schnellere Unterstützung',
+      },
+    },
+    scale: {
+      badge: 'Scale',
+      name: 'Scale',
+      price: '$99/mo',
+      desc: 'Für größere Vertriebsteams mit hohem WhatsApp-Volumen.',
+      features: {
+        1: 'Hohe Antwortmengen und größere Kampagnen-Skalierung',
+        2: 'Tiefere Automatisierungslogik über Produkte, Dateien und Inbox hinweg',
+        3: 'Detailliertere Berichte und mehr Vertriebsübersicht',
+        4: 'Priorisierte Einführung und dedizierter Support',
+      },
+    },
+  },
+}
+
+admin.nav.catalog = 'Katalog'
+admin.overview.quickActions.businessSettings = 'Geschäftseinstellungen'
+admin.overview.quickActions.products = 'Produkte ansehen'
+admin.overview.quickActions.files = 'Dateien ansehen'
+admin.chat.previewLabel = 'WhatsApp-Chatvorschau'
+admin.chat.defaultReply = 'Hallo! Danke für Ihre Nachricht. Ich bin SOVA, Ihr Vertriebsassistent. Wie kann ich Ihnen heute helfen?'

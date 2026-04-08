@@ -1,11 +1,34 @@
 import { motion } from 'framer-motion'
+import { Eye } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { industryPdfDrafts } from '../../../data/industryPdfDrafts'
+import { openIndustryPdf } from '../../../utils/industryPdf'
 
 const MotionSection = motion.section
 
 export function IndustryCard({ industry, index }) {
   const { t } = useTranslation()
   const reverse = index % 2 === 1
+  const pdfDraft = industryPdfDrafts[industry.id]
+  const translateOr = (key, fallback) => {
+    const value = t(key)
+    return value === key ? fallback : value
+  }
+
+  const handleOpenPdf = () => {
+    if (!pdfDraft) return
+
+    openIndustryPdf({
+      id: industry.id,
+      title: pdfDraft.title,
+      eyebrow: pdfDraft.eyebrow,
+      subtitle: pdfDraft.subtitle,
+      category: pdfDraft.category,
+      businessType: pdfDraft.businessType,
+      highlights: pdfDraft.highlights,
+      sections: pdfDraft.sections.map((section) => ({ ...section })),
+    })
+  }
 
   return (
     <MotionSection
@@ -26,6 +49,18 @@ export function IndustryCard({ industry, index }) {
       </div>
       <div className="flex w-full flex-col justify-center sm:px-3 md:px-8 lg:px-12 industry-content-box">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#F1990A]">{industry.label}</p>
+        {pdfDraft ? (
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={handleOpenPdf}
+              className="inline-flex items-center gap-2 rounded-full border border-[#DCEEE7] bg-white px-3.5 py-2 text-[0.72rem] font-bold text-[#10B981] shadow-sm transition hover:scale-[1.02] hover:border-[#10B981] hover:bg-[#ECFDF5]"
+            >
+              <Eye className="h-4 w-4" />
+              {translateOr('common.viewIndustryGuide', 'View Industry Guide')}
+            </button>
+          </div>
+        ) : null}
         <h2 className="mt-3 font-display text-[1.25rem] font-bold tracking-[-0.04em] text-[#10B981] sm:mt-4 sm:text-[1.6rem] md:text-[1.9rem] lg:text-[2.2rem]">
           {industry.title}
         </h2>

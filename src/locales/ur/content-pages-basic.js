@@ -14,7 +14,7 @@ export const about = {
     cardTitle: '15 منٹ کی walkthrough',
     cardText: 'اپنے لیے مناسب وقت منتخب کریں اور دیکھیں کہ سوفا آپ کے بزنس کے فلو میں کیسے فٹ بیٹھتا ہے۔',
     button: 'Calendly پر بک کریں',
-    url: 'https://calendly.com/socialسوفاmy/30min',
+    url: 'https://calendly.com/socialsovamy/30min',
   },
 }
 

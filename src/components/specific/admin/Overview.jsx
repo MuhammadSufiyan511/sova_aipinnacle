@@ -1,5 +1,5 @@
 import { motion as Motion } from 'framer-motion'
-import { Activity, ArrowRight, ArrowUpRight, Box, Clock3, MessageCircle, Settings, ShieldCheck, TrendingUp, Users } from 'lucide-react'
+import { Activity, ArrowRight, ArrowUpRight, Box, Clock3, Files, MessageCircle, Settings, ShieldCheck, TrendingUp, Users } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { memo } from 'react'
 import { ROUTES } from '../../../utils/routes'
@@ -26,9 +26,9 @@ export const Overview = memo(function Overview() {
   ]
 
   const quickTabs = [
+    { label: t('admin.overview.quickActions.businessSettings'), icon: Settings, action: 'settings' },
     { label: t('admin.overview.quickActions.products'), icon: Box, action: 'products' },
-    { label: t('admin.overview.quickActions.settings'), icon: Settings, action: 'settings' },
-    { label: t('admin.overview.quickActions.businessSettings'), icon: MessageCircle, action: 'settings' },
+    { label: t('admin.overview.quickActions.files'), icon: Files, action: 'files' },
   ]
 
   const activityFeed = [
@@ -39,6 +39,7 @@ export const Overview = memo(function Overview() {
 
   const handleQuickAction = (action) => {
     if (action === 'products') navigate(ROUTES.adminProducts)
+    if (action === 'files') navigate(ROUTES.adminFiles)
     if (action === 'settings') navigate(ROUTES.adminSettings)
   }
 

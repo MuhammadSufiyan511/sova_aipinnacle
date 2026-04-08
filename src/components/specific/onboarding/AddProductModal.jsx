@@ -52,6 +52,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
         imagePreview,
         mediaType,
         mediaName,
+        isActive: initialProduct?.isActive ?? true,
       }
 
       if (isEditMode) {

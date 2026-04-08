@@ -15,7 +15,7 @@ import { OnboardingThemeToggle } from './onboarding/OnboardingThemeToggle'
 
 export function OnboardingPage() {
   const { t } = useTranslation()
-  const { setProducts: setGlobalProducts, setTones: setGlobalTones, setShowCelebration, homeDarkMode, setHomeDarkMode } = useApp()
+  const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, setHomeDarkMode } = useApp()
   const [step, setStep] = useState(0)
 
   const [businessType, setBusinessType] = useState(null)
@@ -50,7 +50,11 @@ export function OnboardingPage() {
   }, [step, navigate, LOADING_STEPS.length])
 
   const handleComplete = () => {
-    setGlobalProducts(products)
+    const productCatalog = products.filter((item) => item.mediaType !== 'file')
+    const fileLibrary = products.filter((item) => item.mediaType === 'file')
+
+    setGlobalProducts(productCatalog)
+    setGlobalFiles(fileLibrary)
     setGlobalTones(tones)
     setShowCelebration(true)
     setStep(4)

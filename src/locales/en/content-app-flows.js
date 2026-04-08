@@ -78,6 +78,7 @@ const admin = {
     broadcasts: 'Broadcasts',
     chat: 'WhatsApp Chat',
     products: 'Products',
+    files: 'Files',
     reports: 'Reports',
     settings: 'Settings',
     notifications: 'Notifications',
@@ -186,8 +187,94 @@ const admin = {
       desc: 'Add your first product so SOVA can share it with potential buyers on WhatsApp.',
       btn: 'Add your first product'
     },
+      item: {
+        price: 'Rs. {{price}}',
+        priceLabel: 'Price',
+        mediaLabel: 'Media type',
+        view: 'View',
+        active: 'Active',
+        inactive: 'Inactive',
+        activate: 'Activate',
+        deactivate: 'Deactivate',
+        modalTitle: 'Product overview',
+        noDescription: 'No description added yet.',
+        none: 'None'
+      },
+      controls: {
+        searchPlaceholder: 'Search products...',
+        show: 'Show',
+        perPage: 'page',
+        all: 'All',
+        pageInfo: '{{start}}-{{end}} of {{total}} products',
+        filters: {
+          all: 'All',
+          active: 'Active',
+          inactive: 'Inactive'
+        },
+        empty: {
+          title: 'No matching products',
+          desc: 'Try a different search term or switch the active filter.'
+        }
+      }
+  },
+  files: {
+    title: 'Files Library',
+    subtitle: '{{count}} file{{s}} ready for SOVA replies and media sharing',
+    newBtn: 'Add File',
+    banner: 'Keep your images, videos, PDFs, and supporting files in one place so SOVA can use the right media while guiding buyers on WhatsApp.',
+    empty: {
+      title: 'No files yet',
+      desc: 'Add your first file so SOVA can use it in buyer chats and product support.',
+      btn: 'Add your first file'
+    },
     item: {
-      price: 'Rs. {{price}}'
+      view: 'View',
+      active: 'Active',
+      inactive: 'Inactive',
+      activate: 'Activate',
+      deactivate: 'Deactivate',
+      modalTitle: 'File overview',
+      noDescription: 'No description added yet.',
+      none: 'None',
+      mediaLabel: 'File type',
+      fileNameLabel: 'File name',
+      types: {
+        image: 'Image',
+        video: 'Video',
+        file: 'File'
+      }
+    },
+    controls: {
+      searchPlaceholder: 'Search files...',
+      show: 'Show',
+      perPage: 'page',
+      all: 'All',
+      pageInfo: '{{start}}-{{end}} of {{total}} files',
+      filters: {
+        all: 'All',
+        image: 'Images',
+        video: 'Videos',
+        file: 'Files'
+      },
+      empty: {
+        title: 'No matching files',
+        desc: 'Try a different search term or switch the file type filter.'
+      }
+    },
+    modal: {
+      titleAdd: 'Add New File',
+      titleUpdate: 'Update File',
+      subtitleAdd: 'Upload an image, video, or document SOVA can share in chats.',
+      subtitleUpdate: 'Edit the file details SOVA uses while helping buyers.',
+      mediaLabel: 'File Media',
+      mediaHelp: 'Click to upload',
+      nameLabel: 'File Name',
+      namePlaceholder: 'e.g. Summer Catalog 2026',
+      descLabel: 'Description',
+      descPlaceholder: 'e.g. PDF catalog for summer arrivals and updated pricing.',
+      saveBtn: 'Save File',
+      updateBtn: 'Update File',
+      invalidMediaType: 'Please upload a valid image, video, or file'
     }
   },
   reports: {
@@ -243,6 +330,9 @@ const admin = {
       professional: { label: 'Professional', desc: 'Polished and business-like' },
       friendly: { label: 'Friendly', desc: 'Warm and approachable' },
       direct: { label: 'Direct', desc: 'Concise, no fluff' },
+      persuasive: { label: 'Persuasive', desc: 'Convincing and sales-oriented' },
+      playful: { label: 'Playful', desc: 'Light, lively, and fun' },
+      empathetic: { label: 'Empathetic', desc: 'Calm, understanding, and reassuring' },
       creative: { label: 'Creative', desc: 'Expressive and bold' }
     },
     rows: {
@@ -396,3 +486,78 @@ const admin = {
 }
 
 export { onboarding, admin }
+
+admin.upgrade = {
+  navLabel: 'Upgrade Plan',
+  cta: 'Upgrade Plan',
+  mobileCta: 'Upgrade',
+  eyebrow: 'Plan Upgrade',
+  title: 'Choose a plan that grows with your WhatsApp sales',
+  subtitle: 'Unlock more automation, higher usage limits, and stronger AI support as your business volume increases.',
+  currentPlanLabel: 'Current plan',
+  currentPlanValue: '{{plan}} plan',
+  currentPlanHint: 'Upgrade anytime to unlock more reach and automation.',
+  popular: 'Most Popular',
+  choosePlan: 'Choose plan',
+  currentPlanButton: 'Current plan',
+  compareTitle: 'Why teams upgrade',
+  compareDesc: 'As your conversations grow, SOVA can handle more replies, more leads, and more sales workflows without slowing your team down.',
+  summaryTitle: 'How upgrading helps',
+  summaryDesc: 'Move from basic automation to full WhatsApp growth operations with faster support and stronger AI coverage.',
+  steps: {
+    1: { title: 'Start with your current setup', desc: 'Keep your catalog, files, inbox, and tone settings exactly as they are.' },
+    2: { title: 'Unlock more capacity instantly', desc: 'Higher plans open larger reply volume, richer workflows, and better team visibility.' },
+    3: { title: 'Scale without extra manual work', desc: 'Use SOVA to manage more buyers, more follow-ups, and more conversion opportunities.' },
+  },
+  benefits: {
+    1: { title: 'More automated conversations', desc: 'Handle a larger number of WhatsApp replies without adding pressure on your team.' },
+    2: { title: 'Stronger AI handling', desc: 'Give SOVA more room to qualify leads, guide buyers, and reduce repetitive manual support.' },
+    3: { title: 'Better sales visibility', desc: 'Track growth, monitor response performance, and understand where conversions improve.' },
+    4: { title: 'Built for scaling businesses', desc: 'Upgrade when your volume grows so the workflow stays smooth and reliable.' },
+  },
+  plans: {
+    starter: {
+      badge: 'Starter',
+      name: 'Starter',
+      price: '$19/mo',
+      desc: 'Best for small teams starting WhatsApp automation.',
+      features: {
+        1: 'Up to 1,000 automated replies each month',
+        2: 'Basic product and file sharing support',
+        3: 'Lead detection with standard automation rules',
+        4: 'Single workspace with essential reporting',
+      },
+    },
+    growth: {
+      badge: 'Growth',
+      name: 'Growth',
+      price: '$49/mo',
+      desc: 'Built for growing businesses handling active buyer flow.',
+      features: {
+        1: 'Up to 5,000 automated replies each month',
+        2: 'Advanced catalog, files, and media workflows',
+        3: 'Stronger lead scoring and follow-up automation',
+        4: 'Priority analytics and faster support response',
+      },
+    },
+    scale: {
+      badge: 'Scale',
+      name: 'Scale',
+      price: '$99/mo',
+      desc: 'For larger sales teams managing serious WhatsApp volume.',
+      features: {
+        1: 'High-volume reply handling and campaign scale',
+        2: 'Deep automation logic across products, files, and inbox',
+        3: 'More detailed reporting and sales visibility',
+        4: 'Priority onboarding help and dedicated success support',
+      },
+    },
+  },
+}
+
+admin.nav.catalog = 'Catalog'
+admin.overview.quickActions.businessSettings = 'Business settings'
+admin.overview.quickActions.products = 'View products'
+admin.overview.quickActions.files = 'View files'
+admin.chat.previewLabel = 'WhatsApp chat preview'
+admin.chat.defaultReply = "Hi! Thanks for reaching out. I'm SOVA, your sales assistant. How can I help you today?"

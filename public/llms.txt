@@ -1,4 +1,4 @@
-# SOVA - AI-Powered WhatsApp Sales & Automation Assistant
+# SOVA - AI-Powered WhatsApp Sales & Automation AssistantSales + Omni (All channels) + Virtual Assistant.
 
 > SOVA is an AI-powered automation platform specifically designed to help businesses turn WhatsApp chats into sales. It provides auto-replies, buyer intent filtering, and intelligent lead follow-ups.
 

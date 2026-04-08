@@ -10,10 +10,12 @@ export const ROUTES = {
   onboarding: '/onboarding',
   admin: '/admin',
   adminProducts: '/admin/products',
+  adminFiles: '/admin/files',
   adminConversations: '/admin/conversations',
   adminBroadcasts: '/admin/broadcasts',
   adminNotifications: '/admin/notifications',
   adminReports: '/admin/reports',
   adminSettings: '/admin/settings',
   adminProfile: '/admin/profile',
+  adminUpgrade: '/admin/upgrade',
 }

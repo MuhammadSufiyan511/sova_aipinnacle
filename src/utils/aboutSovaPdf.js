@@ -1,186 +1,269 @@
+import i18n from '../i18n'
 import { aboutSovaPdf } from '../data/aboutSovaPdf'
+import { aboutSovaPdfLocales } from '../data/aboutSovaPdfLocales'
 
-function escapePdfText(value) {
-  return String(value)
-    .replace(/\\/g, '\\\\')
-    .replace(/\(/g, '\\(')
-    .replace(/\)/g, '\\)')
-    .replace(/[^\x20-\x7E]/g, '')
+function normalizeLanguage(language) {
+  return String(language || 'en').toLowerCase().split('-')[0]
 }
 
-function wrapText(text, maxChars = 78) {
-  const words = String(text || '').split(/\s+/).filter(Boolean)
-  const lines = []
-  let current = ''
-
-  for (const word of words) {
-    const next = current ? `${current} ${word}` : word
-    if (next.length > maxChars) {
-      if (current) lines.push(current)
-      current = word
-    } else {
-      current = next
-    }
-  }
-
-  if (current) lines.push(current)
-  return lines
+function isRtlLanguage(language) {
+  return ['ur', 'ar'].includes(normalizeLanguage(language))
 }
 
-function addRect(commands, x, y, width, height, fillColor, strokeColor = null, lineWidth = 1) {
-  const topY = y - height
-  if (fillColor) commands.push(`${fillColor} rg`)
-  if (strokeColor) {
-    commands.push(`${strokeColor} RG`)
-    commands.push(`${lineWidth} w`)
-  }
-  commands.push(`${x} ${topY} ${width} ${height} re ${fillColor && strokeColor ? 'B' : fillColor ? 'f' : 'S'}`)
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
-function addText(commands, text, x, y, font = 'F1', size = 12, color = '0 0 0') {
-  commands.push(`${color} rg`)
-  commands.push(`BT /${font} ${size} Tf 1 0 0 1 ${x} ${y} Tm (${escapePdfText(text)}) Tj ET`)
+function getLocalizedAboutSovaDocument() {
+  const language = normalizeLanguage(i18n.resolvedLanguage || i18n.language)
+  return {
+    language,
+    dir: isRtlLanguage(language) ? 'rtl' : 'ltr',
+    document: aboutSovaPdfLocales[language] || aboutSovaPdf,
+  }
 }
 
-function buildAboutSovaPdfBlob() {
-  const pageWidth = 595
-  const pageHeight = 842
-  const marginX = 44
-  const topMargin = 64
-  const bottomMargin = 54
-  const contentWidth = pageWidth - marginX * 2
-  const pages = []
-
-  let pageCommands = []
-  let currentY = pageHeight - topMargin
-  let pageIndex = 0
-
-  const startPage = () => {
-    pageCommands = []
-    currentY = pageHeight - topMargin
-    pageIndex += 1
-
-    addRect(pageCommands, 0, pageHeight, pageWidth, pageHeight, '1 1 1')
-    addRect(pageCommands, 0, pageHeight, pageWidth, 24, '0.06 0.66 0.51')
-    addText(pageCommands, aboutSovaPdf.eyebrow, marginX, pageHeight - 38, 'F2', 10, '0.06 0.66 0.51')
-  }
-
-  const finishPage = () => {
-    addText(pageCommands, `Page ${pageIndex}`, pageWidth - 84, 24, 'F1', 9, '0.48 0.55 0.6')
-    addText(pageCommands, 'SOVA platform overview', marginX, 24, 'F1', 9, '0.48 0.55 0.6')
-    pages.push(pageCommands.join('\n'))
-  }
-
-  const ensureSpace = (neededHeight) => {
-    if (currentY - neededHeight < bottomMargin) {
-      finishPage()
-      startPage()
-    }
-  }
-
-  const addWrappedBlock = (text, x, y, maxChars, font, size, color, lineGap = 5) => {
-    let nextY = y
-    wrapText(text, maxChars).forEach((line) => {
-      addText(pageCommands, line, x, nextY, font, size, color)
-      nextY -= size + lineGap
-    })
-    return nextY
-  }
-
-  startPage()
-
-  addRect(pageCommands, marginX, currentY, contentWidth, 110, '0.06 0.66 0.51')
-  addText(pageCommands, aboutSovaPdf.title, marginX + 24, currentY - 42, 'F2', 26, '1 1 1')
-  currentY = addWrappedBlock(aboutSovaPdf.subtitle, marginX + 24, currentY - 66, 72, 'F1', 11, '1 1 1', 4) - 10
-
-  const highlightGap = 12
-  const highlightWidth = (contentWidth - highlightGap * 2) / 3
-  aboutSovaPdf.highlights.forEach((item, index) => {
-    const x = marginX + index * (highlightWidth + highlightGap)
-    addRect(pageCommands, x, currentY, highlightWidth, 78, index === 1 ? '0.95 0.97 1' : '0.93 0.99 0.96', '0.87 0.93 0.9')
-    addText(pageCommands, item.value, x + 14, currentY - 24, 'F2', 16, '0.06 0.66 0.51')
-    addWrappedBlock(item.label, x + 14, currentY - 44, 16, 'F1', 9, '0.19 0.24 0.31', 2)
-  })
-  currentY -= 100
-
-  aboutSovaPdf.sections.forEach((section) => {
-    const estimatedLines = section.paragraphs.reduce((sum, paragraph) => sum + wrapText(paragraph, 84).length, 0)
-    ensureSpace(estimatedLines * 18 + 54)
-
-    addText(pageCommands, section.heading, marginX, currentY, 'F2', 14, '0.06 0.66 0.51')
-    currentY -= 22
-
-    section.paragraphs.forEach((paragraph) => {
-      currentY = addWrappedBlock(paragraph, marginX, currentY, 84, 'F1', 11, '0.19 0.24 0.31', 5) - 10
-    })
-    currentY -= 4
-  })
-
-  finishPage()
-
-  const fontObjects = [
-    '1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj',
-    `2 0 obj << /Type /Pages /Count ${pages.length} /Kids [${pages.map((_, index) => `${index * 2 + 3} 0 R`).join(' ')}] >> endobj`,
-  ]
-
-  const dynamicObjects = []
-  pages.forEach((stream, index) => {
-    const pageObjectNumber = index * 2 + 3
-    const contentObjectNumber = index * 2 + 4
-    dynamicObjects.push(
-      `${pageObjectNumber} 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 ${pages.length * 2 + 3} 0 R /F2 ${pages.length * 2 + 4} 0 R >> >> /Contents ${contentObjectNumber} 0 R >> endobj`,
-      `${contentObjectNumber} 0 obj << /Length ${stream.length} >> stream\n${stream}\nendstream endobj`
+function buildAboutSovaDocumentHtml({ document, dir, language }) {
+  const highlightCards = (document.highlights || [])
+    .map(
+      (item) => `
+        <div class="highlight-card">
+          <div class="highlight-value">${escapeHtml(item.value)}</div>
+          <div class="highlight-label">${escapeHtml(item.label)}</div>
+        </div>
+      `
     )
-  })
+    .join('')
 
-  const fontDefs = [
-    `${pages.length * 2 + 3} 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj`,
-    `${pages.length * 2 + 4} 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> endobj`,
-  ]
+  const sections = (document.sections || [])
+    .map(
+      (section) => `
+        <section class="content-section">
+          <h2>${escapeHtml(section.heading)}</h2>
+          ${(section.paragraphs || [])
+            .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+            .join('')}
+        </section>
+      `
+    )
+    .join('')
 
-  const objects = [...fontObjects, ...dynamicObjects, ...fontDefs]
+  return `<!doctype html>
+<html lang="${escapeHtml(language)}" dir="${escapeHtml(dir)}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${escapeHtml(document.title)}</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page-bg: #f5fbf8;
+        --card-bg: #ffffff;
+        --primary: #10b981;
+        --primary-dark: #0f8f72;
+        --text: #17324a;
+        --muted: #5d7a83;
+        --line: #d5ebe4;
+        --soft: #eef9f4;
+        --soft-alt: #eef4ff;
+      }
 
-  let pdf = '%PDF-1.4\n'
-  const offsets = [0]
+      * { box-sizing: border-box; }
 
-  for (const object of objects) {
-    offsets.push(pdf.length)
-    pdf += `${object}\n`
-  }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 32%),
+          radial-gradient(circle at top right, rgba(6, 182, 212, 0.08), transparent 30%),
+          var(--page-bg);
+        color: var(--text);
+        font-family: Inter, "Segoe UI", Tahoma, Arial, "Noto Nastaliq Urdu", "Noto Sans Arabic", "Noto Sans Bengali", "Noto Sans Devanagari", sans-serif;
+        line-height: 1.7;
+      }
 
-  const xrefStart = pdf.length
-  pdf += `xref\n0 ${objects.length + 1}\n`
-  pdf += '0000000000 65535 f \n'
-  for (let index = 1; index < offsets.length; index += 1) {
-    pdf += `${String(offsets[index]).padStart(10, '0')} 00000 n \n`
-  }
-  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF`
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 24px 56px;
+      }
 
-  return new Blob([pdf], { type: 'application/pdf' })
+      .hero {
+        background: linear-gradient(135deg, #10b981 0%, #0f8f72 100%);
+        color: #fff;
+        border-radius: 30px;
+        padding: 34px 36px;
+        box-shadow: 0 24px 60px rgba(16, 185, 129, 0.18);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        opacity: 0.92;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        line-height: 1.04;
+        letter-spacing: -0.04em;
+      }
+
+      .subtitle {
+        margin: 18px 0 0;
+        max-width: 680px;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .highlights {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .highlight-card {
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--card-bg);
+        padding: 18px 18px 16px;
+        min-height: 112px;
+      }
+
+      .highlight-card:nth-child(2) {
+        background: var(--soft-alt);
+      }
+
+      .highlight-value {
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin-bottom: 8px;
+      }
+
+      .highlight-label {
+        color: var(--text);
+        font-size: 0.98rem;
+        line-height: 1.45;
+      }
+
+      .content {
+        margin-top: 22px;
+        background: var(--card-bg);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 18px 24px 24px;
+        box-shadow: 0 18px 50px rgba(15, 35, 42, 0.08);
+      }
+
+      .content-section {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .content-section:last-child {
+        border-bottom: none;
+        padding-bottom: 4px;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        line-height: 1.35;
+        color: var(--primary);
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 0 0 12px;
+        font-size: 1rem;
+        color: var(--text);
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          padding: 24px 16px 32px;
+        }
+
+        .hero {
+          border-radius: 24px;
+          padding: 26px 22px;
+        }
+
+        .highlights {
+          grid-template-columns: 1fr;
+        }
+
+        .content {
+          border-radius: 22px;
+          padding: 14px 18px 18px;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .page {
+          max-width: none;
+          padding: 0;
+        }
+
+        .hero,
+        .content {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">${escapeHtml(document.eyebrow)}</p>
+        <h1>${escapeHtml(document.title)}</h1>
+        <p class="subtitle">${escapeHtml(document.subtitle)}</p>
+      </section>
+
+      <section class="highlights">${highlightCards}</section>
+
+      <section class="content">${sections}</section>
+    </main>
+  </body>
+</html>`
 }
 
-function openBlob(blob, download = false) {
+function openHtmlDocument(html, title) {
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' })
   const url = URL.createObjectURL(blob)
+  const popup = window.open(url, '_blank', 'noopener,noreferrer')
 
-  if (download) {
-    const link = document.createElement('a')
-    link.href = url
-    link.download = aboutSovaPdf.fileName
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-    setTimeout(() => URL.revokeObjectURL(url), 1000)
-    return
+  if (popup) {
+    popup.document.title = title
   }
 
-  window.open(url, '_blank', 'noopener,noreferrer')
   setTimeout(() => URL.revokeObjectURL(url), 60_000)
 }
 
 export function viewAboutSovaPdf() {
-  openBlob(buildAboutSovaPdfBlob(), false)
+  const localized = getLocalizedAboutSovaDocument()
+  openHtmlDocument(buildAboutSovaDocumentHtml(localized), localized.document.title)
 }
 
 export function downloadAboutSovaPdf() {
-  openBlob(buildAboutSovaPdfBlob(), true)
+  viewAboutSovaPdf()
 }

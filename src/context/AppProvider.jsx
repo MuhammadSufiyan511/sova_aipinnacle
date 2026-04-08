@@ -14,6 +14,11 @@ export function AppProvider({ children }) {
     return saved ? JSON.parse(saved) : []
   })
 
+  const [files, setFiles] = useState(() => {
+    const saved = localStorage.getItem('sova-files')
+    return saved ? JSON.parse(saved) : []
+  })
+
   const [tones, setTones] = useState(() => {
     const saved = localStorage.getItem('sova-tones')
     return saved ? JSON.parse(saved) : []
@@ -31,6 +36,10 @@ export function AppProvider({ children }) {
   }, [products])
 
   useEffect(() => {
+    localStorage.setItem('sova-files', JSON.stringify(files))
+  }, [files])
+
+  useEffect(() => {
     localStorage.setItem('sova-tones', JSON.stringify(tones))
   }, [tones])
 
@@ -42,16 +51,48 @@ export function AppProvider({ children }) {
     localStorage.setItem('sova-business-profile', JSON.stringify(businessProfile))
   }, [businessProfile])
 
-  const addProduct = (product) => setProducts((prev) => [...prev, product])
-  const updateProduct = (updatedProduct) =>
-    setProducts((prev) => prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)))
+  const addProduct = (product) => {
+    if (product?.mediaType === 'file') {
+      setFiles((prev) => [...prev, product])
+      return
+    }
+
+    setProducts((prev) => [...prev, product])
+  }
+
+  const updateProduct = (updatedProduct) => {
+    if (updatedProduct?.mediaType === 'file') {
+      setProducts((prev) => prev.filter((product) => product.id !== updatedProduct.id))
+      setFiles((prev) => {
+        const hasExisting = prev.some((file) => file.id === updatedProduct.id)
+        return hasExisting
+          ? prev.map((file) => (file.id === updatedProduct.id ? updatedProduct : file))
+          : [...prev, updatedProduct]
+      })
+      return
+    }
+
+    setFiles((prev) => prev.filter((file) => file.id !== updatedProduct.id))
+    setProducts((prev) => {
+      const hasExisting = prev.some((product) => product.id === updatedProduct.id)
+      return hasExisting
+        ? prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+        : [...prev, updatedProduct]
+    })
+  }
   const removeProduct = (id) => setProducts((prev) => prev.filter((product) => product.id !== id))
+  const addFile = (file) => setFiles((prev) => [...prev, file])
+  const updateFile = (updatedFile) =>
+    setFiles((prev) => prev.map((file) => (file.id === updatedFile.id ? updatedFile : file)))
+  const removeFile = (id) => setFiles((prev) => prev.filter((file) => file.id !== id))
 
   const value = useMemo(() => ({
     businessProfile,
     setBusinessProfile,
     products,
     setProducts,
+    files,
+    setFiles,
     tones,
     setTones,
     user,
@@ -59,11 +100,14 @@ export function AppProvider({ children }) {
     addProduct,
     updateProduct,
     removeProduct,
+    addFile,
+    updateFile,
+    removeFile,
     showCelebration,
     setShowCelebration,
     homeDarkMode,
     setHomeDarkMode
-  }), [businessProfile, products, tones, user, showCelebration, homeDarkMode])
+  }), [businessProfile, products, files, tones, user, showCelebration, homeDarkMode])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

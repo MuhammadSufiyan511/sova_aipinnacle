@@ -1,5 +1,6 @@
-import { motion as Motion } from 'framer-motion'
-import { LogOut, X } from 'lucide-react'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
+import { ChevronDown, LogOut, X } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
@@ -7,6 +8,11 @@ import sovaLogo from '../../assets/logos/sova.png'
 
 export function SidebarContent({ collapseOnNavigate = false, links, location, navigate, onClose }) {
   const { t } = useTranslation()
+  const [openGroups, setOpenGroups] = useState({})
+
+  const toggleGroup = (label, fallbackOpen) => {
+    setOpenGroups((current) => ({ ...current, [label]: !(current[label] ?? fallbackOpen) }))
+  }
 
   return (
     <div className="sidebar-container flex h-full min-h-0 flex-col bg-[#0F172A]">
@@ -36,7 +42,64 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
         <p className="mb-2 px-2 text-[0.54rem] font-bold uppercase tracking-[0.24em] text-white/30">{t('admin.nav.workspace', 'Workspace')}</p>
         <nav className="sidebar-scroll space-y-2 overflow-y-auto pr-0.5">
           {links.map((link) => {
-            const isActive = location.pathname === link.path
+            const hasChildren = Boolean(link.children?.length)
+            const isActive = hasChildren ? link.children.some((child) => location.pathname === child.path) : location.pathname === link.path
+            const isOpen = hasChildren ? (openGroups[link.label] ?? isActive) : false
+
+            if (hasChildren) {
+              return (
+                <div key={link.label} className="space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => toggleGroup(link.label, isActive)}
+                    className={`sidebar-group-trigger group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${
+                      isActive
+                        ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
+                        : 'text-white/55 hover:bg-white/[0.06] hover:text-white/80'
+                    }`}
+                  >
+                    <link.icon className={`h-4 w-4 shrink-0 transition-all ${isActive ? 'text-[#10B981]' : 'opacity-60 group-hover:opacity-80'}`} />
+                    <span className="sidebar-nav-group-label flex-1 truncate text-start">{link.label}</span>
+                    <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <Motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.18 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-1 pl-4 pr-1">
+                          {link.children.map((child) => {
+                            const childActive = location.pathname === child.path
+                            return (
+                              <Link
+                                key={child.path}
+                                to={child.path}
+                                onClick={collapseOnNavigate ? onClose : undefined}
+                                className={`sidebar-nav-child group flex items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] font-medium transition-all ${
+                                  childActive
+                                    ? 'is-active bg-[#10B981]/12 text-[#A7F3D0] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.18)]'
+                                    : 'text-white/45 hover:bg-white/[0.05] hover:text-white/75'
+                                }`}
+                              >
+                                <child.icon className={`h-3.5 w-3.5 shrink-0 ${childActive ? 'text-[#34D399]' : 'opacity-60 group-hover:opacity-80'}`} />
+                                <span className="truncate">{child.label}</span>
+                                {childActive && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#34D399]" />}
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      </Motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            }
+
             return (
               <Link
                 key={link.path}

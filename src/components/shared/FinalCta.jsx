@@ -41,7 +41,7 @@ export function FinalCta() {
           <div className="flex flex-col items-center">
             <Link
               to={ROUTES.auth}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-[18px] bg-[#10B981] px-6 text-[0.92rem] font-bold text-white shadow-[0_18px_38px_rgba(16,185,129,0.28)] transition hover:scale-[1.04] sm:h-[64px] sm:rounded-[20px] sm:px-9 sm:text-[1rem]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-[18px] bg-[#10B981] px-6 text-[0.92rem] font-bold text-white shadow-[0_18px_38px_rgba(16,185,129,0.28)] transition hover:scale-[1.04] sm:h-[64px] sm:rounded-[20px] sm:px-9 sm:text-[1rem]  md:text-[1.5rem] md:p-13"
             >
               {t('common.startFreeTrial')} <ArrowUpRight className="h-4 w-4" />
             </Link>

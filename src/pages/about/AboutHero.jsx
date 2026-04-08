@@ -24,7 +24,7 @@ export function AboutHero({ calendlyEmbedUrl, calendlyTitle, onViewAboutSova, t 
                 onClick={onViewAboutSova}
                 className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-5 py-3 text-[0.84rem] font-bold text-white shadow-[0_12px_28px_rgba(16,185,129,0.18)] transition hover:-translate-y-0.5 hover:bg-[#0F8F72]"
               >
-                Learn more about SOVA
+                {t('common.learnMoreAboutSova')}
               </button>
             </div>
           </div>

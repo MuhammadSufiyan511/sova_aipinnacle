@@ -39,29 +39,28 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
 
   return (
     <>
-      <header className="pointer-events-none fixed left-0 right-0 top-0 z-[70] flex justify-center px-4 pt-4 sm:pt-6">
+      <header className="fixed left-0 right-0 top-0 z-[70] flex justify-center px-4 pt-4 sm:pt-6">
         <div className="relative flex w-full max-w-[1340px] items-center justify-center 2xl:max-w-[1600px] 3xl:max-w-[1800px]">
           <div
-            className={`site-header-shell pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 2xl:max-w-[1240px] 3xl:max-w-[1440px] ${
-              scrolled
+            className={`site-header-shell pointer-events-auto w-full max-w-[1040px] rounded-full border transition-all duration-300 2xl:max-w-[1240px] 3xl:max-w-[1440px] ${scrolled
                 ? 'border-[#d8e9e3] bg-white/92 shadow-[0_10px_32px_rgba(30,41,59,0.12)] backdrop-blur-xl'
                 : 'border-[#e4efeb] bg-white/82 shadow-[0_4px_24px_rgba(30,41,59,0.08)] backdrop-blur-lg'
-            }`}
+              }`}
           >
-            <div className="flex items-center justify-between gap-4 px-5 py-2.5">
-              <div className={`flex shrink-0 items-center gap-1.5 ${isRTL ? 'order-2 md:order-none' : 'order-1 md:order-none'}`}>
-                {!isRTL && <div className="md:hidden">{mobileMenuButton}</div>}
+            <div className="flex items-center justify-between gap-3 px-4 py-2.5 sm:px-5">
+              <div className="flex shrink-0 items-center gap-1.5 order-1 lg:order-none">
+                <div className="lg:hidden">{mobileMenuButton}</div>
                 <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
-                <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
-                <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
+                  <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
+                  <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
                 </Link>
               </div>
 
-              <div className="hidden items-center gap-3 md:flex">
+              <div className="hidden items-center gap-3 lg:flex">
                 <HeaderDesktopNav navItems={navItems} isItemActive={isItemActive} />
               </div>
 
-              <div className="hidden shrink-0 items-center gap-3 md:flex">
+              <div className="hidden shrink-0 items-center gap-3 lg:flex">
                 {showThemeToggle ? (
                   <button
                     type="button"
@@ -100,20 +99,43 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
                 />
               </div>
 
-              <div className={`flex items-center gap-1.5 md:hidden ${isRTL ? 'order-1' : 'order-2'}`}>
+              <div className="flex items-center gap-1.5 lg:hidden order-2 lg:order-none">
+                  
+                <HeaderDesktopNav navItems={navItems} isItemActive={isItemActive} />
+              
                 <Link
                   to={ROUTES.auth}
-                  className="hidden sm:inline-flex items-center rounded-full px-2 py-1.5 text-[0.75rem] font-bold text-[#10B981] transition hover:bg-[#F8FAFC]"
+                  className="hidden md:inline-flex items-center rounded-full px-2.5 py-1.5 text-[0.78rem] font-bold text-[#10B981] transition hover:bg-[#F8FAFC]"
                 >
                   {t('common.login')}
                 </Link>
                 <Link
                   to={ROUTES.auth}
-                  className="inline-flex items-center rounded-full bg-[#10B981] px-3 py-1.5 text-[0.72rem] font-bold text-white shadow-sm transition hover:scale-[1.02] hover:bg-[#08a672]"
+                  className="inline-flex items-center rounded-full bg-[#10B981] px-3 py-1.5 text-[0.72rem] font-bold text-white shadow-sm transition hover:scale-[1.02] hover:bg-[#08a672] md:px-3.5 md:text-[0.5rem]"
                 >
                   {t('common.startFreeTrial')}
                 </Link>
-                {isRTL && mobileMenuButton}
+                
+                {/* {showThemeToggle ? (
+                  <button
+                    type="button"
+                    onClick={onToggleHomeDarkMode}
+                    aria-label={isHomeDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                    className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#DDEFE7] bg-[#F8FAFC] text-[#1E293B] transition hover:border-[#10B981] hover:text-[#10B981]"
+                  >
+                    {isHomeDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  </button>
+                ) : null} */}
+                {/* <div className="hidden md:block lg:hidden">
+                  <HeaderLanguageSelector
+                    activeLanguage={activeLanguage}
+                    changeLanguage={changeLanguage}
+                    languageMenuRef={languageMenuRef}
+                    languageOpen={languageOpen}
+                    setLanguageOpen={setLanguageOpen}
+                    t={t}
+                  />
+                </div> */}
               </div>
 
             </div>
