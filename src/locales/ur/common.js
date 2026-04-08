@@ -54,8 +54,11 @@ export const common = {
   industryGuide: 'انڈسٹری گائیڈ',
   overview: 'خلاصہ',
   examples: 'مثالیں',
-  howSovaHelps: 'SOVA کیسے مدد کرتا ہے',
-  sovaIndustryGuide: 'SOVA انڈسٹری گائیڈ',
+  howSovaHelps: 'سوفا کیسے مدد کرتا ہے',
+  sovaSolution: 'سوفا کا حل',
+  conclusion: 'نتیجہ',
+  sovaCaseStudy: 'سوفا کیس اسٹڈی',
+  sovaIndustryGuide: 'سوفا انڈسٹری گائیڈ',
   whatsappBusinessWorkflow: 'WhatsApp بزنس ورک فلو',
   days: {
     mon: 'پیر',

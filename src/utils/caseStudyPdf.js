@@ -6,7 +6,7 @@ function normalizeLanguage(language) {
 }
 
 function isRtlLanguage(language) {
-  return ['ur', 'ar'].includes(normalizeLanguage(language))
+  return ['ur', 'ar', 'bn', 'hi'].includes(normalizeLanguage(language))
 }
 
 function escapeHtml(value) {
@@ -27,10 +27,36 @@ function joinParagraphs(paragraphs) {
   return paragraphs.filter(Boolean).join('\n\n')
 }
 
+function splitParagraphBySentences(paragraph) {
+  const cleaned = String(paragraph || '').trim()
+  if (!cleaned) return []
+
+  const sentences = cleaned.match(/[^.!?]+[.!?]?/g)?.map((item) => item.trim()).filter(Boolean) || [cleaned]
+  const chunks = []
+  let current = ''
+
+  for (const sentence of sentences) {
+    const candidate = current ? `${current} ${sentence}` : sentence
+    if (candidate.length > 210 && current) {
+      chunks.push(current)
+      current = sentence
+    } else {
+      current = candidate
+    }
+  }
+
+  if (current) {
+    chunks.push(current)
+  }
+
+  return chunks
+}
+
 function renderParagraphs(body) {
   return String(body || '')
     .split(/\n{2,}/)
     .filter(Boolean)
+    .flatMap((paragraph) => splitParagraphBySentences(paragraph))
     .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
     .join('')
 }
@@ -227,7 +253,7 @@ function getLocalizedCaseStudyDocument(slug, fallbackDraft) {
     dir: isRtlLanguage(language) ? 'rtl' : 'ltr',
     document: {
       title,
-      eyebrow: 'SOVA CASE STUDY',
+      eyebrow: translateOr('common.sovaCaseStudy', 'SOVA Case Study'),
       subtitle,
       category,
       businessType,
@@ -270,37 +296,85 @@ function buildCaseStudyHtml({ document, dir, language }) {
     <style>
       :root {
         color-scheme: light;
-        --page-bg: #f7fbfa;
+        --page-bg: #eef7f4;
         --card-bg: #ffffff;
         --primary: #10b981;
+        --primary-dark: #0f8f72;
         --text: #18334a;
         --muted: #5d7483;
         --line: #d8e9e3;
         --soft: #eefaf4;
         --soft-alt: #f1f3ff;
+        --paper-shadow: 0 24px 80px rgba(15, 35, 42, 0.10);
       }
       * { box-sizing: border-box; }
       body {
         margin: 0;
         background:
+          linear-gradient(180deg, rgba(255,255,255,0.72), rgba(238,247,244,0.96)),
           radial-gradient(circle at top left, rgba(16, 185, 129, 0.12), transparent 30%),
           radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.08), transparent 28%),
           var(--page-bg);
         color: var(--text);
         font-family: Inter, "Segoe UI", Tahoma, Arial, "Noto Nastaliq Urdu", "Noto Sans Arabic", "Noto Sans Bengali", "Noto Sans Devanagari", sans-serif;
-        line-height: 1.7;
+        line-height: 1.75;
       }
       .page {
-        max-width: 920px;
+        max-width: 980px;
         margin: 0 auto;
-        padding: 44px 24px 56px;
+        padding: 34px 24px 56px;
+      }
+      .paper {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(216, 233, 227, 0.9);
+        border-radius: 34px;
+        padding: 22px;
+        box-shadow: var(--paper-shadow);
+        backdrop-filter: blur(10px);
+      }
+      .doc-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 2px 16px;
+      }
+      .doc-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        background: #e8faf2;
+        color: var(--primary-dark);
+        padding: 8px 14px;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .doc-rule {
+        height: 1px;
+        background: linear-gradient(90deg, rgba(16,185,129,0.18), rgba(16,185,129,0.45), rgba(16,185,129,0.18));
+        margin-bottom: 18px;
       }
       .hero {
-        border-radius: 28px;
-        background: linear-gradient(135deg, #10b981 0%, #0f8f72 100%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #10b981 0%, #0f8f72 70%, #0c6d59 100%);
         color: #fff;
-        padding: 30px 34px;
+        padding: 34px 36px;
         box-shadow: 0 24px 60px rgba(16, 185, 129, 0.16);
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto -60px -110px auto;
+        width: 240px;
+        height: 240px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 62%);
+        pointer-events: none;
       }
       .eyebrow {
         margin: 0 0 10px;
@@ -323,7 +397,7 @@ function buildCaseStudyHtml({ document, dir, language }) {
       }
       .subtitle {
         margin: 16px 0 0;
-        max-width: 700px;
+        max-width: 680px;
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.94);
       }
@@ -334,17 +408,18 @@ function buildCaseStudyHtml({ document, dir, language }) {
         margin-top: 22px;
       }
       .metric-card {
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        background: var(--soft);
-        padding: 16px 18px;
+        border: 1px solid rgba(16, 185, 129, 0.12);
+        border-radius: 22px;
+        background: linear-gradient(180deg, #f8fffb, var(--soft));
+        padding: 18px 20px;
+        box-shadow: 0 12px 30px rgba(16, 185, 129, 0.06);
       }
       .metric-card.alt {
-        background: var(--soft-alt);
+        background: linear-gradient(180deg, #fbfcff, var(--soft-alt));
       }
       .metric-value {
         color: var(--primary);
-        font-size: 1.2rem;
+        font-size: 1.18rem;
         font-weight: 800;
         line-height: 1.3;
       }
@@ -355,38 +430,52 @@ function buildCaseStudyHtml({ document, dir, language }) {
       }
       .content {
         margin-top: 20px;
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        background: var(--card-bg);
-        padding: 18px 22px 24px;
-        box-shadow: 0 18px 48px rgba(15, 35, 42, 0.08);
+        border: 1px solid rgba(216, 233, 227, 0.95);
+        border-radius: 30px;
+        background: linear-gradient(180deg, #ffffff, #fcfffe);
+        padding: 10px 22px 18px;
+        box-shadow: 0 18px 48px rgba(15, 35, 42, 0.06);
       }
       .section-card {
-        padding: 18px 0;
-        border-bottom: 1px solid var(--line);
+        padding: 22px 4px;
+        border-bottom: 1px solid rgba(216, 233, 227, 0.92);
       }
       .section-card:last-child {
         border-bottom: none;
         padding-bottom: 0;
       }
       h2 {
-        margin: 0 0 10px;
-        font-size: 1.12rem;
+        margin: 0 0 12px;
+        font-size: 1.06rem;
         line-height: 1.35;
         color: var(--primary);
         letter-spacing: -0.02em;
       }
       p {
         margin: 0 0 12px;
-        font-size: 1rem;
+        max-width: 68ch;
+        font-size: 0.98rem;
         color: var(--text);
       }
       p:last-child {
         margin-bottom: 0;
       }
+      .doc-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 18px;
+        padding: 0 6px;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
       @media (max-width: 760px) {
         .page {
           padding: 22px 16px 34px;
+        }
+        .paper {
+          border-radius: 24px;
+          padding: 14px;
         }
         .hero {
           padding: 24px 22px;
@@ -399,24 +488,40 @@ function buildCaseStudyHtml({ document, dir, language }) {
           border-radius: 22px;
           padding: 14px 18px 18px;
         }
+        p {
+          max-width: none;
+        }
+        .doc-footer {
+          flex-direction: column;
+        }
       }
       @media print {
         body { background: #fff; }
         .page { max-width: none; padding: 0; }
-        .hero, .content { box-shadow: none; }
+        .paper, .hero, .content, .metric-card { box-shadow: none; }
       }
     </style>
   </head>
   <body>
     <main class="page">
-      <section class="hero">
-        <p class="eyebrow">${escapeHtml(document.eyebrow)}</p>
-        <h1>${escapeHtml(document.title)}</h1>
-        <div class="meta">${escapeHtml(document.category)} &bull; ${escapeHtml(document.businessType)}</div>
-        <p class="subtitle">${escapeHtml(document.subtitle)}</p>
+      <section class="paper">
+        <div class="doc-topbar">
+          <div class="doc-badge">${escapeHtml(document.eyebrow)}</div>
+          <div class="doc-badge">${escapeHtml(document.category)}</div>
+        </div>
+        <div class="doc-rule"></div>
+        <section class="hero">
+          <h1>${escapeHtml(document.title)}</h1>
+          <div class="meta">${escapeHtml(document.category)} &bull; ${escapeHtml(document.businessType)}</div>
+          <p class="subtitle">${escapeHtml(document.subtitle)}</p>
+        </section>
+        ${highlightCards ? `<section class="metrics">${highlightCards}</section>` : ''}
+        <section class="content">${sections}</section>
+        <div class="doc-footer">
+          <span>SOVA</span>
+          <span>${escapeHtml(document.businessType)}</span>
+        </div>
       </section>
-      ${highlightCards ? `<section class="metrics">${highlightCards}</section>` : ''}
-      <section class="content">${sections}</section>
     </main>
   </body>
 </html>`

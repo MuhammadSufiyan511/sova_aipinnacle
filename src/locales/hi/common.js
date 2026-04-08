@@ -56,7 +56,10 @@ export const common = {
   examples: 'उदाहरण',
   howSovaHelps: 'SOVA कैसे मदद करता है',
   sovaIndustryGuide: 'SOVA इंडस्ट्री गाइड',
-  whatsappBusinessWorkflow: 'WhatsApp business workflow',
+  sovaSolution: 'SOVA का समाधान',
+  conclusion: 'निष्कर्ष',
+  sovaCaseStudy: 'SOVA केस स्टडी',
+  whatsappBusinessWorkflow: 'WhatsApp बिजनेस वर्कफ्लो',
   days: {
     mon: 'सोम',
     tue: 'मंगल',

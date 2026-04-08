@@ -7,7 +7,7 @@ function normalizeLanguage(language) {
 }
 
 function isRtlLanguage(language) {
-  return ['ur', 'ar'].includes(normalizeLanguage(language))
+  return ['ur', 'ar', 'bn', 'hi'].includes(normalizeLanguage(language))
 }
 
 function escapeHtml(value) {

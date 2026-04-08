@@ -54,8 +54,11 @@ export const common = {
   industryGuide: 'دليل المجال',
   overview: 'نظرة عامة',
   examples: 'أمثلة',
-  howSovaHelps: 'كيف يساعد SOVA',
-  sovaIndustryGuide: 'دليل SOVA للمجال',
+  howSovaHelps: 'كيف يساعد سوفا',
+  sovaSolution: 'حل سوفا',
+  conclusion: 'الخلاصة',
+  sovaCaseStudy: 'دراسة حالة سوفا',
+  sovaIndustryGuide: 'دليل سوفا للمجال',
   whatsappBusinessWorkflow: 'سير عمل لأعمال WhatsApp',
   days: {
     mon: 'الاثنين',
