@@ -48,12 +48,30 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
               }`}
           >
             <div className="flex items-center justify-between gap-3 px-4 py-2.5 sm:px-5">
-              <div className="flex shrink-0 items-center gap-1.5 order-1 lg:order-none">
+              <div className="flex min-w-0 flex-1 items-center gap-1.5 order-1 lg:order-none">
                 <div className="lg:hidden">{mobileMenuButton}</div>
                 <Link to={ROUTES.home} className="flex shrink-0 items-center gap-1.5 active:scale-[0.98] transition-transform">
                   <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-12 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
                   <span className="site-header-brand font-display text-[0.92rem] font-bold tracking-[-0.03em] text-[#1E293B] sm:text-[1.05rem]">{t('common.brand')}</span>
                 </Link>
+
+                <div className="hidden min-w-0 flex-1 items-center md:flex lg:hidden">
+                  <nav className="flex min-w-0 items-center gap-0.5 overflow-x-auto whitespace-nowrap no-scrollbar ml-10">
+                    {navItems.map((item) => ( 
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className={`shrink-0 rounded-full px-2 py-1 text-[0.67rem] font-semibold transition-all ${
+                          isItemActive(item)
+                            ? 'bg-[#ECFDF5] text-[#1E293B]'
+                            : 'text-[#1E293B] hover:bg-[#ECFDF5] hover:text-[#1E293B]'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
               </div>
 
               <div className="hidden items-center gap-3 lg:flex">
@@ -101,7 +119,7 @@ export function SiteHeader({ isHomeDarkMode = false, onToggleHomeDarkMode, showT
 
               <div className="flex items-center gap-1.5 lg:hidden order-2 lg:order-none">
                   
-                <HeaderDesktopNav navItems={navItems} isItemActive={isItemActive} />
+                {/* <HeaderDesktopNav navItems={navItems} isItemActive={isItemActive} /> */}
               
                 <Link
                   to={ROUTES.auth}
