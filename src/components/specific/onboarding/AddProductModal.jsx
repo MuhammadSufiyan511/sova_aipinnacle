@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
 export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct = null }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRTL = i18n.dir() === 'rtl'
   const [name, setName] = useState(initialProduct?.name || '')
   const [description, setDescription] = useState(initialProduct?.description || '')
   const [imagePreview, setImagePreview] = useState(initialProduct?.imagePreview || null)
@@ -24,22 +25,23 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
 
   const handleMediaChange = (e) => {
     const file = e.target.files?.[0]
-    if (file) {
-      const nextMediaType = file.type.startsWith('image/')
-        ? 'image'
-        : file.type.startsWith('video/')
-          ? 'video'
-          : 'file'
+    if (!file) return
 
-      if (!nextMediaType) {
-        toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image, video, or file')
-        return
-      }
+    const isImage = file.type.startsWith('image/')
+    const isVideo = file.type.startsWith('video/')
+    const isPdf = file.type === 'application/pdf'
 
-      setImagePreview(URL.createObjectURL(file))
-      setMediaType(nextMediaType)
-      setMediaName(file.name)
+    if (!isImage && !isVideo && !isPdf) {
+      toast.error(t('onboarding.products.modal.invalidMediaType') || 'Please upload a valid image, video, or PDF file')
+      e.target.value = ''
+      return
     }
+
+    const nextMediaType = isImage ? 'image' : isVideo ? 'video' : 'file'
+
+    setImagePreview(URL.createObjectURL(file))
+    setMediaType(nextMediaType)
+    setMediaName(file.name)
   }
 
   const handleSubmit = (e) => {
@@ -90,7 +92,8 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
           >
             <button
               onClick={handleClose}
-              className="absolute right-6 top-6 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+              className={`absolute top-6 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 ${isRTL ? 'left-6' : 'right-6'}`}
+              aria-label={t('common.close')}
             >
               <X className="h-5 w-5" />
             </button>
@@ -141,7 +144,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                     type="file"
                     ref={fileInputRef}
                     onChange={handleMediaChange}
-                    accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt"
+                    accept="image/*,video/*,application/pdf,.pdf"
                     className="hidden"
                   />
                 </div>

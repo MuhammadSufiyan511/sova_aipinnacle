@@ -1,11 +1,12 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { CheckCircle2, MessageSquare, Rocket, ShieldCheck, Sparkles, TrendingUp, Zap } from 'lucide-react'
+import { CheckCircle2, MessageSquare, Rocket, ShieldCheck, Sparkles, TrendingUp, X, Zap } from 'lucide-react'
 import sovaLogo from '../../../assets/logos/sova.png'
 import { useTranslation, Trans } from 'react-i18next'
 import { memo } from 'react'
 
 export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRTL = i18n.dir() === 'rtl'
 
   const featureHighlights = [
     { icon: Zap, text: t('admin.celebration.features.replies'), color: 'bg-amber-50 text-amber-500' },
@@ -31,6 +32,14 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
             className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-x-hidden overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-[92vw] sm:overflow-hidden sm:p-6"
           >
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t('common.close')}
+              className={`admin-modal-close absolute top-5 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#486977] shadow-sm transition hover:bg-white ${isRTL ? 'left-5' : 'right-5'}`}
+            >
+              <X className="h-4.5 w-4.5" />
+            </button>
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
             <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />
             {[...Array(12)].map((_, index) => (

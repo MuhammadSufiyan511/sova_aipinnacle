@@ -263,7 +263,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                       {product.isActive !== false ? t('admin.products.item.active') : t('admin.products.item.inactive')}
                     </span>
                   </div>
-                  <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm admin-item-price">
+                  <div className="admin-item-price absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm">
                     {t('admin.products.item.price', { price: product.price || '0' })}
                   </div>
                 </div>
@@ -393,7 +393,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                       <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
                         <FileText className="h-7 w-7 text-emerald-600" />
                       </span>
-                      <span className="line-clamp-2 text-[0.82rem] font-semibold text-[#295565]">
+                      <span className="admin-file-preview-name line-clamp-2 text-[0.82rem] font-semibold text-[#295565]">
                         {viewingProduct.mediaName || viewingProduct.name}
                       </span>
                     </div>
@@ -422,7 +422,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-[1.45rem] font-bold tracking-[-0.04em] text-[#173247]">
+                  <h3 className="admin-modal-title font-display text-[1.45rem] font-bold tracking-[-0.04em] text-[#173247]">
                     {viewingProduct.name}
                   </h3>
                   <p className="mt-2 text-[0.9rem] leading-6 text-[#62808D]">
@@ -435,7 +435,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#7A8A93]">
                       {t('admin.products.item.priceLabel')}
                     </p>
-                    <p className="mt-1 text-[0.92rem] font-bold text-[#173247]">
+                    <p className="admin-modal-meta-value mt-1 text-[0.92rem] font-bold text-[#173247]">
                       {t('admin.products.item.price', { price: viewingProduct.price || '0' })}
                     </p>
                   </div>
@@ -443,7 +443,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#7A8A93]">
                       {t('admin.products.item.mediaLabel')}
                     </p>
-                    <p className="mt-1 text-[0.92rem] font-bold text-[#173247]">
+                    <p className="admin-modal-meta-value mt-1 text-[0.92rem] font-bold text-[#173247]">
                       {viewingProduct.mediaType || t('admin.products.item.none')}
                     </p>
                   </div>

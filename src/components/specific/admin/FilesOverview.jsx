@@ -237,11 +237,11 @@ export const FilesOverview = memo(function FilesOverview() {
                               </span>
                             </div>
                           ) : file.mediaType === 'file' ? (
-                            <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${file.isActive !== false ? 'bg-[#F1FBFF]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
-                              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
+                            <div className={`admin-file-preview-card flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${file.isActive !== false ? 'bg-[#F1FBFF]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
+                              <span className="admin-file-preview-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
                                 <FileText className="h-6 w-6 text-cyan-600" />
                               </span>
-                              <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{file.mediaName || file.name}</span>
+                              <span className="admin-file-preview-name line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{file.mediaName || file.name}</span>
                             </div>
                           ) : (
                             <img
@@ -256,12 +256,12 @@ export const FilesOverview = memo(function FilesOverview() {
                           </div>
                         )}
                         <div className="absolute left-2 top-2 flex flex-col gap-1">
-                          <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${
+                          <span className={`admin-files-status-pill inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${
                             file.isActive !== false ? 'bg-cyan-500/90 text-white' : 'bg-white/90 text-[#6B7280]'
                           }`}>
                             {file.isActive !== false ? t('admin.files.item.active') : t('admin.files.item.inactive')}
                           </span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-white/85 px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#173247] shadow-sm">
+                          <span className="admin-files-type-pill inline-flex items-center gap-1 rounded-full bg-white/85 px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#173247] shadow-sm">
                             <TypeIcon className="h-3 w-3" />
                             {t(`admin.files.item.types.${file.mediaType || 'file'}`)}
                           </span>
@@ -375,12 +375,12 @@ export const FilesOverview = memo(function FilesOverview() {
               initial={{ opacity: 0, scale: 0.96, y: 18 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 18 }}
-              className="relative z-[130] w-full max-w-lg overflow-hidden rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)]"
+              className="admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)]"
             >
               <button
                 type="button"
                 onClick={() => setViewingFile(null)}
-                className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#486977] shadow-sm transition hover:bg-white"
+                className="admin-modal-close absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#486977] shadow-sm transition hover:bg-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -390,11 +390,11 @@ export const FilesOverview = memo(function FilesOverview() {
                   viewingFile.mediaType === 'video' ? (
                     <video src={viewingFile.imagePreview} className="h-full w-full object-cover" controls playsInline />
                   ) : viewingFile.mediaType === 'file' ? (
-                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#F1FBFF] px-6 text-center">
-                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
+                    <div className="admin-file-preview-card flex h-full w-full flex-col items-center justify-center gap-3 bg-[#F1FBFF] px-6 text-center">
+                      <span className="admin-file-preview-icon flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
                         <FileText className="h-7 w-7 text-cyan-600" />
                       </span>
-                      <span className="line-clamp-2 text-[0.82rem] font-semibold text-[#295565]">
+                      <span className="admin-file-preview-name line-clamp-2 text-[0.82rem] font-semibold text-[#295565]">
                         {viewingFile.mediaName || viewingFile.name}
                       </span>
                     </div>
@@ -421,7 +421,7 @@ export const FilesOverview = memo(function FilesOverview() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-[1.45rem] font-bold tracking-[-0.04em] text-[#173247]">{viewingFile.name}</h3>
+                  <h3 className="admin-modal-title font-display text-[1.45rem] font-bold tracking-[-0.04em] text-[#173247]">{viewingFile.name}</h3>
                   <p className="mt-2 text-[0.9rem] leading-6 text-[#62808D]">
                     {viewingFile.description || t('admin.files.item.noDescription')}
                   </p>
@@ -432,7 +432,7 @@ export const FilesOverview = memo(function FilesOverview() {
                     <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#7A8A93]">
                       {t('admin.files.item.mediaLabel')}
                     </p>
-                    <p className="mt-1 text-[0.92rem] font-bold text-[#173247]">
+                    <p className="admin-modal-meta-value mt-1 text-[0.92rem] font-bold text-[#173247]">
                       {t(`admin.files.item.types.${viewingFile.mediaType || 'file'}`)}
                     </p>
                   </div>
@@ -440,7 +440,7 @@ export const FilesOverview = memo(function FilesOverview() {
                     <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#7A8A93]">
                       {t('admin.files.item.fileNameLabel')}
                     </p>
-                    <p className="mt-1 line-clamp-2 text-[0.92rem] font-bold text-[#173247]">
+                    <p className="admin-modal-meta-value mt-1 line-clamp-2 text-[0.92rem] font-bold text-[#173247]">
                       {viewingFile.mediaName || t('admin.files.item.none')}
                     </p>
                   </div>

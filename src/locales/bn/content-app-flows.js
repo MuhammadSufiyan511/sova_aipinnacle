@@ -32,7 +32,7 @@ export const onboarding = {
     modal: {
       titleAdd: 'নতুন পণ্য যোগ করুন',
       titleUpdate: 'পণ্য আপডেট করুন',
-      subtitleAdd: 'আপনার পণ্যের নাম, সংক্ষিপ্ত বিবরণ এবং একটি ঐচ্ছিক ছবি দিন।',
+      subtitleAdd: 'আপনার পণ্যের নাম, সংক্ষিপ্ত বিবরণ এবং একটি ঐচ্ছিক ছবি, ভিডিও বা PDF দিন।',
       subtitleUpdate: 'ক্রেতার সাথে চ্যাটে SOVA যে পণ্যের বিবরণ ব্যবহার করে তা সম্পাদনা করুন।',
       mediaLabel: 'পণ্য মিডিয়া',
       mediaHelp: 'আপলোড করতে ক্লিক করুন',
@@ -42,7 +42,7 @@ export const onboarding = {
       descPlaceholder: 'যেমন: সফট ফিনিশ এবং গিফট প্যাকেজিং সহ প্রিমিয়াম সিল্ক স্কার্ফ।',
       saveBtn: 'পণ্য সংরক্ষণ করুন',
       updateBtn: 'আপডেট করুন',
-      invalidMediaType: 'অনুগ্রহ করে একটি বৈধ ছবি আপলোড করুন (JPG, PNG, বা WebP)'
+      invalidMediaType: 'অনুগ্রহ করে বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন'
     }
   },
   tone: {
@@ -465,7 +465,7 @@ admin.files = {
   modal: {
     titleAdd: 'নতুন ফাইল যোগ করুন',
     titleUpdate: 'ফাইল আপডেট করুন',
-    subtitleAdd: 'একটি ছবি, ভিডিও বা ডকুমেন্ট আপলোড করুন যা SOVA চ্যাটে শেয়ার করতে পারবে।',
+    subtitleAdd: 'একটি ছবি, ভিডিও বা PDF আপলোড করুন যা SOVA চ্যাটে শেয়ার করতে পারবে।',
     subtitleUpdate: 'ফাইলের যে তথ্য SOVA ক্রেতাকে সাহায্য করার সময় ব্যবহার করে, তা এডিট করুন।',
     mediaLabel: 'ফাইল মিডিয়া',
     mediaHelp: 'আপলোড করতে ক্লিক করুন',
@@ -475,7 +475,7 @@ admin.files = {
     descPlaceholder: 'যেমন: নতুন সামার কালেকশন ও আপডেটেড দামের PDF ক্যাটালগ।',
     saveBtn: 'ফাইল সংরক্ষণ করুন',
     updateBtn: 'ফাইল আপডেট করুন',
-    invalidMediaType: 'অনুগ্রহ করে বৈধ ছবি, ভিডিও বা ফাইল আপলোড করুন',
+    invalidMediaType: 'অনুগ্রহ করে বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন',
   },
 }
 

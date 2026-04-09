@@ -32,7 +32,7 @@ const onboarding = {
     modal: {
       titleAdd: 'Add New Product',
       titleUpdate: 'Update Product',
-      subtitleAdd: 'Give your product a name, short description, and an optional photo.',
+      subtitleAdd: 'Give your product a name, short description, and an optional image, video, or PDF.',
       subtitleUpdate: 'Edit the product details SOVA uses in buyer chats.',
       mediaLabel: 'Product Media',
       mediaHelp: 'Click to upload',
@@ -42,7 +42,7 @@ const onboarding = {
       descPlaceholder: 'e.g. Premium silk scarf with soft finish and gift packaging.',
       saveBtn: 'Save Product',
       updateBtn: 'Update Product',
-      invalidMediaType: 'Please upload a valid image (JPG, PNG, or WebP)'
+      invalidMediaType: 'Please upload a valid image, video, or PDF file'
     }
   },
   tone: {
@@ -264,7 +264,7 @@ const admin = {
     modal: {
       titleAdd: 'Add New File',
       titleUpdate: 'Update File',
-      subtitleAdd: 'Upload an image, video, or document SOVA can share in chats.',
+      subtitleAdd: 'Upload an image, video, or PDF that SOVA can share in chats.',
       subtitleUpdate: 'Edit the file details SOVA uses while helping buyers.',
       mediaLabel: 'File Media',
       mediaHelp: 'Click to upload',
@@ -274,7 +274,7 @@ const admin = {
       descPlaceholder: 'e.g. PDF catalog for summer arrivals and updated pricing.',
       saveBtn: 'Save File',
       updateBtn: 'Update File',
-      invalidMediaType: 'Please upload a valid image, video, or file'
+      invalidMediaType: 'Please upload a valid image, video, or PDF file'
     }
   },
   reports: {

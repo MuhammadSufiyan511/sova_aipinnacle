@@ -33,7 +33,7 @@ export const onboarding = {
     modal: {
       titleAdd: 'إضافة منتج جديد',
       titleUpdate: 'تحديث المنتج',
-      subtitleAdd: 'أعطِ منتجك اسمًا، وصفًا قصيرًا، وصورة اختيارية.',
+      subtitleAdd: 'أعطِ منتجك اسمًا، وصفًا قصيرًا، وصورة أو فيديو أو ملف PDF اختياري.',
       subtitleUpdate: 'قم بتعديل تفاصيل المنتج التي تستخدمها سوفا في دردشات المشتري.',
       mediaLabel: 'وسائط المنتج',
       mediaHelp: 'انقر للتحميل',
@@ -43,7 +43,7 @@ export const onboarding = {
       descPlaceholder: 'مثال: وشاح حريري فاخر مع لمسة ناعمة وتغليف هدايا.',
       saveBtn: 'حفظ المنتج',
       updateBtn: 'تحديث',
-      invalidMediaType: 'يرجى تحميل صورة صالحة (JPG أو PNG أو WebP)'
+      invalidMediaType: 'يرجى رفع صورة أو فيديو أو ملف PDF صالح'
     }
   },
   tone: {
@@ -466,7 +466,7 @@ admin.files = {
   modal: {
     titleAdd: 'إضافة ملف جديد',
     titleUpdate: 'تحديث الملف',
-    subtitleAdd: 'ارفع صورة أو فيديو أو مستنداً يمكن لـ سوفا مشاركته داخل المحادثات.',
+    subtitleAdd: 'ارفع صورة أو فيديو أو ملف PDF يمكن لـ سوفا مشاركته داخل المحادثات.',
     subtitleUpdate: 'عدّل تفاصيل الملف التي يستخدمها سوفا أثناء مساعدة العملاء.',
     mediaLabel: 'وسائط الملف',
     mediaHelp: 'اضغط للرفع',
@@ -476,7 +476,7 @@ admin.files = {
     descPlaceholder: 'مثال: ملف PDF لوصولات الصيف الجديدة والأسعار المحدّثة.',
     saveBtn: 'حفظ الملف',
     updateBtn: 'تحديث الملف',
-    invalidMediaType: 'يرجى رفع صورة أو فيديو أو ملف صالح',
+    invalidMediaType: 'يرجى رفع صورة أو فيديو أو ملف PDF صالح',
   },
 }
 

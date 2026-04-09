@@ -32,7 +32,7 @@ export const onboarding = {
     modal: {
       titleAdd: 'Neues Produkt hinzufügen',
       titleUpdate: 'Produkt aktualisieren',
-      subtitleAdd: 'Geben Sie Ihrem Produkt einen Namen, eine Kurzbeschreibung und ein optionales Foto.',
+      subtitleAdd: 'Geben Sie Ihrem Produkt einen Namen, eine Kurzbeschreibung und optional ein Bild, Video oder PDF an.',
       subtitleUpdate: 'Bearbeiten Sie die Produktdetails, die SOVA in Käufer-Chats verwendet.',
       mediaLabel: 'Produktmedien',
       mediaHelp: 'Klicken zum Hochladen',
@@ -42,7 +42,7 @@ export const onboarding = {
       descPlaceholder: 'z.B. Premium-Seidenschal mit weichem Finish und Geschenkverpackung.',
       saveBtn: 'Produkt speichern',
       updateBtn: 'Aktualisieren',
-      invalidMediaType: 'Bitte laden Sie ein gültiges Bild hoch (JPG, PNG oder WebP)'
+      invalidMediaType: 'Bitte laden Sie ein gültiges Bild, Video oder eine PDF-Datei hoch'
     }
   },
   tone: {
@@ -465,7 +465,7 @@ admin.files = {
   modal: {
     titleAdd: 'Neue Datei hinzufügen',
     titleUpdate: 'Datei aktualisieren',
-    subtitleAdd: 'Laden Sie ein Bild, Video oder Dokument hoch, das SOVA in Chats teilen kann.',
+    subtitleAdd: 'Laden Sie ein Bild, Video oder PDF hoch, das SOVA in Chats teilen kann.',
     subtitleUpdate: 'Bearbeiten Sie die Dateidetails, die SOVA beim Helfen von Käufern nutzt.',
     mediaLabel: 'Dateimedien',
     mediaHelp: 'Zum Hochladen klicken',
@@ -475,7 +475,7 @@ admin.files = {
     descPlaceholder: 'z. B. PDF-Katalog für neue Sommerartikel und aktualisierte Preise.',
     saveBtn: 'Datei speichern',
     updateBtn: 'Datei aktualisieren',
-    invalidMediaType: 'Bitte laden Sie ein gültiges Bild, Video oder eine Datei hoch',
+    invalidMediaType: 'Bitte laden Sie ein gültiges Bild, Video oder eine PDF-Datei hoch',
   },
 }
 
