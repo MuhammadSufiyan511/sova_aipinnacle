@@ -184,7 +184,8 @@ export const admin = {
       saleTrend: {
         title: 'बिक्री का रुझान',
         subtitle: 'पिछले 7 दिनों का प्रदर्शन',
-        pill: '+{{count}}% ऊपर'
+        pill: '+{{count}}% ऊपर',
+        tooltipLabel: 'पूर्णता'
       },
       leadMix: {
         title: 'लीड मिश्रण',

@@ -50,7 +50,7 @@ export const common = {
   lightMode: 'الوضع الفاتح',
   darkMode: 'الوضع الداكن',
   exitWorkspace: 'الخروج من مساحة العمل',
-  initializingسوفا: 'جارٍ تشغيل سوفا AI',
+  initializingSova: 'تهيئة الذكاء الاصطناعي سوفا',
   industryGuide: 'دليل المجال',
   overview: 'نظرة عامة',
   examples: 'أمثلة',
@@ -70,3 +70,4 @@ export const common = {
     sun: 'الأحد',
   },
 }
+

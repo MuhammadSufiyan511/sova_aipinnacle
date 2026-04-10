@@ -47,10 +47,10 @@ export function MainChart() {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <span className="text-[0.62rem] font-bold uppercase tracking-[0.16em]" style={{ color: eyebrowColor }}>
-            {t('Performance Metrics')}
+            {t('admin.overview.charts.saleTrend.subtitle')}
           </span>
           <h3 className="mt-1 font-display text-[1rem] font-bold" style={{ color: headingColor }}>
-            {t('Weekly Activity')}
+            {t('admin.overview.charts.saleTrend.title')}
           </h3>
         </div>
         <div
@@ -111,12 +111,13 @@ export function MainChart() {
   );
 }
 const CustomTooltip = ({ active, payload }) => {
+  const { t } = useTranslation()
   const { homeDarkMode } = useApp();
   if (active && payload && payload.length) {
     return (
       <div className={`${homeDarkMode ? 'bg-[#0A1B19] border-[#1C3D3A]' : 'bg-white border-[#DDEFE7]'} px-3 py-2 rounded-xl shadow-xl border`}>
         <p className={`text-xs font-bold ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{`${payload[0].value}%`}</p>
-        <p className={`text-[10px] uppercase tracking-tighter ${homeDarkMode ? 'text-slate-400' : 'text-[#6D8A88]'}`}>Completion</p>
+        <p className={`text-[10px] uppercase tracking-tighter ${homeDarkMode ? 'text-slate-400' : 'text-[#6D8A88]'}`}>{t('admin.overview.charts.saleTrend.tooltipLabel')}</p>
       </div>
     );
   }

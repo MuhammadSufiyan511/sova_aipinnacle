@@ -114,6 +114,7 @@ const admin = {
         title: 'گفتگو سے سیل تک کا رجحان',
         subtitle: 'ہفتہ وار آٹومیشن کارکردگی',
         pill: 'اس ماہ {{count}}%',
+        tooltipLabel: 'تکمیل',
       },
       leadMix: {
         title: 'لیڈ کوالٹی مکس',

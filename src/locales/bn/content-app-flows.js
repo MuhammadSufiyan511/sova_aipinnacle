@@ -184,7 +184,8 @@ export const admin = {
       saleTrend: {
         title: 'বিক্রয় প্রবণতা',
         subtitle: 'গত ৭ দিনের কর্মক্ষমতা',
-        pill: '+{{count}}% বৃদ্ধি'
+        pill: '+{{count}}% বৃদ্ধি',
+        tooltipLabel: 'সমাপ্তি'
       },
       leadMix: {
         title: 'লিড মিশ্রণ',
@@ -553,3 +554,5 @@ admin.overview.quickActions.products = 'পণ্য দেখুন'
 admin.overview.quickActions.files = 'ফাইল দেখুন'
 admin.chat.previewLabel = 'হোয়াটসঅ্যাপ চ্যাট প্রিভিউ'
 admin.chat.defaultReply = 'হাই! যোগাযোগ করার জন্য ধন্যবাদ। আমি SOVA, আপনার সেলস অ্যাসিস্ট্যান্ট। আজ কীভাবে সাহায্য করতে পারি?'
+
+

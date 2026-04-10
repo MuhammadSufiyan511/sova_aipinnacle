@@ -184,7 +184,8 @@ export const admin = {
       saleTrend: {
         title: 'Verkaufstrend',
         subtitle: 'Leistung der letzten 7 Tage',
-        pill: '+{{count}}% Anstieg'
+        pill: '+{{count}}% Anstieg',
+        tooltipLabel: 'Abschluss'
       },
       leadMix: {
         title: 'Lead-Mix',

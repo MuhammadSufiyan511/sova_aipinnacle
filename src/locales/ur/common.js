@@ -50,7 +50,7 @@ export const common = {
   lightMode: 'لائٹ موڈ',
   darkMode: 'ڈارک موڈ',
   exitWorkspace: 'ورک اسپیس سے باہر نکلیں',
-  initializingسوفا: 'سوفا AI شروع ہو رہا ہے',
+  initializingSova: 'سوفا کو شروع کیا جا رہا ہے۔',
   industryGuide: 'انڈسٹری گائیڈ',
   overview: 'خلاصہ',
   examples: 'مثالیں',
@@ -70,3 +70,4 @@ export const common = {
     sun: 'اتوار',
   },
 }
+

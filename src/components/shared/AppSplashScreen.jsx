@@ -33,7 +33,7 @@ export const AppSplashScreen = memo(function AppSplashScreen({ isVisible }) {
             <div className="relative flex h-24 w-24 items-center justify-center rounded-[32px] border border-[#E2EFEA] bg-white shadow-[0_20px_50px_rgba(16,185,129,0.12)]">
               <img 
                 src={sovaLogo} 
-                alt="SOVA AI" 
+                alt={t('common.brand')}
                 decoding="async" 
                 className="h-14 w-14 animate-pulse rounded-2xl object-cover" 
               />

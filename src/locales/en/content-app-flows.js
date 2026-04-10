@@ -110,7 +110,8 @@ const admin = {
       saleTrend: {
         title: 'Conversation to sale trend',
         subtitle: 'Live weekly automation performance',
-        pill: '{{count}}% this month'
+        pill: '{{count}}% this month',
+        tooltipLabel: 'Completion'
       },
       leadMix: {
         title: 'Lead quality mix',
