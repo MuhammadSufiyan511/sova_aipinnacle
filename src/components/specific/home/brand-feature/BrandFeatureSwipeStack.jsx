@@ -1,16 +1,22 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ActiveUsersCard } from './ActiveUsersCard'
 import { ChatSimulationCard } from './ChatSimulationCard'
 import { ProductivityGraphCard } from './ProductivityGraphCard'
 import { TypingSimulationCard } from './TypingSimulationCard'
 
 export function BrandFeatureSwipeStack({ cards, microCopy, t }) {
+  const { i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const [stackOrder, setStackOrder] = useState([0, 1, 2, 3])
 
   const handleSwipe = (info) => {
-    if (info.offset.x < -40) {
+    // In RTL, swiping left = prev card, swiping right = next card
+    const goNext = isRtl ? info.offset.x > 40 : info.offset.x < -40
+    const goPrev = isRtl ? info.offset.x < -40 : info.offset.x > 40
+    if (goNext) {
       setStackOrder((prev) => {
         const next = [...prev]
         next.push(next.shift())
@@ -18,7 +24,7 @@ export function BrandFeatureSwipeStack({ cards, microCopy, t }) {
       })
       return
     }
-    if (info.offset.x > 40) {
+    if (goPrev) {
       setStackOrder((prev) => {
         const next = [...prev]
         next.unshift(next.pop())

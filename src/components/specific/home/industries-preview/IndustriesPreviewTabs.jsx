@@ -29,8 +29,9 @@ export function IndustriesPreviewTabs({
         layout
         transition={{ duration: 0.35, ease: 'easeInOut' }}
         onPanEnd={(_, info) => {
-          if (info.offset.x < -40) onSwitchIndustry(1)
-          else if (info.offset.x > 40) onSwitchIndustry(-1)
+          // In RTL: swipe left = prev, swipe right = next
+          if (info.offset.x < -40) onSwitchIndustry(isRtl ? -1 : 1)
+          else if (info.offset.x > 40) onSwitchIndustry(isRtl ? 1 : -1)
         }}
       >
         <AnimatePresence initial={false} mode="popLayout">

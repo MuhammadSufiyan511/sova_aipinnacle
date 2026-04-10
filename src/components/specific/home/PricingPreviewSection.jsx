@@ -7,7 +7,8 @@ import { PlanCard } from './pricing/PlanCard'
 const MotionDiv = motion.div
 
 export const PricingPreviewSection = memo(function PricingPreviewSection() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const localizedPlans = t('content.pricing.plans', { returnObjects: true }) || pricingPlans
   const [activePlan, setActivePlan] = useState(0)
 
@@ -47,15 +48,16 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
                   dragElastic={0.2}
                   onDragEnd={(_, info) => {
                     const swipeThreshold = 50
+                    // In RTL: swipe left = prev plan, swipe right = next plan
                     if (info.offset.x > swipeThreshold) {
-                      prevPlan()
+                      isRtl ? nextPlan() : prevPlan()
                     } else if (info.offset.x < -swipeThreshold) {
-                      nextPlan()
+                      isRtl ? prevPlan() : nextPlan()
                     }
                   }}
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: isRtl ? -50 : 50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
+                  exit={{ opacity: 0, x: isRtl ? 50 : -50 }}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   className="mx-auto cursor-grab active:cursor-grabbing"
                 >

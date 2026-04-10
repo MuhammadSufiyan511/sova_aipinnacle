@@ -45,8 +45,10 @@ export const Overview = memo(function Overview() {
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full sm:gap-5 admin-overview-shell">
+      {/* Quick action tabs */}
       <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-2 sm:p-2.5 shadow-sm admin-card-shell">
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 xl:grid-cols-3">
+        {/* Mobile: 3 cols, icon only. sm+: full label + arrow */}
+        <div className="grid grid-cols-3 gap-2">
           {quickTabs.map((tab) => (
             <button
               key={tab.label}
@@ -57,7 +59,8 @@ export const Overview = memo(function Overview() {
                 <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#10B981] shadow-sm admin-tab-icon">
                   <tab.icon className="h-4 w-4" />
                 </span>
-                <span className="truncate">{tab.label}</span>
+                {/* Label hidden on mobile, shown sm+ */}
+                <span className="hidden truncate sm:inline">{tab.label}</span>
               </span>
               <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#86A29B] transition group-hover:translate-x-1 group-hover:text-[#10B981] hidden sm:block" />
             </button>
@@ -65,6 +68,7 @@ export const Overview = memo(function Overview() {
         </div>
       </Motion.div>
 
+      {/* Stats */}
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <Motion.div key={stat.name} variants={item} className="rounded-[22px] border border-[#DDEFE7] bg-white p-4 shadow-sm admin-stat-box flex flex-col items-center text-center sm:items-start sm:text-left">
@@ -91,19 +95,8 @@ export const Overview = memo(function Overview() {
         ))}
       </div>
 
+      {/* Charts row 1 */}
       <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-[1.45fr_0.95fr]">
-        {/* <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
-          <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
-            <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">{t('admin.overview.charts.saleTrend.title')}</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">{t('admin.overview.charts.saleTrend.subtitle')}</p>
-            </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[0.66rem] font-bold text-emerald-600 admin-pill">
-              <TrendingUp className="h-3.5 w-3.5" /> {t('admin.overview.charts.saleTrend.pill', { count: 28 })}
-            </div>
-          </div>
-        </Motion.div> */}
-
           <MainChart />
         <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
@@ -119,6 +112,7 @@ export const Overview = memo(function Overview() {
         </Motion.div>
       </div>
 
+      {/* Charts row 2 */}
       <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
         <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">

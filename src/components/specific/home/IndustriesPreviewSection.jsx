@@ -96,7 +96,7 @@ export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
         <div className="flex items-center gap-3 lg:gap-5">
           <div className="min-w-0 flex-1">
             <AnimatePresence mode="wait">
-              <IndustryPreviewCard onSwitchIndustry={handleSwitchIndustry} selectedIndustry={selectedIndustry} t={t} />
+              <IndustryPreviewCard onSwitchIndustry={handleSwitchIndustry} selectedIndustry={selectedIndustry} t={t} isRtl={isRtl} />
             </AnimatePresence>
           </div>
         </div>

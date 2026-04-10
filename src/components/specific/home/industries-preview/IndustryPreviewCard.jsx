@@ -5,7 +5,7 @@ import { ROUTES } from '../../../../utils/routes'
 
 const MotionDiv = motion.div
 
-export function IndustryPreviewCard({ onSwitchIndustry, selectedIndustry, t }) {
+export function IndustryPreviewCard({ onSwitchIndustry, selectedIndustry, t, isRtl }) {
   return (
     <MotionDiv
       key={selectedIndustry.id}
@@ -18,8 +18,9 @@ export function IndustryPreviewCard({ onSwitchIndustry, selectedIndustry, t }) {
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.2}
       onDragEnd={(_, info) => {
-        if (info.offset.x < -50) onSwitchIndustry(1)
-        else if (info.offset.x > 50) onSwitchIndustry(-1)
+        // In RTL: swipe left = prev, swipe right = next
+        if (info.offset.x < -50) onSwitchIndustry(isRtl ? -1 : 1)
+        else if (info.offset.x > 50) onSwitchIndustry(isRtl ? 1 : -1)
       }}
     >
       <div className="flex flex-col lg:grid lg:grid-cols-2">
