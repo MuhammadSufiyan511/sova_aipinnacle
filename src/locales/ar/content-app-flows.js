@@ -88,7 +88,9 @@ export const admin = {
   },
   common: {
     currentView: 'العرض الحالي',
-    automationLive: 'الأتمتة مباشرة'
+    automationLive: 'الأتمتة مباشرة',
+    active: 'نشط',
+    inactive: 'غير نشط'
   },
   broadcasts: {
     title: 'حملات البث',

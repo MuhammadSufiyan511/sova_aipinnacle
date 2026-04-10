@@ -41,12 +41,12 @@ export function MainChart() {
 
   return (
     <div
-      className="w-full h-[340px] rounded-[26px] p-5 shadow-sm sm:p-6"
+      className="w-full h-[360px] rounded-[26px] p-5 shadow-sm sm:p-6"
       style={{ backgroundColor: chartBg, border: `1px solid ${chartBorder}` }}
     >
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="flex -mb-3  flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <span className="text-[0.62rem] font-bold uppercase tracking-[0.16em]" style={{ color: eyebrowColor }}>
+          <span className="text-[0.62rem]  font-bold uppercase tracking-[0.16em]" style={{ color: eyebrowColor }}>
             {t('admin.overview.charts.saleTrend.subtitle')}
           </span>
           <h3 className="mt-1 font-display text-[1rem] font-bold" style={{ color: headingColor }}>
@@ -60,9 +60,9 @@ export function MainChart() {
           {/* <TrendingUp className="h-3.5 w-3.5" /> */}
           {t('admin.overview.charts.saleTrend.pill', { count: 28 })}
         </div>
+        
       </div>
-
-      <ResponsiveContainer width="100%" height="80%">
+      <ResponsiveContainer width="100%" height="80%" className="mt-2">
         <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
           <defs>
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">

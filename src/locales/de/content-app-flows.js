@@ -87,7 +87,9 @@ export const admin = {
   },
   common: {
     currentView: 'Aktuelle Ansicht',
-    automationLive: 'Automatisierung ist aktiv'
+    automationLive: 'Automatisierung ist aktiv',
+    active: 'Aktiv',
+    inactive: 'Inaktiv'
   },
   broadcasts: {
     title: 'Broadcast-Kampagnen',

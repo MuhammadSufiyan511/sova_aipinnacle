@@ -90,7 +90,9 @@ const admin = {
     live: 'Live',
     preview: 'Preview',
     open: 'Open',
-    edit: 'Edit'
+    edit: 'Edit',
+    active: 'Active',
+    inactive: 'Inactive'
   },
   overview: {
     performance: 'Workspace performance',

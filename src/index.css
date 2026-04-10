@@ -604,6 +604,17 @@
     background-color: #040D0C !important;
   }
 
+  /* Admin Radio Toggle Dark Mode Refinement */
+  .home-dark-mode .admin-radio-toggle-track {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .home-dark-mode .admin-radio-toggle-btn.is-inactive {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+
   /* Industries & Case Studies Tab System */
   .home-dark-mode [class*="bg-[#F8FAFC]"][class*="text-[#10B981]"] {
     background-color: #0A1B19 !important;
@@ -1106,29 +1117,29 @@
     color: #FFFFFF !important;
   }
 
-.home-dark-mode .admin-card-desc {
-  color: #FAF7ED !important;
-  opacity: 0.6;
-}
+  .home-dark-mode .admin-card-desc {
+    color: #FAF7ED !important;
+    opacity: 0.6;
+  }
 
-.home-dark-mode .settings-main-title {
-  color: #F4FFF9 !important;
-}
+  .home-dark-mode .settings-main-title {
+    color: #F4FFF9 !important;
+  }
 
-.home-dark-mode .settings-main-subtitle {
-  color: #C8F1E5 !important;
-  opacity: 0.78;
-}
+  .home-dark-mode .settings-main-subtitle {
+    color: #C8F1E5 !important;
+    opacity: 0.78;
+  }
 
-.home-dark-mode .admin-modal-close {
-  background: #10302E !important;
-  border-color: #1C4D49 !important;
-  color: #C8F1E5 !important;
-}
+  .home-dark-mode .admin-modal-close {
+    background: #10302E !important;
+    border-color: #1C4D49 !important;
+    color: #C8F1E5 !important;
+  }
 
-.home-dark-mode .admin-modal-close:hover {
-  background: #133B38 !important;
-}
+  .home-dark-mode .admin-modal-close:hover {
+    background: #133B38 !important;
+  }
 
   .home-dark-mode .admin-pill {
     background-color: rgba(16, 185, 129, 0.1) !important;
@@ -1228,7 +1239,7 @@
     border-color: #1C3D3A !important;
   }
 
-  .home-dark-mode .admin-files-modal-badges .bg-[#ECFEFF] {
+  .home-dark-mode .admin-files-modal-badges [class*="bg-[#ECFEFF]"] {
     background: rgba(6, 182, 212, 0.14) !important;
     color: #67E8F9 !important;
   }
@@ -1317,7 +1328,7 @@
     border-color: #1C3D3A !important;
   }
 
-  .home-dark-mode .admin-products-modal-badges .bg-[#ECFDF5] {
+  .home-dark-mode .admin-products-modal-badges [class*="bg-[#ECFDF5]"] {
     background: rgba(16, 185, 129, 0.14) !important;
     color: #6EE7B7 !important;
   }

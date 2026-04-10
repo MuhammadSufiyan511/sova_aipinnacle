@@ -93,6 +93,8 @@ const admin = {
     preview: 'پری ویو',
     open: 'کھولیں',
     edit: 'ترمیم',
+    active: 'فعال',
+    inactive: 'غیر فعال'
   },
   overview: {
     performance: 'ورک اسپیس کارکردگی',

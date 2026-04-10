@@ -87,7 +87,9 @@ export const admin = {
   },
   common: {
     currentView: 'वर्तमान दृश्य',
-    automationLive: 'स्वचालन लाइव है'
+    automationLive: 'स्वचालन लाइव है',
+    active: 'सक्रिय',
+    inactive: 'निष्क्रिय'
   },
   broadcasts: {
     title: 'ब्रॉडकास्ट अभियान',

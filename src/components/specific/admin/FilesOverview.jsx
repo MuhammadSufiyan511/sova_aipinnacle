@@ -23,6 +23,45 @@ const getTypeIcon = (type) => {
   return FileText
 }
 
+const RadioToggle = ({ id, active, onChange, activeColor = 'bg-cyan-500' }) => {
+  const { t } = useTranslation()
+
+  return (
+    <div className="admin-radio-toggle-track relative flex h-[34px] w-full rounded-full border border-slate-200/50 bg-slate-100/80 p-0.5 transition-all duration-300 dark:border-white/10 dark:bg-white/5">
+      <div className="z-10 grid h-full w-full grid-cols-2">
+        <button
+          type="button"
+          onClick={() => !active && onChange()}
+          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${active ? 'text-white is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
+        >
+          <span className="relative z-10">{t('admin.common.active')}</span>
+          {active && (
+            <Motion.div
+              layoutId={`highlight-${id}`}
+              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
+              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+            />
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => active && onChange()}
+          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${!active ? 'text-white is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
+        >
+          <span className="relative z-10">{t('admin.common.inactive')}</span>
+          {!active && (
+            <Motion.div
+              layoutId={`highlight-${id}`}
+              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
+              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+            />
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export const FilesOverview = memo(function FilesOverview() {
   const { t } = useTranslation()
   const { files, addFile, updateFile, removeFile } = useApp()
@@ -149,11 +188,10 @@ export const FilesOverview = memo(function FilesOverview() {
                         setTypeFilter(option.id)
                         setCurrentPage(1)
                       }}
-                      className={`rounded-full px-3.5 py-2 text-[0.72rem] font-bold transition ${
-                        isActive
+                      className={`rounded-full px-3.5 py-2 text-[0.72rem] font-bold transition ${isActive
                           ? 'bg-cyan-500 text-white shadow-[0_10px_24px_rgba(6,182,212,0.18)]'
                           : 'border border-[#DDEFE7] bg-white text-[#476977] hover:border-cyan-200 hover:bg-[#F4FCFF]'
-                      }`}
+                        }`}
                     >
                       {option.label}
                     </button>
@@ -214,11 +252,10 @@ export const FilesOverview = memo(function FilesOverview() {
                       key={file.id}
                       variants={cardItem}
                       exit={{ opacity: 0, scale: 0.92 }}
-                      className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${
-                        file.isActive !== false
+                      className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${file.isActive !== false
                           ? 'border-[#DDEFE7] hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-500/10'
                           : 'border-[#E5E7EB] bg-[#FCFCFC] opacity-75 saturate-[0.35]'
-                      }`}
+                        }`}
                     >
                       <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]} admin-item-img-shell ${file.isActive !== false ? '' : 'grayscale'}`}>
                         {file.imagePreview ? (
@@ -256,9 +293,8 @@ export const FilesOverview = memo(function FilesOverview() {
                           </div>
                         )}
                         <div className="absolute left-2 top-2 flex flex-col gap-1">
-                          <span className={`admin-files-status-pill inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${
-                            file.isActive !== false ? 'bg-cyan-500/90 text-white' : 'bg-white/90 text-[#6B7280]'
-                          }`}>
+                          <span className={`admin-files-status-pill inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${file.isActive !== false ? 'bg-cyan-500/90 text-white' : 'bg-white/90 text-[#6B7280]'
+                            }`}>
                             {file.isActive !== false ? t('admin.files.item.active') : t('admin.files.item.inactive')}
                           </span>
                           <span className="admin-files-type-pill inline-flex items-center gap-1 rounded-full bg-white/85 px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#173247] shadow-sm">
@@ -279,17 +315,14 @@ export const FilesOverview = memo(function FilesOverview() {
                             <Eye className="h-3.5 w-3.5" />
                             {t('admin.files.item.view')}
                           </button>
-                          <button
-                            onClick={() => toggleFileStatus(file)}
-                            className={`inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[0.68rem] font-bold transition ${
-                              file.isActive !== false
-                                ? 'border-amber-200 text-amber-700 hover:bg-amber-50'
-                                : 'border-cyan-200 text-cyan-700 hover:bg-cyan-50'
-                            }`}
-                          >
-                            {file.isActive !== false ? <ToggleLeft className="h-3.5 w-3.5" /> : <ToggleRight className="h-3.5 w-3.5" />}
-                            {file.isActive !== false ? t('admin.files.item.deactivate') : t('admin.files.item.activate')}
-                          </button>
+                          <div className="flex items-center">
+                            <RadioToggle
+                              id={`file-${file.id}`}
+                              active={file.isActive !== false}
+                              onChange={() => toggleFileStatus(file)}
+                              activeColor="bg-cyan-500"
+                            />
+                          </div>
                           <button onClick={() => openEditModal(file)} className="admin-btn-secondary inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600">
                             <Pencil className="h-3.5 w-3.5" />
                             {t('admin.common.edit')}
@@ -314,11 +347,10 @@ export const FilesOverview = memo(function FilesOverview() {
                     key={pageNumber}
                     type="button"
                     onClick={() => setCurrentPage(pageNumber)}
-                    className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[0.72rem] font-bold transition ${
-                      safePage === pageNumber
+                    className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[0.72rem] font-bold transition ${safePage === pageNumber
                         ? 'bg-cyan-500 text-white shadow-[0_10px_24px_rgba(6,182,212,0.18)]'
                         : 'border border-[#DDEFE7] bg-white text-[#476977] hover:bg-[#F8FFFC]'
-                    }`}
+                      }`}
                   >
                     {pageNumber}
                   </button>
@@ -409,13 +441,12 @@ export const FilesOverview = memo(function FilesOverview() {
               </div>
 
               <div className="space-y-4 p-5">
-              <div className="admin-files-modal-badges flex flex-wrap items-center gap-2">
+                <div className="admin-files-modal-badges flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center rounded-full bg-[#ECFEFF] px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-cyan-600">
                     {t('admin.files.item.modalTitle')}
                   </span>
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] ${
-                    viewingFile.isActive !== false ? 'bg-cyan-500 text-white' : 'admin-files-inactive-badge bg-[#F3F4F6] text-[#6B7280]'
-                  }`}>
+                  <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] ${viewingFile.isActive !== false ? 'bg-cyan-500 text-white' : 'admin-files-inactive-badge bg-[#F3F4F6] text-[#6B7280]'
+                    }`}>
                     {viewingFile.isActive !== false ? t('admin.files.item.active') : t('admin.files.item.inactive')}
                   </span>
                 </div>

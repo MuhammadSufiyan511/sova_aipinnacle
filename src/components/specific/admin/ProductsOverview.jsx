@@ -17,6 +17,45 @@ const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } 
 const cardItem = { hidden: { opacity: 0, scale: 0.94 }, show: { opacity: 1, scale: 1 } }
 const PER_PAGE_OPTIONS = [12, 24, 48, 96, 'all']
 
+const RadioToggle = ({ id, active, onChange, activeColor = 'bg-[#ECFDF5]' }) => {
+  const { t } = useTranslation()
+
+  return (
+    <div className="admin-radio-toggle-track relative flex h-[34px] w-full rounded-full border border-slate-200/50 bg-slate-100/80 p-0.5 transition-all duration-300 dark:border-white/70 dark:bg-white/5">
+      <div className="z-10 grid h-full w-full grid-cols-2">
+        <button
+          type="button"
+          onClick={() => !active && onChange()}
+          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
+        >
+          <span className="relative z-10">{t('admin.common.active')}</span>
+          {active && (
+            <Motion.div
+              layoutId={`highlight-${id}`}
+              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
+              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+            />
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => active && onChange()}
+          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${!active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
+        >
+          <span className="relative z-10">{t('admin.common.inactive')}</span>
+          {!active && (
+            <Motion.div
+              layoutId={`highlight-${id}`}
+              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
+              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+            />
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export const ProductsOverview = memo(function ProductsOverview() {
   const { t } = useTranslation()
   const { products, addProduct, removeProduct, updateProduct } = useApp()
@@ -148,11 +187,10 @@ export const ProductsOverview = memo(function ProductsOverview() {
                         setStatusFilter(option.id)
                         setCurrentPage(1)
                       }}
-                      className={`rounded-full px-3.5 py-2 text-[0.72rem] font-bold transition ${
-                        isActive
+                      className={`rounded-full px-3.5 py-2 text-[0.72rem] font-bold transition ${isActive
                           ? 'bg-[#10B981] text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)]'
                           : 'border border-[#DDEFE7] bg-white text-[#476977] hover:border-[#BFE7DA] hover:bg-[#F8FFFC]'
-                      }`}
+                        }`}
                     >
                       {option.label}
                     </button>
@@ -161,38 +199,38 @@ export const ProductsOverview = memo(function ProductsOverview() {
               </div>
             </div>
 
-              <div className="mt-3 flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-                <p className="text-[0.72rem] font-medium text-[#62808D]">
-                  {translateOr('admin.products.controls.pageInfo', '{{start}}-{{end}} of {{total}} products')
-                    .replace('{{start}}', String(pageStart))
-                    .replace('{{end}}', String(pageEnd))
-                    .replace('{{total}}', String(filteredProducts.length))}
-                </p>
-                <div className="flex items-center justify-center gap-2 sm:justify-end">
-                  <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
-                    {translateOr('admin.products.controls.show', 'Show')}
-                  </span>
-                  <select
-                    value={String(itemsPerPage)}
-                    onChange={(event) => {
-                      const nextValue = event.target.value === 'all' ? 'all' : Number(event.target.value)
-                      setItemsPerPage(nextValue)
-                      setCurrentPage(1)
-                    }}
-                    className="h-9 rounded-full border border-[#DDEFE7] bg-white px-3 text-[0.72rem] font-bold text-[#476977] outline-none transition focus:border-[#10B981]"
-                  >
-                    {PER_PAGE_OPTIONS.map((option) => (
-                      <option key={String(option)} value={String(option)}>
-                        {option === 'all' ? translateOr('admin.products.controls.all', 'All') : option}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
-                    / {translateOr('admin.products.controls.perPage', 'page')}
-                  </span>
-                </div>
+            <div className="mt-3 flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+              <p className="text-[0.72rem] font-medium text-[#62808D]">
+                {translateOr('admin.products.controls.pageInfo', '{{start}}-{{end}} of {{total}} products')
+                  .replace('{{start}}', String(pageStart))
+                  .replace('{{end}}', String(pageEnd))
+                  .replace('{{total}}', String(filteredProducts.length))}
+              </p>
+              <div className="flex items-center justify-center gap-2 sm:justify-end">
+                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
+                  {translateOr('admin.products.controls.show', 'Show')}
+                </span>
+                <select
+                  value={String(itemsPerPage)}
+                  onChange={(event) => {
+                    const nextValue = event.target.value === 'all' ? 'all' : Number(event.target.value)
+                    setItemsPerPage(nextValue)
+                    setCurrentPage(1)
+                  }}
+                  className="h-9 rounded-full border border-[#DDEFE7] bg-white px-3 text-[0.72rem] font-bold text-[#476977] outline-none transition focus:border-[#10B981]"
+                >
+                  {PER_PAGE_OPTIONS.map((option) => (
+                    <option key={String(option)} value={String(option)}>
+                      {option === 'all' ? translateOr('admin.products.controls.all', 'All') : option}
+                    </option>
+                  ))}
+                </select>
+                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
+                  / {translateOr('admin.products.controls.perPage', 'page')}
+                </span>
               </div>
             </div>
+          </div>
 
           {paginatedProducts.length === 0 ? (
             <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center rounded-[22px] border border-dashed border-[#DDEFE7] bg-white px-4 py-12 text-center">
@@ -206,100 +244,95 @@ export const ProductsOverview = memo(function ProductsOverview() {
             <Motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
               <AnimatePresence mode="popLayout">
                 {paginatedProducts.map((product, i) => (
-              <Motion.div
-                layout
-                key={product.id}
-                variants={cardItem}
-                exit={{ opacity: 0, scale: 0.92 }}
-                className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${
-                  product.isActive !== false
-                    ? 'border-[#DDEFE7] hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-500/10'
-                    : 'border-[#E5E7EB] bg-[#FCFCFC] opacity-75 saturate-[0.35]'
-                }`}
-              >
-                <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]} admin-item-img-shell ${product.isActive !== false ? '' : 'grayscale'}`}>
-                  {product.imagePreview ? (
-                    product.mediaType === 'video' ? (
-                      <div className="relative h-full w-full">
-                        <video
-                          src={product.imagePreview}
-                          className={`h-full w-full object-cover transition duration-500 ${product.isActive !== false ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                        />
-                        <span className={`absolute inset-0 flex items-center justify-center text-white ${product.isActive !== false ? 'bg-slate-900/20' : 'bg-slate-900/45'}`}>
-                          <PlayCircle className="h-9 w-9" />
+                  <Motion.div
+                    layout
+                    key={product.id}
+                    variants={cardItem}
+                    exit={{ opacity: 0, scale: 0.92 }}
+                    className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${product.isActive !== false
+                        ? 'border-[#DDEFE7] hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-500/10'
+                        : 'border-[#E5E7EB] bg-[#FCFCFC] opacity-75 saturate-[0.35]'
+                      }`}
+                  >
+                    <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[i % gradients.length]} admin-item-img-shell ${product.isActive !== false ? '' : 'grayscale'}`}>
+                      {product.imagePreview ? (
+                        product.mediaType === 'video' ? (
+                          <div className="relative h-full w-full">
+                            <video
+                              src={product.imagePreview}
+                              className={`h-full w-full object-cover transition duration-500 ${product.isActive !== false ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                            />
+                            <span className={`absolute inset-0 flex items-center justify-center text-white ${product.isActive !== false ? 'bg-slate-900/20' : 'bg-slate-900/45'}`}>
+                              <PlayCircle className="h-9 w-9" />
+                            </span>
+                          </div>
+                        ) : product.mediaType === 'file' ? (
+                          <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${product.isActive !== false ? 'bg-[#F2FBF7]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
+                            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
+                              <FileText className="h-6 w-6 text-emerald-600" />
+                            </span>
+                            <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{product.mediaName || product.name}</span>
+                          </div>
+                        ) : (
+                          <img
+                            src={product.imagePreview}
+                            alt={product.name}
+                            className={`h-full w-full object-cover transition duration-500 ${product.isActive !== false ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
+                          />
+                        )
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-black/5 text-black/20">
+                          <Package className="h-10 w-10" />
+                        </div>
+                      )}
+                      <div className="absolute left-2 top-2">
+                        <span
+                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${product.isActive !== false
+                              ? 'bg-emerald-500/90 text-white'
+                              : 'bg-white/90 text-[#6B7280]'
+                            }`}
+                        >
+                          {product.isActive !== false ? t('admin.products.item.active') : t('admin.products.item.inactive')}
                         </span>
                       </div>
-                    ) : product.mediaType === 'file' ? (
-                      <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${product.isActive !== false ? 'bg-[#F2FBF7]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
-                        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
-                          <FileText className="h-6 w-6 text-emerald-600" />
-                        </span>
-                        <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{product.mediaName || product.name}</span>
+                      <div className="admin-item-price absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm">
+                        {t('admin.products.item.price', { price: product.price || '0' })}
                       </div>
-                    ) : (
-                      <img
-                        src={product.imagePreview}
-                        alt={product.name}
-                        className={`h-full w-full object-cover transition duration-500 ${product.isActive !== false ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-                      />
-                    )
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-black/5 text-black/20">
-                      <Package className="h-10 w-10" />
                     </div>
-                  )}
-                  <div className="absolute left-2 top-2">
-                    <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${
-                        product.isActive !== false
-                          ? 'bg-emerald-500/90 text-white'
-                          : 'bg-white/90 text-[#6B7280]'
-                      }`}
-                    >
-                      {product.isActive !== false ? t('admin.products.item.active') : t('admin.products.item.inactive')}
-                    </span>
-                  </div>
-                  <div className="admin-item-price absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm">
-                    {t('admin.products.item.price', { price: product.price || '0' })}
-                  </div>
-                </div>
 
-                <div className={`p-3.5 text-center sm:text-left admin-item-content ${product.isActive !== false ? '' : 'text-[#7A8A93]'}`}>
-                  <p className={`text-[0.88rem] font-bold admin-item-title ${product.isActive !== false ? 'text-[#173247]' : 'text-[#7A8A93]'}`}>{product.name}</p>
-                  {product.description ? <p className={`mt-1 line-clamp-2 text-[0.72rem] leading-5 admin-item-desc ${product.isActive !== false ? 'text-[#62808D]' : 'text-[#9CA3AF]'}`}>{product.description}</p> : null}
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => setViewingProduct(product)}
-                      className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary"
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                      {t('admin.products.item.view')}
-                    </button>
-                    <button
-                      onClick={() => toggleProductStatus(product)}
-                      className={`inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[0.68rem] font-bold transition ${
-                        product.isActive !== false
-                          ? 'border-amber-200 text-amber-700 hover:bg-amber-50'
-                          : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
-                      }`}
-                    >
-                      {product.isActive !== false ? <ToggleLeft className="h-3.5 w-3.5" /> : <ToggleRight className="h-3.5 w-3.5" />}
-                      {product.isActive !== false ? t('admin.products.item.deactivate') : t('admin.products.item.activate')}
-                    </button>
-                    <button onClick={() => openEditModal(product)} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary">
-                      <Pencil className="h-3.5 w-3.5" />
-                      {t('admin.common.edit')}
-                    </button>
-                    <button onClick={() => removeProduct(product.id)} className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger">
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                </div>
-              </Motion.div>
+                    <div className={`p-3.5 text-center sm:text-left admin-item-content ${product.isActive !== false ? '' : 'text-[#7A8A93]'}`}>
+                      <p className={`text-[0.88rem] font-bold admin-item-title ${product.isActive !== false ? 'text-[#173247]' : 'text-[#7A8A93]'}`}>{product.name}</p>
+                      {product.description ? <p className={`mt-1 line-clamp-2 text-[0.72rem] leading-5 admin-item-desc ${product.isActive !== false ? 'text-[#62808D]' : 'text-[#9CA3AF]'}`}>{product.description}</p> : null}
+                      <div className="mt-3 grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setViewingProduct(product)}
+                          className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary"
+                        >
+                          <Eye className="h-3.5 w-3.5" />
+                          {t('admin.products.item.view')}
+                        </button>
+                        <div className="flex items-center">
+                          <RadioToggle
+                            id={`prod-${product.id}`}
+                            active={product.isActive !== false}
+                            onChange={() => toggleProductStatus(product)}
+                            activeColor="bg-[#ECFDF5]"
+                          />
+                        </div>
+                        <button onClick={() => openEditModal(product)} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary">
+                          <Pencil className="h-3.5 w-3.5" />
+                          {t('admin.common.edit')}
+                        </button>
+                        <button onClick={() => removeProduct(product.id)} className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger">
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </Motion.div>
                 ))}
               </AnimatePresence>
             </Motion.div>
@@ -313,11 +346,10 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     key={pageNumber}
                     type="button"
                     onClick={() => setCurrentPage(pageNumber)}
-                    className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[0.72rem] font-bold transition ${
-                      safePage === pageNumber
+                    className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[0.72rem] font-bold transition ${safePage === pageNumber
                         ? 'bg-[#10B981] text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)]'
                         : 'border border-[#DDEFE7] bg-white text-[#476977] hover:bg-[#F8FFFC]'
-                    }`}
+                      }`}
                   >
                     {pageNumber}
                   </button>
@@ -413,9 +445,8 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     {t('admin.products.item.modalTitle')}
                   </span>
                   <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] ${
-                      viewingProduct.isActive !== false ? 'bg-emerald-500 text-white' : 'admin-products-inactive-badge bg-[#F3F4F6] text-[#6B7280]'
-                    }`}
+                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] ${viewingProduct.isActive !== false ? 'bg-emerald-500 text-white' : 'admin-products-inactive-badge bg-[#F3F4F6] text-[#6B7280]'
+                      }`}
                   >
                     {viewingProduct.isActive !== false ? t('admin.products.item.active') : t('admin.products.item.inactive')}
                   </span>
