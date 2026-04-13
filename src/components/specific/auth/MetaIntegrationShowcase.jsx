@@ -52,7 +52,7 @@ export function MetaIntegrationShowcase({ onOpenModal }) {
               <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
                 <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#10B981]">{copy.whatsappNumber}</p>
                 <div className="mt-4 rounded-2xl border border-white/5 bg-white/5 px-5 py-4">
-                  <p className="text-[1.05rem] font-bold">+92 300 1234567</p>
+                  <p className="text-[1.05rem] font-bold">+92 344 0555915</p>
                   <p className="text-[10px] font-medium tracking-tight text-[#F1990A]">{copy.numberStatus}</p>
                 </div>
               </div>

@@ -1,8 +1,17 @@
-import { useState, useEffect, memo } from 'react'
+import { useState, useEffect, memo, lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { features } from '../../../data'
-import { CardOne, CardTwo, CardThree, CardFour, CardFive, CardSix } from './features-grid/FeatureGridCards'
+import { FeatureGridSkeleton } from './features-grid/FeatureGridSkeleton'
+
+// Lazy load feature cards to optimize initial bundle size and page load speed
+const CardOne = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardOne })))
+const CardTwo = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardTwo })))
+const CardThree = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardThree })))
+const CardFour = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardFour })))
+const CardFive = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardFive })))
+const CardSix = lazy(() => import('./features-grid/FeatureGridCards').then(m => ({ default: m.CardSix })))
+
 
 import seriousBuyerDetectionImage from '../../../assets/home/serious buyer detection.png'
 import autoRepliesImage from '../../../assets/home/auto replies.png'
@@ -51,12 +60,12 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
   ]
 
   const cardProps = [
-    { component: CardOne, props: { feature: gridFeatures[0], image: featureImages[0], micro } },
-    { component: CardTwo, props: { feature: gridFeatures[1], image: featureImages[1] } },
-    { component: CardThree, props: { feature: gridFeatures[2], image: featureImages[2] } },
-    { component: CardFour, props: { feature: gridFeatures[3], image: featureImages[3] } },
-    { component: CardFive, props: { feature: gridFeatures[4], image: featureImages[4] } },
-    { component: CardSix, props: { feature: gridFeatures[5], image: featureImages[5] } },
+    { component: CardOne, props: { feature: gridFeatures[0], image: featureImages[0], micro }, skeleton: <FeatureGridSkeleton colSpan2 /> },
+    { component: CardTwo, props: { feature: gridFeatures[1], image: featureImages[1] }, skeleton: <FeatureGridSkeleton variant="purple" /> },
+    { component: CardThree, props: { feature: gridFeatures[2], image: featureImages[2] }, skeleton: <FeatureGridSkeleton rowSpan2 /> },
+    { component: CardFour, props: { feature: gridFeatures[3], image: featureImages[3] }, skeleton: <FeatureGridSkeleton colSpan2 /> },
+    { component: CardFive, props: { feature: gridFeatures[4], image: featureImages[4] }, skeleton: <FeatureGridSkeleton variant="dark" /> },
+    { component: CardSix, props: { feature: gridFeatures[5], image: featureImages[5] }, skeleton: <FeatureGridSkeleton /> },
   ]
 
   return (
@@ -86,12 +95,18 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
         >
           {cardProps.map((item, index) => {
             const Component = item.component
-            return isMobile ? (
+            const CardContent = isMobile ? (
               <motion.div key={index} variants={itemVariants} transition={{ duration: 0.6 }}>
                 <Component {...item.props} disableAnimation />
               </motion.div>
             ) : (
               <Component key={index} {...item.props} />
+            )
+
+            return (
+              <Suspense key={index} fallback={item.skeleton}>
+                {CardContent}
+              </Suspense>
             )
           })}
         </MotionDiv>
