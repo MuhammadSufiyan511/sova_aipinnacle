@@ -97,7 +97,7 @@ export function DashboardHeader({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-[#f0faf6] text-slate-800 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
+          className="dashboard-theme-toggle inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-[#f0faf6] text-slate-800 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
           aria-label={homeDarkMode ? t('common.lightMode') : t('common.darkMode')}
         >
           {homeDarkMode ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
@@ -113,7 +113,7 @@ export function DashboardHeader({
         <div ref={langMenuRef} className="relative">
           <button
             onClick={onToggleLangOpen}
-            className="flex items-center gap-1 rounded-xl border border-[#f0faf6] bg-[#f0faf6] px-2 py-1.5 transition hover:bg-slate-100 sm:gap-1.5 sm:px-2.5"
+            className="dashboard-language-toggle flex items-center gap-1 rounded-xl border border-[#f0faf6] bg-[#f0faf6] px-2 py-1.5 transition hover:bg-slate-100 sm:gap-1.5 sm:px-2.5"
           >
             <span className="text-sm leading-none">{currentLanguage.flag}</span>
             <span className="text-[0.68rem] font-bold text-slate-800">{currentLanguage.short}</span>

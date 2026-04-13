@@ -1413,6 +1413,19 @@
     color: #FAF7ED !important;
   }
 
+  .home-dark-mode .dashboard-theme-toggle,
+  .home-dark-mode .dashboard-language-toggle {
+    background-color: #142B2A !important;
+    border-color: #1C3D3A !important;
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .dashboard-theme-toggle:hover,
+  .home-dark-mode .dashboard-language-toggle:hover {
+    background-color: #1C3D3A !important;
+    color: #10B981 !important;
+  }
+
   .home-dark-mode .sidebar-container {
     background-color: #040D0C !important;
     border-color: #1C3D3A !important;
