@@ -219,7 +219,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
                   <h3 className="mt-1.5 font-display text-[1.15rem] font-bold text-[#173247] admin-card-title sm:text-[1.25rem]">
                     {t('admin.settings.sections.business.modalTitle')}
                   </h3>
-                  <p className="mt-1 text-[0.76rem] leading-5 text-[#62808D] admin-card-desc">
+                  <p className="mt-1 text-[0.76rem] leading-5 text-[#1E293B] admin-card-desc">
                     {t('admin.settings.sections.business.modalSubtitle')}
                   </p>
                 </div>
@@ -257,7 +257,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
                         <p className="mt-1.5 text-[0.78rem] font-bold text-[#173247]">
                           {t(`onboarding.business.categories.${type.id}.label`)}
                         </p>
-                        <p className="mt-0.5 text-[0.66rem] leading-4 text-[#62808D]">
+                        <p className="mt-0.5 text-[0.66rem] leading-4 text-[#1E293B]">
                           {t(`onboarding.business.categories.${type.id}.desc`)}
                         </p>
                       </button>
