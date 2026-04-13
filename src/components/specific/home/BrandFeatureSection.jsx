@@ -1,9 +1,13 @@
-import { useRef, useState, useEffect, memo } from 'react'
+import { useRef, useState, useEffect, memo, lazy, Suspense } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { FloatingIcons } from './brand-feature/FloatingIcons'
 
-import { MockupPhone } from './brand-feature/MockupPhone'
+
+// Lazy load the heavy phone mockup for better initial page load and mobile performance
+const MockupPhone = lazy(() => import('./brand-feature/MockupPhone').then(m => ({ default: m.MockupPhone })))
+import { MockupPhoneSkeleton } from './brand-feature/MockupPhoneSkeleton'
+
 import { ProductivityGraphCard } from './brand-feature/ProductivityGraphCard'
 import { ActiveUsersCard } from './brand-feature/ActiveUsersCard'
 import { TypingSimulationCard } from './brand-feature/TypingSimulationCard'
@@ -94,16 +98,18 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
             {/* Floating Icons with parallax */}
             <FloatingIcons iconsY={iconsY} />
 
-            {/* ENHANCED PHONE MOCKUP */}
-            <MockupPhone
-              mockupY={mockupY}
-              mockupOpacity={mockupOpacity}
-              mockupScale={mockupScale}
-              mockupRotate={mockupRotate}
-              copy={copy}
-              chatLoopDuration={chatLoopDuration}
-              isMobile={isMobile}
-            />
+            {/* ENHANCED PHONE MOCKUP WITH SUSPENSE */}
+            <Suspense fallback={<MockupPhoneSkeleton isMobile={isMobile} />}>
+              <MockupPhone
+                mockupY={mockupY}
+                mockupOpacity={mockupOpacity}
+                mockupScale={mockupScale}
+                mockupRotate={mockupRotate}
+                copy={copy}
+                chatLoopDuration={chatLoopDuration}
+                isMobile={isMobile}
+              />
+            </Suspense>
           </div>
         </div>
 
