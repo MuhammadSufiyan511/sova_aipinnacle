@@ -16,7 +16,7 @@ export function DemoModal({ onClose }) {
 
         <div className="flex items-center justify-between gap-4 relative z-10">
           <div>
-            <h3 className="font-display text-[2.2rem] text-[#10B981] font-bold tracking-[-0.04em]">{t('common.watchDemo')}</h3>
+            <h3 className="font-display text-[2.2rem] xl:text-[1.1rem] text-[#10B981] font-bold tracking-[-0.04em]">{t('common.watchDemo')}</h3>
           </div>
           <button type="button" onClick={onClose} className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10" aria-label={t('common.close')}>
             <X className="h-6 w-6 text-[#10B981]" />
