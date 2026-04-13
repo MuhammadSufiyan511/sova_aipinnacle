@@ -42,7 +42,7 @@ export const AppSplashScreen = memo(function AppSplashScreen({ isVisible }) {
             </div>
 
             <div className="flex flex-col items-center gap-2">
-              <p className="font-display text-[0.8rem] font-bold uppercase tracking-[0.2em] text-[#1e293b]/60">
+              <p className="font-display text-[0.8rem] font-bold uppercase tracking-[0.2em] text-[#1E293B]">
                 {t('common.initializingSova')}
               </p>
               <div className="flex gap-2">

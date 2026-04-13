@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { Bell, Bot, Briefcase, Check, MessageSquare, Shield, Sparkles, X, Zap } from 'lucide-react'
-import { useState, memo } from 'react'
+import { useState, memo, useEffect } from 'react'
 import { useApp } from '../../../context/AppProvider'
 import { useTranslation } from 'react-i18next'
 
@@ -45,7 +45,7 @@ function SettingRow({ icon, iconBg, title, desc, children }) {
         </span>
         <div className="min-w-0">
           <p className="text-[0.82rem] font-bold text-[#173247]">{title}</p>
-          <p className="text-[0.7rem] leading-4 text-[#62808D] sm:leading-normal">{desc}</p>
+          <p className="text-[0.7rem] leading-4 text-[#1E293B] sm:leading-normal">{desc}</p>
         </div>
       </div>
       <div className="flex w-full justify-center sm:w-auto sm:justify-end sm:shrink-0">{children}</div>
@@ -66,6 +66,14 @@ export const SettingsOverview = memo(function SettingsOverview() {
   const [businessModalOpen, setBusinessModalOpen] = useState(false)
   const [draftBusinessType, setDraftBusinessType] = useState(businessProfile?.type || 'clothing')
   const [draftCustomCategory, setDraftCustomCategory] = useState(businessProfile?.customCategory || '')
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const businessLabel = draftBusinessType === 'other' && draftCustomCategory.trim()
     ? draftCustomCategory.trim()
@@ -99,7 +107,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">
         <Motion.div variants={rowItem} className="text-center sm:text-left">
           <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title settings-main-title">{t('admin.settings.title')}</h2>
-          <p className="mt-0.5 text-[0.74rem] text-[#62808D] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
+          <p className="mt-0.5 text-[0.74rem] text-[#1E293B] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
         </Motion.div>
 
       <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] p-4 shadow-sm admin-card-shell">
@@ -109,7 +117,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
           </span>
           <div>
             <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.voice.title')}</h3>
-            <p className="text-[0.7rem] text-[#62808D]">{t('admin.settings.sections.voice.subtitle')}</p>
+            <p className="text-[0.7rem] text-[#1E293B]">{t('admin.settings.sections.voice.subtitle')}</p>
           </div>
         </div>
         <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 md:grid-cols-3">
@@ -125,7 +133,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
               >
                 {isActive ? <Motion.div layoutId="tone-dot" className={`tone-dot absolute right-3 top-3 h-2 w-2 rounded-full ${style.dot}`} /> : null}
                 <p className="text-[0.8rem] font-bold">{tone.label}</p>
-                <p className={`mt-0.5 text-[0.66rem] ${isActive ? 'opacity-70' : 'text-[#62808D]'}`}>{tone.desc}</p>
+                <p className={`mt-0.5 text-[0.66rem] ${isActive ? 'opacity-70' : 'text-[#1E293B]'}`}>{tone.desc}</p>
               </Motion.button>
             )
           })}
@@ -140,7 +148,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
             </span>
             <div>
               <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.business.title')}</h3>
-              <p className="mt-0.5 text-[0.72rem] leading-5 text-[#62808D]">{t('admin.settings.sections.business.subtitle')}</p>
+              <p className="mt-0.5 text-[0.72rem] leading-5 text-[#1E293B]">{t('admin.settings.sections.business.subtitle')}</p>
               <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#10B981]">
                 {t('admin.settings.sections.business.current')}: {businessLabel}
               </p>
@@ -160,8 +168,8 @@ export const SettingsOverview = memo(function SettingsOverview() {
       <Motion.section variants={rowItem} className="divide-y divide-[#ECF8F3] rounded-[22px] border border-[#DDEFE7] shadow-sm admin-card-shell">
         <div className="px-4 pb-3 pt-4">
           <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
-            <Bot className="h-4 w-4 text-[#62808D]" />
-            <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#62808D] admin-card-title">{t('admin.settings.sections.rules.title')}</h3>
+            <Bot className="h-4 w-4 text-[#10B981]" />
+            <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#10B981] admin-card-title">{t('admin.settings.sections.rules.title')}</h3>
           </div>
         </div>
         <div className="px-4 py-3.5 admin-setting-item">
@@ -193,15 +201,15 @@ export const SettingsOverview = memo(function SettingsOverview() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[120] bg-[#1E293B]/45 backdrop-blur-sm"
+              className={`fixed inset-0 z-[120] bg-[#1E293B]/45 ${isMobile ? '' : 'backdrop-blur-sm'}`}
               onClick={() => setBusinessModalOpen(false)}
             />
             <Motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              initial={{ opacity: 0, y: isMobile ? 12 : 24, scale: isMobile ? 1 : 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.97 }}
+              exit={{ opacity: 0, y: isMobile ? 8 : 16, scale: isMobile ? 1 : 0.97 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="fixed left-1/2 top-1/2 z-[130] flex w-[min(94vw,680px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2 flex-col rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell overflow-hidden"
+              className="fixed left-1/2 top-1/2 z-[130] flex w-[min(94vw,680px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2 flex-col rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell overflow-hidden will-change-[transform,opacity]"
             >
               <div className="flex items-start justify-between gap-4 px-5 pt-5 sm:px-7 sm:pt-7">
                 <div>

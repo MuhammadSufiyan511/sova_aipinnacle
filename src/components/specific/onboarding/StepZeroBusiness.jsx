@@ -46,7 +46,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
             What's your <span className="text-emerald-500">business</span>?
           </Trans>
         </h2>
-        <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
+        <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-700 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.business.subtitle')}
         </p>
       </motion.div>
@@ -86,7 +86,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
               <p className={`text-[0.88rem] font-bold tracking-tight onboarding-label ${isSelected ? 'text-emerald-600' : 'text-slate-900'}`}>
                 {t(labelKey)}
               </p>
-              <p className="mt-1 text-[0.76rem] font-medium leading-5 text-slate-400 onboarding-desc">
+              <p className="mt-1 text-[0.76rem] font-medium leading-5 text-slate-800 onboarding-desc">
                 {t(descKey)}
               </p>
             </motion.button>

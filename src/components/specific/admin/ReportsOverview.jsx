@@ -36,9 +36,9 @@ export const ReportsOverview = memo(function ReportsOverview() {
       <Motion.div variants={item} className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
         <div className="max-w-md">
           <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.35rem] admin-card-title">{t('admin.reports.title')}</h2>
-          <p className="mt-0.5 text-[0.7rem] leading-5 text-[#62808D] sm:text-[0.74rem] admin-card-desc">{t('admin.reports.subtitle')}</p>
+          <p className="mt-0.5 text-[0.7rem] leading-5 text-[#1E293B] sm:text-[0.74rem] admin-card-desc">{t('admin.reports.subtitle')}</p>
         </div>
-        <button className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-4 py-2.5 text-[0.78rem] font-bold text-[#476977] shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
+        <button className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-4 py-2.5 text-[0.78rem] font-bold text-[#1E293B] shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
           <Download className="h-4 w-4" /> {t('admin.reports.exportBtn')}
         </button>
       </Motion.div>
@@ -57,7 +57,7 @@ export const ReportsOverview = memo(function ReportsOverview() {
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-center gap-2 sm:justify-between">
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] admin-stat-label">{stat.label}</p>
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] admin-stat-label">{stat.label}</p>
                 <span className="hidden items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold text-[#059669] admin-pill sm:inline-flex">
                   <ArrowUpRight className="h-3 w-3" /> {stat.change}
                 </span>
@@ -73,7 +73,7 @@ export const ReportsOverview = memo(function ReportsOverview() {
         <div className="mb-4 flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:items-center sm:text-left">
           <div>
             <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">{t('admin.reports.chart.title')}</h3>
-            <p className="text-[0.7rem] sm:text-[0.74rem] text-[#62808D] admin-card-desc">{t('admin.reports.chart.subtitle')}</p>
+            <p className="text-[0.7rem] sm:text-[0.74rem] text-[#1E293B] admin-card-desc">{t('admin.reports.chart.subtitle')}</p>
           </div>
           <div className="rounded-full bg-violet-50 px-3 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">{t('admin.reports.chart.pill')}</div>
         </div>
@@ -81,14 +81,14 @@ export const ReportsOverview = memo(function ReportsOverview() {
           <div className="flex h-44 min-w-[320px] items-end justify-between gap-3 pt-4 sm:min-w-0 admin-chart-container">
             {weeklyRows.map((row, i) => (
               <div key={row.label} className="group flex min-w-[44px] flex-1 flex-col items-center gap-2">
-              <span className="hidden text-[0.62rem] font-bold text-[#10B981] opacity-0 transition group-hover:opacity-100 sm:block">{row.revenue}</span>
+              <span className="hidden text-[0.62rem] font-bold text-[#1E293B] opacity-0 transition group-hover:opacity-100 sm:block">{row.revenue}</span>
               <Motion.div
                 initial={{ height: 0 }}
                 animate={{ height: `${(barData[i] / maxBar) * 140}px` }}
                 transition={{ duration: 0.7, delay: i * 0.06, ease: 'easeOut' }}
                 className="w-full rounded-t-[14px] bg-gradient-to-t from-[#10B981] via-[#34D399] to-[#A78BFA] shadow-[0_8px_20px_rgba(16,185,129,0.2)] transition group-hover:shadow-[0_8px_30px_rgba(16,185,129,0.35)] admin-chart-bar"
               />
-              <span className="text-[0.66rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{row.label}</span>
+              <span className="text-[0.66rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{row.label}</span>
               </div>
             ))}
           </div>
@@ -105,7 +105,7 @@ export const ReportsOverview = memo(function ReportsOverview() {
           <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">
             {t('admin.reports.table.title')}
           </h3>
-          <p className="mt-0.5 text-[0.7rem] sm:text-[0.74rem] text-[#62808D] admin-card-desc">
+          <p className="mt-0.5 text-[0.7rem] sm:text-[0.74rem] text-[#1E293B] admin-card-desc">
             {t('admin.reports.table.subtitle')}
           </p>
         </div>
@@ -123,11 +123,11 @@ export const ReportsOverview = memo(function ReportsOverview() {
 
               <div className="grid grid-cols-1 gap-2 xs:grid-cols-3">
                 <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{t('admin.reports.table.headers.chats')}</p>
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{t('admin.reports.table.headers.chats')}</p>
                   <p className="mt-0.5 text-[0.82rem] font-bold text-[#476977]">{row.chats}</p>
                 </div>
                 <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{t('admin.reports.table.headers.orders')}</p>
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{t('admin.reports.table.headers.orders')}</p>
                   <p className="mt-0.5 text-[0.82rem] font-bold text-[#476977]">{row.orders}</p>
                 </div>
                 <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
@@ -143,7 +143,7 @@ export const ReportsOverview = memo(function ReportsOverview() {
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full min-w-[480px]">
             <thead>
-              <tr className="bg-[#F2FBF7] text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] admin-table-header">
+              <tr className="bg-[#F2FBF7] text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] admin-table-header">
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.day')}</th>
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.chats')}</th>
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.orders')}</th>
@@ -155,8 +155,8 @@ export const ReportsOverview = memo(function ReportsOverview() {
               {weeklyRows.map((row) => (
                 <tr key={row.label} className="transition hover:bg-[#F8FDFB] admin-table-row">
                   <td className="px-5 py-3 text-[0.84rem] font-bold text-[#295565]">{row.label}</td>
-                  <td className="px-5 py-3 text-[0.84rem] text-[#476977]">{row.chats}</td>
-                  <td className="px-5 py-3 text-[0.84rem] text-[#476977]">{row.orders}</td>
+                  <td className="px-5 py-3 text-[0.84rem] text-[#1E293B]">{row.chats}</td>
+                  <td className="px-5 py-3 text-[0.84rem] text-[#1E293B]">{row.orders}</td>
                   <td className="px-5 py-3">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2 py-0.5 text-[0.68rem] font-bold text-[#059669] admin-pill">
                       <ArrowUpRight className="h-3 w-3" /> {row.rate}

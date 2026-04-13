@@ -18,14 +18,14 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
     <div className="sidebar-container flex h-full min-h-0 flex-col bg-[#0F172A]">
       <div className="sidebar-logo-box flex h-14 shrink-0 items-center justify-between border-b border-white/[0.06] px-4">
         <Link to={ROUTES.home} onClick={onClose} className="flex items-center gap-2.5">
-{/* <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20">
+          {/* <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20">
   <img 
     src={sovaLogo} 
     alt="SOVA" 
     className="h-full w-full object-cover rounded-full scale-90"
   />
 </span> */}
-  <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-10 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
+          <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-10 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
           <div>
             <p className="font-display text-[0.95rem] font-bold tracking-tight text-white">SOVA</p>
             <p className="text-[0.55rem] font-bold uppercase tracking-[0.28em] text-[#10B981]">Workspace</p>
@@ -39,7 +39,7 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
       </div>
 
       <div className="flex-1 min-h-0 px-2.5 py-3">
-        <p className="mb-2 px-2 text-[0.54rem] font-bold uppercase tracking-[0.24em] text-white/30">{t('admin.nav.workspace', 'Workspace')}</p>
+        <p className="mb-2 px-2 text-[0.54rem] font-bold uppercase tracking-[0.24em] text-white">{t('admin.nav.workspace', 'Workspace')}</p>
         <nav className="sidebar-scroll space-y-2 overflow-y-auto pr-0.5">
           {links.map((link) => {
             const hasChildren = Boolean(link.children?.length)
@@ -52,11 +52,10 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                   <button
                     type="button"
                     onClick={() => toggleGroup(link.label, isActive)}
-                    className={`sidebar-group-trigger group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${
-                      isActive
+                    className={`sidebar-group-trigger group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${isActive
                         ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
-                        : 'text-white/55 hover:bg-white/[0.06] hover:text-white/80'
-                    }`}
+                        : 'text-white hover:bg-white/[0.06] hover:text-white/80'
+                      }`}
                   >
                     <link.icon className={`h-4 w-4 shrink-0 transition-all ${isActive ? 'text-[#10B981]' : 'opacity-60 group-hover:opacity-80'}`} />
                     <span className="sidebar-nav-group-label flex-1 truncate text-start">{link.label}</span>
@@ -80,11 +79,10 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                                 key={child.path}
                                 to={child.path}
                                 onClick={collapseOnNavigate ? onClose : undefined}
-                                className={`sidebar-nav-child group flex items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] font-medium transition-all ${
-                                  childActive
+                                className={`sidebar-nav-child group flex items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] font-medium transition-all ${childActive
                                     ? 'is-active bg-[#10B981]/12 text-[#A7F3D0] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.18)]'
-                                    : 'text-white/45 hover:bg-white/[0.05] hover:text-white/75'
-                                }`}
+                                    : 'text-white hover:bg-white/[0.05] hover:text-white/75'
+                                  }`}
                               >
                                 <child.icon className={`h-3.5 w-3.5 shrink-0 ${childActive ? 'text-[#34D399]' : 'opacity-60 group-hover:opacity-80'}`} />
                                 <span className="truncate">{child.label}</span>
@@ -105,11 +103,10 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                 key={link.path}
                 to={link.path}
                 onClick={collapseOnNavigate ? onClose : undefined}
-                className={`sidebar-nav-link group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${
-                  isActive
+                className={`sidebar-nav-link group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${isActive
                     ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
-                    : 'text-white/50 hover:bg-white/[0.06] hover:text-white/80'
-                }`}
+                    : 'text-white hover:bg-white/[0.06] hover:text-white/80'
+                  }`}
               >
                 <link.icon className={`h-4 w-4 shrink-0 transition-all ${isActive ? 'text-[#10B981]' : 'opacity-50 group-hover:opacity-75'}`} />
                 <span className="truncate">{link.label}</span>
@@ -131,7 +128,7 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
             navigate(ROUTES.home)
             onClose?.()
           }}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.78rem] font-medium text-white/30 transition hover:bg-red-500/10 hover:text-red-400"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.78rem] font-medium text-white transition hover:bg-red-500/10 hover:text-red-400"
         >
           <LogOut className="h-4 w-4 opacity-70" />
           {t('common.exitWorkspace', 'Exit workspace')}

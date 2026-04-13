@@ -40,7 +40,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
             Set SOVA's <span className="text-emerald-500">voice</span>
           </Trans>
         </h2>
-        <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-500 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
+        <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-800 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.tone.subtitle')}
         </p>
       </motion.div>
@@ -76,7 +76,7 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
                   <Check className="h-3 w-3" strokeWidth={4} />
                 </div>
               </div>
-              <p className="text-[0.84rem] font-medium leading-6 text-slate-500 onboarding-desc">
+              <p className="text-[0.84rem] font-medium leading-6 text-slate-800 onboarding-desc">
                 {t(descKey)}
               </p>
             </motion.button>

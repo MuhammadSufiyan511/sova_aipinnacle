@@ -31,10 +31,10 @@ export function MainChart() {
   const { homeDarkMode } = useApp();
 
   const gridColor = homeDarkMode ? '#1C3D3A' : '#DDEFE7';
-  const textColor = homeDarkMode ? '#94A3B8' : '#5F7C89';
+  const textColor = homeDarkMode ? '#94A3B8' : '#1E293B';
   const chartBg = homeDarkMode ? '#0A1B19' : '#FFFFFF';
   const chartBorder = homeDarkMode ? '#1C3D3A' : '#DDEFE7';
-  const eyebrowColor = homeDarkMode ? '#94A3B8' : '#6D8A88';
+  const eyebrowColor = homeDarkMode ? '#94A3B8' : '#3d4148';
   const headingColor = homeDarkMode ? '#FFFFFF' : '#173247';
   const pillBg = homeDarkMode ? '#064E3B' : '#ECFDF5';
   const pillText = homeDarkMode ? '#6EE7B7' : '#059669';
@@ -230,7 +230,7 @@ export function SourceDonut() {
           </PieChart>
         </ResponsiveContainer>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] dark:text-slate-400">
+          <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] dark:text-slate-400">
             {t('admin.overview.charts.leadMix.label')}
           </p>
           <p className="mt-1 font-display text-xl font-bold text-black">64%</p>

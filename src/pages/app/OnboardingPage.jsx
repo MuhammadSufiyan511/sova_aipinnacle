@@ -17,6 +17,7 @@ export function OnboardingPage() {
   const { t } = useTranslation()
   const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, setHomeDarkMode } = useApp()
   const [step, setStep] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   const [businessType, setBusinessType] = useState(null)
   const [products, setProducts] = useState([])
@@ -30,6 +31,13 @@ export function OnboardingPage() {
     t('onboarding.loader.steps.meta'),
     t('onboarding.loader.steps.workspace'),
   ]
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     if (step === 0) {
@@ -63,6 +71,26 @@ export function OnboardingPage() {
   const totalSteps = 3
   const currentStepNum = step >= 1 && step <= 3 ? step : null
 
+  // Performance optimized variants for mobile
+  const stepVariants = {
+    initial: (mob) => ({
+      opacity: 0,
+      x: mob ? 10 : 20,
+      y: mob ? 0 : 20,
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: { duration: 0.3, ease: 'easeOut' }
+    },
+    exit: (mob) => ({
+      opacity: 0,
+      x: mob ? -10 : -20,
+      transition: { duration: 0.2 }
+    })
+  }
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 py-10 onboarding-page-shell">
       <OnboardingThemeToggle
@@ -75,9 +103,9 @@ export function OnboardingPage() {
 
       <motion.div
         key="onboarding-main-container"
-        initial={{ opacity: 0, scale: 0.96 }}
+        initial={{ opacity: 0, scale: isMobile ? 1 : 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative z-10 w-full max-w-5xl 2xl:max-w-6xl 3xl:max-w-7xl onboarding-main-container"
+        className="relative z-10 w-full max-w-5xl 2xl:max-w-6xl 3xl:max-w-7xl onboarding-main-container will-change-transform"
       >
         <OnboardingProgress currentStepNum={currentStepNum} totalSteps={totalSteps} />
 
@@ -87,10 +115,12 @@ export function OnboardingPage() {
           {step === 1 && (
             <motion.div
               key="step-business"
-              className="mx-auto flex w-full max-w-4xl justify-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+              custom={isMobile}
+              variants={stepVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="mx-auto flex w-full max-w-4xl justify-center will-change-[transform,opacity]"
             >
               <StepZeroBusiness
                 businessType={businessType}
@@ -103,10 +133,12 @@ export function OnboardingPage() {
           {step === 2 && (
             <motion.div
               key="step-products"
-              className="mx-auto w-full max-w-4xl"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+              custom={isMobile}
+              variants={stepVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="mx-auto w-full max-w-4xl will-change-[transform,opacity]"
             >
               <StepOneProducts
                 products={products}
@@ -120,10 +152,12 @@ export function OnboardingPage() {
           {step === 3 && (
             <motion.div
               key="step-tone"
-              className="mx-auto flex w-full max-w-4xl justify-center"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.3 } }}
+              custom={isMobile}
+              variants={stepVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="mx-auto flex w-full max-w-4xl justify-center will-change-[transform,opacity]"
             >
               <StepTwoTone
                 tones={tones}

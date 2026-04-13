@@ -43,7 +43,7 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
       <Motion.div variants={item} className="flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <div>
           <h2 className="font-display text-[1.35rem] font-bold text-[#173247] admin-card-title">{t('admin.broadcasts.title')}</h2>
-          <p className="mt-0.5 text-[0.78rem] text-[#62808D] admin-card-desc">{t('admin.broadcasts.subtitle')}</p>
+          <p className="mt-0.5 text-[0.78rem] text-[#1E293B] admin-card-desc">{t('admin.broadcasts.subtitle')}</p>
         </div>
         <button className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-[0.82rem] font-bold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-600 admin-btn-primary">
           <Plus className="h-4 w-4" /> {t('admin.broadcasts.newBtn')}
@@ -58,7 +58,7 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
               <s.icon className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#6D8A88] admin-stat-label">{s.label}</p>
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] admin-stat-label">{s.label}</p>
               <p className="mt-0.5 font-display text-[1.6rem] font-extrabold text-[#173247] admin-stat-value">{s.value}</p>
             </div>
           </div>
@@ -70,7 +70,7 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
         <div className="mb-4 flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <div>
             <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">{t('admin.broadcasts.workflow.title')}</h3>
-            <p className="text-[0.74rem] text-[#62808D] admin-card-desc">{t('admin.broadcasts.workflow.subtitle')}</p>
+            <p className="text-[0.74rem] text-[#1E293B] admin-card-desc">{t('admin.broadcasts.workflow.subtitle')}</p>
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-[0.66rem] font-bold text-emerald-600 admin-pill">
             <Radio className="h-3 w-3" /> {t('admin.common.live')}
@@ -82,9 +82,9 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
               <div className={`flex flex-col  justify-center rounded-[20px] border-2 p-4 transition-all hover:shadow-md ${node.color} cursor-pointer admin-workflow-node`}>
                 <div className="flex items-center gap-2 sm:flex-col sm:items-start sm:gap-1">
                   <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${statusDots[node.status]}`} />
-                  <p className="text-[0.84rem] font-bold text-[#173247]">{node.label}</p>
+                  <p className="text-[0.84rem] font-bold text-[#1E293B]">{node.label}</p>
                 </div>
-                <p className="mt-1.5 text-[0.68rem] text-[#62808D]">{node.sub}</p>
+                <p className="mt-1.5 text-[0.68rem] text-[#1E293B]">{node.sub}</p>
                 <span className="mt-2 inline-block self-start rounded-full bg-white/70 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-[#476977]">{t(`admin.broadcasts.workflow.status.${node.status}`, node.status)}</span>
               </div>
               {i < workflowNodes.length - 0 && (
@@ -99,7 +99,7 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
 
       {/* Campaign List */}
       <Motion.div variants={item} className="space-y-3">
-        <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#6D8A88]">{t('admin.broadcasts.campaigns.title')}</p>
+        <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#1E293B]">{t('admin.broadcasts.campaigns.title')}</p>
         <AnimatePresence>
           {campaignsData.map((c) => {
             const statusKey = `admin.broadcasts.campaigns.status.${c.status.toLowerCase()}`
@@ -114,20 +114,20 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
                       <p className="text-[0.94rem] font-bold text-[#173247] admin-item-title">{c.name}</p>
                       <span className={`rounded-full border px-2.5 py-0.5 text-[0.62rem] font-bold uppercase tracking-[0.12em] ${c.color} admin-status-pill`}>{t(statusKey)}</span>
                     </div>
-                    <p className="mt-1 text-[0.74rem] text-[#62808D] admin-item-desc">
+                    <p className="mt-1 text-[0.74rem] text-[#1E293B] admin-item-desc">
                       {t('admin.broadcasts.campaigns.meta.audience', { count: c.audience })}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="inline-flex items-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-1.5 text-[0.72rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
+                    <button className="inline-flex items-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-1.5 text-[0.72rem] font-bold text-[#1E293B] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
                       <PlayCircle className="h-3.5 w-3.5" /> {t('admin.common.preview')}
                     </button>
-                    <button className="inline-flex items-center gap-1.5 rounded-full bg-[#F2FBF7] px-3 py-1.5 text-[0.72rem] font-bold text-[#295565] transition hover:bg-[#E0F4EC] admin-btn-tertiary">
+                    <button className="inline-flex items-center gap-1.5 rounded-full bg-[#F2FBF7] px-3 py-1.5 text-[0.72rem] font-bold text-[#1E293B] transition hover:bg-[#E0F4EC] admin-btn-tertiary">
                       <Send className="h-3.5 w-3.5" /> {t('admin.common.open')}
                     </button>
                   </div>
                 </div>
-                <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-[0.72rem] font-medium text-[#6D8A88] sm:justify-start admin-item-meta">
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-[0.72rem] font-medium text-[#1E293B] sm:justify-start admin-item-meta">
                   <span className="flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{c.sendAt}</span>
                   <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-[#10B981]" />{t('admin.broadcasts.campaigns.meta.powered')}</span>
                   {c.opens !== '—' && (

@@ -30,7 +30,7 @@ export function DashboardHeader({
         }
         onOpenMobile()
       }}
-      className="rounded-xl p-1.5 text-slate-500 transition hover:bg-slate-100"
+      className="rounded-xl p-1.5 text-slate-800 transition hover:bg-slate-100"
       aria-label={t('common.openMenu')}
     >
       <Menu className="h-4.5 w-4.5" />
@@ -97,7 +97,7 @@ export function DashboardHeader({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-[#f0faf6] text-slate-800 transition hover:bg-slate-100 hover:text-emerald-600 sm:h-9 sm:w-9"
           aria-label={homeDarkMode ? t('common.lightMode') : t('common.darkMode')}
         >
           {homeDarkMode ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
@@ -113,10 +113,10 @@ export function DashboardHeader({
         <div ref={langMenuRef} className="relative">
           <button
             onClick={onToggleLangOpen}
-            className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50 px-2 py-1.5 transition hover:bg-slate-100 sm:gap-1.5 sm:px-2.5"
+            className="flex items-center gap-1 rounded-xl border border-[#f0faf6] bg-[#f0faf6] px-2 py-1.5 transition hover:bg-slate-100 sm:gap-1.5 sm:px-2.5"
           >
             <span className="text-sm leading-none">{currentLanguage.flag}</span>
-            <span className="text-[0.68rem] font-bold text-slate-600">{currentLanguage.short}</span>
+            <span className="text-[0.68rem] font-bold text-slate-800">{currentLanguage.short}</span>
             <ChevronDown className={`h-3 w-3 text-slate-400 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
           </button>
           <AnimatePresence>

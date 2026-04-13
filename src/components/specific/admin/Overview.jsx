@@ -83,7 +83,7 @@ export const Overview = memo(function Overview() {
             </div>
             <div className="w-full mt-3">
                <div className="flex items-center justify-center sm:justify-between">
-                  <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#6D8A88] admin-stat-label">{stat.name}</p>
+                  <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#1E293B] admin-stat-label">{stat.name}</p>
                   <span className="hidden items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#059669] admin-stat-change sm:inline-flex">
                     <ArrowUpRight className="h-3 w-3" />
                     {stat.change}
@@ -101,8 +101,8 @@ export const Overview = memo(function Overview() {
         <Motion.div variants={item} className="rounded-[26px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:p-5 admin-chart-card">
           <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
             <div>
-              <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">{t('admin.overview.charts.leadMix.title')}</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">{t('admin.overview.charts.leadMix.subtitle')}</p>
+              <h3 className="font-display text-[1rem] font-bold text-[#1E293B] admin-card-title">{t('admin.overview.charts.leadMix.title')}</h3>
+              <p className="text-[0.76rem] font-semibold text-[#1E293B] admin-card-desc">{t('admin.overview.charts.leadMix.subtitle')}</p>
             </div>
             <ShieldCheck className="h-4.5 w-4.5 text-[#10B981]" />
           </div>
@@ -118,7 +118,7 @@ export const Overview = memo(function Overview() {
           <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
             <div>
               <h3 className="font-display text-[1rem] font-bold text-[#173247] admin-card-title">{t('admin.overview.charts.leadsByDay.title')}</h3>
-              <p className="text-[0.76rem] font-semibold text-[#62808D] admin-card-desc">{t('admin.overview.charts.leadsByDay.subtitle')}</p>
+              <p className="text-[0.76rem] font-semibold text-[#1E293B] admin-card-desc">{t('admin.overview.charts.leadsByDay.subtitle')}</p>
             </div>
             <div className="rounded-full bg-violet-50 px-2.5 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">{t('admin.overview.charts.leadsByDay.pill')}</div>
           </div>

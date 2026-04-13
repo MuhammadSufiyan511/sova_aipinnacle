@@ -129,7 +129,7 @@ export const FilesOverview = memo(function FilesOverview() {
       <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
         <div>
           <h2 className="admin-card-title font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem]">{t('admin.files.title')}</h2>
-          <p className="text-[0.72rem] text-[#62808D] sm:text-[0.78rem]">
+          <p className="text-[0.72rem] text-[#1E293B] sm:text-[0.78rem]">
             {t('admin.files.subtitle', { count: files.length, s: files.length !== 1 ? 's' : '' })}
           </p>
         </div>
@@ -154,7 +154,7 @@ export const FilesOverview = memo(function FilesOverview() {
             <FileIcon className="h-5 w-5 text-[#6B93A0] sm:h-6 sm:w-6" />
           </div>
           <p className="font-bold text-[#295565]">{t('admin.files.empty.title')}</p>
-          <p className="mt-1 max-w-xs text-[0.74rem] text-[#62808D]">{t('admin.files.empty.desc')}</p>
+          <p className="mt-1 max-w-xs text-[0.74rem] text-[#1E293B]">{t('admin.files.empty.desc')}</p>
           <Motion.button whileHover={{ scale: 1.03 }} onClick={openAddModal} className="mt-5 flex items-center gap-2 rounded-xl bg-cyan-500 px-4 py-2 text-[0.78rem] font-bold text-white shadow-md shadow-cyan-500/20">
             <Plus className="h-4 w-4" /> {t('admin.files.empty.btn')}
           </Motion.button>
@@ -164,7 +164,7 @@ export const FilesOverview = memo(function FilesOverview() {
           <div className="admin-files-controls rounded-[22px] border border-[#DDEFE7] bg-white p-3.5 shadow-sm">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="relative w-full lg:max-w-sm">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#86A29B]" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#1E293B]" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -208,7 +208,7 @@ export const FilesOverview = memo(function FilesOverview() {
                   .replace('{{total}}', String(filteredFiles.length))}
               </p>
               <div className="flex items-center justify-center gap-2 sm:justify-end">
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
+                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">
                   {translateOr('admin.files.controls.show', 'Show')}
                 </span>
                 <select
@@ -226,7 +226,7 @@ export const FilesOverview = memo(function FilesOverview() {
                     </option>
                   ))}
                 </select>
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#86A29B]">
+                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">
                   / {translateOr('admin.files.controls.perPage', 'page')}
                 </span>
               </div>

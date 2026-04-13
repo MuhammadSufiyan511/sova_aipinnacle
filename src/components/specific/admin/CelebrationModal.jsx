@@ -2,11 +2,19 @@ import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { CheckCircle2, MessageSquare, Rocket, ShieldCheck, Sparkles, TrendingUp, X, Zap } from 'lucide-react'
 import sovaLogo from '../../../assets/logos/sova.png'
 import { useTranslation, Trans } from 'react-i18next'
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 
 export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose }) {
   const { t, i18n } = useTranslation()
   const isRTL = i18n.dir() === 'rtl'
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const featureHighlights = [
     { icon: Zap, text: t('admin.celebration.features.replies'), color: 'bg-amber-50 text-amber-500' },
@@ -20,17 +28,26 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
     { icon: Sparkles, label: t('admin.celebration.checklist.followups') },
   ]
 
+  // Optimized confetti count for mobile
+  const particleCount = isMobile ? 6 : 12
+
   return (
     <AnimatePresence>
       {isOpen ? (
         <>
-          <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] bg-[#173247]/34 backdrop-blur-md" onClick={onClose} />
+          <Motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className={`fixed inset-0 z-[100] bg-[#173247]/34 ${isMobile ? '' : 'backdrop-blur-md'}`} 
+            onClick={onClose} 
+          />
           <Motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.92, y: isMobile ? 12 : 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 24 }}
+            exit={{ opacity: 0, scale: isMobile ? 1 : 0.92, y: isMobile ? 12 : 24 }}
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-            className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-x-hidden overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-[92vw] sm:overflow-hidden sm:p-6"
+            className="fixed left-1/2 top-1/2 z-[110] h-[90vh] w-[92vw] max-w-[880px] -translate-x-1/2 -translate-y-1/2 overflow-x-hidden overflow-y-auto rounded-[34px] border border-[#DDEFE7] bg-white p-5 shadow-2xl sm:h-auto sm:w-[92vw] sm:overflow-hidden sm:p-6 will-change-[transform,opacity]"
           >
             <button
               type="button"
@@ -40,14 +57,15 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
             >
               <X className="h-4.5 w-4.5" />
             </button>
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />
-            {[...Array(12)].map((_, index) => (
+            <div className={`absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 ${isMobile ? '' : 'blur-3xl'}`} />
+            <div className={`absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-violet-500/10 ${isMobile ? '' : 'blur-3xl'}`} />
+            
+            {[...Array(particleCount)].map((_, index) => (
               <Motion.span
                 key={index}
                 className="absolute h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[#10B981] to-[#A78BFA]"
                 initial={{ opacity: 0, x: 0, y: 0, left: '50%', top: '25%' }}
-                animate={{ opacity: [0, 1, 0], x: [0, (index - 6) * 18], y: [0, 58 + (index % 3) * 22] }}
+                animate={{ opacity: [0, 1, 0], x: [0, (index - (particleCount/2)) * 18], y: [0, 58 + (index % 3) * 22] }}
                 transition={{ duration: 2.2, delay: index * 0.06, repeat: Infinity, repeatDelay: 1.8 }}
               />
             ))}
@@ -55,11 +73,11 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
             <div className="relative flex flex-col items-center gap-6 lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
               <div className="w-full rounded-[28px] bg-gradient-to-br from-[#164E46] via-[#0F6A63] to-[#10B981] p-6 text-white shadow-[0_24px_80px_rgba(16,185,129,0.22)]">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur">
+                  <span className={`flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-white/10 ${isMobile ? '' : 'backdrop-blur'}`}>
                     <img src={sovaLogo} alt="SOVA logo" className="h-10 w-10 object-contain" />
                   </span>
                   <div>
-                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-white/60">{t('admin.celebration.eyebrow')}</p>
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-white">{t('admin.celebration.eyebrow')}</p>
                     <p className="mt-1 text-lg font-bold">{t('admin.celebration.title')}</p>
                   </div>
                 </div>
@@ -89,7 +107,7 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
                   />
                 </Motion.h2>
 
-                <Motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-3 max-w-xl text-[0.84rem] font-medium leading-relaxed text-[#62808D] sm:text-[0.92rem]">
+                <Motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-3 max-w-xl text-[0.84rem] font-medium leading-relaxed text-[#1E293B] sm:text-[0.92rem]">
                    {t('admin.celebration.desc')}
                 </Motion.p>
 
@@ -105,7 +123,7 @@ export const CelebrationModal = memo(function CelebrationModal({ isOpen, onClose
                       <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${feature.color} shadow-sm`}>
                         <feature.icon className="h-6 w-6" />
                       </div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#6D8A88]">{feature.text}</p>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#1E293B]">{feature.text}</p>
                     </Motion.div>
                   ))}
                 </div>

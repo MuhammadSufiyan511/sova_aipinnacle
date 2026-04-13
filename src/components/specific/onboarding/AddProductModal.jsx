@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { X, Upload, Check, FileText, PlayCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -12,8 +12,16 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
   const [imagePreview, setImagePreview] = useState(initialProduct?.imagePreview || null)
   const [mediaType, setMediaType] = useState(initialProduct?.mediaType || null)
   const [mediaName, setMediaName] = useState(initialProduct?.mediaName || '')
+  const [isMobile, setIsMobile] = useState(false)
   const fileInputRef = useRef(null)
   const isEditMode = Boolean(initialProduct)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const resetForm = () => {
     setName('')
@@ -82,13 +90,13 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+            className="absolute inset-0 backdrop-blur-sm"
           />
           <Motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 10 : 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-md overflow-hidden rounded-[32px] border border-white/50 bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.1)] backdrop-blur-xl"
+            exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 10 : 20 }}
+            className={`relative w-full max-w-md overflow-hidden rounded-[32px] border border-white/50 bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.1)] ${isMobile ? '' : 'backdrop-blur-xl'} will-change-[transform,opacity]`}
           >
             <button
               onClick={handleClose}
@@ -101,13 +109,13 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
             <h3 className="font-display text-2xl font-bold text-slate-900">
               {isEditMode ? t('onboarding.products.modal.titleUpdate') : t('onboarding.products.modal.titleAdd')}
             </h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-900">
               {isEditMode ? t('onboarding.products.modal.subtitleUpdate') : t('onboarding.products.modal.subtitleAdd')}
             </p>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-900">
                   {t('onboarding.products.modal.mediaLabel')}
                 </label>
                 <div
@@ -125,7 +133,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                     ) : mediaType === 'file' ? (
                       <div className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#F2FBF7] px-4 text-center">
                         <FileText className="h-7 w-7 text-emerald-600" />
-                        <span className="line-clamp-2 text-[0.7rem] font-semibold text-slate-600">{mediaName || 'File attached'}</span>
+                        <span className="line-clamp-2 text-[0.7rem] font-semibold text-slate-900">{mediaName || 'File attached'}</span>
                       </div>
                     ) : (
                       <img src={imagePreview} alt="Preview" className="h-full w-full rounded-2xl object-cover" />
@@ -133,9 +141,9 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       <div className="rounded-full bg-white p-2 shadow-sm group-hover:scale-110 transition">
-                        <Upload className="h-5 w-5 text-slate-400 group-hover:text-emerald-500" />
+                        <Upload className="h-5 w-5 text-slate-900 group-hover:text-emerald-500" />
                       </div>
-                      <span className="text-xs font-medium text-slate-400 group-hover:text-emerald-600">
+                      <span className="text-xs font-medium text-slate-900 group-hover:text-emerald-600">
                         {t('onboarding.products.modal.mediaHelp')}
                       </span>
                     </div>
@@ -151,7 +159,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-900">
                   {t('onboarding.products.modal.nameLabel')}
                 </label>
                 <input
@@ -165,7 +173,7 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-900">
                   {t('onboarding.products.modal.descLabel')}
                 </label>
                 <textarea

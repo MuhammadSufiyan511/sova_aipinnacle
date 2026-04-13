@@ -37,11 +37,11 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
             Add your <span className="text-emerald-500">products</span>
           </Trans>
         </h2>
-        <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-500 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
+        <p className="mx-auto mt-4 max-w-lg px-4 text-[0.95rem] leading-6 text-slate-800 sm:text-[1.1rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.products.subtitle')}
         </p>
       </Motion.div>
- 
+
       <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {/* Product Cards */}
         <AnimatePresence mode="popLayout">
@@ -93,12 +93,12 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
               </button>
             </Motion.div>
           ))}
- 
+
           {/* Add Button Card */}
           <Motion.button
             layout
             onClick={() => setIsModalOpen(true)}
-            className="group flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-200 bg-slate-50/50 text-slate-400 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
+            className="group flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-600 bg-slate-50/50 text-slate-600 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
           >
             <div className="rounded-full bg-white p-2.5 sm:p-3 shadow-sm transition group-hover:scale-110 onboarding-add-icon-shell">
               <Plus className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -107,7 +107,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
           </Motion.button>
         </AnimatePresence>
       </div>
- 
+
       <div className="mt-12 flex flex-col items-center justify-center gap-3.5 sm:mt-16 sm:flex-row">
         {onBack && (
           <button

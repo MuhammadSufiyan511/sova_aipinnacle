@@ -108,7 +108,7 @@ export const ConversationsOverview = memo(function ConversationsOverview() {
             </div>
 
             <div className="admin-chat-container flex-1 overflow-y-auto bg-[linear-gradient(180deg,#F8FFFC_0%,#F2FBF7_100%)] p-4">
-              <div className="admin-chat-preview-pill mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-[#DDEFE7] bg-white/90 px-3 py-1 text-[0.62rem] font-semibold text-[#6D8A88] shadow-sm">
+              <div className="admin-chat-preview-pill mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-[#DDEFE7] bg-white/90 px-3 py-1 text-[0.62rem] font-semibold text-[#10B981] shadow-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
                 {t('admin.chat.previewLabel')}
               </div>
@@ -133,12 +133,12 @@ export const ConversationsOverview = memo(function ConversationsOverview() {
                           <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#ECFDF5] text-[0.52rem] font-extrabold uppercase tracking-[0.08em] text-[#10B981]">
                             AI
                           </span>
-                          <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88] admin-bubble-label">
+                          <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#10B981] admin-bubble-label">
                             {t('admin.chat.sovaLabel')}
                           </p>
                         </div>
                       ) : (
-                        <p className="mb-1.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#4D6B62] admin-bubble-label">
+                        <p className="mb-1.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#1E293B] admin-bubble-label">
                           {selected.user}
                         </p>
                       )}
