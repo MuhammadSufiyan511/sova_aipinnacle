@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Eye, File as FileIcon, FileText, Image as ImageIcon, Pencil, PlayCircle, Plus, Search, ToggleLeft, ToggleRight, Trash2, Video, X, Zap } from 'lucide-react'
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../../../context/AppProvider'
 import { AddFileModal } from '../onboarding/AddFileModal'
@@ -72,6 +72,14 @@ export const FilesOverview = memo(function FilesOverview() {
   const [typeFilter, setTypeFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const translateOr = (key, fallback) => {
     const value = t(key)
@@ -401,13 +409,14 @@ export const FilesOverview = memo(function FilesOverview() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setViewingFile(null)}
-              className="absolute inset-0 bg-slate-900/45 backdrop-blur-sm"
+              className={`absolute inset-0 bg-[#0F172A]/70 ${isMobile ? '' : 'backdrop-blur-sm'}`}
             />
             <Motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 18 }}
+              initial={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 12 : 18 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 18 }}
-              className="admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)]"
+              exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 18 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)] will-change-[transform,opacity]"
             >
               <button
                 type="button"

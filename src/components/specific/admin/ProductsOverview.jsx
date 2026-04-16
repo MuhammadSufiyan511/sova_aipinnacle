@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Eye, FileText, Package, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, ArrowRight, Tag, Box, BadgeCheck, TrendingUp } from 'lucide-react'
-import { useMemo, useState, memo } from 'react'
+import { useMemo, useState, memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../../context/AppProvider'
 import { ROUTES } from '../../../utils/routes'
@@ -235,6 +235,14 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const translateOr = (key, fallback) => {
     const value = t(key)
@@ -471,13 +479,14 @@ export const ProductsOverview = memo(function ProductsOverview() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setViewingProduct(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+              className={`absolute inset-0 bg-[#0F172A]/70 ${isMobile ? '' : 'backdrop-blur-xl'}`}
             />
             <Motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 30 }}
+              initial={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 12 : 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 30 }}
-              className="admin-modal-lux admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[24px] md:rounded-[32px] border border-white/20 bg-white/95 shadow-[0_40px_100px_rgba(15,23,42,0.3)] backdrop-blur-2xl"
+              exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 30 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="admin-modal-lux admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[24px] md:rounded-[32px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] will-change-[transform,opacity]"
             >
               <button
                 type="button"
