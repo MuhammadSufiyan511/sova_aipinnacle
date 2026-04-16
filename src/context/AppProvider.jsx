@@ -74,13 +74,13 @@ export function AppProvider({ children }) {
 
     setFiles((prev) => prev.filter((file) => file.id !== updatedProduct.id))
     setProducts((prev) => {
-      const hasExisting = prev.some((product) => product.id === updatedProduct.id)
+      const hasExisting = prev.some((product) => String(product.id) === String(updatedProduct.id))
       return hasExisting
-        ? prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+        ? prev.map((product) => (String(product.id) === String(updatedProduct.id) ? updatedProduct : product))
         : [...prev, updatedProduct]
     })
   }
-  const removeProduct = (id) => setProducts((prev) => prev.filter((product) => product.id !== id))
+  const removeProduct = (id) => setProducts((prev) => prev.filter((product) => String(product.id) !== String(id)))
   const addFile = (file) => setFiles((prev) => [...prev, file])
   const updateFile = (updatedFile) =>
     setFiles((prev) => prev.map((file) => (file.id === updatedFile.id ? updatedFile : file)))

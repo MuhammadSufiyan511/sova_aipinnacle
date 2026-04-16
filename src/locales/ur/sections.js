@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'بہتر سیل دیں',
   pricingEyebrow: 'پرائسنگ',
   pricingTitle: 'سادہ اور صاف پلانز',
-  pricingDescription: 'فری سے شروع کریں، اور ضرورت پڑنے پر اپگریڈ کریں۔',
+  pricingDescription: '7 دن کے مفت ٹرائل سے شروع کریں، سوفا کو آزمائیں، اور جیسے ہی آپ کا WhatsApp کام بڑھے تو اپگریڈ کریں۔',
   reviewsEyebrow: 'ریویوز',
   reviewsTitle: 'لوگ کیا کہتے ہیں',
   reviewsDescription: 'روزانہ سوفا استعمال کرنے والی ٹیموں کی مختصر رائے۔',
@@ -35,6 +35,6 @@ export const sections = {
   privacyDescription: 'یہاں بتایا گیا ہے کہ ہم کیا ڈیٹا لیتے ہیں، کیسے استعمال کرتے ہیں، اور کیسے محفوظ رکھتے ہیں۔',
   finalTitle: 'آج ہی شروع کریں',
   finalButton: 'ابھی شروع کریں!',
-  industrySummaries: 'Industry summaries',
-  industryUseCases: 'Industry use cases'
+  industrySummaries: 'انڈسٹری کا خلاصہ',
+  industryUseCases: 'انڈسٹری کے استعمال'
 }

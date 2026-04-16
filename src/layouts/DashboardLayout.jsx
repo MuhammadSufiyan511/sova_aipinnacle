@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { BarChart3, Box, Files, LayoutDashboard, MessageSquare, Radio, Settings } from 'lucide-react'
+import { BarChart3, Box, Files, LayoutDashboard, MessageSquare, PlusCircle, Radio, Settings } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -31,6 +31,7 @@ export function DashboardLayout({ children }) {
       label: t('admin.nav.catalog'),
       path: ROUTES.adminProducts,
       children: [
+        { icon: PlusCircle, label: t('admin.nav.addProduct'), path: ROUTES.adminAddProduct },
         { icon: Box, label: t('admin.nav.products'), path: ROUTES.adminProducts },
         { icon: Files, label: t('admin.nav.files'), path: ROUTES.adminFiles },
       ],
@@ -51,7 +52,7 @@ export function DashboardLayout({ children }) {
         ? { label: t('admin.nav.profile'), path: ROUTES.adminProfile }
         : location.pathname === ROUTES.adminUpgrade
           ? { label: t('admin.upgrade.navLabel'), path: ROUTES.adminUpgrade }
-        : links[0])
+          : links[0])
 
   const currentLanguage = LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[0]
 
@@ -92,9 +93,8 @@ export function DashboardLayout({ children }) {
             animate={{ x: 0 }}
             exit={{ x: isRTL ? 224 : -224 }}
             transition={{ duration: 0.22, ease: 'easeInOut' }}
-            className={`fixed bottom-0 top-0 hidden w-56 shadow-[4px_0_24px_rgba(15,23,42,0.12)] lg:block ${
-              isRTL ? 'right-0' : 'left-0'
-            }`}
+            className={`fixed bottom-0 top-0 hidden w-56 shadow-[4px_0_24px_rgba(15,23,42,0.12)] lg:block ${isRTL ? 'right-0' : 'left-0'
+              }`}
           >
             <SidebarContent links={links} location={location} navigate={navigate} onClose={null} />
           </Motion.aside>
@@ -116,9 +116,8 @@ export function DashboardLayout({ children }) {
               animate={{ x: 0 }}
               exit={{ x: isRTL ? 224 : -224 }}
               transition={{ type: 'spring', stiffness: 360, damping: 36 }}
-              className={`fixed bottom-0 top-0 z-50 w-56 shadow-2xl lg:hidden ${
-                isRTL ? 'right-0' : 'left-0'
-              }`}
+              className={`fixed bottom-0 top-0 z-50 w-56 shadow-2xl lg:hidden ${isRTL ? 'right-0' : 'left-0'
+                }`}
             >
               <SidebarContent
                 collapseOnNavigate

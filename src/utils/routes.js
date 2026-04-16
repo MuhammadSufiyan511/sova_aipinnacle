@@ -18,4 +18,6 @@ export const ROUTES = {
   adminSettings: '/admin/settings',
   adminProfile: '/admin/profile',
   adminUpgrade: '/admin/upgrade',
+  adminAddProduct: '/admin/products/new',
+  adminEditProduct: '/admin/products/edit/:id',
 }

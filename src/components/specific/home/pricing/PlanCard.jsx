@@ -39,7 +39,12 @@ export const PlanCard = memo(function PlanCard({ plan, index, isPopular, t }) {
         )}
       </div>
 
-      <div className="mt-6 flex items-end gap-1.5">
+      {plan.tierInclude && (
+        <p className="mb-2 text-[0.72rem] font-bold uppercase tracking-wider text-[#F1990A]">
+          {plan.tierInclude}
+        </p>
+      )}
+      <div className="flex items-end gap-1.5">
         <span className={`${plan.price.length > 5 ? 'text-[2.2rem]' : 'text-[2.8rem]'} font-display font-extrabold tracking-[-0.05em] text-[#1E293B]`}>
           {plan.price}
         </span>

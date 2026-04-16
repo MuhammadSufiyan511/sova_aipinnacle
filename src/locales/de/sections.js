@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'besser zu verkaufen',
   pricingEyebrow: 'Preise',
   pricingTitle: 'Einfach gehaltene Pläne',
-  pricingDescription: 'Starte kostenlos und upgrade, wenn dein Volumen wächst.',
+  pricingDescription: 'Starte mit einer 7-tägigen kostenlosen Testphase, teste SOVA und upgrade, wenn dein WhatsApp-Volumen wächst.',
   reviewsEyebrow: 'Bewertungen',
   reviewsTitle: 'Was Kunden sagen',
   reviewsDescription: 'Kurzes Feedback von Teams, die SOVA täglich nutzen.',

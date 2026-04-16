@@ -1517,4 +1517,193 @@
     background: linear-gradient(to bottom right, #064E3B, #0A1B19) !important;
     color: #34D399 !important;
   }
+
+  /* Admin Product Management Suite (Wizard & Modal) */
+  .home-dark-mode .admin-product-wizard {
+    background-color: #040D0C !important;
+  }
+
+  .home-dark-mode .admin-product-wizard h1 {
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .admin-section-card {
+    background: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+    box-shadow: 0 20px 50px rgba(4, 13, 12, 0.6) !important;
+  }
+
+  .home-dark-mode .admin-section-card h2 {
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .admin-section-card p {
+    color: #FAF7ED !important;
+    opacity: 0.8;
+  }
+
+  .home-dark-mode .admin-pro-input {
+    background-color: #040D0C !important;
+    border-color: #1C3D3A !important;
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .admin-pro-input:focus {
+    border-color: #10B981 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+    background-color: #0A1B19 !important;
+  }
+
+  .home-dark-mode .admin-pro-input option {
+    background-color: #0A1B19 !important;
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .admin-wizard-step {
+    background-color: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+    color: #FAF7ED99 !important;
+    box-shadow: none !important;
+  }
+
+  .home-dark-mode .admin-wizard-step.is-active {
+    background-color: #064E3B !important;
+    color: #FFFFFF !important;
+    border-color: #10B981 !important;
+  }
+
+  .home-dark-mode .admin-wizard-step:hover:not(.is-active) {
+    background-color: #142B2A !important;
+    color: #FAF7ED !important;
+  }
+
+  .home-dark-mode .admin-footer-actions {
+    background-color: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+    box-shadow: 0 -20px 50px rgba(4, 13, 12, 0.4) !important;
+  }
+
+  /* Premium CTA Logic */
+  .admin-cta-premium {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .admin-cta-premium::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background: linear-gradient(135deg, #10B981 0%, #F59E0B 50%, #10B981 100%);
+    background-size: 200% auto;
+  }
+
+  .home-dark-mode .admin-cta-premium {
+    background: linear-gradient(to right, #10B981, #065F46) !important;
+    border: 1px solid #10B98133 !important;
+    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.3) !important;
+  }
+
+  .home-dark-mode .admin-cta-premium:hover {
+    background: linear-gradient(to right, #34D399, #F59E0B) !important;
+    box-shadow: 0 15px 45px -10px rgba(245, 158, 11, 0.4) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+  }
+
+  .home-dark-mode .admin-cta-secondary {
+    color: #34D399CC !important;
+  }
+
+  .home-dark-mode .admin-cta-secondary:hover {
+    color: #34D399 !important;
+    background: rgba(16, 185, 129, 0.08) !important;
+  }
+
+  /* Inspection Modal (Lux Sova Version) */
+  .home-dark-mode .admin-modal-lux {
+    background-color: #020617 !important; /* Denser Midnight */
+    border: 1px solid rgba(245, 158, 11, 0.15) !important; /* Gold Dust Border */
+    backdrop-filter: blur(40px) saturate(200%) !important;
+    box-shadow: 
+      0 0 0 1px rgba(245, 158, 11, 0.05),
+      0 40px 100px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .home-dark-mode .admin-modal-close-btn {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #FAF7ED !important;
+    backdrop-filter: blur(12px) !important;
+  }
+
+  .home-dark-mode .admin-modal-close-btn:hover {
+    background: #EF4444 !important;
+    color: #FFFFFF !important;
+    border-color: #EF4444 !important;
+  }
+
+  .home-dark-mode .admin-modal-ribbon {
+    background-color: rgba(10, 27, 25, 0.6) !important;
+    border-color: rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .home-dark-mode .admin-modal-divider {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .home-dark-mode .admin-modal-value {
+    color: #FFFFFF !important;
+  }
+
+  .home-dark-mode .admin-modal-description {
+    color: #FAF7EDCC !important;
+  }
+
+  .home-dark-mode .admin-modal-tag {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #FAF7ED99 !important;
+  }
+
+  .home-dark-mode .admin-modal-badge-emerald {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    color: #34D399 !important;
+  }
+
+  .home-dark-mode .admin-modal-badge-dark {
+    background: #0F172A !important;
+    border: 1px solid #1E293B !important;
+    color: #FAF7ED !important;
+  }
+
+  .home-dark-mode .admin-modal-specs {
+    border-top: 1px solid rgba(16, 185, 129, 0.1) !important;
+    padding-top: 2rem !important;
+  }
+
+  .home-dark-mode .admin-modal-specs h4 {
+     color: #34D399 !important;
+  }
+
+  .home-dark-mode .admin-btn-danger-glass {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
+    color: #F87171 !important;
+    box-shadow: none !important;
+  }
+
+  .home-dark-mode .admin-btn-danger-glass:hover {
+    background: #EF4444 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+  }
+
+  /* Media Management Refinements */
+  .home-dark-mode .admin-media-sidebar section {
+    background-color: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+  }
 }

@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'ভালো বিক্রি করতে সাহায্য করে',
   pricingEyebrow: 'প্রাইসিং',
   pricingTitle: 'সহজ রাখা প্ল্যান',
-  pricingDescription: 'ফ্রি শুরু করুন, দরকার হলে পরে আপগ্রেড করুন।',
+  pricingDescription: '৭ দিনের ফ্রি ট্রায়াল দিয়ে শুরু করুন, SOVA যাচাই করুন এবং যখন আপনার WhatsApp ব্যবহারের পরিমাণ বাড়বে তখন আপগ্রেড করুন।',
   reviewsEyebrow: 'রিভিউ',
   reviewsTitle: 'কাস্টমাররা কী বলছে',
   reviewsDescription: 'প্রতিদিন SOVA ব্যবহার করা টিমগুলোর ছোট ছোট ফিডব্যাক।',

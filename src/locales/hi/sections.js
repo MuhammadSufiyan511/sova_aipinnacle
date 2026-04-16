@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'बेहतर बेचने में मदद करें',
   pricingEyebrow: 'प्राइसिंग',
   pricingTitle: 'सिंपल प्लान्स',
-  pricingDescription: 'फ्री शुरू करें और ज़रूरत बढ़ने पर अपग्रेड करें।',
+  pricingDescription: '7-दिनों के फ्री ट्रायल से शुरू करें, SOVA को आज़माएँ और ज़रूरत पड़ने पर अपग्रेड करें।',
   reviewsEyebrow: 'रिव्यू',
   reviewsTitle: 'कस्टमर्स क्या कहते हैं',
   reviewsDescription: 'हर दिन SOVA इस्तेमाल करने वाले बिज़नेस की राय।',

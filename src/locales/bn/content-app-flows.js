@@ -1,69 +1,69 @@
 export const onboarding = {
   business: {
-    title: 'আপনি কী ধরনের ব্যবসা পরিচালনা করেন?',
-    subtitle: 'এটি SOVA-কে আপনার কাজের ধারা এবং প্রযুক্তিগত প্রয়োজন বুঝতে সাহায্য করে।',
+    title: 'আপনি কোন ধরনের ব্যবসা পরিচালনা করেন?',
+    subtitle: 'SOVA আপনার নির্দিষ্ট শিল্পের ভিত্তিতে তার প্রতিক্রিয়া এবং লিড শনাক্তকরণ কাস্টমাইজ করে।',
     searchPlaceholder: 'শিল্প অনুসন্ধান করুন...',
     customCategoryPlaceholder: 'আপনার ব্যবসার বিভাগ লিখুন...',
-    nextBtn: 'আমার ব্যবসা নির্বাচন করুন ←',
+    nextBtn: 'আমার শিল্প নির্বাচন করুন ←',
     categories: {
-      clothing: { label: 'পোশাক ও ফ্যাশন', desc: 'সাইজ, স্টক এবং ডেলিভারি সম্পর্কে স্বয়ংক্রিয় উত্তর' },
-      jewellery: { label: 'অলঙ্কার ও রত্ন', desc: 'ক্যাটালগ দেখান এবং সোনার দামের প্রশ্ন সমাধান করুন' },
-      toys: { label: 'খেলনা ও রিসেলিং', desc: 'পাইকারি ক্রেতা এবং অনুসন্ধান ফিল্টার করুন' },
-      'books-stationary': { label: 'বই ও স্টেশনারি', desc: 'বইয়ের নাম এবং স্টকের তাৎক্ষণিক অনুসন্ধান' },
-      'dry-fruits': { label: 'শুকনো ফল ও বাদাম', desc: 'দাম, ওজন এবং মৌসুমী পাইকারি অর্ডার' },
-      decoration: { label: 'ইভেন্ট ডেকোরেশন', desc: 'থিম গাইড এবং প্যাকেজ খরচের স্বয়ংক্রিয়তা' },
-      electronics: { label: 'ইলেকট্রনিক্স ও গ্যাজেট', desc: 'পণ্যের বিবরণ এবং সেলস হ্যান্ডঅফ' },
-      'medical-instruments': { label: 'চিকিৎসা সরঞ্জাম', desc: 'ক্লিনিক্যাল গিয়ার এবং প্রযুক্তিগত বিবরণ' },
-      'surgical-instruments': { label: 'সার্জিক্যাল সরঞ্জাম', desc: 'নির্ভুল সরঞ্জাম এবং পাইকারি ছাড়' },
-      hardware: { label: 'হার্ডওয়্যার ও টুলস', desc: 'বিল্ডার এবং ঠিকাদার সরঞ্জাম সংক্রান্ত প্রশ্ন' },
-      fireworks: { label: 'আতশবাজি ও নিরাপত্তা', desc: 'মৌসুমী ক্যাটালগ এবং নিরাপত্তা নির্দেশিকা' },
-      service: { label: 'সেবা ব্যবসা', desc: 'বুকিং, পরামর্শ এবং স্থানীয় পরিষেবা' },
-      agency: { label: 'এজেন্সি ও B2B', desc: 'পেশাদার পরিষেবা এবং ক্লায়েন্ট ব্যবস্থাপনা' },
-      creator: { label: 'কন্টেন্ট ক্রিয়েটর', desc: 'ডিজিটাল পণ্য এবং কমিউনিটি তৈরি' },
-      other: { label: 'অন্য কিছু', desc: 'আপনার অনন্য ব্যবসার ক্ষেত্রটি উল্লেখ করুন' }
+      clothing: { label: 'পোশাক', desc: 'পরিধেয় বস্ত্র, জুতা, আনুষাঙ্গিক।' },
+      jewellery: { label: 'অলঙ্কার', desc: 'সোনা, রূপা, গহনা।' },
+      toys: { label: 'খেলনা', desc: 'শিশুদের খেলনা, পাজল, গেমস।' },
+      'books-stationary': { label: 'বই ও স্টেশনারি', desc: 'শিক্ষা, অফিস সামগ্রী।' },
+      'dry-fruits': { label: 'শুকনো ফল', desc: 'বাদাম, কাজু, খেজুর।' },
+      decoration: { label: 'সজ্জা', desc: 'অনুষ্ঠান, থিম, ঘর সাজানোর সামগ্রী।' },
+      electronics: { label: 'ইলেকট্রনিক্স', desc: 'ফোন, গ্যাজেট, আনুষাঙ্গিক সরঞ্জাম।' },
+      'medical-instruments': { label: 'চিকিৎসা সরঞ্জাম', desc: 'হাসপাতাল এবং ক্লিনিকের সরঞ্জাম।' },
+      'surgical-instruments': { label: 'সার্জিক্যাল সরঞ্জাম', desc: 'সূক্ষ্ম সরঞ্জাম এবং সেট।' },
+      hardware: { label: 'হার্ডওয়্যার', desc: 'সরঞ্জাম, সামগ্রী, ফিক্সচার।' },
+      fireworks: { label: 'আতশবাজি', desc: 'উদযাপন এবং অনুষ্ঠানমূলক সামগ্রী।' },
+      service: { label: 'সেবা ব্যবসা', desc: 'বুকিং, কনসাল্টিং, স্থানীয় সেবা।' },
+      agency: { label: 'এজেন্সি ও B2B', desc: 'ক্লায়েন্ট, পিচ, রিটেইনার।' },
+      creator: { label: 'কন্টেন্ট ক্রিয়েটর', desc: 'ডিজিটাল পণ্য, দর্শক-কেন্দ্রিক ব্যবসা।' },
+      other: { label: 'অন্যান্য', desc: 'আপনার ব্যবসায়ের জন্য বিশেষ কিছু।' }
     }
   },
   products: {
     title: 'আপনার পণ্য যোগ করুন',
-    subtitle: 'SOVA এই ক্যাটালগ ব্যবহার করে গ্রাহকদের প্রশ্নের উত্তর স্বয়ংক্রিয়ভাবে দেবে।',
+    subtitle: 'SOVA স্বয়ংক্রিয়ভাবে ক্রেতার প্রশ্নের উত্তর দিতে আপনার ক্যাটালগ ব্যবহার করে।',
     addBtn: 'পণ্য যোগ করুন',
     nextBtn: 'সংরক্ষণ করুন এবং অগ্রসর হন ←',
-    toastError: 'এগিয়ে যাওয়ার জন্য অন্তত একটি পণ্য যোগ করুন যাতে SOVA আপনার ব্যবসা সম্পর্কে শিখতে পারে।',
+    toastError: 'অগ্রসর হতে অন্তত একটি পণ্য যোগ করুন যাতে SOVA আপনার ব্যবসা সম্পর্কে শিখতে পারে।',
     modal: {
       titleAdd: 'নতুন পণ্য যোগ করুন',
       titleUpdate: 'পণ্য আপডেট করুন',
       subtitleAdd: 'আপনার পণ্যের নাম, সংক্ষিপ্ত বিবরণ এবং একটি ঐচ্ছিক ছবি, ভিডিও বা PDF দিন।',
-      subtitleUpdate: 'ক্রেতার সাথে চ্যাটে SOVA যে পণ্যের বিবরণ ব্যবহার করে তা সম্পাদনা করুন।',
+      subtitleUpdate: 'ক্রেতাদের সাথে চ্যাটে SOVA যে পণ্যের বিবরণ ব্যবহার করে তা সম্পাদনা করুন।',
       mediaLabel: 'পণ্য মিডিয়া',
       mediaHelp: 'আপলোড করতে ক্লিক করুন',
       nameLabel: 'পণ্যের নাম',
       namePlaceholder: 'যেমন: প্রিমিয়াম সিল্ক স্কার্ফ',
       descLabel: 'বিবরণ',
-      descPlaceholder: 'যেমন: সফট ফিনিশ এবং গিফট প্যাকেজিং সহ প্রিমিয়াম সিল্ক স্কার্ফ।',
+      descPlaceholder: 'যেমন: নরম ফিনিশ এবং গিফট প্যাকেজিং সহ প্রিমিয়াম সিল্ক স্কার্ফ।',
       saveBtn: 'পণ্য সংরক্ষণ করুন',
-      updateBtn: 'আপডেট করুন',
-      invalidMediaType: 'অনুগ্রহ করে বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন'
+      updateBtn: 'পণ্য আপডেট করুন',
+      invalidMediaType: 'অনুগ্রহ করে একটি বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন'
     }
   },
   tone: {
-    title: 'SOVA-র ব্যক্তিত্ব নির্বাচন করুন',
-    subtitle: 'SOVA আপনার গ্রাহকদের সাথে কীভাবে কথা বলবে? আপনি এক বা একাধিক বেছে নিতে পারেন।',
+    title: 'SOVA-র কণ্ঠস্বর নির্ধারণ করুন',
+    subtitle: 'আপনার গ্রাহকদের সাথে কথা বলার জন্য উপযুক্ত এক বা একাধিক টোন নির্বাচন করুন।',
     profiles: {
-      professional: { label: 'পেশাদার', desc: 'স্পষ্ট, স্নিগ্ধ এবং ব্যবসা-কেন্দ্রিক' },
-      friendly: { label: 'বন্ধুসুলভ', desc: 'উষ্ণ, আন্তরিক এবং সহজলভ্য' },
-      persuasive: { label: 'প্রভাবশালী', desc: 'বিক্রয়-মুখী, সুবিধা তুলে ধরে' },
-      direct: { label: 'সরাসরি', desc: 'সরল, সজাসিধা এবং বিন্দুতে' },
-      playful: { label: 'হাসিখুশি', desc: 'ইমোজি ব্যবহার করে, উদ্যমী এবং মজাদার' },
-      empathetic: { label: 'সহমর্মী', desc: 'বোধগম্য, ধৈর্যশীল এবং সহায়ক' }
+      professional: { label: 'পেশাদার', desc: 'স্পষ্ট, বিনয়ী এবং ব্যবসা-কেন্দ্রিক।' },
+      friendly: { label: 'বন্ধুসুলভ', desc: 'উষ্ণ, আন্তরিক এবং সহজলভ্য।' },
+      persuasive: { label: 'প্ররোচনামূলক', desc: 'বিক্রয়-মুখী এবং সুবিধার ওপর গুরুত্ব প্রদানকারী।' },
+      direct: { label: 'সরাসরি', desc: 'সংক্ষিপ্ত, স্পষ্ট এবং বাহুল্যবর্জিত।' },
+      playful: { label: 'মজাদার', desc: 'ইমোজি ব্যবহারকারী, প্রাণবন্ত এবং আনন্দময়।' },
+      empathetic: { label: 'সহমর্মী', desc: 'বুঝদার, ধৈর্যশীল এবং সহায়ক।' }
     },
-    completeBtn: 'ড্যাশবোর্ড সত্যায়ন করুন'
+    completeBtn: 'ড্যাশবোর্ড চালু করুন →'
   },
   loader: {
-    title: 'আপনার AI সেলস এজেন্ট তৈরি হচ্ছে',
-    subtitle: 'আমরা আপনার পণ্য এবং ব্যবসার পছন্দের সাথে SOVA কনফিগার করছি।',
+    title: 'আপনার AI বিক্রয় সহকারী প্রস্তুত হচ্ছে',
+    subtitle: 'আমরা আপনার ব্যবসা, পণ্য এবং পছন্দের ভিত্তিতে SOVA সেট আপ করছি।',
     init: 'অনবোর্ডিং শুরু হচ্ছে',
-    wait: 'অনুগ্রহ করে অপেক্ষা করুন যখন আমরা আপনার সেটআপ প্রস্তুত করছি।',
-    finalWait: 'অনুগ্রহ করে অপেক্ষা করুন যখন আমরা আপনার সেটআপ সম্পন্ন করছি।',
+    wait: 'আপনার সেটআপ প্রস্তুত করার সময় অনুগ্রহ করে অপেক্ষা করুন।',
+    finalWait: 'আপনার সেটআপ সম্পন্ন করার সময় অনুগ্রহ করে অপেক্ষা করুন।',
     steps: {
       catalog: 'আপনার ক্যাটালগ তৈরি হচ্ছে...',
       ai: 'AI ব্যক্তিত্ব প্রয়োগ করা হচ্ছে...',
@@ -77,10 +77,11 @@ export const admin = {
   nav: {
     workspace: 'ওয়ার্কস্পেস',
     overview: 'ওভারভিউ',
+    broadcasts: 'ব্রডকাস্ট',
+    chat: 'WhatsApp চ্যাট',
     products: 'পণ্যসমূহ',
-    chat: 'ইনবক্স',
-    broadcasts: 'প্রচারণা',
-    reports: 'রিপোর্ট',
+    files: 'ফাইলসমূহ',
+    reports: 'রিপোর্টসমূহ',
     settings: 'সেটিংস',
     notifications: 'বিজ্ঞপ্তি',
     profile: 'প্রোফাইল'
@@ -88,43 +89,51 @@ export const admin = {
   common: {
     currentView: 'বর্তমান ভিউ',
     automationLive: 'অটোমেশন লাইভ',
-    active: 'সক্রিয়',
-    inactive: 'নিষ্ক্রিয়'
+    live: 'লাইভ',
+    previous: 'পূর্ববর্তী',
+    next: 'পরবর্তী',
+    preview: 'প্রিভিউ',
+    open: 'খুলুন',
+    edit: 'সম্পাদনা',
+    active: 'সক্রিয়',
+    inactive: 'নিষ্ক্রিয়',
+    currencySymbol: '৳',
+    currencyCode: 'BDT',
   },
   broadcasts: {
     title: 'ব্রডকাস্ট ক্যাম্পেইন',
-    subtitle: 'SOVA-র মাধ্যমে লিডস, গ্রাহকদের এবং সেগমেন্টে WhatsApp বার্তা শিডিউল করুন।',
+    subtitle: 'SOVA-র মাধ্যমে লিড, গ্রাহক এবং সেগমেন্টে WhatsApp বার্তা শিডিউল করুন।',
     newBtn: 'নতুন ব্রডকাস্ট',
     stats: {
-      scheduled: 'শিডিউল',
+      scheduled: 'শিডিউলকৃত',
       sentWeek: 'এই সপ্তাহে পাঠানো হয়েছে',
       avgResponse: 'গড় প্রতিক্রিয়া হার'
     },
     workflow: {
       title: 'অটোমেশন ওয়ার্কফ্লো',
-      subtitle: 'SOVA কীভাবে আসা WhatsApp বার্তাগুলোকে যোগ্য লিডে রূপান্তর করে',
+      subtitle: 'সোভা কীভাবে আসা WhatsApp বার্তাগুলোকে যোগ্য লিডে রূপান্তর করে',
       nodes: {
-        trigger: { label: 'আসা বার্তা', sub: 'WhatsApp ট্রিগার' },
-        filter: { label: 'উদ্দেশ্য ফিল্টার', sub: 'SOVA লিড গুণমান সনাক্ত করে' },
-        route: { label: 'রুট ও উত্তর', sub: 'স্বয়ংক্রিয় উত্তর পাঠানো হয়েছে' },
-        capture: { label: 'লিড ধরা হয়েছে', sub: 'CRM প্রবেশ তৈরি হয়েছে' }
+        trigger: { label: 'আগত বার্তা', sub: 'WhatsApp ট্রিগার' },
+        filter: { label: 'উদ্দেশ্য ফিল্টার', sub: 'SOVA লিড গুণমান শনাক্ত করে' },
+        route: { label: 'রুট ও উত্তর', sub: 'স্বয়ংক্রিয় উত্তর পাঠানো হয়েছে' },
+        capture: { label: 'লিড ধরা হয়েছে', sub: 'CRM এন্ট্রি তৈরি হয়েছে' }
       },
       status: {
         active: 'সক্রিয়',
         processing: 'প্রক্রিয়াকরণ',
-        delivered: 'ডেলিভার',
-        captured: 'ধরা হয়েছে'
+        delivered: 'ডেলিভার করা হয়েছে',
+        captured: 'সংগৃহীত'
       }
     },
     campaigns: {
-      title: 'সব ক্যাম্পেইন',
+      title: 'সকল ক্যাম্পেইন',
       status: {
-        scheduled: 'শিডিউল',
+        scheduled: 'শিডিউলকৃত',
         draft: 'খসড়া',
         sent: 'পাঠানো হয়েছে'
       },
       meta: {
-        audience: 'দর্শক: {{count}}',
+        audience: 'শ্রোতা: {{count}}',
         powered: 'SOVA অটোমেশন দ্বারা পরিচালিত',
         stats: 'ওপেন: {{opens}} · উত্তর: {{replies}}'
       }
@@ -132,62 +141,424 @@ export const admin = {
   },
   products: {
     title: 'পণ্য ক্যাটালগ',
-    subtitle: 'SOVA ক্রেতাদের চ্যাটে {{count}}টি আইটেম শেয়ার করে',
+    subtitle: 'ক্রেতাদের চ্যাটে SOVA দ্বারা শেয়ারকৃত {{count}}টি পণ্য',
     newBtn: 'পণ্য যোগ করুন',
-    banner: 'SOVA আপনার ক্যাটালগ ব্যবহার করে পণ্যের প্রাপ্যতা, মূল্য এবং বৈশিষ্ট্য সম্পর্কে প্রশ্নের স্বয়ংক্রিয় উত্তর দেয়।',
+    banner: 'SOVA পণ্যের প্রাপ্যতা, মূল্য এবং বৈশিষ্ট্য সম্পর্কে প্রশ্নের স্বয়ংক্রিয় উত্তর দিতে আপনার ক্যাটালগ ব্যবহার করে।',
     empty: {
       title: 'এখনো কোনো পণ্য নেই',
-      desc: 'আপনার প্রথম পণ্য যোগ করুন যাতে SOVA WhatsApp-এ সম্ভাব্য ক্রেতাদের সাথে শেয়ার করতে পারে।',
+      desc: 'আপনার প্রথম পণ্য যোগ করুন যাতে SOVA WhatsApp-এ সম্ভাব্য ক্রেতাদের সাথে তা শেয়ার করতে পারে।',
       btn: 'আপনার প্রথম পণ্য যোগ করুন'
     },
-      item: {
-        price: 'Rs. {{price}}',
-        priceLabel: 'দাম',
-        mediaLabel: 'মিডিয়ার ধরন',
-        view: 'দেখুন',
-        active: 'সক্রিয়',
-        inactive: 'নিষ্ক্রিয়',
-        activate: 'সক্রিয় করুন',
-        deactivate: 'নিষ্ক্রিয় করুন',
-        modalTitle: 'প্রোডাক্ট ওভারভিউ',
-        noDescription: 'এখনও কোনো বর্ণনা যোগ করা হয়নি।',
-        none: 'কোনোটি নয়'
+    item: {
+      price: 'Rs. {{price}}',
+      priceLabel: 'দাম',
+      stockLabel: 'মোট মজুদ পণ্য',
+      skuLabel: 'পণ্য আইডি',
+      specsTitle: 'মূল বিবরণ',
+      editBtn: 'বিবরণ পরিবর্তন করুন',
+      mediaLabel: 'মিডিয়ার ধরন',
+      view: 'দেখুন',
+      active: 'সক্রিয়',
+      inactive: 'নিষ্ক্রিয়',
+      activate: 'সক্রিয় করুন',
+      deactivate: 'নিষ্ক্রিয় করুন',
+      modalTitle: 'পণ্যের ওভারভিউ',
+      noDescription: 'এখনো কোনো বর্ণনা যোগ করা হয়নি।',
+      none: 'কোনোটি নয়'
+    },
+    controls: {
+      searchPlaceholder: 'পণ্য অনুসন্ধান করুন...',
+      show: 'দেখান',
+      perPage: 'প্রতি পৃষ্ঠা',
+      all: 'সমস্ত',
+      pageInfo: '{{total}}টি পণ্যের মধ্যে {{start}}-{{end}}',
+      filters: {
+        all: 'সমস্ত',
+        active: 'সক্রিয়',
+        inactive: 'নিষ্ক্রিয়'
       },
-      controls: {
-        searchPlaceholder: 'প্রোডাক্ট খুঁজুন...',
-        show: 'দেখান',
-        perPage: 'প্রতি পেজে',
-        all: 'সব',
-        pageInfo: 'মোট {{total}}টির মধ্যে {{start}}-{{end}}',
-        filters: {
-          all: 'সব',
-          active: 'সক্রিয়',
-          inactive: 'নিষ্ক্রিয়'
-        },
-        empty: {
-          title: 'মিলছে এমন কোনো প্রোডাক্ট নেই',
-          desc: 'অন্য কিছু লিখে দেখুন অথবা বর্তমান ফিল্টার বদলান।'
-        }
+      empty: {
+        title: 'মিলছে এমন কোনো পণ্য নেই',
+        desc: 'অন্য কোনো শব্দ ব্যবহার করে দেখুন অথবা সক্রিয় ফিল্টার পরিবর্তন করুন।'
       }
+    }
+  },
+  addProductOverview: {
+    titleAdd: 'নতুন পণ্য যোগ করুন',
+    titleEdit: 'পণ্য সম্পাদনা করুন',
+    subtitleAdd: 'আপনার ক্যাটালগের জন্য একটি পেশাদার তালিকা তৈরি করুন।',
+    subtitleEdit: 'উন্নত AI উত্তরের জন্য আপনার পণ্যের বিবরণ আপডেট করুন।',
+    backToCatalog: 'দোকানের ক্যাটালগে ফিরে যান',
+    editorInitialising: 'এডিটর খোলা হচ্ছে...',
+    steps: {
+      basics: 'মৌলিক তথ্য',
+      category: 'পণ্যের বিবরণ',
+      pricing: 'মজুদ ও মূল্য',
+    },
+    sections: {
+      basics: {
+        title: 'সাধারণ তথ্য',
+        subtitle: 'আপনার পণ্যের প্রাথমিক বিবরণ দিন।',
+        nameLabel: 'পণ্যের নাম',
+        namePlaceholder: 'যেমন: সুতির টি-শার্ট',
+        descriptionLabel: 'বিবরণ',
+        descriptionPlaceholder: 'আপনার গ্রাহকদের এই পণ্যটি সম্পর্কে বলুন...',
+        brandLabel: 'ব্র্যান্ডের নাম',
+        brandPlaceholder: 'যেমন: লোকাল আর্টিসান',
+      },
+      category: {
+        title: 'শ্রেণীবিভাগ',
+        subtitle: 'গ্রাহকদের পণ্য খুঁজে পেতে সাহায্য করুন।',
+        categoryLabel: 'মূল বিভাগ (Category)',
+        categoryPlaceholder: 'বিভাগ নির্বাচন করুন',
+        subCategoryLabel: 'পণ্যের ধরন',
+        subCategoryPlaceholder: 'ধরন নির্বাচন করুন',
+        newSubCategory: 'নতুন ধরন',
+        customCategoryLabel: 'আপনার বিভাগের নাম',
+        customCategoryPlaceholder: 'বিভাগ লিখুন',
+        customSubCategoryLabel: 'আপনার ধরনের নাম',
+        customSubCategoryPlaceholder: 'ধরন লিখুন',
+        customFieldsTitle: 'অতিরিক্ত বিবরণ',
+        addFieldBtn: 'বিবরণ যোগ করুন',
+        fieldLabelPlaceholder: 'যেমন: উপাদান',
+        fieldValuePlaceholder: 'যেমন: ১০০% সুতি',
+      },
+      pricing: {
+        title: 'মূল্য ও মজুদ',
+        subtitle: 'বিক্রয় মূল্য এবং মজুদের পরিমাণ নির্ধারণ করুন।',
+        priceLabel: 'বিক্রয় মূল্য',
+        salePriceLabel: 'ছাড়ের পর মূল্য',
+        salePricePlaceholder: 'ঐচ্ছিক',
+        stockLabel: 'মোট মজুদ',
+        stockPlaceholder: 'উপলব্ধ সংখ্যা',
+        skuLabel: 'পণ্য আইডি / SKU',
+        skuPlaceholder: 'যেমন: ITEM-001',
+        skuHelp: 'দোকানের অভ্যন্তরীণ কোড',
+        minOrderLabel: 'সর্বনিম্ন অর্ডার',
+      },
+      media: {
+        title: 'পণ্যের ছবি',
+        noMediaAttached: 'কোনো ছবি আপলোড করা হয়নি',
+        upload: 'ছবি আপলোড করুন',
+        primary: 'প্রধান ছবি',
+        makePrimary: 'প্রধান ছবি হিসেবে সেট করুন',
+      },
+      actions: {
+        submitAdd: 'তালিকায় যোগ করুন',
+        submitEdit: 'পরিবর্তন সংরক্ষণ করুন',
+      },
+      validation: {
+        nameRequired: 'পণ্যের নাম প্রদান করা আবশ্যক',
+        createSuccess: 'পণ্যটি সফলভাবে তালিকায় যোগ করা হয়েছে',
+        updateSuccess: 'বিবরণ সফলভাবে আপডেট করা হয়েছে',
+      },
+    },
+    fields: {
+      selectOption: 'বিকল্প নির্বাচন করুন',
+      customValue: 'আপনার ইচ্ছা মতো...',
+      customValuePlaceholder: 'বিবরণ লিখুন',
+      size: { label: 'সাইজ', placeholder: 'যেমন: XL বা ৪২' },
+      color: { label: 'রং', placeholder: 'যেমন: গাঢ় নীল' },
+      fabric: { label: 'উপাদান', placeholder: 'যেমন: রেশম' },
+      fit: { label: 'ফিট টাইপ', placeholder: 'যেমন: স্লিম ফিট' },
+      pattern: { label: 'ডিজাইন / প্যাটার্ন', placeholder: 'যেমন: ফুলদার' },
+      ageRange: { label: 'বয়স সীমা', placeholder: 'যেমন: ৫ থেকে ৮ বছর' },
+      gender: { label: 'লিঙ্গ', placeholder: 'নির্বাচন করুন' },
+      purity: { label: 'বিশুদ্ধতা', placeholder: 'যেমন: ২২ ক্যারেট' },
+      weight: { label: 'ওজন', placeholder: 'যেমন: ১০ গ্রাম' },
+      brand: { label: 'ব্র্যান্ড', placeholder: 'যেমন: স্যামসাং' },
+      storage: { label: 'স্টোরেজ মেমরি', placeholder: 'যেমন: ১২৮ জিবি' },
+      ram: { label: 'র‍্যাম সাইজ', placeholder: 'যেমন: ৮ জিবি' },
+      processor: { label: 'প্রসেসর', placeholder: 'যেমন: কোর i7' },
+      subject: { label: 'বিষয়', placeholder: 'যেমন: জীববিজ্ঞান' },
+      origin: { label: 'উৎপত্তি দেশ', placeholder: 'যেমন: সৌদি আরব' },
+    },
+    categories: {
+      clothing: 'পোশাক ও ফ্যাশন',
+      jewellery: 'গহনা ও ঘড়ি',
+      electronics: 'ফোন ও গ্যাজেট',
+      toys: 'শিশু ও খেলনা',
+      dry_fruits: 'শুকনো ফল ও বাদাম',
+      decoration: 'ঘর ও অনুষ্ঠান সজ্জা',
+      books_stationary: 'বই ও স্টেশনারি',
+      medical_instruments: 'চিকিৎসা সরঞ্জাম',
+      surgical_instruments: 'সার্জিক্যাল সরঞ্জাম',
+      hardware: 'হার্ডওয়্যার ও টুলস',
+      fireworks: 'আতশবাজি',
+      other: 'অন্যান্য পণ্য',
+    },
+    subcategories: {
+      menswear: 'পুরুষদের পোশাক',
+      womenswear: 'মহিলাদের পোশাক',
+      'kids-wear': 'শিশুদের পোশাক',
+      abayas: 'আবায়া ও পর্দা',
+      'traditional-wear': 'ঐতিহ্যবাহী পোশাক',
+      sportswear: 'খেলাধুলার পোশাক',
+      outerwear: 'জ্যাকেট ও কোট',
+      footwear: 'জুতো',
+      accessories: 'আনুষঙ্গিক সরঞ্জাম',
+      'gold-jewelry': 'সোনার গহনা',
+      'silver-jewelry': 'রূপার গহনা',
+      'diamond-precious': 'হীরা ও রত্ন',
+      watches: 'দামী ঘড়ি',
+      rings: 'আংটি',
+      necklaces: 'হার ও মালা',
+      bracelets: 'বালা ও ব্রেসলেট',
+      earrings: 'দুল / কানের গহনা',
+      'costume-jewelry': 'ফ্যাশন জুয়েলারি',
+      smartphones: 'স্মার্টফোন',
+      'laptops-pc': 'ল্যাপটপ ও কম্পিউটার',
+      'audio-video': 'অডিও ও ভিডিও',
+      photography: 'ক্যামেরা',
+      gaming: 'গেমিং গিয়ার',
+      'smart-home': 'স্মার্ট হোম',
+      wearables: 'স্মার্টওয়াচ',
+      educational: 'শিক্ষামূলক খেলনা',
+      'board-games': 'বোর্ড গেম',
+      'outdoor-toys': 'আউটডোর খেলনা',
+      'remote-control': 'রিমোট কন্ট্রোল খেলনা',
+      'action-figures': 'অ্যাকশন ফিগার',
+      'dolls-plush': 'পুতুল ও প্লাশ',
+      crafts: 'শিল্প ও কারুকাজ',
+      'roasted-nuts': 'ভাজা বাদাম',
+      'raw-nuts': 'কাঁচা বাদাম',
+      'dried-berries': 'শুকনো ফল',
+      'dates-varieties': 'পছন্দসই খেজুর',
+      'seeds-mix': 'বীজ ও মিক্স',
+      'home-decor': 'গৃহসজ্জা',
+      'wall-art': 'দেয়াল সজ্জা',
+      lighting: 'আলোকসজ্জা',
+      'event-decor': 'অনুষ্ঠান সজ্জা',
+      'academic-books': 'শিক্ষায়তনিক বই',
+      'fiction-nonfiction': 'কল্পকাহিনী ও অন্যান্য',
+      'stationary-office': 'অফিস স্টেশনারি',
+      'art-supplies': 'শিল্প সামগ্রী',
+      'writing-instruments': 'কলম ও সেট',
+      diagnostics: 'ডায়াগনস্টিক সরঞ্জাম',
+      monitoring: 'রোগী পর্যবেক্ষণ',
+      'rehab-mobility': 'চলাফেরা সহায়ক',
+      respiratory: 'শ্বাস-প্রশ্বাস সহায়ক সরঞ্জাম',
+      'general-surgery': 'সাধারণ সার্জারি',
+      'dental_instruments': 'দন্ত চিকিৎসা সরঞ্জাম',
+      'orthopedic-surgery': 'হাড়ের সার্জারি',
+      'ophthalmic-surgery': 'চক্ষু সার্জারি',
+      'power-tools': 'পাওয়ার টুলস',
+      'hand-tools': 'হ্যান্ড টুলস',
+      'plumbing-hardware': 'প্লাম্বিং হার্ডওয়্যার',
+      'electrical-hardware': 'ইলেকট্রিক্যাল হার্ডওয়্যার',
+      'aerial-rockets': 'আকাশী রকেট',
+      'multi-shot-cakes': 'আতশবাজি কেক',
+      'fountains-wheels': 'ফোয়ারা ও চাকা',
+      'ground-fireworks': 'ভূমি আতশবাজি',
+      'general-merchandise': 'সাধারণ পণ্য',
+      'gift-items': 'উপহার সামগ্রী',
+    },
+    nested: {
+      formal_shirts: 'ফরমাল শার্ট',
+      t_shirts: 'টি-শার্ট',
+      polos: 'পোলো শার্ট',
+      trousers: 'প্যান্ট / ট্রাউজার',
+      jeans: 'জিন্স',
+      suits_blazers: 'স্যুট ও ব্লেজার',
+      nightwear: 'নাইটওয়্যার',
+      dresses: 'পোশাক / ড্রেস',
+      tops_blouses: 'টপস ও ব্লাউজ',
+      skirts: 'স্কার্ট',
+      ethnic_wear: 'এথনিক পোশাক',
+      lingerie: 'অন্তরবাস',
+      loungewear: 'লাউঞ্জওয়্যার',
+      infant_0_2y_: 'শিশু (০-২ বছর)',
+      toddler_2_5y_: 'শিশু (২-৫ বছর)',
+      boys_fashion: 'ছেলেদের ফ্যাশন',
+      girls_fashion: 'মেয়েদের ফ্যাশন',
+      school_uniforms: 'স্কুল ইউনিফর্ম',
+      casual_abayas: 'সাধারণ আবায়া',
+      formal_evening_abayas: 'ফরমাল আবায়া',
+      bridal_abayas: 'ব্রাইডাল আবায়া',
+      butterfly_abayas: 'বাটারফ্লাই আবায়া',
+      bisht_abayas: 'বিশত আবায়া',
+      kimonos: 'কিমোনো',
+      kaftans: 'কাফতান',
+      shalwar_kameez: 'সালোয়ার কামিজ',
+      kurta_pajama: 'পাঞ্জাবি পায়জামা',
+      sherwani: 'শেরওয়ানি',
+      sarees: 'শাড়ি',
+      lehengas: 'লেহেঙ্গা',
+      gym_training: 'জিম ও ট্রেনিং',
+      running_gear: 'রানিং গিয়ার',
+      football_kits: 'ফুটবল কিট',
+      cricket_gear: 'ক্রিকেট গিয়ার',
+      yoga_pilates: 'যোগ ও পাইলেটস',
+      leather_jackets: 'লেদার জ্যাকেট',
+      puffer_jackets: 'পাফার জ্যাকেট',
+      trench_coats: 'ট্রেঞ্চ কোট',
+      windbreakers: 'উইন্ডব্রেকার',
+      hoodies: 'হুডি',
+      formal_shoes: 'ফরমাল জুতো',
+      sneakers: 'স্নিকার্স',
+      sandals_flip_flops: 'স্যান্ডেল / চটি',
+      boots: 'বুট জুতো',
+      heels: 'হিল জুতো',
+      belts: 'বেল্ট',
+      hats_caps: 'টুপি',
+      ties_bowties: 'টাই ও বো-টাই',
+      scarves: 'স্কার্ফ',
+      gloves: 'হাতমোজা',
+      engagement_rings: 'বাগদানের আংটি',
+      necklaces: 'হার / লকেট',
+      bangles: 'চুড়ি / বালা',
+      earrings: 'দুল / কানের গহনা',
+      gold_coins_bars: 'সোনার মুদ্রা / বার',
+      rings: 'আংটি',
+      chains: 'চেইন',
+      bracelets: 'ব্রেসলেট',
+      anklets: 'নুপূর',
+      solitaire_rings: 'সলিটায়ার আংটি',
+      diamond_sets: 'ডায়মন্ড সেট',
+      loose_gemstones: 'আলগা রত্নপাথর',
+      birthstones: 'জন্মপাথর',
+      almonds: 'বাদাম',
+      cashews: 'কাজু বাদাম',
+      pistachios: 'পেস্তা বাদাম',
+      walnuts: 'আখরোট',
+      raisins: 'কিশমিশ',
+      ajwa_dates: 'আজওয়া খেজুর',
+      mabroom_dates: 'মাবরুম খেজুর',
+      sukkari_dates: 'সু্কারি খেজুর',
+      medjool_dates: 'মাজদূল খেজুর',
+      chia_seeds: 'চিয়া বীজ',
+      flax_seeds: 'তিসি বীজ',
+      pumpkin_seeds: 'মিষ্টিকুমড়া বীজ',
+      trail_mix: 'ট্রেইল মিক্স',
+      sunflower_seeds: 'সূর্যমুখী বীজ',
+      vases: 'ফুলদানি',
+      cushions: 'কুশন',
+      candles: 'মোমবাতি',
+      statues: 'মূর্তি / শো-পিস',
+      canvas_paintings: 'ক্যানভাস পেইন্টিং',
+      wall_mirrors: 'দেয়াল আয়না',
+      photo_frames: 'ফটো ফ্রেম',
+      chandeliers: 'ঝাড়বাতি',
+      table_lamps: 'টেবিল ল্যাম্প',
+      floor_lamps: 'ফ্লোর ল্যাম্প',
+      led_strips: 'এলইডি স্ট্রিপ',
+      balloons: 'বেলুন',
+      backdrops: 'ব্যাকড্রপ',
+      wedding_decor: 'বিয়ের সাজসজ্জা',
+      medical: 'মেডিক্যাল',
+      engineering: 'ইঞ্জিনিয়ারিং',
+      commerce: 'কমার্স',
+      school_books: 'স্কুল পাঠ্যবই',
+      sci_fi: 'সায়েন্স ফিকশন',
+      mystery: 'রহস্য',
+      biography: 'জীবনী',
+      self_help: 'আত্ম-উন্নয়ন',
+      paper: 'কাগজ',
+      files: 'ফাইল',
+      staplers: 'স্ট্যাপলার',
+      calculators: 'ক্যালকুলেটর',
+      canvases: 'ক্যানভাস',
+      acrylic_paints: 'এক্রাইলিক রঙ',
+      brushes: 'তুলি',
+      sketchbooks: 'স্কেচবুক',
+      fountain_pens: 'ফাউন্টেন পেন',
+      ballpoint_pens: 'বলপয়েন্ট পেন',
+      gift_sets: 'উপহার সেট',
+      blood_pressure_monitors: 'বিপি মনিটর',
+      digital_thermometers: 'ডিজিটাল থার্মোমিটার',
+      stethoscopes: 'স্টেথোস্কোপ',
+      glucometers: 'গ্লুকোমিটার',
+      pulse_oximeters: 'পালস অক্সিমিটার',
+      ecg_machines: 'ইসিজি মেশিন',
+      heart_monitors: 'হার্ট মনিটর',
+      wheelchairs: 'হুইলচেয়ার',
+      walkers: 'ওয়াকার',
+      crutches: 'বগলের লাঠি',
+      support_belts: 'সাপোর্ট বেল্ট',
+      nebulizers: 'নেবুলাইজার',
+      oxygen_concentrators: 'অক্সিজেন কনসেনট্রেটর',
+      cpap_machines: 'সিপ্যাপ মেশিন',
+      forceps: 'চিমটা',
+      scissors: 'কাঁচি',
+      scalpels: 'স্ক্যালপেল',
+      retractors: 'রিট্র্যাক্টর',
+      needle_holders: 'নিডল হোল্ডার',
+      extractors: 'এক্সট্রাক্টর',
+      probes: 'প্রোব',
+      dental_mirrors: 'ডেন্টাল মিরর',
+      elevators: 'এলিভেটর',
+      bone_drills: 'হাড়ের ড্রিল',
+      screws_plates: 'স্ক্রু ও প্লেট',
+      bone_saws: 'হাড় কাটার করাত',
+      eye_speculums: 'চক্ষু স্পেকুলাম',
+      microsurgical_scissors: 'ক্ষুদ্র শল্য কাঁচি',
+      drills: 'ড্রিল মেশিন',
+      angle_grinders: 'অ্যাঙ্গেল গ্রাইন্ডার',
+      electric_saws: 'বৈদ্যুতিক করাত',
+      rotary_hammers: 'রোটারি হ্যামার',
+      wrenches: 'রঞ্চ / রেঞ্জ',
+      screwdrivers: 'স্ক্রু ড্রাইভার',
+      pliers: 'প্লায়ার্স',
+      hammers: 'হাতুড়ি',
+      pipe_fittings: 'পাইপ ফিটিংস',
+      faucets: 'কল / ট্যাব',
+      valves: 'ভালভ',
+      pumps: 'পাম্প',
+      circuit_breakers: 'সার্কিট ব্রেকার',
+      cables_wires: 'কেবল ও তার',
+      switches: 'সুইচ',
+      inverters: 'ইনভার্টার',
+      big_burst_rockets: 'বড় রকেট',
+      double_burst: 'ডবল বার্স্ট',
+      signal_rockets: 'সিগন্যাল রকেট',
+      _25_shots: '২৫ শট',
+      _50_shots: '৫০ শট',
+      _100_shots: '১০০ শট',
+      fan_cakes: 'ফ্যান কেক',
+      glittering_fountains: 'ঝকঝকে ফোয়ারা',
+      color_wheels: 'রঙিন চাকা',
+      cone_fountains: 'কোণ ফোয়ারা',
+      sparklers: 'ফুলঝুরি',
+      ground_spinners: 'ভুমি চরকা',
+      cracklers: 'মড়মড়ে আতশবাজি',
+      stationery: 'স্টেশনারি',
+      household_items: 'গৃহস্থালী সামগ্রী',
+      groceries: 'মুদি পণ্য',
+      gift_cards: 'উপহার কার্ড',
+      occasional_gifts: 'বিশেষ অনুষ্ঠানের উপহার',
+    },
+    summary: {
+      untitled: 'শিরোনামহীন পণ্য',
+      statusReady: 'স্টক আছে',
+      statusOutOfStock: 'স্টক নেই',
+      industryLabel: 'ব্যবসায়িক বিভাগ',
+      listingHealth: 'লিস্টিং স্ট্যাটাস',
+      visibility: 'দৃশ্যমানতা',
+      marketLive: 'দোকানে সক্রিয়',
+      inventoryState: 'স্টক অবস্থা',
+      lowStock: 'স্টক কম!',
+      stable: 'স্টক ঠিক আছে',
+    },
   },
   overview: {
     stats: {
       activeConversations: 'সক্রিয় কথোপকথন',
-      qualifiedLeads: 'যোগ্য লিডস',
+      qualifiedLeads: 'যোগ্য লিড',
       automatedReplies: 'স্বয়ংক্রিয় উত্তর',
-      avgResponseTime: 'গড় সময়'
+      avgResponseTime: 'গড় প্রতিক্রিয়া সময়'
     },
     quickActions: {
-      products: 'পণ্য যোগ করুন',
-      settings: 'অটোমেশন সেট করুন',
-      businessSettings: 'বিজনেস সেটিংস'
+      products: 'পণ্যসমূহ দেখুন',
+      settings: 'অটোমেশন নির্ধারণ করুন',
+      businessSettings: 'ব্যবসা সেটিংস',
+      files: 'ফাইলসমূহ দেখুন'
     },
     charts: {
       saleTrend: {
         title: 'বিক্রয় প্রবণতা',
         subtitle: 'গত ৭ দিনের কর্মক্ষমতা',
         pill: '+{{count}}% বৃদ্ধি',
-        tooltipLabel: 'সমাপ্তি'
+        tooltipLabel: 'সম্পূর্ণতা'
       },
       leadMix: {
         title: 'লিড মিশ্রণ',
@@ -195,43 +566,43 @@ export const admin = {
         label: 'ক্রেতা'
       },
       leadsByDay: {
-        title: 'দৈনিক লিডস',
+        title: 'দৈনিক লিড',
         subtitle: 'সাপ্তাহিক ভলিউম পর্যালোচনা',
-        pill: 'পিক সময়'
+        pill: 'সবচেয়ে ব্যস্ত সময়'
       }
     },
     donuts: {
-      buyers: 'ক্রেতা',
+      buyers: 'গুরুতর ক্রেতা',
       followups: 'ফলো-আপ',
-      spam: 'স্প্যাম'
+      spam: 'স্প্যাম ফিল্টার করা হয়েছে'
     },
     activity: {
-      title: 'সাম্প্রতিক কার্যকলাপ',
-      subtitle: 'রিয়েল-টাইম আপডেট',
+      title: 'সাম্প্রতিক অটোমেশন কার্যকলাপ',
+      subtitle: 'SOVA এইমাত্র যা পরিচালনা করেছে',
       feeds: {
-        order: 'নতুন অর্ডারের ইচ্ছা',
-        followup: 'ফলো-আপ শিডিউল করা হয়েছে',
-        spam: 'অপ্রাসঙ্গিক মেসেজ ব্লক করা হয়েছে'
+        order: 'নতুন অর্ডারের ইচ্ছা শনাক্ত করা হয়েছে',
+        followup: 'স্বয়ংক্রিয়ভাবে ফলো-আপ পাঠানো হয়েছে',
+        spam: 'স্প্যাম অনুসন্ধান ফিল্টার করা হয়েছে'
       }
     }
   },
   reports: {
-    title: 'বিক্রয় বিশ্লেষণ',
-    subtitle: 'আপনার স্বয়ংক্রিয় বিক্রয়ের কর্মক্ষমতা ট্র্যাক করুন।',
+    title: 'বিক্রয় রিপোর্টসমূহ',
+    subtitle: 'SOVA কীভাবে WhatsApp কথোপকথনকে অর্ডার এবং বিক্রয়ে রূপান্তর করে তা ট্র্যাক করুন।',
     exportBtn: 'রিপোর্ট এক্সপোর্ট করুন',
     stats: {
-      revenue: 'মোট আয়',
-      orderRate: 'অর্ডার হার',
+      revenue: 'প্রভাবিত রাজস্ব',
+      orderRate: 'লিড থেকে অর্ডার হার',
       resolved: 'সমাধানকৃত চ্যাট'
     },
     chart: {
-      title: 'রাজস্ব বিশ্লেষণ',
-      subtitle: 'সাপ্তাহিক আয়ের ওভারভিউ',
-      pill: '+১২.৪% বৃদ্ধি'
+      title: 'SOVA দ্বারা প্রভাবিত রাজস্ব',
+      subtitle: 'স্বয়ংক্রিয় কথোপকথন থেকে প্রতিদিনের ট্র্যাক করা বিক্রয়',
+      pill: 'এই সপ্তাহ'
     },
     table: {
-      title: 'সাপ্তাহিক কর্মক্ষমতা',
-      subtitle: 'দৈনিক কথোপকথন এবং রূপান্তরের বিবরণ',
+      title: 'সাপ্তাহিক কর্মক্ষমতার সংক্ষিপ্ত রূপ',
+      subtitle: 'অটোমেশন দ্বারা প্রতিদিন প্রভাবিত চ্যাট ভলিউম, অর্ডার এবং রাজস্ব।',
       headers: {
         day: 'দিন',
         chats: 'চ্যাট',
@@ -243,243 +614,169 @@ export const admin = {
   },
   settings: {
     title: 'অটোমেশন সেটিংস',
-    subtitle: 'আপনার AI এজেন্টের আচরণ নিয়ন্ত্রণ করুন।',
+    subtitle: 'আপনার SOVA কণ্ঠস্বর এবং অটোমেশন নিয়মগুলি পরিচালনা করুন।',
     sections: {
       business: {
-        title: 'বিজনেস সেটআপ',
-        subtitle: 'আপনি যদি ক্যাটাগরি বদলাতে চান বা সেটআপ আবার শুরু করতে চান, এখান থেকে আপডেট করুন।',
-        button: 'বিজনেস পরিবর্তন করুন',
-        current: 'বর্তমান বিজনেস',
-        modalTitle: 'আপনার বিজনেস ক্যাটাগরি আপডেট করুন',
-        modalSubtitle: 'SOVA যেন রিপ্লাই, লিড ফিল্টারিং এবং প্রোডাক্ট কনটেক্সটে সঠিক বিজনেস টাইপ ব্যবহার করে, সেটি এখানে বেছে নিন।',
+        title: 'ব্যবসা সেটআপ',
+        subtitle: 'বিভাগ পরিবর্তন করতে বা সেটআপ পুনরায় শুরু করতে চান? এখান থেকে আপডেট করুন।',
+        button: 'ব্যবসা পরিবর্তন করুন',
+        current: 'বর্তমান ব্যবসা',
+        modalTitle: 'আপনার ব্যবসার বিভাগ আপডেট করুন',
+        modalSubtitle: 'SOVA উত্তর প্রদান এবং পণ্য প্রসঙ্গে সঠিক ব্যবসার ধরণ ব্যবহার করতে এটি বেছে নিন।',
         save: 'পরিবর্তন সংরক্ষণ করুন',
         cancel: 'বাতিল',
         close: 'বন্ধ করুন'
       },
       voice: {
-        title: 'ব্র্যান্ড ভয়েস',
-        subtitle: 'SOVA আপনার গ্রাহকদের সাথে কীভাবে কথা বলবে তা বেছে নিন।'
+        title: 'AI কণ্ঠস্বর এবং টোন',
+        subtitle: 'SOVA কীভাবে আপনার গ্রাহকদের সাথে কথা বলে তা নিয়ন্ত্রণ করে'
       },
       rules: {
-        title: 'অটোমেশন নিয়ম',
-        subtitle: 'স্বয়ংক্রিয় উত্তর এবং ফিল্টারিং পছন্দ সেট করুন।'
+        title: 'অটোমেশন নিয়মসমূহ'
       }
     },
     tones: {
-      professional: { label: 'পেশাদার', desc: 'ব্যবসায়িক এবং আনুষ্ঠানিক' },
-      friendly: { label: 'বন্ধুসুলভ', desc: 'সহায়ক এবং উষ্ণ' },
-      direct: { label: 'সরাসরি', desc: 'সংক্ষিপ্ত এবং নির্ভুল' },
-      persuasive: { label: 'প্ররোচনামূলক', desc: 'বিক্রয়কে এগিয়ে নিতে সহায়ক' },
+      professional: { label: 'পেশাদার', desc: 'পরিশীলিত এবং মার্জিত' },
+      friendly: { label: 'বন্ধুসুলভ', desc: 'উষ্ণ এবং আন্তরিক' },
+      direct: { label: 'সরাসরি', desc: 'সংক্ষিপ্ত এবং স্পষ্ট' },
+      persuasive: { label: 'প্ররোচনামূলক', desc: 'দৃঢ় এবং বিক্রয়-মুখী' },
       playful: { label: 'মজাদার', desc: 'হালকা, প্রাণবন্ত এবং আনন্দময়' },
-      empathetic: { label: 'সমবেদনাশীল', desc: 'বুঝদার, শান্ত এবং সহায়ক' },
-      creative: { label: 'সৃজনশীল', desc: 'উৎসাহী এবং অনন্য' }
+      empathetic: { label: 'সহমর্মী', desc: 'শান্ত, বুঝদার এবং আশ্বস্তকারী' },
+      creative: { label: 'সৃজনশীল', desc: 'প্রকাশভঙ্গি এবং সাহসী' }
     },
     rows: {
-      autoReply: { title: 'স্বয়ংক্রিয় উত্তর', desc: 'SOVA-কে সাধারণ প্রশ্নের উত্তর দেওয়ার অনুমতি দিন।' },
-      spamFilter: { title: 'স্প্যাম ফিল্টার', desc: 'অপ্রাসঙ্গিক মেসেজ স্বয়ংক্রিয়ভাবে ব্লক করুন।' },
-      alerts: { title: 'লিড অ্যালার্ট', desc: 'নতুন ক্রেতা পাওয়া গেলে বিজ্ঞপ্তি পান।' },
-      tfa: { title: 'টু-ফ্যাক্টর অথেন্টিকেশন', desc: 'আপনার ওয়ার্কস্পেস আরও সুরক্ষিত করুন।' }
+      autoReply: { title: 'ক্রেতাদের স্বয়ংক্রিয় উত্তর', desc: 'SOVA ব্যবহার করে অবিলম্বে সাড়া দিন।' },
+      spamFilter: { title: 'স্প্যাম ফিল্টার', desc: 'স্বয়ংক্রিয়ভাবে স্প্যাম বা বট মেসেজ শনাক্ত করুন।' },
+      alerts: { title: 'উচ্চ-আগ্রহের অ্যালার্ট', desc: 'যখন SOVA গুরুতর ক্রেতা শনাক্ত করে তখন বিজ্ঞপ্তি পান।' },
+      tfa: { title: 'টু-ফ্যাক্টর অথেন্টিকেশন', desc: 'আপনার ওয়ার্কস্পেসকে আরও নিরাপদ করুন।' }
     },
     comingSoon: 'শীঘ্রই আসছে'
   },
   profile: {
     header: {
-      label: 'SOVA ওয়ার্কস্পেস প্রোফাইল',
-      desc: 'এক জায়গা থেকে আপনার ওয়ার্কস্পেসের পরিচয়, ভাষা এবং অটোমেশন প্রস্তুতি ম্যানেজ করুন।'
+      label: 'SOVA ওয়ার্কস্পেস প্রোফাইল',
+      desc: 'এক জায়গা থেকে আপনার ওয়ার্কস্পেস পরিচয়, ভাষা এবং অটোমেশন প্রস্তুতি পরিচালনা করুন।'
     },
     plan: '{{name}} প্ল্যান',
     activity: {
-      products: 'সংযুক্ত পণ্য',
-      automations: 'সক্রিয় অটোমেশন',
+      products: 'সংযুক্ত পণ্যসমূহ',
+      automations: 'সক্রিয় অটোমেশন',
       alerts: 'অপঠিত লিড অ্যালার্ট'
     },
     details: {
-      title: 'ওয়ার্কস্পেসের বিস্তারিত',
+      title: 'ওয়ার্কস্পেস বিবরণ',
       language: 'বর্তমান ভাষা',
       products: {
-        label: 'ক্যাটালগে পণ্য',
-        ready: '{{count}}টি অটোমেটেড রিপ্লাইয়ের জন্য প্রস্তুত'
+        label: 'ক্যাটালগে পণ্যসমূহ',
+        ready: '{{count}}টি স্বয়ংক্রিয় উত্তরের জন্য প্রস্তুত'
       },
       tones: {
         label: 'বিজনেস টোন প্রোফাইল',
-        ready: '{{count}}টি টোন সেটিং কনফিগার করা হয়েছে'
+        ready: '{{count}}টি টোন সেটিং সেট করা আছে'
       }
     },
     summary: {
       title: 'প্রোফাইল সারসংক্ষেপ',
-      desc: 'এই ওয়ার্কস্পেস WhatsApp কথোপকথন পরিচালনা, যোগ্য লিড রুট করা এবং SOVA দিয়ে রিপ্লাই অটোমেট করতে প্রস্তুত।'
+      desc: 'এই ওয়ার্কস্পেস WhatsApp কথোপকথন পরিচালনা এবং SOVA-র মাধ্যমে উত্তর স্বয়ংক্রিয় করতে প্রস্তুত।'
     }
   },
   chat: {
-    title: 'হোয়াটসঅ্যাপ ইনবক্স',
+    title: 'WhatsApp ইনবক্স',
     activeStatus: 'সক্রিয়',
     searchPlaceholder: 'কথোপকথন অনুসন্ধান করুন...',
-    emptyState: 'দেখতে একটি কথোপকথন নির্বাচন করুন',
+    emptyState: 'দেখার জন্য একটি কথোপকথন নির্বাচন করুন',
     sovaLabel: 'SOVA AI',
     status: {
       automated: 'স্বয়ংক্রিয়',
-      captured: 'লিড ধরা হয়েছে'
-    }
+      captured: 'লিড সংগৃহীত'
+    },
+    previewLabel: 'WhatsApp চ্যাট প্রিভিউ',
+    defaultReply: 'হ্যালো! যোগাযোগ করার জন্য ধন্যবাদ। আমি SOVA, আপনার বিক্রয় সহকারী। আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?'
   },
   drawer: {
-    title: 'বিজ্ঞপ্তি',
-    empty: 'কোন নতুন বিজ্ঞপ্তি নেই',
+    title: 'বিজ্ঞপ্তিসমূহ',
+    empty: 'কোনো নতুন বিজ্ঞপ্তি নেই',
     readAll: 'সবগুলো পঠিত হিসেবে চিহ্নিত করুন'
   },
   celebration: {
-    eyebrow: 'অভিনন্দন!',
-    title: 'আপনার ওয়ার্কস্পেস লাইভ!',
-    headline: 'প্রস্তুত হন, আপনার {gradient:AI এজেন্ট} প্রস্তুত',
-    desc: 'SOVA এখন আপনার গ্রাহকদের উত্তর দিতে, লিড ফিল্টার করতে এবং আপনার বিক্রয় বাড়াতে উন্মুখ।',
-    features: {
-      replies: 'স্বয়ংক্রিয় উত্তর',
-      whatsapp: 'হোয়াটসঅ্যাপ ইন্টিগ্রেশন',
-      buyers: 'ক্রেতা শনাক্তকরণ'
-    },
+    eyebrow: 'SOVA লঞ্চ',
+    title: 'আপনার ওয়ার্কস্পেস প্রস্তুত!',
     checklist: {
-      whatsapp: 'হোয়াটসঅ্যাপ লাইভ',
+      whatsapp: 'WhatsApp অটোমেশন সংযুক্ত',
       filtering: 'লিড ফিল্টারিং সক্রিয়',
-      followups: 'ফলো-আপ সক্রিয়'
+      followups: 'ফলো-আপ প্রস্তুত'
     },
-    btn: 'ড্যাশবোর্ডে যান'
+    headline: 'আপনার চ্যাট এখন <gradient>স্বয়ংক্রিয়</gradient>',
+    desc: 'SOVA এখন আপনার ওয়ার্কস্পেসে লাইভ। এটি দ্রুত উত্তর দিতে এবং আপনার WhatsApp বিক্রয় চলমান রাখতে সক্ষম।',
+    features: {
+      replies: 'তাৎক্ষণিক স্বয়ংক্রিয় উত্তর সক্রিয়',
+      whatsapp: 'আপনার WhatsApp চ্যাট এখন স্বয়ংক্রিয়',
+      buyers: 'গুরুতর ক্রেতাদের প্রথমে হাইলাইট করা হবে'
+    },
+    btn: 'ড্যাশবোর্ডে ফিরে যান'
   },
-  mockData: {
-    broadcasts: {
-      campaigns: [
-        { name: 'রমজান অফার', audience: '১,২৪০ কন্টাক্ট', sendAt: 'আজ, সন্ধ্যা ৭:০০' },
-        { name: 'নতুন ক্যাটালগ ড্রপ', audience: '৮৬০ কন্টাক্ট', sendAt: 'অনুমোদনের জন্য অপেক্ষা' },
-        { name: 'ভিআইপি ফলো-আপ ব্লাস্ট', audience: '৪২০ কন্টাক্ট', sendAt: 'গতকাল, বিকেল ৫:৩০' }
-      ]
-    },
-    notifications: [
-      { title: 'নতুন হাই-ইনটেন্ট লিড', desc: 'ফয়জান আহমেদ প্রিমিয়াম সিল্ক স্কার্ফের পাইকারি দাম সম্পর্কে জিজ্ঞাসা করছেন।', time: '২ মিনিট আগে' },
-      { title: 'ব্রডকাস্টিং সম্পন্ন', desc: "'রমজান অফার' ক্যাম্পেইনটি ১,২৪০ জন কন্টাক্টকে সফলভাবে পাঠানো হয়েছে।", time: '১ ঘণ্টা আগে' },
-      { title: 'SOVA জ্ঞান আপডেট', desc: 'আপনার ক্যাটালগে নতুন পণ্য "কটন টি-শার্ট" যোগ করা হয়েছে এবং এটি AI উত্তরের জন্য প্রস্তুত।', time: '৩ ঘণ্টা আগে' },
-      { title: 'আগত বার্তা', desc: 'সারা খান একটি বার্তা পাঠিয়েছেন। SOVA এটি স্বয়ংক্রিয়ভাবে পরিচালনা করছে।', time: '৫ ঘণ্টা আগে' }
-    ],
-    chats: [
-      { user: 'ফয়জান আহমেদ', message: 'হ্যালো, ওই জ্যাকেটটার দাম কত?', time: '১৪:২৩' },
-      { user: 'সারা খান', message: 'নীল রঙেরটার মধ্যে কি M সাইজ পাওয়া যাবে?', time: '১২:০৫' },
-      { user: 'জুবায়ের শাহ', message: 'আমি ৩টি পিস অর্ডার করতে চাই।', time: '০৯:৪৪' },
-      { user: 'নাদিয়া মালিক', message: 'দয়া করে ক্যাটালগটা কি পাঠানো যাবে?', time: 'গতকাল' },
-      { user: 'বেলাল রেজা', message: 'আপনাদের ডেলিভারি চার্জ কত?', time: 'গতকাল' }
-    ],
-    reports: {
-      stats: {
-        revenue: 'Rs. 8.4L',
-        orderRate: '37%',
-        resolved: '1,284',
-        revenueChange: '+18%',
-        orderRateChange: '+6%',
-        resolvedChange: '+22%'
-      },
-      revenueLines: ['Rs. 82k', 'Rs. 95k', 'Rs. 1.1L', 'Rs. 1.3L', 'Rs. 1.5L'],
-      rows: [
-        { revenue: 'Rs. 82k', rate: '16.9%' },
-        { revenue: 'Rs. 95k', rate: '17.7%' },
-        { revenue: 'Rs. 1.1L', rate: '17.4%' },
-        { revenue: 'Rs. 1.3L', rate: '18.8%' },
-        { revenue: 'Rs. 1.5L', rate: '20.0%' }
-      ]
-    },
-    drawer: [
-      { text: 'হোয়াটসঅ্যাপে নতুন লিড "ফয়জান" ক্যাপচার করা হয়েছে!', time: '২ মিনিট আগে' },
-      { text: 'আপনার ক্যাটালগে ৫টি আইটেম স্টকের বাইরে রয়েছে।', time: '১ ঘণ্টা আগে' },
-      { text: 'আজ SOVA অটোমেশন হার ১২% বৃদ্ধি পেয়েছে!', time: '৩ ঘণ্টা আগে' },
-      { text: 'সারা মালিক "প্রিমিয়াম স্কার্ফ"-এ আগ্রহী।', time: '৫ ঘণ্টা আগে' }
-    ],
-    profile: {
-      automations: '06',
-      alerts: '08'
-    },
-    overview: {
-      stats: {
-        active: '142',
-        activeChange: '+12.5%',
-        leads: '89',
-        leadsChange: '+5.2%',
-        replies: '1,204',
-        repliesChange: '+24.1%',
-        time: '১১ সেকেন্ড',
-        timeChange: '-৩৪%'
-      },
-      activity: [
-        { time: '২ মিনিট আগে', meta: 'ইলেকট্রনিক্স - ৫ ইউনিট বাল্ক অনুরোধ' },
-        { time: '৯ মিনিট আগে', meta: 'পোশাক - কার্ট রিকভারি ক্যাম্পেইন' },
-        { time: '১৪ মিনিট আগে', meta: 'বারবার আসা কম গুরুত্বপূর্ণ বার্তা সরিয়ে ফেলা হয়েছে' }
-      ]
-    },
-    threads: {
-      3: [
-        { from: 'user', text: 'আমি ৩টি পিস অর্ডার করতে চাই।' },
-        { from: 'sova', text: "চমৎকার পছন্দ! আমি ৩টি পিসের জন্য আপনার অর্ডারটি নোট করেছি। আমি কি জানতে পারি আপনি কোন পণ্যের কথা বলছেন?" },
-        { from: 'user', text: 'প্রিমিয়াম সিল্ক স্কার্ফ।' },
-        { from: 'sova', text: "অপূর্ব! আমি ৩x প্রিমিয়াম সিল্ক স্কার্ফের জন্য একটি ইনভয়েস তৈরি করব। আমি কি আপনার অর্ডারটি নিশ্চিত করব?" }
-      ]
-    }
-  }
 }
 
-admin.nav.files = 'ফাইল'
+admin.nav.files = 'ফাইলসমূহ'
 admin.files = {
   title: 'ফাইল লাইব্রেরি',
-  subtitle: '{{count}}টি ফাইল SOVA রিপ্লাই ও মিডিয়া শেয়ারিংয়ের জন্য প্রস্তুত',
+  subtitle: '{{count}}টি ফাইল SOVA রিপ্লাই এবং মিডিয়া শেয়ারিংয়ের জন্য প্রস্তুত',
   newBtn: 'ফাইল যোগ করুন',
-  banner: 'ছবি, ভিডিও, PDF এবং দরকারি ফাইল এক জায়গায় রাখুন, যাতে SOVA WhatsApp-এ ক্রেতাকে গাইড করার সময় ঠিক মিডিয়াটি ব্যবহার করতে পারে।',
+  banner: 'আপনার ছবি, ভিডিও এবং PDF এক জায়গায় রাখুন যাতে SOVA সঠিক মিডিয়া ব্যবহার করতে পারে।',
   empty: {
-    title: 'এখনও কোনো ফাইল নেই',
-    desc: 'আপনার প্রথম ফাইল যোগ করুন, যাতে SOVA এটি ক্রেতার চ্যাট ও সাপোর্টে ব্যবহার করতে পারে।',
-    btn: 'প্রথম ফাইল যোগ করুন',
+    title: 'এখনো কোনো ফাইল নেই',
+    desc: 'আপনার প্রথম ফাইলটি যোগ করুন যাতে SOVA এটি ক্রেতাদের চ্যাটে ব্যবহার করতে পারে।',
+    btn: 'প্রথম ফাইল যোগ করুন'
   },
   item: {
     view: 'দেখুন',
-    active: 'সক্রিয়',
-    inactive: 'নিষ্ক্রিয়',
-    activate: 'সক্রিয় করুন',
-    deactivate: 'নিষ্ক্রিয় করুন',
-    modalTitle: 'ফাইল ওভারভিউ',
-    noDescription: 'এখনও কোনো বর্ণনা যোগ করা হয়নি।',
-    none: 'কোনোটি নয়',
+    active: 'সক্রিয়',
+    inactive: 'নিষ্ক্রিয়',
+    activate: 'সক্রিয় করুন',
+    deactivate: 'নিষ্ক্রিয় করুন',
+    modalTitle: 'ফাইলের ওভারভিউ',
+    noDescription: 'এখনো কোনো বর্ণনা যোগ করা হয়নি।',
+    none: 'কোনোটি নয়',
     mediaLabel: 'ফাইলের ধরন',
     fileNameLabel: 'ফাইলের নাম',
     types: {
       image: 'ছবি',
       video: 'ভিডিও',
-      file: 'ফাইল',
-    },
+      file: 'ফাইল'
+    }
   },
   controls: {
-    searchPlaceholder: 'ফাইল খুঁজুন...',
+    searchPlaceholder: 'ফাইল অনুসন্ধান করুন...',
     show: 'দেখান',
-    perPage: 'প্রতি পেজে',
-    all: 'সব',
-    pageInfo: 'মোট {{total}}টির মধ্যে {{start}}-{{end}}',
+    perPage: 'প্রতি পৃষ্ঠা',
+    all: 'সমস্ত',
+    pageInfo: '{{total}}টি ফাইলের মধ্যে {{start}}-{{end}}',
     filters: {
-      all: 'সব',
-      image: 'ছবি',
-      video: 'ভিডিও',
-      file: 'ফাইল',
+      all: 'সমস্ত',
+      image: 'ছবিসমূহ',
+      video: 'ভিডিওসমূহ',
+      file: 'ফাইলসমূহ'
     },
     empty: {
       title: 'মিলছে এমন কোনো ফাইল নেই',
-      desc: 'অন্য কিছু লিখে দেখুন অথবা ফাইল টাইপ ফিল্টার বদলান।',
-    },
+      desc: 'অন্য কোনো শব্দ ব্যবহার করে দেখুন অথবা ফাইল টাইপ ফিল্টার পরিবর্তন করুন।'
+    }
   },
   modal: {
     titleAdd: 'নতুন ফাইল যোগ করুন',
     titleUpdate: 'ফাইল আপডেট করুন',
-    subtitleAdd: 'একটি ছবি, ভিডিও বা PDF আপলোড করুন যা SOVA চ্যাটে শেয়ার করতে পারবে।',
-    subtitleUpdate: 'ফাইলের যে তথ্য SOVA ক্রেতাকে সাহায্য করার সময় ব্যবহার করে, তা এডিট করুন।',
-    mediaLabel: 'ফাইল মিডিয়া',
+    subtitleAdd: 'একটি ছবি, ভিডিও বা PDF আপলোড করুন যা SOVA চ্যাটে শেয়ার করতে পারে।',
+    subtitleUpdate: 'ক্রেতাদের সাহায্য করার সময় SOVA যে ফাইল বিবরণ ব্যবহার করে তা সম্পাদনা করুন।',
+    mediaLabel: 'ফাইল মিডিয়া',
     mediaHelp: 'আপলোড করতে ক্লিক করুন',
     nameLabel: 'ফাইলের নাম',
-    namePlaceholder: 'যেমন: Summer Catalog 2026',
-    descLabel: 'বিবরণ',
-    descPlaceholder: 'যেমন: নতুন সামার কালেকশন ও আপডেটেড দামের PDF ক্যাটালগ।',
+    namePlaceholder: 'যেমন: সামার ক্যাটালগ ২০২৬',
+    descLabel: 'বর্ণনা',
+    descPlaceholder: 'যেমন: সামার কালেকশনের জন্য PDF ক্যাটালগ।',
     saveBtn: 'ফাইল সংরক্ষণ করুন',
     updateBtn: 'ফাইল আপডেট করুন',
-    invalidMediaType: 'অনুগ্রহ করে বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন',
-  },
+    invalidMediaType: 'অনুগ্রহ করে একটি বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন'
+  }
 }
 
 admin.upgrade = {
@@ -487,28 +784,21 @@ admin.upgrade = {
   cta: 'প্ল্যান আপগ্রেড করুন',
   mobileCta: 'আপগ্রেড',
   eyebrow: 'প্ল্যান আপগ্রেড',
-  title: 'এমন একটি প্ল্যান নিন যা আপনার WhatsApp সেলের সঙ্গে বাড়বে',
-  subtitle: 'বিজনেস বড় হলে আরও বেশি অটোমেশন, বেশি ব্যবহার সীমা, আর আরও ভালো AI সাপোর্ট আনলক করুন।',
+  title: 'এমন একটি প্ল্যান বেছে নিন যা আপনার WhatsApp বিক্রয়ের সাথে বৃদ্ধি পাবে',
+  subtitle: 'আপনার ব্যবসার পরিমাণ বাড়ার সাথে সাথে আরও অটোমেশন এবং শক্তিশালী AI সাপোর্ট আনলক করুন।',
   currentPlanLabel: 'বর্তমান প্ল্যান',
   currentPlanValue: '{{plan}} প্ল্যান',
-  currentPlanHint: 'বেশি রিচ এবং বেশি অটোমেশনের জন্য যেকোনো সময় আপগ্রেড করতে পারেন।',
-  popular: 'সবচেয়ে জনপ্রিয়',
-  choosePlan: 'প্ল্যান নিন',
+  currentPlanHint: 'আরও প্রচার এবং অটোমেশন আনলক করতে যেকোনো সময় আপগ্রেড করুন।',
+  popular: 'সবচেয়ে জনপ্রিয়',
+  choosePlan: 'প্ল্যান নির্বাচন করুন',
   currentPlanButton: 'বর্তমান প্ল্যান',
-  compareTitle: 'টিমগুলো কেন আপগ্রেড করে',
-  compareDesc: 'আপনার চ্যাট বাড়ার সঙ্গে সঙ্গে SOVA আরও বেশি রিপ্লাই, আরও বেশি লিড, আর বড় সেলস ওয়ার্কফ্লো সামলাতে পারে, টিমকে ধীর না করে।',
-  summaryTitle: 'আপগ্রেড করলে কী ভালো হবে',
-  summaryDesc: 'বেসিক অটোমেশন থেকে পুরো WhatsApp গ্রোথ অপারেশনে যান, আরও ভালো সাপোর্ট আর আরও শক্তিশালী AI কাভারেজ নিয়ে।',
-  steps: {
-    1: { title: 'বর্তমান সেটআপই রাখুন', desc: 'আপনার ক্যাটালগ, ফাইল, ইনবক্স, আর টোন সেটিং একই থাকবে।' },
-    2: { title: 'সঙ্গে সঙ্গে বেশি সক্ষমতা পান', desc: 'বড় প্ল্যানে বেশি রিপ্লাই ভলিউম, ভালো ওয়ার্কফ্লো, আর টিমের জন্য বেশি ভিজিবিলিটি মেলে।' },
-    3: { title: 'অতিরিক্ত ম্যানুয়াল কাজ ছাড়াই স্কেল করুন', desc: 'আরও বেশি ক্রেতা, ফলো-আপ, আর কনভার্সনের সুযোগ সামলাতে SOVA ব্যবহার করুন।' },
-  },
+  compareTitle: 'কেন টিমগুলো আপগ্রেড করে',
+  compareDesc: 'আপনার কথোপকথন বাড়ার সাথে সাথে SOVA আরও বেশি রিপ্লাই এবং লিড সামলাতে পারে।',
   benefits: {
-    1: { title: 'আরও বেশি অটোমেটেড কথোপকথন', desc: 'টিমের উপর চাপ না বাড়িয়ে আরও বেশি WhatsApp রিপ্লাই সামলান।' },
-    2: { title: 'আরও শক্তিশালী AI হ্যান্ডলিং', desc: 'SOVA-কে আরও ভালোভাবে লিড ফিল্টার, ক্রেতাকে গাইড, আর রিপিটেড সাপোর্ট কমাতে দিন।' },
-    3: { title: 'আরও ভালো সেলস ভিজিবিলিটি', desc: 'গ্রোথ ট্র্যাক করুন, পারফরম্যান্স দেখুন, আর বুঝুন কোথায় কনভার্সন বাড়ছে।' },
-    4: { title: 'বড় হওয়া বিজনেসের জন্য তৈরি', desc: 'ভলিউম বাড়লে আপগ্রেড করুন যাতে ওয়ার্কফ্লো স্মুথ আর নির্ভরযোগ্য থাকে।' },
+    1: { title: 'আরও স্বয়ংক্রিয় কথোপকথন', desc: 'আপনার টিমের উপর চাপ না দিয়ে আরও বেশি WhatsApp উত্তর পরিচালনা করুন।' },
+    2: { title: 'শক্তিশালী AI পরিচালনা', desc: 'SOVA-কে লিড বাছাই এবং ক্রেতাদের গাইড করার আরও সুযোগ দিন।' },
+    3: { title: 'উন্নত বিক্রয় দৃশ্যমানতা', desc: 'প্রবৃদ্ধি ট্র্যাক করুন এবং সাড়া দেওয়ার ক্ষমতা উন্নত করুন।' },
+    4: { title: 'স্কেলিং ব্যবসার জন্য নির্মিত', desc: 'আপনার ভলিউম বাড়লে আপগ্রেড করুন যাতে কাজের গতি ঠিক থাকে।' },
   },
   plans: {
     starter: {
@@ -517,44 +807,119 @@ admin.upgrade = {
       price: '$19/mo',
       desc: 'ছোট টিমের জন্য যারা WhatsApp অটোমেশন শুরু করছে।',
       features: {
-        1: 'মাসে 1,000 পর্যন্ত অটোমেটেড রিপ্লাই',
-        2: 'বেসিক প্রোডাক্ট ও ফাইল শেয়ারিং সাপোর্ট',
-        3: 'স্ট্যান্ডার্ড অটোমেশন রুলের সঙ্গে লিড ডিটেকশন',
-        4: 'একটি ওয়ার্কস্পেস ও বেসিক রিপোর্টিং',
+        1: 'প্রতি মাসে ১,০০০টি পর্যন্ত স্বয়ংক্রিয় উত্তর',
+        2: 'বেসিক পণ্য এবং ফাইল শেয়ারিং সাপোর্ট',
+        3: 'স্ট্যান্ডার্ড অটোমেশন নিয়মের সাথে লিড শনাক্তকরণ',
+        4: 'প্রয়োজনীয় রিপোর্ট সহ একক ওয়ার্কস্পেস',
       },
     },
     growth: {
       badge: 'গ্রোথ',
       name: 'গ্রোথ',
       price: '$49/mo',
-      desc: 'বর্ধনশীল বিজনেসের জন্য যারা নিয়মিত ক্রেতার ফ্লো সামলায়।',
+      desc: 'সক্রিয় ক্রেতা প্রবাহ পরিচালনা করার জন্য তৈরি।',
       features: {
-        1: 'মাসে 5,000 পর্যন্ত অটোমেটেড রিপ্লাই',
-        2: 'অ্যাডভান্সড ক্যাটালগ, ফাইল, আর মিডিয়া ওয়ার্কফ্লো',
-        3: 'আরও শক্তিশালী লিড স্কোরিং ও ফলো-আপ অটোমেশন',
-        4: 'প্রায়োরিটি অ্যানালিটিক্স ও দ্রুত সাপোর্ট',
+        1: 'প্রতি মাসে ৫,০০০টি পর্যন্ত স্বয়ংক্রিয় উত্তর',
+        2: 'অ্যাডভান্সড ক্যাটালগ, ফাইল এবং মিডিয়া ওয়ার্কফ্লো',
+        3: 'উন্নত লিড স্কোরিং এবং ফলো-আপ অটোমেশন',
+        4: 'অগ্রাধিকার বিশ্লেষণ এবং দ্রুত সাপোর্ট',
       },
     },
     scale: {
       badge: 'স্কেল',
       name: 'স্কেল',
       price: '$99/mo',
-      desc: 'বড় সেলস টিমের জন্য যারা বেশি WhatsApp ভলিউম সামলায়।',
+      desc: 'গুরুতর WhatsApp ভলিউম পরিচালনা করা বড় টিমের জন্য।',
       features: {
-        1: 'হাই-ভলিউম রিপ্লাই ও ক্যাম্পেইন স্কেলিং',
-        2: 'প্রোডাক্ট, ফাইল, আর ইনবক্স জুড়ে গভীর অটোমেশন লজিক',
-        3: 'আরও বিস্তারিত রিপোর্টিং ও সেলস ভিজিবিলিটি',
-        4: 'প্রায়োরিটি অনবোর্ডিং ও ডেডিকেটেড সাপোর্ট',
+        1: 'উচ্চ ভলিউম উত্তর ব্যবস্থাপনা এবং ক্যাম্পেইন স্কেল',
+        2: 'পণ্য, ফাইল এবং ইনবক্স জুড়ে গভীর অটোমেশন লজিক',
+        3: 'আরও বিস্তারিত রিপোর্টিং এবং বিক্রয় দৃশ্যমানতা',
+        4: 'অনবোর্ডিং সহায়তা এবং নিবেদিত সাপোর্ট',
       },
     },
   },
 }
 
-admin.nav.catalog = 'ক্যাটালগ'
+admin.nav.catalog = 'পণ্যের ক্যাটালগ'
+admin.nav.addProduct = 'পণ্য যোগ করুন'
 admin.overview.quickActions.businessSettings = 'বিজনেস সেটিংস'
 admin.overview.quickActions.products = 'পণ্য দেখুন'
 admin.overview.quickActions.files = 'ফাইল দেখুন'
-admin.chat.previewLabel = 'হোয়াটসঅ্যাপ চ্যাট প্রিভিউ'
-admin.chat.defaultReply = 'হাই! যোগাযোগ করার জন্য ধন্যবাদ। আমি SOVA, আপনার সেলস অ্যাসিস্ট্যান্ট। আজ কীভাবে সাহায্য করতে পারি?'
+admin.chat.previewLabel = 'WhatsApp চ্যাট প্রিভিউ'
+admin.chat.defaultReply = 'হ্যালো! যোগাযোগ করার জন্য ধন্যবাদ। আমি SOVA, আপনার বিক্রয় সহকারী। আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?'
 
-
+admin.mockData = {
+  broadcasts: {
+    campaigns: [
+      { name: 'রমজান অফার', audience: '১,২৪০ জন যোগাযোগ', sendAt: 'আজ, সন্ধ্যা ৭:০০' },
+      { name: 'নতুন ক্যাটালগ লঞ্চ', audience: '৮৬০ জন যোগাযোগ', sendAt: 'অনুমোদনের অপেক্ষায়' },
+      { name: 'VIP ফলো-আপ ব্লাস্ট', audience: '৪২০ জন যোগাযোগ', sendAt: 'গতকাল, বিকাল ৫:৩০' }
+    ]
+  },
+  notifications: [
+    { title: 'নতুন হাই-इंटেন্ট লিড', desc: 'ফয়সাল আহমেদ প্রিমিয়াম সিল্ক স্কার্ফের পাইকারি মূল্য সম্পর্কে জিজ্ঞাসা করছেন।', time: '২ মিনিট আগে' },
+    { title: 'ব্রডকাস্ট সম্পন্ন', desc: "'রমজান অফার' ক্যাম্পেইনটি সফলভাবে ১,২৪০ জন গ্রাহককে পাঠানো হয়েছে।", time: '১ ঘণ্টা আগে' },
+    { title: 'SOVA জ্ঞান আপডেট', desc: 'নতুন পণ্য "সুতি টি-শার্ট" আপনার ক্যাটালগে যোগ করা হয়েছে এবং AI উত্তরের জন্য প্রস্তুত।', time: '৩ ঘণ্টা আগে' },
+    { title: 'আগত বার্তা', desc: 'সারা খান একটি বার্তা পাঠিয়েছেন। SOVA এটি স্বয়ংক্রিয়ভাবে পরিচালনা করছে।', time: '৫ ঘণ্টা আগে' }
+  ],
+  chats: [
+    { user: 'ফয়সাল আহমেদ', message: 'হ্যালো, এই জ্যাকেটটির দাম কত?', time: '১৪:২৩' },
+    { user: 'সারা খান', message: 'আপনার কাছে কি নীল রঙের মধ্যে M সাইজ পাওয়া যাবে?', time: '১২:০৫' },
+    { user: 'জুবায়ের শাহ', message: 'আমি ৩টি পিস অর্ডার করতে চাই।', time: '০৯:৪৪' },
+    { user: 'নাদিয়া মালিক', message: 'দয়া করে কি ক্যাটালগটা পাঠাতে পারবেন?', time: 'গতকাল' },
+    { user: 'বিলাল রাজা', message: 'আপনাদের ডেলিভারি চার্জ কত?', time: 'গতকাল' }
+  ],
+  reports: {
+    stats: {
+      revenue: '৳ ৮.৪L',
+      orderRate: '৩৭%',
+      resolved: '১,২৮৪',
+      revenueChange: '+১৮%',
+      orderRateChange: '+৬%',
+      resolvedChange: '+২২%'
+    },
+    revenueLines: ['৳ ৮২k', '৳ ৯৫k', '৳ ১.১L', '৳ ১.৩L', '৳ ১.৫L'],
+    rows: [
+      { revenue: '৳ ৮২k', rate: '১৬.৯%' },
+      { revenue: '৳ ৯৫k', rate: '১৭.৭%' },
+      { revenue: '৳ ১.১L', rate: '১৭.৪%' },
+      { revenue: '৳ ১.৩L', rate: '১৮.৮%' },
+      { revenue: '৳ ১.৫L', rate: '২০.০%' }
+    ]
+  },
+  drawer: [
+    { text: 'WhatsApp-এ নতুন লিড "ফয়সাল" ক্যাপচার করা হয়েছে!', time: '২ মিনিট আগে' },
+    { text: 'আপনার ক্যাটালগের ৫টি আইটেম স্টকের বাইরে আছে।', time: '১ ঘণ্টা আগে' },
+    { text: 'আজ SOVA অটোমেশন হার ১২% বৃদ্ধি পেয়েছে!', time: '৩ ঘণ্টা আগে' },
+    { text: 'সারা মালিক "প্রিমিয়াম স্কার্ফ"-এ আগ্রহী।', time: '৫ ঘণ্টা আগে' }
+  ],
+  profile: {
+    automations: '০৬',
+    alerts: '০৮'
+  },
+  overview: {
+    stats: {
+      active: '১৪২',
+      activeChange: '+১২.৫%',
+      leads: '৮৯',
+      leadsChange: '+৫.২%',
+      replies: '১,২০৪',
+      repliesChange: '+২৪.১%',
+      time: '১১ সে.',
+      timeChange: '-৩৪%'
+    },
+    activity: [
+      { time: '২ মিনিট আগে', meta: 'ইলেকট্রনিক্স - ৫ ইউনিট পাইকারি অনুরোধ' },
+      { time: '৯ মিনিট আগে', meta: 'পোশাক - কার্ট রিকভারি ক্যাম্পেইন' },
+      { time: '১৪ মিনিট আগে', meta: 'বারবার আসা কম মূল্যের বার্তা সরানো হয়েছে' }
+    ]
+  },
+  threads: {
+    3: [
+      { from: 'user', text: 'আমি ৩টি পিস অর্ডার করতে চাই।' },
+      { from: 'sova', text: 'দুর্দান্ত পছন্দ! আমি আপনার ৩টি পিসের অর্ডার নোট করে নিয়েছি। আমি কি জানতে পারি আপনি কোন পণ্যটির কথা বলছেন?' },
+      { from: 'user', text: 'প্রিমিয়াম সিল্ক স্কার্ফ।' },
+      { from: 'sova', text: 'চমৎকার! আমি ৩টি প্রিমিয়াম সিল্ক স্কার্ফের ইনভয়েস প্রস্তুত করছি। আমি কি আপনার অর্ডারটি নিশ্চিত করব?' }
+    ]
+  }
+}

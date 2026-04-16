@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, matchPath } from 'react-router-dom'
 import { DashboardLayout } from '../../layouts/DashboardLayout'
 import { Overview } from '../../components/specific/admin/Overview'
 import { NotificationsOverview } from '../../components/specific/admin/NotificationsOverview'
@@ -10,6 +10,8 @@ import { FilesOverview } from '../../components/specific/admin/FilesOverview'
 import { UpgradeOverview } from '../../components/specific/admin/UpgradeOverview'
 import { ConversationsOverview } from '../../components/specific/admin/ConversationsOverview'
 import { SettingsOverview } from '../../components/specific/admin/SettingsOverview'
+import { AddProductOverview } from '../../components/specific/admin/AddProductOverview'
+import { EditProductOverview } from '../../components/specific/admin/EditProductOverview'
 import { useApp } from '../../context/AppProvider'
 import { CelebrationModal } from '../../components/specific/admin/CelebrationModal'
 import { ROUTES } from '../../utils/routes'
@@ -19,6 +21,11 @@ export function DashboardPage() {
   const location = useLocation()
 
   const renderContent = () => {
+    if (location.pathname === ROUTES.adminAddProduct) return <AddProductOverview />
+    
+    const editMatch = matchPath(ROUTES.adminEditProduct, location.pathname)
+    if (editMatch) return <EditProductOverview id={editMatch.params.id} />
+
     switch (location.pathname) {
       case ROUTES.adminProducts:
         return <ProductsOverview />

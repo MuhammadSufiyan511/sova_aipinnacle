@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'sell better',
   pricingEyebrow: 'Pricing',
   pricingTitle: 'Simple pricing for WhatsApp automation',
-  pricingDescription: 'Start free, test SOVA, and upgrade when your WhatsApp volume grows.',
+  pricingDescription: 'Start with a 7-day free trial, test SOVA, and upgrade when your WhatsApp volume grows.',
   reviewsEyebrow: 'Reviews',
   reviewsTitle: 'What customers say',
   reviewsDescription: 'Quick feedback from teams using SOVA every day.',

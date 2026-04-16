@@ -9,7 +9,7 @@ export const sections = {
   featuresTitleB: 'تبيع بشكل أفضل',
   pricingEyebrow: 'الأسعار',
   pricingTitle: 'خطط واضحة وبسيطة',
-  pricingDescription: 'ابدأ مجانًا ثم طوّر خطتك عندما يكبر حجم الشغل.',
+  pricingDescription: 'ابدأ بتجربة مجانية لمدة 7 أيام، وجرب سوفا، وقم بالترقية عندما يكبر حجم عملك على واتساب.',
   reviewsEyebrow: 'الآراء',
   reviewsTitle: 'ماذا يقول العملاء',
   reviewsDescription: 'آراء سريعة من فرق تستخدم سوفا كل يوم.',

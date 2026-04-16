@@ -96,20 +96,20 @@ export function AddProductModal({ isOpen, onClose, onAdd, onSave, initialProduct
             initial={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 10 : 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 10 : 20 }}
-            className={`relative w-full max-w-md overflow-hidden rounded-[32px] border border-white/50 bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.1)] ${isMobile ? '' : 'backdrop-blur-xl'} will-change-[transform,opacity]`}
+            className={`relative w-full max-w-md max-h-[90vh] overflow-y-auto scrollbar-hide rounded-[24px] sm:rounded-[32px] border border-white/50 bg-white p-6 sm:p-8 shadow-[0_20px_70px_rgba(0,0,0,0.1)] ${isMobile ? '' : 'backdrop-blur-xl'} will-change-[transform,opacity]`}
           >
             <button
               onClick={handleClose}
-              className={`absolute top-6 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 ${isRTL ? 'left-6' : 'right-6'}`}
+              className={`absolute top-4 sm:top-6 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 ${isRTL ? 'left-4 sm:left-6' : 'right-4 sm:right-6'}`}
               aria-label={t('common.close')}
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="font-display text-2xl font-bold text-slate-900">
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
               {isEditMode ? t('onboarding.products.modal.titleUpdate') : t('onboarding.products.modal.titleAdd')}
             </h3>
-            <p className="mt-2 text-sm text-slate-900">
+            <p className="mt-1.5 sm:mt-2 text-[0.82rem] sm:text-sm text-slate-600">
               {isEditMode ? t('onboarding.products.modal.subtitleUpdate') : t('onboarding.products.modal.subtitleAdd')}
             </p>
 
