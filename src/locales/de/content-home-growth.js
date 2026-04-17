@@ -16,9 +16,9 @@ export const industries = {
 
 export const pricing = {
   plans: [
-    { name: 'SOVA Basic', price: '$18', blurb: 'Kleine Geschäfte mit einem Standort', points: ['Bis zu 50 Produkte im Katalog', '1.000 KI-Antworten/Monat', 'Grundlegende Antworten zu Preis & Verfügbarkeit', 'Roman Urdu Unterstützung'] },
+    { name: 'SOVA Basis', price: '$18', blurb: 'Kleine Geschäfte mit einem Standort', points: ['Bis zu 50 Produkte im Katalog', '1.000 KI-Antworten/Monat', 'Grundlegende Antworten zu Preis & Verfügbarkeit', 'Roman Urdu Unterstützung'] },
     { name: 'SOVA Pro', tierInclude: 'Alles aus Basic PLUS', price: '$43', blurb: 'Vielbeschäftigte Einzelhändler, Restaurants', points: ['Bis zu 500 Produkte', '5.000 KI-Antworten/Monat', 'Vollständiges Analyse-Dashboard', 'Bericht über Trendartikel', 'Analyse der Kundenstimmung', 'Fotokatalog-Integration'], badge: 'Beliebt' },
-    { name: 'SOVA Enterprise', tierInclude: 'Alles aus Pro PLUS', price: 'Individuell', blurb: 'Großhändler, Industrielle, große Firmen', points: ['Unbegrenzte Produkte', 'Mehrere Filialen/Standorte', 'Eigene Integrationen in interne Software', 'Priorisierter Support', 'Dedizierter Account-Manager', 'Individuelles KI-Training'], badge: 'Enterprise', cta: 'Kontakt aufnehmen' },
+    { name: 'SOVA Unternehmen', tierInclude: 'Alles aus Pro PLUS', price: 'Individuell', blurb: 'Großhändler, Industrielle, große Firmen', points: ['Unbegrenzte Produkte', 'Mehrere Filialen/Standorte', 'Eigene Integrationen in interne Software', 'Priorisierter Support', 'Dedizierter Account-Manager', 'Individuelles KI-Training'], badge: 'Enterprise', cta: 'Kontakt aufnehmen' },
   ],
 }
 

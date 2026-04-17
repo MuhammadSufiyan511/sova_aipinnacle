@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { pricingPlans } from '../../../data'
 import { PlanCard } from './pricing/PlanCard'
 import { rtlLanguages } from '../../../i18n'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '../../../utils/routes'
+import { ArrowRight } from 'lucide-react'
 
 const MotionDiv = motion.div
 
@@ -31,9 +34,23 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
           <h2 className="font-display text-[2.2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.8rem] 2xl:text-[3.6rem] 3xl:text-[4.2rem]">
             {t('sections.pricingTitle')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[380px] text-[0.96rem] leading-[1.75] text-[#5a9e88] 2xl:mt-5 2xl:max-w-[500px] 2xl:text-[1.2rem] 3xl:max-w-[650px] 3xl:text-[1.4rem]">
-            {t('sections.pricingDescription')}
-          </p>
+          <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center justify-between gap-5 rounded-3xl border border-[#DCEEE7] bg-[#ECFDF5]/50 p-5 sm:p-6 sm:flex-row shadow-sm hover:shadow-md transition-shadow">
+            <div className={`flex flex-col ${isRtl ? 'sm:text-right' : 'sm:text-left'} text-center`}>
+              <p className="text-[0.95rem] leading-[1.6] text-[#1E293B] font-medium max-w-[420px]">
+                {t('sections.pricingDescription')}
+              </p>
+              <p className="mt-1.5 text-[0.75rem] font-bold text-[#F1990A] uppercase tracking-wider">
+                {t('common.noCardRequired', 'No credit card required')}
+              </p>
+            </div>
+            <Link 
+              to={ROUTES.auth}
+              className="flex shrink-0 items-center justify-center gap-2 w-full sm:w-auto rounded-full bg-[#10B981] px-6 py-3.5 text-[0.9rem] font-bold text-white transition hover:scale-[1.02] hover:bg-[#0F8F72] shadow-[0_6px_20px_rgba(16,185,129,0.28)]"
+            >
+              {t('common.startFreeTrial', 'Start Free Trial')} 
+              <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />
+            </Link>
+          </div>
         </MotionDiv>
 
         {/* Carousel Container */}
@@ -62,24 +79,23 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   className="mx-auto cursor-grab active:cursor-grabbing"
                 >
-                  <PlanCard 
-                    plan={localizedPlans[activePlan]} 
-                    index={activePlan} 
+                  <PlanCard
+                    plan={localizedPlans[activePlan]}
+                    index={activePlan}
                     isPopular={activePlan === 1}
                     t={t}
                   />
                 </MotionDiv>
               </AnimatePresence>
-              
+
               {/* Pagination Dots for Mobile */}
               <div className="mt-8 flex justify-center gap-2.5">
                 {localizedPlans.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setActivePlan(i)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      activePlan === i ? 'w-8 bg-[#10B981]' : 'w-2 bg-[#DCEEE7]'
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${activePlan === i ? 'w-8 bg-[#10B981]' : 'w-2 bg-[#DCEEE7]'
+                      }`}
                     aria-label={`Go to plan ${i + 1}`}
                   />
                 ))}
@@ -89,10 +105,10 @@ export const PricingPreviewSection = memo(function PricingPreviewSection() {
             {/* Desktop View - Standard Grid */}
             <div className="hidden lg:contents">
               {localizedPlans.map((plan, index) => (
-                <PlanCard 
-                  key={plan.name} 
-                  plan={plan} 
-                  index={index} 
+                <PlanCard
+                  key={plan.name}
+                  plan={plan}
+                  index={index}
                   isPopular={index === 1}
                   t={t}
                 />
