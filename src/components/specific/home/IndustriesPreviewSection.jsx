@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import { industries } from '../../../data'
+import { rtlLanguages } from '../../../i18n'
 import { IndustriesPreviewTabs } from './industries-preview/IndustriesPreviewTabs'
 import { IndustryPreviewCard } from './industries-preview/IndustryPreviewCard'
 
@@ -10,7 +11,7 @@ const MotionDiv = motion.div
 
 export function IndustriesPreviewSection({ activeIndustry, onSelectIndustry }) {
   const { t, i18n } = useTranslation()
-  const isRtl = i18n.dir() === 'rtl'
+  const isRtl = rtlLanguages.includes(i18n.language) || i18n.dir() === 'rtl'
   const localizedIndustryItems = t('content.industries.items', { returnObjects: true }) || {}
   const enrichedIndustries = industries.map((industry) => ({
     ...industry,

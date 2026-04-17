@@ -99,6 +99,9 @@ export const admin = {
     inactive: 'নিষ্ক্রিয়',
     currencySymbol: '৳',
     currencyCode: 'BDT',
+    starter: 'স্টার্টার',
+    growth: 'গ্রোথ',
+    scale: 'স্কেল',
   },
   broadcasts: {
     title: 'ব্রডকাস্ট ক্যাম্পেইন',
@@ -247,11 +250,11 @@ export const admin = {
         submitAdd: 'তালিকায় যোগ করুন',
         submitEdit: 'পরিবর্তন সংরক্ষণ করুন',
       },
-      validation: {
-        nameRequired: 'পণ্যের নাম প্রদান করা আবশ্যক',
-        createSuccess: 'পণ্যটি সফলভাবে তালিকায় যোগ করা হয়েছে',
-        updateSuccess: 'বিবরণ সফলভাবে আপডেট করা হয়েছে',
-      },
+    },
+    validation: {
+      nameRequired: 'পণ্যের নাম প্রদান করা আবশ্যক',
+      createSuccess: 'পণ্যটি সফলভাবে তালিকায় যোগ করা হয়েছে',
+      updateSuccess: 'বিবরণ সফলভাবে আপডেট করা হয়েছে',
     },
     fields: {
       selectOption: 'বিকল্প নির্বাচন করুন',

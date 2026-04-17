@@ -98,6 +98,9 @@ export const admin = {
     preview: 'Vorschau',
     open: 'Öffnen',
     edit: 'Bearbeiten',
+    starter: 'Starter',
+    growth: 'Wachstum',
+    scale: 'Skalierung',
   },
   broadcasts: {
     title: 'Broadcast-Kampagnen',
@@ -248,11 +251,11 @@ export const admin = {
         submitEdit: 'Änderungen speichern',
         saveDraft: 'Als Entwurf speichern',
       },
-      validation: {
-        nameRequired: 'Artikelname ist erforderlich',
-        createSuccess: 'Artikel erfolgreich hinzugefügt',
-        updateSuccess: 'Details erfolgreich aktualisiert',
-      },
+    },
+    validation: {
+      nameRequired: 'Artikelname ist erforderlich',
+      createSuccess: 'Artikel erfolgreich hinzugefügt',
+      updateSuccess: 'Details erfolgreich aktualisiert',
     },
     fields: {
       selectOption: 'Option wählen',

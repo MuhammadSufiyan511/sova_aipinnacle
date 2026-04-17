@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { pricingPlans } from '../../../data'
 import { PlanCard } from './pricing/PlanCard'
+import { rtlLanguages } from '../../../i18n'
 
 const MotionDiv = motion.div
 
 export const PricingPreviewSection = memo(function PricingPreviewSection() {
   const { t, i18n } = useTranslation()
-  const isRtl = i18n.dir() === 'rtl'
+  const isRtl = rtlLanguages.includes(i18n.language) || i18n.dir() === 'rtl'
   const localizedPlans = t('content.pricing.plans', { returnObjects: true }) || pricingPlans
   const [activePlan, setActivePlan] = useState(0)
 

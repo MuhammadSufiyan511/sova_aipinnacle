@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { rtlLanguages } from '../../../../i18n'
 import { ActiveUsersCard } from './ActiveUsersCard'
 import { ChatSimulationCard } from './ChatSimulationCard'
 import { ProductivityGraphCard } from './ProductivityGraphCard'
@@ -9,7 +10,7 @@ import { TypingSimulationCard } from './TypingSimulationCard'
 
 export function BrandFeatureSwipeStack({ cards, microCopy, t }) {
   const { i18n } = useTranslation()
-  const isRtl = i18n.dir() === 'rtl'
+  const isRtl = rtlLanguages.includes(i18n.language) || i18n.dir() === 'rtl'
   const [stackOrder, setStackOrder] = useState([0, 1, 2, 3])
 
   const handleSwipe = (info) => {

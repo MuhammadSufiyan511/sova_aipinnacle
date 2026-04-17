@@ -97,6 +97,9 @@ const admin = {
     inactive: 'Inactive',
     currencySymbol: '$',
     currencyCode: 'USD',
+    starter: 'Starter',
+    growth: 'Growth',
+    scale: 'Scale',
   },
   overview: {
     performance: 'Workspace performance',
@@ -837,11 +840,11 @@ admin.addProductOverview = {
       submitAdd: 'Create Listing',
       submitEdit: 'Save Changes',
     },
-    validation: {
-      nameRequired: 'Item Name is required',
-      createSuccess: 'Item added to catalog successfully',
-      updateSuccess: 'Item details updated successfully',
-    },
+  },
+  validation: {
+    nameRequired: 'Item Name is required',
+    createSuccess: 'Item added to catalog successfully',
+    updateSuccess: 'Item details updated successfully',
   },
   fields: {
     selectOption: 'Select Option',

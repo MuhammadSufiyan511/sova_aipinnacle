@@ -101,6 +101,9 @@ const admin = {
     inactive: 'غیر فعال',
     currencySymbol: 'روپے',
     currencyCode: 'PKR',
+    starter: 'اسٹارٹر',
+    growth: 'گروتھ',
+    scale: 'اسکیل',
   },
   overview: {
     performance: 'ورک اسپیس کی کارکردگی',

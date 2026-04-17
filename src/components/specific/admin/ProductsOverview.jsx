@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../../context/AppProvider'
 import { ROUTES } from '../../../utils/routes'
 import { useTranslation } from 'react-i18next'
+import toast from 'react-hot-toast'
 
 const gradients = [
   'from-emerald-400/20 to-teal-400/20',
@@ -86,15 +87,18 @@ const ProductCard = memo(function ProductCard({
 }) {
   const mediaItems = useMemo(() => getProductMediaItems(product), [product])
   const [activeMediaIndex, setActiveMediaIndex] = useState(0)
+  const [slideDirection, setSlideDirection] = useState(0)
   const currentMedia = mediaItems[activeMediaIndex] || null
   const hasMultipleMedia = mediaItems.length > 1
   const isActive = product.isActive !== false
 
   const showPreviousMedia = () => {
+    setSlideDirection(-1)
     setActiveMediaIndex((current) => (current === 0 ? mediaItems.length - 1 : current - 1))
   }
 
   const showNextMedia = () => {
+    setSlideDirection(1)
     setActiveMediaIndex((current) => (current === mediaItems.length - 1 ? 0 : current + 1))
   }
 
@@ -110,34 +114,68 @@ const ProductCard = memo(function ProductCard({
     >
       <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[index % gradients.length]} admin-item-img-shell ${isActive ? '' : 'grayscale'}`}>
         {currentMedia ? (
-          currentMedia.type === 'video' ? (
-            <div className="relative h-full w-full">
-              <video
-                src={currentMedia.preview}
-                className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-                autoPlay
-                muted
-                loop
-                playsInline
-              />
-              <span className={`absolute inset-0 flex items-center justify-center text-white ${isActive ? 'bg-slate-900/20' : 'bg-slate-900/45'}`}>
-                <PlayCircle className="h-9 w-9" />
-              </span>
-            </div>
-          ) : currentMedia.type === 'file' ? (
-            <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${isActive ? 'bg-[#F2FBF7]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
-                <FileText className="h-6 w-6 text-emerald-600" />
-              </span>
-              <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{currentMedia.name || product.name}</span>
-            </div>
-          ) : (
-            <img
-              src={currentMedia.preview}
-              alt={product.name}
-              className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-            />
-          )
+          <AnimatePresence initial={false} custom={slideDirection}>
+            <Motion.div
+              key={currentMedia.preview || activeMediaIndex}
+              custom={slideDirection}
+              variants={{
+                enter: (direction) => ({
+                  x: direction > 0 ? 200 : direction < 0 ? -200 : 0,
+                  opacity: 0,
+                  scale: 0.95
+                }),
+                center: {
+                  zIndex: 1,
+                  x: 0,
+                  opacity: 1,
+                  scale: 1
+                },
+                exit: (direction) => ({
+                  zIndex: 0,
+                  x: direction < 0 ? 200 : direction > 0 ? -200 : 0,
+                  opacity: 0,
+                  scale: 0.95
+                })
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+              className="absolute inset-0 h-full w-full"
+            >
+              {currentMedia.type === 'video' ? (
+                <div className="relative h-full w-full bg-slate-900">
+                  <video
+                    src={currentMedia.preview}
+                    className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <span className={`absolute inset-0 flex items-center justify-center text-white ${isActive ? 'bg-slate-900/20' : 'bg-slate-900/45'}`}>
+                    <PlayCircle className="h-9 w-9" />
+                  </span>
+                </div>
+              ) : currentMedia.type === 'file' ? (
+                <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${isActive ? 'bg-[#F2FBF7]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
+                    <FileText className="h-6 w-6 text-emerald-600" />
+                  </span>
+                  <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{currentMedia.name || product.name}</span>
+                </div>
+              ) : (
+                <img
+                  src={currentMedia.preview}
+                  alt={product.name}
+                  className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
+                />
+              )}
+            </Motion.div>
+          </AnimatePresence>
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-black/5 text-black/20">
             <Package className="h-10 w-10" />
@@ -153,7 +191,7 @@ const ProductCard = memo(function ProductCard({
                 showPreviousMedia()
               }}
               aria-label={t('common.previous')}
-              className="absolute left-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#173247] opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white group-hover:opacity-100 focus-visible:opacity-100"
+              className="absolute left-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 text-[#173247] dark:text-slate-200 opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-800 group-hover:opacity-100 focus-visible:opacity-100"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -164,15 +202,15 @@ const ProductCard = memo(function ProductCard({
                 showNextMedia()
               }}
               aria-label={t('common.next')}
-              className="absolute right-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#173247] opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white group-hover:opacity-100 focus-visible:opacity-100"
+              className="absolute right-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 text-[#173247] dark:text-slate-200 opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-800 group-hover:opacity-100 focus-visible:opacity-100"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
-            <div className="absolute bottom-2 right-2 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 shadow-sm">
+            <div className="absolute bottom-2 right-2 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 dark:bg-slate-800/90 px-2 py-1 shadow-sm">
               {mediaItems.map((item, itemIndex) => (
                 <span
                   key={item.id || itemIndex}
-                  className={`h-1.5 w-1.5 rounded-full transition ${itemIndex === activeMediaIndex ? 'bg-[#10B981]' : 'bg-[#B6CCC6]'}`}
+                  className={`h-1.5 w-1.5 rounded-full transition ${itemIndex === activeMediaIndex ? 'bg-[#10B981]' : 'bg-[#B6CCC6] dark:bg-slate-500'}`}
                 />
               ))}
             </div>
@@ -235,7 +273,14 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
+  const [activeModalMediaIndex, setActiveModalMediaIndex] = useState(0)
+  const [modalSlideDirection, setModalSlideDirection] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setActiveModalMediaIndex(0)
+    setModalSlideDirection(0)
+  }, [viewingProduct])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -260,6 +305,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
 
   const toggleProductStatus = (product) => {
     updateProduct({ ...product, isActive: !(product.isActive !== false) })
+    toast.success(t('admin.addProductOverview.validation.updateSuccess'))
   }
 
   const filteredProducts = useMemo(() => {
@@ -496,131 +542,226 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 <X className="h-5 w-5" />
               </button>
 
-              <div className="relative h-40 md:h-48 w-full overflow-hidden bg-slate-950">
-                <AnimatePresence mode="wait">
-                  <Motion.img
-                    key={viewingProduct.imagePreview}
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    src={viewingProduct.imagePreview || ''}
-                    className="h-full w-full object-cover"
-                    alt={viewingProduct.name}
-                  />
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                <div className="absolute left-6 bottom-4 md:left-8 md:bottom-6 text-white">
-                  <span className="mb-2 flex w-fit items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-[0.14em] shadow-lg">
-                    <TrendingUp className="h-3 w-3" />
-                    {viewingProduct.isActive !== false ? 'Live' : 'Archived'}
-                  </span>
-                  <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-sm">
-                    {viewingProduct.name}
-                  </h3>
-                </div>
-              </div>
+              {(() => {
+                const modalMediaItems = getProductMediaItems(viewingProduct)
+                const currentModalMedia = modalMediaItems[activeModalMediaIndex] || { preview: viewingProduct.imagePreview, type: 'image' }
+                const hasMultipleModalMedia = modalMediaItems.length > 1
 
-              <div className="admin-modal-ribbon flex flex-col md:flex-row md:h-14 items-start md:items-center border-b border-slate-100 bg-white/50 px-6 py-4 md:py-0">
-                <div className="flex w-full items-center justify-between">
-                  <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                    <div className="flex flex-col">
-                      <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.priceLabel')}</span>
-                      <span className="text-[0.85rem] md:text-[0.95rem] font-black text-emerald-600">{t('admin.products.item.price', { price: viewingProduct.price || '0.00' })}</span>
-                    </div>
-                    <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
-                    <div className="flex flex-col">
-                      <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.stockLabel')}</span>
-                      <span className="admin-modal-value text-[0.85rem] md:text-[0.95rem] font-black text-slate-900">{viewingProduct.stock || '0'}</span>
-                    </div>
-                    <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
-                    <div className="flex flex-col">
-                      <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.skuLabel')}</span>
-                      <span className="admin-modal-value text-[0.75rem] md:text-[0.85rem] font-bold text-slate-900">{viewingProduct.sku || t('admin.products.item.none')}</span>
+                const showNextModalMedia = (e) => {
+                  e?.stopPropagation()
+                  setModalSlideDirection(1)
+                  setActiveModalMediaIndex(curr => (curr === modalMediaItems.length - 1 ? 0 : curr + 1))
+                }
+                const showPrevModalMedia = (e) => {
+                  e?.stopPropagation()
+                  setModalSlideDirection(-1)
+                  setActiveModalMediaIndex(curr => (curr === 0 ? modalMediaItems.length - 1 : curr - 1))
+                }
+
+                return (
+                  <div className="relative h-48 md:h-56 w-full overflow-hidden bg-slate-950">
+                    <AnimatePresence initial={false} custom={modalSlideDirection}>
+                      <Motion.div
+                        key={currentModalMedia.preview || activeModalMediaIndex}
+                        custom={modalSlideDirection}
+                        variants={{
+                          enter: (direction) => ({
+                            x: direction > 0 ? 300 : direction < 0 ? -300 : 0,
+                            opacity: 0,
+                            scale: 0.95
+                          }),
+                          center: {
+                            zIndex: 1,
+                            x: 0,
+                            opacity: 1,
+                            scale: 1
+                          },
+                          exit: (direction) => ({
+                            zIndex: 0,
+                            x: direction < 0 ? 300 : direction > 0 ? -300 : 0,
+                            opacity: 0,
+                            scale: 0.95
+                          })
+                        }}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{
+                          x: { type: 'spring', stiffness: 300, damping: 30 },
+                          opacity: { duration: 0.2 }
+                        }}
+                        className="absolute inset-0 h-full w-full"
+                      >
+                        {currentModalMedia.type === 'video' ? (
+                          <video
+                            src={currentModalMedia.preview}
+                            className="h-full w-full object-contain bg-black/50"
+                            controls
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                          />
+                        ) : currentModalMedia.type === 'file' ? (
+                          <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-50 text-slate-400">
+                            <FileText className="h-12 w-12 text-slate-300" />
+                            <span className="max-w-[80%] text-center text-[0.75rem] font-bold text-slate-500">
+                              {currentModalMedia.name || viewingProduct.name}
+                            </span>
+                          </div>
+                        ) : (
+                          <img
+                            src={currentModalMedia.preview}
+                            className="h-full w-full object-cover"
+                            alt={viewingProduct.name}
+                          />
+                        )}
+                      </Motion.div>
+                    </AnimatePresence>
+
+                    {hasMultipleModalMedia && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={showPrevModalMedia}
+                          className="absolute left-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/60 text-slate-900 shadow-lg backdrop-blur-md transition hover:bg-white"
+                        >
+                          <ChevronLeft className="h-5 w-5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={showNextModalMedia}
+                          className="absolute right-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/60 text-slate-900 shadow-lg backdrop-blur-md transition hover:bg-white"
+                        >
+                          <ChevronRight className="h-5 w-5" />
+                        </button>
+                        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/20 px-3 py-1.5 backdrop-blur-md">
+                          {modalMediaItems.map((_, i) => (
+                            <span
+                              key={i}
+                              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === activeModalMediaIndex ? 'w-4 bg-white shadow-sm' : 'bg-white/40'}`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none">
+                      <span className="mb-2 flex w-fit items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-[0.14em] shadow-lg">
+                        <TrendingUp className="h-3 w-3" />
+                        {viewingProduct.isActive !== false ? 'Live' : 'Archived'}
+                      </span>
+                      <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-sm">
+                        {viewingProduct.name}
+                      </h3>
                     </div>
                   </div>
-                </div>
-              </div>
+                )
+              })()}
 
-              <div className="max-h-[50vh] overflow-y-auto px-6 py-6 no-scrollbar">
-                <div className="space-y-6 md:space-y-8">
-                  <section>
-                    <div className="mb-4 flex flex-wrap items-center gap-2">
-                      <span className="admin-modal-tag inline-flex items-center gap-1.5 rounded-full bg-slate-100/50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-bold text-slate-500">
-                        <Box className="h-3.5 w-3.5" />
-                        {viewingProduct.industry || 'Catalog'}
+        <div className="admin-modal-ribbon flex flex-col md:flex-row md:h-14 items-start md:items-center border-b border-slate-100 bg-white/50 px-6 py-4 md:py-0">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6">
+              <div className="flex flex-col">
+                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.priceLabel')}</span>
+                <span className="text-[0.85rem] md:text-[0.95rem] font-black text-emerald-600">{t('admin.products.item.price', { price: viewingProduct.price || '0.00' })}</span>
+              </div>
+              <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
+              <div className="flex flex-col">
+                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.stockLabel')}</span>
+                <span className="admin-modal-value text-[0.85rem] md:text-[0.95rem] font-black text-slate-900">{viewingProduct.stock || '0'}</span>
+              </div>
+              <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
+              <div className="flex flex-col">
+                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.skuLabel')}</span>
+                <span className="admin-modal-value text-[0.75rem] md:text-[0.85rem] font-bold text-slate-900">{viewingProduct.sku || t('admin.products.item.none')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-h-[50vh] overflow-y-auto px-6 py-6 no-scrollbar">
+          <div className="space-y-6 md:space-y-8">
+            <section>
+              <div className="mb-4 flex flex-wrap items-center gap-2">
+                <span className="admin-modal-tag inline-flex items-center gap-1.5 rounded-full bg-slate-100/50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-bold text-slate-500">
+                  <Box className="h-3.5 w-3.5" />
+                  {viewingProduct.industry || 'Catalog'}
+                </span>
+                {viewingProduct.categoryAt && (
+                  <>
+                    <ArrowRight className="h-3 w-3 text-slate-300" />
+                    <span className="admin-modal-badge-emerald inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-emerald-600">
+                      {viewingProduct.categoryAt}
+                    </span>
+                  </>
+                )}
+                {viewingProduct.subCategoryAt && (
+                  <>
+                    <ArrowRight className="h-3 w-3 text-slate-300" />
+                    <span className="admin-modal-badge-dark inline-flex items-center rounded-full bg-slate-900 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-white">
+                      {viewingProduct.subCategoryAt}
+                    </span>
+                  </>
+                )}
+              </div>
+              <h4 className="sr-only">Description</h4>
+              <p className="admin-modal-description max-w-2xl text-[0.85rem] md:text-[0.95rem] font-medium leading-[1.8] text-slate-600">
+                {viewingProduct.description || t('admin.products.item.noDescription')}
+              </p>
+            </section>
+
+            {viewingProduct.specs && Object.keys(viewingProduct.specs).length > 0 && (
+              <section className="admin-modal-specs">
+                <div className="mb-5 md:mb-6 flex items-center gap-4">
+                  <h4 className="flex items-center gap-2 text-[0.55rem] md:text-[0.6rem] font-black uppercase tracking-[0.2em] text-slate-300">
+                    <BadgeCheck className="h-4 w-4 text-emerald-500" />
+                    {t('admin.products.item.specsTitle')}
+                  </h4>
+                  <div className="admin-modal-divider h-px flex-1 bg-slate-100" />
+                </div>
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 md:gap-y-8">
+                  {Object.entries(viewingProduct.specs).map(([key, value]) => (
+                    <div key={key} className="flex flex-col gap-1 md:gap-1.5">
+                      <span className="text-[0.5rem] md:text-[0.55rem] font-black uppercase tracking-[0.18em] text-slate-400">
+                        {key.replace(/([A-Z])/g, ' $1')}
                       </span>
-                      {viewingProduct.categoryAt && (
-                        <>
-                          <ArrowRight className="h-3 w-3 text-slate-300" />
-                          <span className="admin-modal-badge-emerald inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-emerald-600">
-                            {viewingProduct.categoryAt}
-                          </span>
-                        </>
-                      )}
-                      {viewingProduct.subCategoryAt && (
-                        <>
-                          <ArrowRight className="h-3 w-3 text-slate-300" />
-                          <span className="admin-modal-badge-dark inline-flex items-center rounded-full bg-slate-900 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-white">
-                            {viewingProduct.subCategoryAt}
-                          </span>
-                        </>
-                      )}
+                      <span className="admin-modal-value text-[0.82rem] md:text-[0.9rem] font-bold tracking-tight text-slate-900">{value}</span>
                     </div>
-                    <h4 className="sr-only">Description</h4>
-                    <p className="admin-modal-description max-w-2xl text-[0.85rem] md:text-[0.95rem] font-medium leading-[1.8] text-slate-600">
-                      {viewingProduct.description || t('admin.products.item.noDescription')}
-                    </p>
-                  </section>
-
-                  {viewingProduct.specs && Object.keys(viewingProduct.specs).length > 0 && (
-                    <section className="admin-modal-specs">
-                      <div className="mb-5 md:mb-6 flex items-center gap-4">
-                        <h4 className="flex items-center gap-2 text-[0.55rem] md:text-[0.6rem] font-black uppercase tracking-[0.2em] text-slate-300">
-                          <BadgeCheck className="h-4 w-4 text-emerald-500" />
-                          {t('admin.products.item.specsTitle')}
-                        </h4>
-                        <div className="admin-modal-divider h-px flex-1 bg-slate-100" />
-                      </div>
-                      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 md:gap-y-8">
-                        {Object.entries(viewingProduct.specs).map(([key, value]) => (
-                          <div key={key} className="flex flex-col gap-1 md:gap-1.5">
-                            <span className="text-[0.5rem] md:text-[0.55rem] font-black uppercase tracking-[0.18em] text-slate-400">
-                              {key.replace(/([A-Z])/g, ' $1')}
-                            </span>
-                            <span className="admin-modal-value text-[0.82rem] md:text-[0.9rem] font-bold tracking-tight text-slate-900">{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  )}
+                  ))}
                 </div>
-              </div>
+              </section>
+            )}
+          </div>
+        </div>
 
-              <div className="p-6 md:p-8 pt-0">
-                <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
-                  <Motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => openEditPage(viewingProduct)}
-                    className="admin-cta-premium w-full sm:flex-1 h-14 flex items-center justify-center gap-3 rounded-[20px] md:rounded-[24px] bg-slate-900 text-[0.85rem] md:text-[0.92rem] font-black text-white shadow-2xl transition hover:bg-emerald-600"
-                  >
-                    <Pencil className="h-4 w-4" />
-                    {t('admin.products.item.editBtn')}
-                  </Motion.button>
-                  <Motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      if (window.confirm('Archive this product?')) {
-                        removeProduct(viewingProduct.id)
-                        setViewingProduct(null)
-                      }
-                    }}
-                    className="admin-btn-danger-glass h-16 w-16 flex items-center justify-center rounded-[24px] bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100/50"
-                  >
-                    <Trash2 className="h-5 w-5" />
-                  </Motion.button>
-                </div>
-              </div>
+        <div className="p-6 md:p-8 pt-0">
+          <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
+            <Motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => openEditPage(viewingProduct)}
+              className="admin-cta-premium w-full sm:flex-1 h-14 flex items-center justify-center gap-3 rounded-[20px] md:rounded-[24px] bg-slate-900 text-[0.85rem] md:text-[0.92rem] font-black text-white shadow-2xl transition hover:bg-emerald-600"
+            >
+              <Pencil className="h-4 w-4" />
+              {t('admin.products.item.editBtn')}
+            </Motion.button>
+            <Motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                if (window.confirm('Archive this product?')) {
+                  removeProduct(viewingProduct.id)
+                  setViewingProduct(null)
+                }
+              }}
+              className="admin-btn-danger-glass h-16 w-16 flex items-center justify-center rounded-[24px] bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100/50"
+            >
+              <Trash2 className="h-5 w-5" />
+            </Motion.button>
+          </div>
+        </div>
             </Motion.div>
           </div>
         ) : null}

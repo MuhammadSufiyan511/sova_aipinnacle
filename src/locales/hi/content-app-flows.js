@@ -98,6 +98,9 @@ export const admin = {
     inactive: 'निष्क्रिय',
     currencySymbol: '₹',
     currencyCode: 'INR',
+    starter: 'स्टार्टर',
+    growth: 'ग्रोथ',
+    scale: 'स्केल',
   },
   broadcasts: {
     title: 'ब्रॉडकास्ट अभियान',
@@ -246,11 +249,11 @@ export const admin = {
         submitAdd: 'लिस्ट में जोड़ें',
         submitEdit: 'बदलाव सहेजें',
       },
-      validation: {
-        nameRequired: 'आइटम का नाम लिखना जरूरी है',
-        createSuccess: 'आइटम दुकान में जोड़ दिया गया',
-        updateSuccess: 'जानकारी अपडेट कर दी गई',
-      },
+    },
+    validation: {
+      nameRequired: 'आइटम का नाम लिखना जरूरी है',
+      createSuccess: 'आइटम दुकान में जोड़ दिया गया',
+      updateSuccess: 'जानकारी अपडेट कर दी गई',
     },
     fields: {
       selectOption: 'विकल्प चुनें',

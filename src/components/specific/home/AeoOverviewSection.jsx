@@ -1,6 +1,7 @@
 import { memo, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { rtlLanguages } from '../../../i18n'
 
 
 // ─── Per-card accent colours and icons ────────────────────────────────────────
@@ -66,14 +67,19 @@ function AeoMobileCarousel({ cards, isRtl }) {
   )
 
   const handleComplete = useCallback(() => {
-    if (!paused) go(isRtl ? -1 : 1)
-  }, [go, paused, isRtl])
+    // We always want to go forward in the array (0 -> 1 -> 2)
+    if (!paused) go(1)
+  }, [go, paused])
 
   const handleDragEnd = (_, info) => {
     const flung = Math.abs(info.velocity.x) > 350
     const dragged = Math.abs(info.offset.x) > 48
     if (flung || dragged) {
-      go(info.offset.x < 0 ? (isRtl ? -1 : 1) : (isRtl ? 1 : -1))
+      // Swiping in the "forward" direction:
+      // LTR: Swipe left (offset.x < 0)
+      // RTL: Swipe right (offset.x > 0)
+      const isForward = isRtl ? info.offset.x > 0 : info.offset.x < 0
+      go(isForward ? 1 : -1)
     }
     setPaused(false)
   }
@@ -81,9 +87,22 @@ function AeoMobileCarousel({ cards, isRtl }) {
   const { bg } = CARD_META[active % CARD_META.length]
 
   const slideVariants = {
-    enter: (dir) => ({ opacity: 0, x: dir > 0 ? 80 : -80, scale: 0.94, rotateY: dir > 0 ? 6 : -6 }),
+    enter: (dir) => {
+      const isForward = dir > 0
+      // In LTR: forward enters from right (80), backward from left (-80)
+      // In RTL: forward enters from left (-80), backward from right (80)
+      const xOffset = isRtl ? (isForward ? -80 : 80) : (isForward ? 80 : -80)
+      const rotateY = isRtl ? (isForward ? -6 : 6) : (isForward ? 6 : -6)
+      return { opacity: 0, x: xOffset, scale: 0.94, rotateY }
+    },
     center: { opacity: 1, x: 0, scale: 1, rotateY: 0 },
-    exit: (dir) => ({ opacity: 0, x: dir > 0 ? -80 : 80, scale: 0.94, rotateY: dir > 0 ? -6 : 6 }),
+    exit: (dir) => {
+      const isForward = dir > 0
+      // Opposite of enter for exit
+      const xOffset = isRtl ? (isForward ? 80 : -80) : (isForward ? -80 : 80)
+      const rotateY = isRtl ? (isForward ? 6 : -6) : (isForward ? -6 : 6)
+      return { opacity: 0, x: xOffset, scale: 0.94, rotateY }
+    },
   }
 
   return (
@@ -181,7 +200,7 @@ function AeoMobileCarousel({ cards, isRtl }) {
 export const AeoOverviewSection = memo(function AeoOverviewSection() {
   const { t, i18n } = useTranslation()
   const cards = t('content.aeoOverview.cards', { returnObjects: true }) || defaultCards
-  const isRtl = i18n.dir() === 'rtl'
+  const isRtl = rtlLanguages.includes(i18n.language) || i18n.dir() === 'rtl'
 
   return (
     <section className="aeo-overview-section w-full bg-[#ebf2ff] py-8">
