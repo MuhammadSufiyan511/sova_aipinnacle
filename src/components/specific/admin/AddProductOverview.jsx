@@ -389,7 +389,7 @@ const STEPS = [
   { id: 'pricing', title: 'admin.addProductOverview.steps.pricing', icon: DollarSign }
 ]
 
-export function AddProductOverview() {
+export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams()
@@ -557,7 +557,12 @@ export function AddProductOverview() {
       addProduct(payload)
       toast.success(t('admin.addProductOverview.validation.createSuccess'))
     }
-    navigate(ROUTES.adminProducts)
+    
+    if (isOnboarding && onSave) {
+      onSave(payload)
+    } else {
+      navigate(ROUTES.adminProducts)
+    }
   }
 
   const currentStepIndex = STEPS.findIndex(s => s.id === currentStep)
@@ -569,7 +574,7 @@ export function AddProductOverview() {
         <Motion.button
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          onClick={() => navigate(ROUTES.adminProducts)}
+          onClick={() => isOnboarding && onCancel ? onCancel() : navigate(ROUTES.adminProducts)}
           className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-slate-400 transition-all hover:text-emerald-600"
         >
           <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">

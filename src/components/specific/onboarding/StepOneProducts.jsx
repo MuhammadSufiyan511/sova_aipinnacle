@@ -1,13 +1,13 @@
 import { useState, memo } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { Plus, Trash2, ChevronLeft, FileText, PlayCircle } from 'lucide-react'
-import { AddProductModal } from './AddProductModal'
+import { AddProductOverview } from '../admin/AddProductOverview'
 import { toast } from 'react-hot-toast'
 import { useTranslation, Trans } from 'react-i18next'
 
 function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
   const { t } = useTranslation()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAddingProduct, setIsAddingProduct] = useState(false)
 
   const handleAddProduct = (newProduct) => {
     setProducts((prev) => [...prev, newProduct])
@@ -23,6 +23,26 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
       return
     }
     onNext()
+  }
+
+  if (isAddingProduct) {
+    return (
+      <Motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="w-full rounded-3xl bg-slate-50/40 border border-slate-100 shadow-sm overflow-hidden"
+      >
+        <AddProductOverview
+          isOnboarding={true}
+          onSave={(newProduct) => {
+            handleAddProduct(newProduct)
+            setIsAddingProduct(false)
+          }}
+          onCancel={() => setIsAddingProduct(false)}
+        />
+      </Motion.div>
+    )
   }
 
   return (
@@ -97,7 +117,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
           {/* Add Button Card */}
           <Motion.button
             layout
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsAddingProduct(true)}
             className="group flex h-44 sm:h-48 flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-slate-600 bg-slate-50/50 text-slate-600 transition hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-600 onboarding-add-card"
           >
             <div className="rounded-full bg-white p-2.5 sm:p-3 shadow-sm transition group-hover:scale-110 onboarding-add-icon-shell">
@@ -126,11 +146,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
         </button>
       </div>
 
-      <AddProductModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAdd={handleAddProduct}
-      />
+
     </div>
   )
 }
