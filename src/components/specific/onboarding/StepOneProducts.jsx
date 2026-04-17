@@ -5,7 +5,7 @@ import { AddProductOverview } from '../admin/AddProductOverview'
 import { toast } from 'react-hot-toast'
 import { useTranslation, Trans } from 'react-i18next'
 
-function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
+function StepOneProductsComponent({ products, setProducts, onNext, onBack, businessType }) {
   const { t } = useTranslation()
   const [isAddingProduct, setIsAddingProduct] = useState(false)
 
@@ -35,6 +35,7 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack }) {
       >
         <AddProductOverview
           isOnboarding={true}
+          fixedIndustry={businessType}
           onSave={(newProduct) => {
             handleAddProduct(newProduct)
             setIsAddingProduct(false)

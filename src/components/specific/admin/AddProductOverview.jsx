@@ -55,48 +55,48 @@ const buildCategoryConfig = (t) => ({
   clothing: {
     label: t('admin.addProductOverview.categories.clothing'),
     subcategories: [
-      { 
-        value: 'menswear', 
+      {
+        value: 'menswear',
         label: t('admin.addProductOverview.subcategories.menswear'),
         nested: ['Formal Shirts', 'T-Shirts', 'Polos', 'Trousers', 'Jeans', 'Suits & Blazers', 'Nightwear'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'womenswear', 
+      {
+        value: 'womenswear',
         label: t('admin.addProductOverview.subcategories.womenswear'),
         nested: ['Dresses', 'Tops & Blouses', 'Skirts', 'Ethnic Wear', 'Lingerie', 'Loungewear'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'kids-wear', 
+      {
+        value: 'kids-wear',
         label: t('admin.addProductOverview.subcategories.kids-wear'),
         nested: ['Infant (0-2y)', 'Toddler (2-5y)', 'Boys Fashion', 'Girls Fashion', 'School Uniforms'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'abayas', 
+      {
+        value: 'abayas',
         label: t('admin.addProductOverview.subcategories.abayas'),
         nested: ['Casual Abayas', 'Formal/Evening Abayas', 'Bridal Abayas', 'Butterfly Abayas', 'Bisht Abayas', 'Kimonos', 'Kaftans'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'traditional-wear', 
+      {
+        value: 'traditional-wear',
         label: t('admin.addProductOverview.subcategories.traditional-wear'),
         nested: ['Shalwar Kameez', 'Kurta Pajama', 'Sherwani', 'Sarees', 'Lehengas'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'sportswear', 
+      {
+        value: 'sportswear',
         label: t('admin.addProductOverview.subcategories.sportswear'),
         nested: ['Gym & Training', 'Running Gear', 'Football Kits', 'Cricket Gear', 'Yoga & Pilates'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'outerwear', 
+      {
+        value: 'outerwear',
         label: t('admin.addProductOverview.subcategories.outerwear'),
         nested: ['Leather Jackets', 'Puffer Jackets', 'Trench Coats', 'Windbreakers', 'Hoodies'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'footwear', 
+      {
+        value: 'footwear',
         label: t('admin.addProductOverview.subcategories.footwear'),
         nested: ['Formal Shoes', 'Sneakers', 'Sandals & Flip-flops', 'Boots', 'Heels'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'accessories', 
+      {
+        value: 'accessories',
         label: t('admin.addProductOverview.subcategories.accessories'),
         nested: ['Belts', 'Hats & Caps', 'Ties & Bowties', 'Scarves', 'Gloves'].map(i => translateNested(t, i))
       },
@@ -112,48 +112,48 @@ const buildCategoryConfig = (t) => ({
   jewellery: {
     label: t('admin.addProductOverview.categories.jewellery'),
     subcategories: [
-      { 
-        value: 'gold-jewelry', 
+      {
+        value: 'gold-jewelry',
         label: t('admin.addProductOverview.subcategories.gold-jewelry'),
         nested: ['Engagement Rings', 'Necklaces', 'Bangles', 'Earrings', 'Gold Coins/Bars'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'silver-jewelry', 
+      {
+        value: 'silver-jewelry',
         label: t('admin.addProductOverview.subcategories.silver-jewelry'),
         nested: ['Rings', 'Chains', 'Bracelets', 'Anklets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'diamond-precious', 
+      {
+        value: 'diamond-precious',
         label: t('admin.addProductOverview.subcategories.diamond-precious'),
         nested: ['Solitaire Rings', 'Diamond Sets', 'Loose Gemstones', 'Birthstones'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'watches', 
+      {
+        value: 'watches',
         label: t('admin.addProductOverview.subcategories.watches'),
         nested: ['Automatic Watches', 'Quartz Watches', 'Chrono Watches', 'Smart Luxury Watches'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'rings', 
+      {
+        value: 'rings',
         label: t('admin.addProductOverview.subcategories.rings'),
         nested: ['Wedding Bands', 'Fashion Rings', 'Couple Rings'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'necklaces', 
+      {
+        value: 'necklaces',
         label: t('admin.addProductOverview.subcategories.necklaces'),
         nested: ['Chokers', 'Long Chains', 'Lockets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'bracelets', 
+      {
+        value: 'bracelets',
         label: t('admin.addProductOverview.subcategories.bracelets'),
         nested: ['Cuffs', 'Charm Bracelets', 'Tennis Bracelets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'earrings', 
+      {
+        value: 'earrings',
         label: t('admin.addProductOverview.subcategories.earrings'),
         nested: ['Studs', 'Hoops', 'Drops', 'Jhumkas'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'costume-jewelry', 
+      {
+        value: 'costume-jewelry',
         label: t('admin.addProductOverview.subcategories.costume-jewelry'),
         nested: ['Bohemian', 'Antique Style', 'Modern Minimalist'].map(i => translateNested(t, i))
       },
@@ -167,43 +167,43 @@ const buildCategoryConfig = (t) => ({
   electronics: {
     label: t('admin.addProductOverview.categories.electronics'),
     subcategories: [
-      { 
-        value: 'smartphones', 
+      {
+        value: 'smartphones',
         label: t('admin.addProductOverview.subcategories.smartphones'),
         nested: ['Android Phones', 'iPhones', 'Budget Phones', 'Tablets', 'Foldables'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'laptops-pc', 
+      {
+        value: 'laptops-pc',
         label: t('admin.addProductOverview.subcategories.laptops-pc'),
         nested: ['Gaming Laptops', 'Ultrabooks', 'Business Laptops', 'Desktops', 'Workstations'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'audio-video', 
+      {
+        value: 'audio-video',
         label: t('admin.addProductOverview.subcategories.audio-video'),
         nested: ['Wireless Earbuds', 'Over-ear Headphones', 'Bluetooth Speakers', 'Home Theater', 'Microphones'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'photography', 
+      {
+        value: 'photography',
         label: t('admin.addProductOverview.subcategories.photography'),
         nested: ['DSLRs', 'Mirrorless', 'Action Cameras', 'Drones', 'Lenses'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'gaming', 
+      {
+        value: 'gaming',
         label: t('admin.addProductOverview.subcategories.gaming'),
         nested: ['Consoles', 'PC Components', 'Gaming Keyboards', 'Gaming Mice', 'Monitors'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'smart-home', 
+      {
+        value: 'smart-home',
         label: t('admin.addProductOverview.subcategories.smart-home'),
         nested: ['Smart Lighting', 'Security Cameras', 'Smart Locks', 'Smart Speakers'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'wearables', 
+      {
+        value: 'wearables',
         label: t('admin.addProductOverview.subcategories.wearables'),
         nested: ['Fitness Trackers', 'Smartwatches', 'VR Headsets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'accessories', 
+      {
+        value: 'accessories',
         label: t('admin.addProductOverview.subcategories.accessories'),
         nested: ['Power Banks', 'USB Cables', 'Laptop Chargers', 'Memory Cards'].map(i => translateNested(t, i))
       },
@@ -338,8 +338,8 @@ const buildCategoryConfig = (t) => ({
 const Field = ({ label, icon: Icon, children, error, helpText }) => (
   <div className="group space-y-2">
     <div className="flex items-center gap-2">
-      {Icon && <Icon className="h-3.5 w-3.5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />}
-      <label className="block text-[0.68rem] font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-emerald-600 transition-colors md:text-[0.7rem]">
+      {Icon && <Icon className="h-3.5 w-3.5 text-[#10B981]/50 group-focus-within:text-[#10B981] transition-colors" />}
+      <label className="block text-[0.68rem] font-bold uppercase tracking-widest text-[#1E293B]/80 group-focus-within:text-[#10B981]/80 transition-colors md:text-[0.7rem]">
         {label}
       </label>
     </div>
@@ -347,33 +347,33 @@ const Field = ({ label, icon: Icon, children, error, helpText }) => (
       {children}
     </div>
     {error && <p className="text-[0.65rem] font-semibold text-red-500">{error}</p>}
-    {helpText && !error && <p className="text-[0.65rem] text-slate-400">{helpText}</p>}
+    {helpText && !error && <p className="text-[0.65rem] text-[#1E293B]/50">{helpText}</p>}
   </div>
 )
 
 const inputCls =
-  'admin-pro-input w-full rounded-2xl border border-slate-100 bg-slate-50/50 px-4 py-3.5 text-[0.92rem] text-slate-800 outline-none transition-all placeholder:text-slate-300 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
+  'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3.5 text-[0.92rem] text-[#1E293B] outline-none transition-all placeholder:text-[#1E293B]/40 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
 
 const selectCls =
-  'admin-pro-input w-full rounded-2xl border border-slate-100 bg-slate-50/50 px-4 h-[52px] text-[0.92rem] text-slate-800 outline-none transition-all hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 cursor-pointer appearance-none'
+  'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 h-[52px] text-[0.92rem] text-[#1E293B] outline-none transition-all hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 cursor-pointer appearance-none'
 
 const SectionCard = ({ title, subtitle, icon: Icon, children, className = "" }) => (
   <Motion.section
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className={`admin-section-card relative overflow-hidden rounded-[28px] md:rounded-[32px] border border-slate-100 bg-white p-5 md:p-8 shadow-sm transition-all hover:shadow-xl hover:shadow-slate-200/40 ${className}`}
+    className={`admin-section-card relative overflow-hidden rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-8 shadow-sm transition-all hover:shadow-xl hover:shadow-emerald-200/40 ${className}`}
   >
     <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-emerald-50/30 blur-3xl opacity-50 md:opacity-100" />
     <div className="relative z-10">
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2.5">
-            <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-emerald-50 text-emerald-600">
+            <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-emerald-50 text-[#1E293B]/80">
               {Icon && <Icon className="h-4 w-4 md:h-5 md:w-5" />}
             </div>
-            <h2 className="text-lg md:text-xl font-bold tracking-tight text-slate-900">{title}</h2>
+            <h2 className="text-lg md:text-xl font-bold tracking-tight text-[#1E293B]">{title}</h2>
           </div>
-          {subtitle && <p className="text-[0.82rem] md:text-[0.88rem] leading-relaxed text-slate-500">{subtitle}</p>}
+          {subtitle && <p className="text-[0.82rem] md:text-[0.88rem] leading-relaxed text-[#1E293B]/80">{subtitle}</p>}
         </div>
       </div>
       <div className="space-y-6">
@@ -389,7 +389,7 @@ const STEPS = [
   { id: 'pricing', title: 'admin.addProductOverview.steps.pricing', icon: DollarSign }
 ]
 
-export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
+export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fixedIndustry: fixedIndustryProp }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams()
@@ -407,8 +407,8 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
   const categoryConfig = useMemo(() => buildCategoryConfig(t), [t])
 
   const [currentStep, setCurrentStep] = useState('basics')
-  
-  const fixedIndustry = businessProfile?.type || 'clothing'
+
+  const fixedIndustry = fixedIndustryProp || businessProfile?.type || 'clothing'
 
   const [formData, setFormData] = useState({
     name: initialProduct?.name || '',
@@ -470,7 +470,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
 
   const currentIndustryConfig = categoryConfig[formData.industry] || categoryConfig['clothing']
   const industryCategories = useMemo(() => currentIndustryConfig?.subcategories || [], [currentIndustryConfig])
-  
+
   const selectedCategoryItem = useMemo(() => {
     return industryCategories.find(c => c.value === formData.category)
   }, [industryCategories, formData.category])
@@ -539,7 +539,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
       categoryAt: formData.category,
       subCategoryAt: formData.subCategory,
       // For legacy/list view compatibility
-      category: formData.industry, 
+      category: formData.industry,
       subCategory: formData.category === 'custom' ? formData.customCategory : `${formData.category}${formData.subCategory && formData.subCategory !== 'custom' ? ` - ${formData.subCategory}` : ''}`,
       specs: finalSpecs,
       imagePreview: primary?.preview || null,
@@ -557,7 +557,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
       addProduct(payload)
       toast.success(t('admin.addProductOverview.validation.createSuccess'))
     }
-    
+
     if (isOnboarding && onSave) {
       onSave(payload)
     } else {
@@ -569,15 +569,15 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
   const isLastStep = currentStepIndex === STEPS.length - 1
 
   return (
-    <div className="admin-product-wizard min-h-screen bg-white md:bg-slate-50/40">
+    <div className="admin-product-wizard min-h-screen bg-white md:bg-emerald-50/40">
       <main className="mx-auto max-w-[1440px] px-4 py-6 md:px-8 md:py-10">
         <Motion.button
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => isOnboarding && onCancel ? onCancel() : navigate(ROUTES.adminProducts)}
-          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-slate-400 transition-all hover:text-emerald-600"
+          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-[#1E293B]/80 transition-all hover:text-[#1E293B]/80"
         >
-          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
+          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white text-[#1E293B] shadow-sm ring-1 ring-emerald-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
             <ArrowLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
           </div>
           {t('admin.addProductOverview.backToCatalog')}
@@ -587,10 +587,10 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
           <div className="space-y-6 md:space-y-8">
             <div className="flex flex-col gap-6">
               <div>
-                <h1 className="text-xl font-black tracking-tight text-slate-900 md:text-3xl">
+                <h1 className="text-xl font-black tracking-tight text-[#1E293B] md:text-3xl">
                   {isEditMode ? formData.name || t('admin.addProductOverview.titleEdit') : t('admin.addProductOverview.titleAdd')}
                 </h1>
-                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-slate-400">
+                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-[#1E293B]/80">
                   {isEditMode ? t('admin.addProductOverview.subtitleEdit') : t('admin.addProductOverview.subtitleAdd')}
                 </p>
               </div>
@@ -600,13 +600,12 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                   <button
                     key={step.id}
                     onClick={() => setCurrentStep(step.id)}
-                    className={`admin-wizard-step flex shrink-0 items-center gap-2 rounded-xl md:rounded-2xl px-4 py-2.5 md:px-5 md:py-3 text-[0.75rem] md:text-[0.82rem] font-bold transition-all ${
-                      currentStep === step.id
-                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 is-active'
-                        : 'bg-white text-slate-400 hover:text-slate-600 ring-1 ring-slate-100/80 shadow-sm'
-                    }`}
+                    className={`admin-wizard-step flex shrink-0 items-center gap-2 rounded-xl md:rounded-2xl px-4 py-2.5 md:px-5 md:py-3 text-[0.75rem] md:text-[0.82rem] font-bold transition-all ${currentStep === step.id
+                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 is-active'
+                      : 'bg-white text-[#1E293B]/75 hover:text-[#1E293B]/90 ring-1 ring-emerald-100/80 shadow-sm'
+                      }`}
                   >
-                    <span className={`flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-lg ${currentStep === step.id ? 'bg-white/20' : 'bg-slate-50'}`}>
+                    <span className={`flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-lg ${currentStep === step.id ? 'bg-white/20' : 'bg-emerald-50'}`}>
                       {idx + 1}
                     </span>
                     {t(step.title)}
@@ -652,11 +651,11 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                       />
                     </Field>
                     <Field label={t('admin.addProductOverview.summary.industryLabel')} icon={Layers}>
-                      <div className="flex h-[52px] items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
+                      <div className="flex h-[52px] items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50 admin-business-category-box transition-colors">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-[#1E293B]/80 admin-business-category-icon transition-colors">
                           <Check className="h-3.5 w-3.5" />
                         </div>
-                        <span className="text-[0.9rem] font-bold capitalize text-emerald-700 truncate">
+                        <span className="text-[0.9rem] font-bold capitalize text-[#1E293B]/90 truncate admin-business-category-text transition-colors">
                           {t(`onboarding.business.categories.${formData.industry}.label`, formData.industry.replace('-', ' '))}
                         </span>
                       </div>
@@ -694,9 +693,9 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                           {industryCategories.map((item) => (
                             <option key={item.value} value={item.value}>{item.label}</option>
                           ))}
-                          <option value="custom" className="text-emerald-600 font-bold">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
+                          <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
                         </select>
-                        <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-slate-400" />
+                        <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                       </div>
                     </Field>
 
@@ -716,9 +715,9 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                                 {nestedOptions.map((opt) => (
                                   <option key={opt} value={opt}>{opt}</option>
                                 ))}
-                                <option value="custom" className="text-emerald-600 font-bold">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
+                                <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
                               </select>
-                              <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-slate-400" />
+                              <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                             </div>
                           </Field>
                         </Motion.div>
@@ -758,10 +757,10 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
 
                   <AnimatePresence>
                     {currentDynamicFields.length > 0 && (
-                      <Motion.div 
+                      <Motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-3xl bg-slate-50/50 p-4 md:p-6 ring-1 ring-slate-100"
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-3xl bg-emerald-50/50 p-4 md:p-6 ring-1 ring-emerald-100"
                       >
                         {currentDynamicFields.map((field) => {
                           const value = formData.specs[field.key] || ''
@@ -789,8 +788,8 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                                     ))}
                                     <option value="Custom">{t('admin.addProductOverview.fields.customValue')}</option>
                                   </select>
-                                  <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-slate-400" />
-                                  
+                                  <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+
                                   {selectValue === 'Custom' && (
                                     <Motion.input
                                       initial={{ opacity: 0, y: -10 }}
@@ -822,14 +821,14 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
 
                   <div className="space-y-4 pt-4">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-slate-400">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
+                      <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#1E293B]/50">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
                       <button
                         type="button"
                         onClick={() => setFormData(prev => ({
                           ...prev,
                           customFields: [...prev.customFields, { id: Date.now(), label: '', value: '' }]
                         }))}
-                        className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[0.7rem] font-black text-emerald-600 transition-all hover:bg-emerald-100"
+                        className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[0.7rem] font-black text-[#1E293B]/80 transition-all hover:bg-emerald-100"
                       >
                         <Plus className="h-3 w-3" />
                         {t('admin.addProductOverview.sections.category.addFieldBtn')}
@@ -844,8 +843,8 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            key={field.id} 
-                            className="group flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-slate-50 p-3 transition-all hover:bg-emerald-50/30"
+                            key={field.id}
+                            className="group flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-emerald-50 p-3 transition-all hover:bg-emerald-50/30"
                           >
                             <input
                               type="text"
@@ -856,9 +855,9 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                                 setFormData(prev => ({ ...prev, customFields: newFields }))
                               }}
                               placeholder={t('admin.addProductOverview.sections.category.fieldLabelPlaceholder')}
-                              className="w-full sm:w-1/3 bg-transparent px-3 py-1 text-[0.88rem] font-bold text-slate-700 outline-none placeholder:text-slate-300"
+                              className="w-full sm:w-1/3 bg-transparent px-3 py-1 text-[0.88rem] font-bold text-[#1E293B]/90 outline-none placeholder:text-[#1E293B]/40"
                             />
-                            <div className="hidden sm:block h-6 w-[2px] bg-slate-200" />
+                            <div className="hidden sm:block h-6 w-[2px] bg-emerald-200" />
                             <input
                               type="text"
                               value={field.value}
@@ -868,11 +867,11 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                                 setFormData(prev => ({ ...prev, customFields: newFields }))
                               }}
                               placeholder={t('admin.addProductOverview.sections.category.fieldValuePlaceholder')}
-                              className="flex-1 bg-transparent px-3 py-1 text-[0.88rem] text-slate-600 outline-none placeholder:text-slate-300"
+                              className="flex-1 bg-transparent px-3 py-1 text-[0.88rem] text-[#1E293B]/80 outline-none placeholder:text-[#1E293B]/40"
                             />
                             <button
                               onClick={() => setFormData(prev => ({ ...prev, customFields: prev.customFields.filter((_, i) => i !== idx) }))}
-                              className="self-end sm:self-center h-8 w-8 items-center justify-center rounded-xl bg-white text-slate-300 transition-all hover:text-red-500 flex shadow-sm sm:opacity-0 group-hover:opacity-100"
+                              className="self-end sm:self-center h-8 w-8 items-center justify-center rounded-xl bg-white text-[#1E293B]/40 transition-all hover:text-red-500 flex shadow-sm sm:opacity-0 group-hover:opacity-100"
                             >
                               <X className="h-4 w-4" />
                             </button>
@@ -894,29 +893,29 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-300">{t('admin.common.currencySymbol', '$')}</span>
+                        <span className="absolute left-4 top-1/4 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
                         <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
                       </div>
                     </Field>
-                      <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
-                        <div className="relative">
-                          <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-300">{t('admin.common.currencySymbol', '$')}</span>
-                          <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
-                        </div>
-                      </Field>
-                      <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>
-                        <input type="number" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
-                      </Field>
-                    </div>
-                    <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
-                      <Field label={t('admin.addProductOverview.sections.pricing.skuLabel')} icon={Info} helpText={t('admin.addProductOverview.sections.pricing.skuHelp')}>
-                        <input type="text" value={formData.sku} onChange={(e) => set('sku', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.skuPlaceholder')} />
-                      </Field>
-                      <Field label={t('admin.addProductOverview.sections.pricing.minOrderLabel')} icon={Package}>
-                        <input type="number" value={formData.minOrder} onChange={(e) => set('minOrder', e.target.value)} className={inputCls} placeholder="1" />
-                      </Field>
-                    </div>
-                  </SectionCard>
+                    <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/4 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
+                      </div>
+                    </Field>
+                    <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>
+                      <input type="number" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
+                    </Field>
+                  </div>
+                  <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
+                    <Field label={t('admin.addProductOverview.sections.pricing.skuLabel')} icon={Info} helpText={t('admin.addProductOverview.sections.pricing.skuHelp')}>
+                      <input type="text" value={formData.sku} onChange={(e) => set('sku', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.skuPlaceholder')} />
+                    </Field>
+                    <Field label={t('admin.addProductOverview.sections.pricing.minOrderLabel')} icon={Package}>
+                      <input type="number" value={formData.minOrder} onChange={(e) => set('minOrder', e.target.value)} className={inputCls} placeholder="1" />
+                    </Field>
+                  </div>
+                </SectionCard>
               )}
             </AnimatePresence>
 
@@ -924,7 +923,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
               <button
                 disabled={currentStepIndex === 0}
                 onClick={() => setCurrentStep(STEPS[currentStepIndex - 1].id)}
-                className="admin-cta-secondary flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-4 font-bold text-slate-400 transition-all hover:text-emerald-600 disabled:opacity-30"
+                className="admin-cta-secondary flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-4 font-bold text-[#1E293B]/50 transition-all hover:text-[#1E293B]/80 disabled:opacity-30"
               >
                 <ChevronLeft className="h-5 w-5" /> {t('common.previous')}
               </button>
@@ -932,7 +931,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                 {!isLastStep ? (
                   <button
                     onClick={() => setCurrentStep(STEPS[currentStepIndex + 1].id)}
-                    className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-slate-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none"
+                    className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none"
                   >
                     {t('common.next')} <ChevronRight className="h-5 w-5" />
                   </button>
@@ -951,54 +950,54 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
 
           <aside className="admin-media-sidebar space-y-6 md:space-y-8">
             <div className="lg:sticky lg:top-10 space-y-6 md:space-y-8">
-              <section className="rounded-[28px] md:rounded-[32px] border border-slate-100 bg-white p-5 md:p-6 shadow-sm ring-1 ring-slate-100/50">
-                <div className="relative mb-6 h-40 md:h-48 w-full overflow-hidden rounded-2xl md:rounded-3xl bg-slate-50">
+              <section className="rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-6 shadow-sm ring-1 ring-emerald-100/50">
+                <div className="relative mb-6 h-40 md:h-48 w-full overflow-hidden rounded-2xl md:rounded-3xl bg-emerald-50">
                   {formData.gallery.length > 0 ? (
-                    <img 
-                      src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview} 
-                      className="h-full w-full object-cover" 
-                      alt="Preview" 
+                    <img
+                      src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview}
+                      className="h-full w-full object-cover"
+                      alt="Preview"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
-                      <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-slate-200" />
+                      <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-[#1E293B]/30" />
                     </div>
                   )}
-                  <div className="absolute left-3 top-3 md:left-4 md:top-4 rounded-full bg-white/90 px-3 py-1 text-[0.6rem] md:text-[0.65rem] font-black uppercase tracking-widest text-emerald-600 backdrop-blur-sm">
+                  <div className="absolute left-3 top-3 md:left-4 md:top-4 rounded-full bg-white/90 px-3 py-1 text-[0.6rem] md:text-[0.65rem] font-black uppercase tracking-widest text-[#1E293B]/80 backdrop-blur-sm">
                     {t('admin.common.preview')}
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-slate-900">
+                  <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-[#1E293B]">
                     {formData.name || t('admin.addProductOverview.summary.untitled')}
                   </h3>
-                  
+
                   <div className="flex items-center justify-between">
-                    <p className="text-xl md:text-2xl font-black text-emerald-600">
+                    <p className="text-xl md:text-2xl font-black text-[#1E293B]/80">
                       {t('admin.common.currencySymbol', '$')}{formData.price || '0.00'}
                     </p>
                     <div className="flex flex-col items-end gap-1">
-                      <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${formData.stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
+                      <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${formData.stock > 0 ? 'bg-emerald-50 text-[#1E293B]/80' : 'bg-red-50 text-red-600'}`}>
                         {formData.stock > 0 ? t('admin.addProductOverview.summary.statusReady') : t('admin.addProductOverview.summary.statusOutOfStock')}
                       </span>
                       <div className="flex items-center gap-1.5 px-1">
-                        <div className={`h-1.5 w-1.5 rounded-full ${formData.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
-                        <span className="text-[0.6rem] font-bold uppercase tracking-wider text-slate-400">
+                        <div className={`h-1.5 w-1.5 rounded-full ${formData.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-emerald-300'}`} />
+                        <span className="text-[0.6rem] font-bold uppercase tracking-wider text-[#1E293B]/50">
                           {t('admin.addProductOverview.summary.listingHealth')}: {formData.status === 'active' ? t('admin.common.active') : t('admin.common.inactive')}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="h-[1px] w-full bg-slate-100" />
-                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-slate-400">
+                  <div className="h-[1px] w-full bg-emerald-100" />
+                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-[#1E293B]/50">
                     <Tag className="h-3 w-3 shrink-0" />
                     <span className="truncate max-w-full">
                       {formData.category ? (
                         <>
-                          {t(`admin.addProductOverview.categories.${formData.category}`, formData.category)} 
-                          {formData.subCategory && <span className="text-slate-300 mx-1">/</span>}
-                          {formData.subCategory && <span className="text-emerald-500">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
+                          {t(`admin.addProductOverview.categories.${formData.category}`, formData.category)}
+                          {formData.subCategory && <span className="text-[#1E293B]/40 mx-1">/</span>}
+                          {formData.subCategory && <span className="text-[#1E293B]/60">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
                         </>
                       ) : (
                         t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)
@@ -1008,18 +1007,18 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                 </div>
               </section>
 
-              <section className="rounded-[28px] md:rounded-[32px] border border-slate-100 bg-white p-5 md:p-6 shadow-sm">
+              <section className="rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-6 shadow-sm">
                 <div className="mb-6 flex items-center justify-between">
-                  <h3 className="text-[0.65rem] md:text-[0.7rem] font-black uppercase tracking-[0.2em] text-slate-400">
+                  <h3 className="text-[0.65rem] md:text-[0.7rem] font-black uppercase tracking-[0.2em] text-[#1E293B]/50">
                     {t('admin.addProductOverview.sections.media.title')}
                   </h3>
-                  <span className="text-[0.65rem] font-bold text-slate-300">{formData.gallery.length} / 10</span>
+                  <span className="text-[0.65rem] font-bold text-[#1E293B]/40">{formData.gallery.length} / 10</span>
                 </div>
 
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 gap-3">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-emerald-100 bg-emerald-50/10 text-emerald-600 transition-all hover:bg-emerald-50 hover:border-emerald-300"
+                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-emerald-100 bg-emerald-50/10 text-[#1E293B]/80 transition-all hover:bg-emerald-50 hover:border-emerald-300"
                   >
                     <div className="rounded-full bg-white p-2 shadow-sm">
                       <Plus className="h-4 w-4" />
@@ -1036,17 +1035,17 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel }) {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
-                        key={item.id} 
-                        className="group relative aspect-square overflow-hidden rounded-2xl bg-slate-100"
+                        key={item.id}
+                        className="group relative aspect-square overflow-hidden rounded-2xl bg-emerald-100"
                       >
                         {item.type === 'image' ? (
                           <img src={item.preview} className="h-full w-full object-cover transition-transform group-hover:scale-110" alt={item.name} />
                         ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-slate-900">
+                          <div className="flex h-full w-full items-center justify-center bg-emerald-900">
                             <PlayCircle className="h-7 w-7 text-white" />
                           </div>
                         )}
-                        <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-slate-900/40 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-emerald-900/40 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
                           <button
                             onClick={() => removeMedia(item.id)}
                             className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-red-500"

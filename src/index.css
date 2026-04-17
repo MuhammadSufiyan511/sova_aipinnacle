@@ -1402,6 +1402,26 @@
     color: #FFFFFF !important;
   }
 
+  .home-dark-mode input::placeholder,
+  .home-dark-mode textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Business Category Indicator - Dark Mode */
+  .home-dark-mode .admin-business-category-box {
+    background-color: #0A1B19 !important;
+    box-shadow: inset 0 0 0 1px #1C3D3A !important;
+  }
+
+  .home-dark-mode .admin-business-category-icon {
+    background-color: #112F2B !important;
+    color: #10B981 !important;
+  }
+
+  .home-dark-mode .admin-business-category-text {
+    color: #F8FAFC !important;
+  }
+
   /* Dashboard Layout & Sidebar */
   .home-dark-mode .dashboard-layout-shell {
     background-color: #040D0C !important;
@@ -1705,5 +1725,23 @@
   .home-dark-mode .admin-media-sidebar section {
     background-color: #0A1B19 !important;
     border-color: #1C3D3A !important;
+  }
+
+  /* ============================================
+     App Splash Screen – Dark Mode
+     ============================================ */
+  .home-dark-mode .app-splash-screen {
+    background-color: rgba(4, 13, 12, 0.95) !important;
+    backdrop-filter: blur(24px) !important;
+  }
+
+  .home-dark-mode .app-splash-screen .rounded-\[32px\] {
+    background-color: #0A1B19 !important;
+    border-color: #1C3D3A !important;
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15) !important;
+  }
+
+  .home-dark-mode .app-splash-screen p {
+    color: #A7C4BD !important;
   }
 }

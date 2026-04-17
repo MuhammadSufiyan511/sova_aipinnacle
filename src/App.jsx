@@ -29,11 +29,38 @@ function App() {
   const [isAppInitializing, setIsAppInitializing] = useState(true)
 
   useEffect(() => {
-    // Initial hardware/asset stabilization window
-    const timer = setTimeout(() => {
-      setIsAppInitializing(false)
-    }, 2200)
-    return () => clearTimeout(timer)
+    const MIN_DISPLAY_MS = 600 // prevents flash-of-loader jank
+    const startedAt = Date.now()
+
+    const dismiss = () => {
+      const elapsed = Date.now() - startedAt
+      const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed)
+      setTimeout(() => setIsAppInitializing(false), remaining)
+    }
+
+    // Wait for the document to be fully loaded
+    const waitForReady = () => {
+      Promise.all([
+        // 1. All images in the current view decoded
+        Promise.allSettled(
+          Array.from(document.images).map((img) =>
+            img.complete ? Promise.resolve() : new Promise((res) => { img.onload = res; img.onerror = res })
+          )
+        ),
+        // 2. All fonts loaded
+        document.fonts?.ready ?? Promise.resolve(),
+      ]).then(dismiss)
+    }
+
+    if (document.readyState === 'complete') {
+      waitForReady()
+    } else {
+      window.addEventListener('load', waitForReady, { once: true })
+    }
+
+    // Safety net: dismiss after 4s no matter what
+    const safeguard = setTimeout(() => setIsAppInitializing(false), 4000)
+    return () => clearTimeout(safeguard)
   }, [])
 
   return (

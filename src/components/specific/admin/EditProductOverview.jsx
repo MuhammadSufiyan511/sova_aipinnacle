@@ -51,48 +51,48 @@ const buildCategoryConfig = (t) => ({
   clothing: {
     label: t('admin.addProductOverview.categories.clothing'),
     subcategories: [
-      { 
-        value: 'menswear', 
+      {
+        value: 'menswear',
         label: t('admin.addProductOverview.subcategories.menswear'),
         nested: ['Formal Shirts', 'T-Shirts', 'Polos', 'Trousers', 'Jeans', 'Suits & Blazers', 'Nightwear'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'womenswear', 
+      {
+        value: 'womenswear',
         label: t('admin.addProductOverview.subcategories.womenswear'),
         nested: ['Dresses', 'Tops & Blouses', 'Skirts', 'Ethnic Wear', 'Lingerie', 'Loungewear'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'kids-wear', 
+      {
+        value: 'kids-wear',
         label: t('admin.addProductOverview.subcategories.kids-wear'),
         nested: ['Infant (0-2y)', 'Toddler (2-5y)', 'Boys Fashion', 'Girls Fashion', 'School Uniforms'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'abayas', 
+      {
+        value: 'abayas',
         label: t('admin.addProductOverview.subcategories.abayas'),
         nested: ['Casual Abayas', 'Formal/Evening Abayas', 'Bridal Abayas', 'Butterfly Abayas', 'Bisht Abayas', 'Kimonos', 'Kaftans'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'traditional-wear', 
+      {
+        value: 'traditional-wear',
         label: t('admin.addProductOverview.subcategories.traditional-wear'),
         nested: ['Shalwar Kameez', 'Kurta Pajama', 'Sherwani', 'Sarees', 'Lehengas'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'sportswear', 
+      {
+        value: 'sportswear',
         label: t('admin.addProductOverview.subcategories.sportswear'),
         nested: ['Gym & Training', 'Running Gear', 'Football Kits', 'Cricket Gear', 'Yoga & Pilates'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'outerwear', 
+      {
+        value: 'outerwear',
         label: t('admin.addProductOverview.subcategories.outerwear'),
         nested: ['Leather Jackets', 'Puffer Jackets', 'Trench Coats', 'Windbreakers', 'Hoodies'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'footwear', 
+      {
+        value: 'footwear',
         label: t('admin.addProductOverview.subcategories.footwear'),
         nested: ['Formal Shoes', 'Sneakers', 'Sandals & Flip-flops', 'Boots', 'Heels'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'accessories', 
+      {
+        value: 'accessories',
         label: t('admin.addProductOverview.subcategories.accessories'),
         nested: ['Belts', 'Hats & Caps', 'Ties & Bowties', 'Scarves', 'Gloves'].map(i => translateNested(t, i))
       },
@@ -108,48 +108,48 @@ const buildCategoryConfig = (t) => ({
   jewellery: {
     label: t('admin.addProductOverview.categories.jewellery'),
     subcategories: [
-      { 
-        value: 'gold-jewelry', 
+      {
+        value: 'gold-jewelry',
         label: t('admin.addProductOverview.subcategories.gold-jewelry'),
         nested: ['Engagement Rings', 'Necklaces', 'Bangles', 'Earrings', 'Gold Coins/Bars'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'silver-jewelry', 
+      {
+        value: 'silver-jewelry',
         label: t('admin.addProductOverview.subcategories.silver-jewelry'),
         nested: ['Rings', 'Chains', 'Bracelets', 'Anklets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'diamond-precious', 
+      {
+        value: 'diamond-precious',
         label: t('admin.addProductOverview.subcategories.diamond-precious'),
         nested: ['Solitaire Rings', 'Diamond Sets', 'Loose Gemstones', 'Birthstones'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'watches', 
+      {
+        value: 'watches',
         label: t('admin.addProductOverview.subcategories.watches'),
         nested: ['Automatic Watches', 'Quartz Watches', 'Chrono Watches', 'Smart Luxury Watches'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'rings', 
+      {
+        value: 'rings',
         label: t('admin.addProductOverview.subcategories.rings'),
         nested: ['Wedding Bands', 'Fashion Rings', 'Couple Rings'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'necklaces', 
+      {
+        value: 'necklaces',
         label: t('admin.addProductOverview.subcategories.necklaces'),
         nested: ['Chokers', 'Long Chains', 'Lockets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'bracelets', 
+      {
+        value: 'bracelets',
         label: t('admin.addProductOverview.subcategories.bracelets'),
         nested: ['Cuffs', 'Charm Bracelets', 'Tennis Bracelets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'earrings', 
+      {
+        value: 'earrings',
         label: t('admin.addProductOverview.subcategories.earrings'),
         nested: ['Studs', 'Hoops', 'Drops', 'Jhumkas'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'costume-jewelry', 
+      {
+        value: 'costume-jewelry',
         label: t('admin.addProductOverview.subcategories.costume-jewelry'),
         nested: ['Bohemian', 'Antique Style', 'Modern Minimalist'].map(i => translateNested(t, i))
       },
@@ -163,43 +163,43 @@ const buildCategoryConfig = (t) => ({
   electronics: {
     label: t('admin.addProductOverview.categories.electronics'),
     subcategories: [
-      { 
-        value: 'smartphones', 
+      {
+        value: 'smartphones',
         label: t('admin.addProductOverview.subcategories.smartphones'),
         nested: ['Android Phones', 'iPhones', 'Budget Phones', 'Tablets', 'Foldables'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'laptops-pc', 
+      {
+        value: 'laptops-pc',
         label: t('admin.addProductOverview.subcategories.laptops-pc'),
         nested: ['Gaming Laptops', 'Ultrabooks', 'Business Laptops', 'Desktops', 'Workstations'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'audio-video', 
+      {
+        value: 'audio-video',
         label: t('admin.addProductOverview.subcategories.audio-video'),
         nested: ['Wireless Earbuds', 'Over-ear Headphones', 'Bluetooth Speakers', 'Home Theater', 'Microphones'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'photography', 
+      {
+        value: 'photography',
         label: t('admin.addProductOverview.subcategories.photography'),
         nested: ['DSLRs', 'Mirrorless', 'Action Cameras', 'Drones', 'Lenses'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'gaming', 
+      {
+        value: 'gaming',
         label: t('admin.addProductOverview.subcategories.gaming'),
         nested: ['Consoles', 'PC Components', 'Gaming Keyboards', 'Gaming Mice', 'Monitors'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'smart-home', 
+      {
+        value: 'smart-home',
         label: t('admin.addProductOverview.subcategories.smart-home'),
         nested: ['Smart Lighting', 'Security Cameras', 'Smart Locks', 'Smart Speakers'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'wearables', 
+      {
+        value: 'wearables',
         label: t('admin.addProductOverview.subcategories.wearables'),
         nested: ['Fitness Trackers', 'Smartwatches', 'VR Headsets'].map(i => translateNested(t, i))
       },
-      { 
-        value: 'accessories', 
+      {
+        value: 'accessories',
         label: t('admin.addProductOverview.subcategories.accessories'),
         nested: ['Power Banks', 'USB Cables', 'Laptop Chargers', 'Memory Cards'].map(i => translateNested(t, i))
       },
@@ -334,8 +334,8 @@ const buildCategoryConfig = (t) => ({
 const Field = ({ label, icon: Icon, children, error, helpText }) => (
   <div className="group space-y-2">
     <div className="flex items-center gap-2">
-      {Icon && <Icon className="h-3.5 w-3.5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />}
-      <label className="block text-[0.68rem] font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-emerald-600 transition-colors md:text-[0.7rem]">
+      {Icon && <Icon className="h-3.5 w-3.5 text-[#10B981]/80 group-focus-within:text-[#10B981] transition-colors" />}
+      <label className="block text-[0.68rem] font-bold uppercase tracking-widest text-[#1E293B]/80 group-focus-within:text-[#10B981]/80 transition-colors md:text-[0.7rem]">
         {label}
       </label>
     </div>
@@ -343,33 +343,33 @@ const Field = ({ label, icon: Icon, children, error, helpText }) => (
       {children}
     </div>
     {error && <p className="text-[0.65rem] font-semibold text-red-500">{error}</p>}
-    {helpText && !error && <p className="text-[0.65rem] text-slate-400">{helpText}</p>}
+    {helpText && !error && <p className="text-[0.65rem] text-[#1E293B]/50">{helpText}</p>}
   </div>
 )
 
 const inputCls =
-  'admin-pro-input w-full rounded-2xl border border-slate-100 bg-slate-50/50 px-4 py-3.5 text-[0.92rem] text-slate-800 outline-none transition-all placeholder:text-slate-300 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
+  'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3.5 text-[0.92rem] text-[#1E293B] outline-none transition-all placeholder:text-[#1E293B]/40 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
 
 const selectCls =
-  'admin-pro-input w-full rounded-2xl border border-slate-100 bg-slate-50/50 px-4 h-[52px] text-[0.92rem] text-slate-800 outline-none transition-all hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 cursor-pointer appearance-none'
+  'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 h-[52px] text-[0.92rem] text-[#1E293B] outline-none transition-all hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 cursor-pointer appearance-none'
 
 const SectionCard = ({ title, subtitle, icon: Icon, children, className = "" }) => (
   <Motion.section
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className={`admin-section-card relative overflow-hidden rounded-[28px] md:rounded-[32px] border border-slate-100 bg-white p-5 md:p-8 shadow-sm transition-all hover:shadow-xl hover:shadow-slate-200/40 ${className}`}
+    className={`admin-section-card relative overflow-hidden rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-8 shadow-sm transition-all hover:shadow-xl hover:shadow-emerald-200/40 ${className}`}
   >
     <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-emerald-50/30 blur-3xl opacity-50 md:opacity-100" />
     <div className="relative z-10">
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2.5">
-            <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-emerald-50 text-emerald-600">
+            <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-emerald-50 text-[#1E293B]/80">
               {Icon && <Icon className="h-4 w-4 md:h-5 md:w-5" />}
             </div>
-            <h2 className="text-lg md:text-xl font-bold tracking-tight text-slate-900">{title}</h2>
+            <h2 className="text-lg md:text-xl font-bold tracking-tight text-[#1E293B]">{title}</h2>
           </div>
-          {subtitle && <p className="text-[0.82rem] md:text-[0.88rem] leading-relaxed text-slate-500">{subtitle}</p>}
+          {subtitle && <p className="text-[0.82rem] md:text-[0.88rem] leading-relaxed text-[#1E293B]/80">{subtitle}</p>}
         </div>
       </div>
       <div className="space-y-6">
@@ -532,24 +532,24 @@ export function EditProductOverview({ id: propId }) {
   const isLastStep = currentStepIndex === STEPS.length - 1
 
   if (!initialProduct) return (
-    <div className="flex min-h-screen items-center justify-center bg-white md:bg-slate-50/40">
+    <div className="flex min-h-screen items-center justify-center bg-white md:bg-emerald-50/40">
       <div className="text-center">
         <div className="mb-4 inline-flex h-12 w-12 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-        <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">{t('admin.addProductOverview.editorInitialising')}</p>
+        <p className="text-sm font-bold text-[#1E293B]/60 uppercase tracking-widest">{t('admin.addProductOverview.editorInitialising')}</p>
       </div>
     </div>
   )
 
   return (
-    <div className="admin-product-wizard min-h-screen bg-white md:bg-slate-50/40">
+    <div className="admin-product-wizard min-h-screen bg-white md:bg-emerald-50/40">
       <main className="mx-auto max-w-[1440px] px-4 py-6 md:px-8 md:py-10">
         <Motion.button
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => navigate(ROUTES.adminProducts)}
-          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-slate-400 transition-all hover:text-emerald-600"
+          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-[#1E293B]/  80 transition-all hover:text-[#1E293B]/80"
         >
-          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
+          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white text-[#1E293B] shadow-sm ring-1 ring-emerald-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
             <ArrowLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
           </div>
           {t('admin.addProductOverview.backToCatalog')}
@@ -559,10 +559,10 @@ export function EditProductOverview({ id: propId }) {
           <div className="space-y-6 md:space-y-8">
             <div className="flex flex-col gap-6">
               <div>
-                <h1 className="text-xl font-black tracking-tight text-slate-900 md:text-3xl line-clamp-1">
+                <h1 className="text-xl font-black tracking-tight text-[#1E293B] md:text-3xl line-clamp-1">
                   {t('admin.addProductOverview.titleEdit')}: {formData.name || initialProduct.name}
                 </h1>
-                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-slate-400 text-ellipsis overflow-hidden">
+                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-[#1E293B]/80 text-ellipsis overflow-hidden">
                   {t('admin.addProductOverview.subtitleEdit')}
                 </p>
               </div>
@@ -572,13 +572,12 @@ export function EditProductOverview({ id: propId }) {
                   <button
                     key={step.id}
                     onClick={() => setCurrentStep(step.id)}
-                    className={`admin-wizard-step flex shrink-0 items-center gap-2 rounded-xl md:rounded-2xl px-4 py-2.5 md:px-5 md:py-3 text-[0.75rem] md:text-[0.82rem] font-bold transition-all ${
-                      currentStep === step.id
-                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 is-active'
-                        : 'bg-white text-slate-400 hover:text-slate-600 ring-1 ring-slate-100/80 shadow-sm'
-                    }`}
+                    className={`admin-wizard-step flex shrink-0 items-center gap-2 rounded-xl md:rounded-2xl px-4 py-2.5 md:px-5 md:py-3 text-[0.75rem] md:text-[0.82rem] font-bold transition-all ${currentStep === step.id
+                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 is-active'
+                      : 'bg-white text-[#1E293B]/80 hover:text-[#1E293B]/80 ring-1 ring-emerald-100/80 shadow-sm'
+                      }`}
                   >
-                    <step.icon className={`h-3.5 w-3.5 md:h-4 md:w-4 ${currentStep === step.id ? 'text-white' : 'text-slate-300'}`} />
+                    <step.icon className={`h-3.5 w-3.5 md:h-4 md:w-4 ${currentStep === step.id ? 'text-white' : 'text-[#1E293B]/80'}`} />
                     {t(step.title)}
                   </button>
                 ))}
@@ -588,9 +587,9 @@ export function EditProductOverview({ id: propId }) {
             <AnimatePresence mode="wait">
               {currentStep === 'basics' && (
                 <Motion.div key="basics" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard 
-                    title={t('admin.addProductOverview.sections.basics.title')} 
-                    subtitle={t('admin.addProductOverview.sections.basics.subtitle')} 
+                  <SectionCard
+                    title={t('admin.addProductOverview.sections.basics.title')}
+                    subtitle={t('admin.addProductOverview.sections.basics.subtitle')}
                     icon={Info}
                   >
                     <Field label={t('admin.addProductOverview.sections.basics.nameLabel')} icon={Tag}>
@@ -604,9 +603,13 @@ export function EditProductOverview({ id: propId }) {
                         <input type="text" value={formData.brand} onChange={(e) => set('brand', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.basics.brandPlaceholder')} />
                       </Field>
                       <Field label={t('admin.addProductOverview.summary.industryLabel')} icon={Layers}>
-                        <div className="flex h-[52px] items-center gap-3 rounded-2xl bg-slate-50 px-4 text-[0.92rem] font-bold text-slate-400">
-                          <Check className="h-4 w-4 text-emerald-500" />
-                          {t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)}
+                        <div className="flex xl:h-[52px] h-[3.8rem] w-full items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50 admin-business-category-box transition-colors">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-[#1E293B]/80 admin-business-category-icon transition-colors">
+                            <Check className="h-3.5 w-3.5" />
+                          </div>
+                          <span className="text-[0.9rem] font-bold capitalize text-[#1E293B]/90 truncate admin-business-category-text transition-colors">
+                            {t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)}
+                          </span>
                         </div>
                       </Field>
                     </div>
@@ -616,9 +619,9 @@ export function EditProductOverview({ id: propId }) {
 
               {currentStep === 'classification' && (
                 <Motion.div key="classification" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard 
-                    title={t('admin.addProductOverview.sections.category.title')} 
-                    subtitle={t('admin.addProductOverview.sections.category.subtitle')} 
+                  <SectionCard
+                    title={t('admin.addProductOverview.sections.category.title')}
+                    subtitle={t('admin.addProductOverview.sections.category.subtitle')}
                     icon={Layers}
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -636,9 +639,9 @@ export function EditProductOverview({ id: propId }) {
                             {industryCategories.map((item) => (
                               <option key={item.value} value={item.value}>{item.label}</option>
                             ))}
-                            <option value="custom" className="font-bold text-emerald-600">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
+                            <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
                           </select>
-                          <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-slate-400" />
+                          <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                         </div>
                       </Field>
 
@@ -652,9 +655,9 @@ export function EditProductOverview({ id: propId }) {
                                   {nestedOptions.map((opt) => (
                                     <option key={opt} value={opt}>{opt}</option>
                                   ))}
-                                  <option value="custom" className="font-bold text-emerald-600">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
+                                  <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
                                 </select>
-                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-slate-400" />
+                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                               </div>
                             </Field>
                           </Motion.div>
@@ -663,7 +666,7 @@ export function EditProductOverview({ id: propId }) {
                     </div>
 
                     {currentDynamicFields.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-3xl bg-slate-50/80 p-6 md:p-8 ring-1 ring-slate-100">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-3xl bg-emerald-50/80 p-6 md:p-8 ring-1 ring-emerald-100">
                         {currentDynamicFields.map((field) => (
                           <Field key={field.key} label={field.label}>
                             {field.type === 'select' ? (
@@ -676,7 +679,7 @@ export function EditProductOverview({ id: propId }) {
                                   <option value="">{t('admin.addProductOverview.fields.selectOption')}</option>
                                   {field.options.map(o => <option key={o} value={o}>{o}</option>)}
                                 </select>
-                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-slate-400" />
+                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                               </div>
                             ) : (
                               <input
@@ -694,10 +697,10 @@ export function EditProductOverview({ id: propId }) {
 
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-[0.62rem] font-black uppercase tracking-[0.2em] text-slate-400">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
+                        <h3 className="text-[0.62rem] font-black uppercase tracking-[0.2em] text-[#1E293B]/50">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
                         <button
                           onClick={() => setFormData(p => ({ ...p, customFields: [...p.customFields, { id: Date.now(), label: '', value: '' }] }))}
-                          className="flex h-8 items-center gap-1.5 rounded-full bg-emerald-50 px-3 text-[0.7rem] font-black text-emerald-600 transition hover:bg-emerald-100"
+                          className="flex h-8 items-center gap-1.5 rounded-full bg-emerald-50 px-3 text-[0.7rem] font-black text-[#1E293B]/80 transition hover:bg-emerald-100"
                         >
                           <Plus className="h-3 w-3" />
                           {t('admin.addProductOverview.sections.category.addFieldBtn')}
@@ -719,22 +722,22 @@ export function EditProductOverview({ id: propId }) {
 
               {currentStep === 'pricing' && (
                 <Motion.div key="pricing" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard 
-                    title={t('admin.addProductOverview.sections.pricing.title')} 
-                    subtitle={t('admin.addProductOverview.sections.pricing.subtitle')} 
+                  <SectionCard
+                    title={t('admin.addProductOverview.sections.pricing.title')}
+                    subtitle={t('admin.addProductOverview.sections.pricing.subtitle')}
                     icon={DollarSign}
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                         <div className="relative">
                           <input type="text" value={formData.price} onChange={(e) => set('price', e.target.value)} className={inputCls} placeholder="0.00" />
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-slate-300">{t('admin.common.currencyCode', 'USD')}</div>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
                         </div>
                       </Field>
                       <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Sparkles}>
                         <div className="relative">
                           <input type="text" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.salePricePlaceholder')} />
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-slate-300">{t('admin.common.currencyCode', 'USD')}</div>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
                         </div>
                       </Field>
                     </div>
@@ -751,11 +754,11 @@ export function EditProductOverview({ id: propId }) {
               )}
             </AnimatePresence>
 
-            <div className="admin-footer-actions flex items-center justify-between rounded-[28px] bg-white p-5 md:p-6 shadow-sm ring-1 ring-slate-100">
+            <div className="admin-footer-actions flex items-center justify-between rounded-[28px] bg-white p-5 md:p-6 shadow-sm ring-1 ring-emerald-100">
               <button
                 disabled={currentStepIndex === 0}
                 onClick={() => setCurrentStep(STEPS[currentStepIndex - 1].id)}
-                className="admin-cta-secondary flex h-12 items-center gap-2 rounded-2xl px-6 text-[0.88rem] font-bold text-slate-400 transition hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-transparent"
+                className="admin-cta-secondary flex h-12 items-center gap-2 rounded-2xl px-6 text-[0.88rem] font-bold text-[#1E293B]/50 transition hover:bg-emerald-50 disabled:opacity-30 disabled:hover:bg-transparent"
               >
                 <ChevronLeft className="h-4 w-4" />
                 {t('admin.common.previous')}
@@ -764,7 +767,7 @@ export function EditProductOverview({ id: propId }) {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={isLastStep ? handleSubmit : () => setCurrentStep(STEPS[currentStepIndex + 1].id)}
-                className="admin-cta-premium flex h-12 items-center gap-2 rounded-2xl bg-slate-900 px-8 text-[0.88rem] font-black text-white shadow-xl shadow-slate-900/10 transition"
+                className="admin-cta-premium flex h-12 items-center gap-2 rounded-2xl bg-emerald-900 px-8 text-[0.88rem] font-black text-white shadow-xl shadow-emerald-900/10 transition"
               >
                 {isLastStep ? <Save className="h-4 w-4" /> : null}
                 {isLastStep ? t('admin.addProductOverview.sections.actions.submitEdit') : t('admin.common.next')}
@@ -777,11 +780,11 @@ export function EditProductOverview({ id: propId }) {
             <div className="sticky top-10 space-y-8">
               <SectionCard title={t('admin.addProductOverview.sections.media.title')} icon={ImageIcon}>
                 <div className="space-y-6">
-                  <div className="aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-slate-100/50 ring-1 ring-slate-100">
+                  <div className="aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-emerald-100/50 ring-1 ring-emerald-100">
                     {formData.gallery.length > 0 ? (
                       <Motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview} className="h-full w-full object-cover" alt="Primary" />
                     ) : (
-                      <div className="flex h-full w-full flex-col items-center justify-center text-slate-300">
+                      <div className="flex h-full w-full flex-col items-center justify-center text-[#1E293B]/40">
                         <ImageIcon className="mb-2 h-10 w-10 opacity-20" />
                         <span className="text-[0.65rem] font-bold uppercase tracking-widest opacity-40">{t('admin.addProductOverview.sections.media.noMediaAttached')}</span>
                       </div>
@@ -795,29 +798,29 @@ export function EditProductOverview({ id: propId }) {
                         <button onClick={(e) => { e.stopPropagation(); removeMedia(item.id) }} className="absolute -right-1 -top-1 rounded-bl-xl bg-red-500 p-1.5 text-white opacity-0 transition-opacity group-hover:opacity-100"><X className="h-3 w-3" /></button>
                       </div>
                     ))}
-                    <button onClick={() => fileInputRef.current?.click()} className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 text-slate-400 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"><Plus className="h-5 w-5" /></button>
+                    <button onClick={() => fileInputRef.current?.click()} className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed border-emerald-200 bg-emerald-50 text-[#1E293B]/50 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-[#1E293B]/80"><Plus className="h-5 w-5" /></button>
                   </div>
                   <input ref={fileInputRef} type="file" multiple accept="image/*,video/*" onChange={handleMediaUpload} className="hidden" />
                 </div>
               </SectionCard>
 
-              <div className="rounded-[32px] border border-slate-100 bg-slate-900 p-8 text-white shadow-2xl">
+              <div className="rounded-[32px] border border-[#1E293B] bg-[#1E293B] p-8 text-white shadow-2xl">
                 <div className="mb-6 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[0.6rem] font-black uppercase tracking-widest text-emerald-400">{t('admin.addProductOverview.summary.listingHealth')}</span>
+                    <div className="h-2 w-2 rounded-full bg-emerald-200 animate-pulse" />
+                    <span className="text-[0.6rem] font-black uppercase tracking-widest text-white">{t('admin.addProductOverview.summary.listingHealth')}</span>
                   </div>
-                  <TrendingUp className="h-4 w-4 text-slate-500" />
+                  <TrendingUp className="h-4 w-4 text-white" />
                 </div>
                 <div className="space-y-4">
-                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-slate-400">
+                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-white">
                     <Tag className="h-3 w-3 shrink-0" />
                     <span className="truncate max-w-full">
                       {formData.category ? (
                         <>
-                          {t(`admin.addProductOverview.categories.${formData.category}`, formData.category)} 
-                          {formData.subCategory && <span className="text-slate-300 mx-1">/</span>}
-                          {formData.subCategory && <span className="text-emerald-500">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
+                          {t(`admin.addProductOverview.categories.${formData.category}`, formData.category)}
+                          {formData.subCategory && <span className="text-[#1E293B]/40 mx-1">/</span>}
+                          {formData.subCategory && <span className="text-[#1E293B]/60">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
                         </>
                       ) : (
                         t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)

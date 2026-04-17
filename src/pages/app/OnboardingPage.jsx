@@ -143,6 +143,7 @@ export function OnboardingPage() {
               <StepOneProducts
                 products={products}
                 setProducts={setProducts}
+                businessType={businessType}
                 onBack={() => setStep(1)}
                 onNext={() => setStep(3)}
               />
