@@ -522,7 +522,44 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
   })
 
   const handleSubmit = () => {
-    if (!formData.name.trim()) { toast.error(t('admin.addProductOverview.validation.nameRequired')); return }
+    // Step 1 – Basics
+    if (!formData.name.trim()) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.nameRequired'))
+      return
+    }
+    if (!formData.description.trim()) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.descriptionRequired'))
+      return
+    }
+    if (formData.gallery.length === 0) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.mediaRequired'))
+      return
+    }
+    // Step 2 – Category
+    if (!formData.category) {
+      setCurrentStep('classification')
+      toast.error(t('admin.addProductOverview.validation.categoryRequired'))
+      return
+    }
+    if (nestedOptions.length > 0 && !formData.subCategory) {
+      setCurrentStep('classification')
+      toast.error(t('admin.addProductOverview.validation.subCategoryRequired'))
+      return
+    }
+    // Step 3 – Pricing
+    if (!formData.price || isNaN(parseFloat(formData.price)) || parseFloat(formData.price) < 0) {
+      setCurrentStep('pricing')
+      toast.error(t('admin.addProductOverview.validation.priceRequired'))
+      return
+    }
+    if (formData.stock === '' || formData.stock === null || formData.stock === undefined) {
+      setCurrentStep('pricing')
+      toast.error(t('admin.addProductOverview.validation.stockRequired'))
+      return
+    }
 
     const finalSpecs = { ...formData.specs }
     formData.customFields.forEach(field => {
@@ -563,6 +600,34 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
     } else {
       navigate(ROUTES.adminProducts)
     }
+  }
+
+  const handleNextStep = () => {
+    if (currentStep === 'basics') {
+      if (!formData.name.trim()) {
+        toast.error(t('admin.addProductOverview.validation.nameRequired'))
+        return
+      }
+      if (!formData.description.trim()) {
+        toast.error(t('admin.addProductOverview.validation.descriptionRequired'))
+        return
+      }
+      if (formData.gallery.length === 0) {
+        toast.error(t('admin.addProductOverview.validation.mediaRequired'))
+        return
+      }
+    }
+    if (currentStep === 'classification') {
+      if (!formData.category) {
+        toast.error(t('admin.addProductOverview.validation.categoryRequired'))
+        return
+      }
+      if (nestedOptions.length > 0 && !formData.subCategory) {
+        toast.error(t('admin.addProductOverview.validation.subCategoryRequired'))
+        return
+      }
+    }
+    setCurrentStep(STEPS[currentStepIndex + 1].id)
   }
 
   const currentStepIndex = STEPS.findIndex(s => s.id === currentStep)
@@ -893,13 +958,13 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/4 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
                         <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
                       </div>
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/4 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
                         <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
                       </div>
                     </Field>
@@ -930,7 +995,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
               <div className="flex w-full sm:w-auto gap-4">
                 {!isLastStep ? (
                   <button
-                    onClick={() => setCurrentStep(STEPS[currentStepIndex + 1].id)}
+                    onClick={handleNextStep}
                     className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none"
                   >
                     {t('common.next')} <ChevronRight className="h-5 w-5" />

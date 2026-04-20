@@ -788,7 +788,16 @@ admin.addProductOverview = {
   },
   validation: {
     nameRequired: 'پروڈکٹ کا نام ضروری ہے',
+    descriptionRequired: 'براہ کرم پروڈکٹ کی تفصیل شامل کریں',
+    mediaRequired: 'براہ کرم کم از کم ایک تصویر یا ویڈیو اپلوڈ کریں',
+    categoryRequired: 'براہ کرم ایک مرکزی زمرہ منتخب کریں',
+    subCategoryRequired: 'براہ کرم ایک ذیلی زمرہ منتخب کریں',
+    priceRequired: 'براہ کرم فروخت کی قیمت درج کریں',
+    stockRequired: 'براہ کرم اسٹاک کی مقدار درج کریں',
+    missingFields: 'محفوظ کرنے سے پہلے تمام ضروری فیلڈز پُر کریں',
     createSuccess: 'پروڈکٹ کامیابی سے شامل ہو گئی',
-    updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی'
+    updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی',
+    statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
+    statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا'
   }
 }

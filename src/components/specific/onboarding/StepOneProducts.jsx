@@ -1,11 +1,11 @@
 import { useState, memo } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
-import { Plus, Trash2, ChevronLeft, FileText, PlayCircle } from 'lucide-react'
+import { Plus, Trash2, ChevronLeft, FileText, PlayCircle, ArrowRight } from 'lucide-react'
 import { AddProductOverview } from '../admin/AddProductOverview'
 import { toast } from 'react-hot-toast'
 import { useTranslation, Trans } from 'react-i18next'
 
-function StepOneProductsComponent({ products, setProducts, onNext, onBack, businessType }) {
+function StepOneProductsComponent({ products, setProducts, onComplete, onBack, businessType }) {
   const { t } = useTranslation()
   const [isAddingProduct, setIsAddingProduct] = useState(false)
 
@@ -19,10 +19,10 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack, busin
 
   const handleNext = () => {
     if (products.length === 0) {
-      toast.error(t('onboarding.products.toastError'))
+      toast.error(t('onboarding.products.needOne', 'Please add at least one product'))
       return
     }
-    onNext()
+    onComplete()
   }
 
   if (isAddingProduct) {
@@ -141,9 +141,10 @@ function StepOneProductsComponent({ products, setProducts, onNext, onBack, busin
         )}
         <button
           onClick={handleNext}
-          className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 disabled:bg-slate-200 disabled:shadow-none disabled:text-slate-400 sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
+          className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-[#173247] text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
-          <span className="relative z-10">{t('onboarding.products.nextBtn')}</span>
+          <span className="relative z-10">{t('onboarding.tone.completeBtn', 'Launch Dashboard')}</span>
+          <ArrowRight className="relative z-10 h-4 w-4 transition group-hover:translate-x-1" />
         </button>
       </div>
 

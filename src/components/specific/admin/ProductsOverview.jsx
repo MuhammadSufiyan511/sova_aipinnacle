@@ -304,8 +304,13 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const openEditPage = (product) => navigate(ROUTES.adminEditProduct.replace(':id', product.id))
 
   const toggleProductStatus = (product) => {
-    updateProduct({ ...product, isActive: !(product.isActive !== false) })
-    toast.success(t('admin.addProductOverview.validation.updateSuccess'))
+    const isNowActive = !(product.isActive !== false)
+    updateProduct({ ...product, isActive: isNowActive })
+    if (isNowActive) {
+      toast.success(t('admin.addProductOverview.validation.statusActive'))
+    } else {
+      toast.success(t('admin.addProductOverview.validation.statusInactive'))
+    }
   }
 
   const filteredProducts = useMemo(() => {
@@ -537,9 +542,9 @@ export const ProductsOverview = memo(function ProductsOverview() {
               <button
                 type="button"
                 onClick={() => setViewingProduct(null)}
-                className="admin-modal-close-btn absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-2xl bg-white/60 text-slate-500 backdrop-blur-md transition hover:bg-white hover:text-red-500 shadow-xl"
+                className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/40 text-white backdrop-blur-md transition hover:bg-slate-900/60 hover:text-red-400 shadow-xl"
               >
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 drop-shadow-md" />
               </button>
 
               {(() => {
@@ -646,8 +651,8 @@ export const ProductsOverview = memo(function ProductsOverview() {
                       </>
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none">
+                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute z-20 left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none">
                       <span className="mb-2 flex w-fit items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-[0.14em] shadow-lg">
                         <TrendingUp className="h-3 w-3" />
                         {viewingProduct.isActive !== false ? 'Live' : 'Archived'}

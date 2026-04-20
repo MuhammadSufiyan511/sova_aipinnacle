@@ -11,7 +11,7 @@ const availableTones = [
   { id: 'empathetic' },
 ]
 
-export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
+export function StepTwoTone({ tones, setTones, onBack, onNext }) {
   const { t } = useTranslation()
 
   const toggleTone = (id) => {
@@ -60,19 +60,17 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
               whileHover={{ y: -5, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => toggleTone(tone.id)}
-              className={`relative flex flex-col items-start rounded-[28px] border-2 p-5 text-left transition-all duration-300 onboarding-card ${
-                isSelected 
+              className={`relative flex flex-col items-start rounded-[28px] border-2 p-5 text-left transition-all duration-300 onboarding-card ${isSelected
                   ? 'border-emerald-500 bg-white shadow-xl shadow-emerald-500/10 ring-4 ring-emerald-500/5 is-selected'
                   : 'border-slate-100 bg-white/50 hover:border-emerald-200 hover:bg-white hover:shadow-lg'
-              }`}
+                }`}
             >
               <div className="mb-3 flex w-full items-center justify-between">
                 <span className={`text-[1rem] font-bold tracking-tight onboarding-label ${isSelected ? 'text-emerald-600' : 'text-slate-900'}`}>
                   {t(labelKey)}
                 </span>
-                <div className={`flex h-5.5 w-5.5 items-center justify-center rounded-full border-2 transition-all duration-300 onboarding-check-badge ${
-                  isSelected ? 'border-emerald-500 bg-emerald-500 text-white scale-110' : 'border-slate-200 bg-transparent text-transparent'
-                }`}>
+                <div className={`flex h-5.5 w-5.5 items-center justify-center rounded-full border-2 transition-all duration-300 onboarding-check-badge ${isSelected ? 'border-emerald-500 bg-emerald-500 text-white scale-110' : 'border-slate-200 bg-transparent text-transparent'
+                  }`}>
                   <Check className="h-3 w-3" strokeWidth={4} />
                 </div>
               </div>
@@ -92,14 +90,14 @@ export function StepTwoTone({ tones, setTones, onBack, onComplete }) {
         >
           <ChevronLeft className="h-4 w-4 sm:h-4.5 sm:w-4.5" /> {t('common.previous')}
         </button>
-        
+
         <button
           type="button"
-          onClick={onComplete}
+          onClick={onNext}
           disabled={!isValid}
           className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 disabled:bg-slate-200 disabled:shadow-none sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
-          <span className="relative z-10 transition group-hover:translate-x-[-4px]">{t('onboarding.tone.completeBtn')}</span>
+          <span className="relative z-10 transition group-hover:translate-x-[-4px]">{t('onboarding.products.nextBtn', 'Save & Continue')}</span>
           <ArrowRight className="relative z-10 h-4.5 w-4.5 transition group-hover:translate-x-[4px]" />
         </button>
       </div>

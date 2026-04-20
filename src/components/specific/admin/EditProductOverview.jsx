@@ -499,7 +499,44 @@ export function EditProductOverview({ id: propId }) {
   })
 
   const handleSubmit = () => {
-    if (!formData.name.trim()) { toast.error(t('admin.addProductOverview.validation.nameRequired')); return }
+    // Step 1 – Basics
+    if (!formData.name.trim()) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.nameRequired'))
+      return
+    }
+    if (!formData.description.trim()) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.descriptionRequired'))
+      return
+    }
+    if (formData.gallery.length === 0) {
+      setCurrentStep('basics')
+      toast.error(t('admin.addProductOverview.validation.mediaRequired'))
+      return
+    }
+    // Step 2 – Category
+    if (!formData.category) {
+      setCurrentStep('classification')
+      toast.error(t('admin.addProductOverview.validation.categoryRequired'))
+      return
+    }
+    if (nestedOptions.length > 0 && !formData.subCategory) {
+      setCurrentStep('classification')
+      toast.error(t('admin.addProductOverview.validation.subCategoryRequired'))
+      return
+    }
+    // Step 3 – Pricing
+    if (!formData.price || isNaN(parseFloat(formData.price)) || parseFloat(formData.price) < 0) {
+      setCurrentStep('pricing')
+      toast.error(t('admin.addProductOverview.validation.priceRequired'))
+      return
+    }
+    if (formData.stock === '' || formData.stock === null || formData.stock === undefined) {
+      setCurrentStep('pricing')
+      toast.error(t('admin.addProductOverview.validation.stockRequired'))
+      return
+    }
 
     const finalSpecs = { ...formData.specs }
     formData.customFields.forEach(field => {
@@ -526,6 +563,34 @@ export function EditProductOverview({ id: propId }) {
     updateProduct(payload)
     toast.success(t('admin.addProductOverview.validation.updateSuccess'))
     navigate(ROUTES.adminProducts)
+  }
+
+  const handleNextStep = () => {
+    if (currentStep === 'basics') {
+      if (!formData.name.trim()) {
+        toast.error(t('admin.addProductOverview.validation.nameRequired'))
+        return
+      }
+      if (!formData.description.trim()) {
+        toast.error(t('admin.addProductOverview.validation.descriptionRequired'))
+        return
+      }
+      if (formData.gallery.length === 0) {
+        toast.error(t('admin.addProductOverview.validation.mediaRequired'))
+        return
+      }
+    }
+    if (currentStep === 'classification') {
+      if (!formData.category) {
+        toast.error(t('admin.addProductOverview.validation.categoryRequired'))
+        return
+      }
+      if (nestedOptions.length > 0 && !formData.subCategory) {
+        toast.error(t('admin.addProductOverview.validation.subCategoryRequired'))
+        return
+      }
+    }
+    setCurrentStep(STEPS[currentStepIndex + 1].id)
   }
 
   const currentStepIndex = STEPS.findIndex(s => s.id === currentStep)
@@ -766,7 +831,7 @@ export function EditProductOverview({ id: propId }) {
               <Motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={isLastStep ? handleSubmit : () => setCurrentStep(STEPS[currentStepIndex + 1].id)}
+                onClick={isLastStep ? handleSubmit : handleNextStep}
                 className="admin-cta-premium flex h-12 items-center gap-2 rounded-2xl bg-emerald-900 px-8 text-[0.88rem] font-black text-white shadow-xl shadow-emerald-900/10 transition"
               >
                 {isLastStep ? <Save className="h-4 w-4" /> : null}

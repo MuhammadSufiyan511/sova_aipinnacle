@@ -132,6 +132,25 @@ export function OnboardingPage() {
 
           {step === 2 && (
             <motion.div
+              key="step-tone"
+              custom={isMobile}
+              variants={stepVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="mx-auto flex w-full max-w-4xl justify-center will-change-[transform,opacity]"
+            >
+              <StepTwoTone
+                tones={tones}
+                setTones={setTones}
+                onBack={() => setStep(1)}
+                onNext={() => setStep(3)}
+              />
+            </motion.div>
+          )}
+
+          {step === 3 && (
+            <motion.div
               key="step-products"
               custom={isMobile}
               variants={stepVariants}
@@ -144,25 +163,6 @@ export function OnboardingPage() {
                 products={products}
                 setProducts={setProducts}
                 businessType={businessType}
-                onBack={() => setStep(1)}
-                onNext={() => setStep(3)}
-              />
-            </motion.div>
-          )}
-
-          {step === 3 && (
-            <motion.div
-              key="step-tone"
-              custom={isMobile}
-              variants={stepVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="mx-auto flex w-full max-w-4xl justify-center will-change-[transform,opacity]"
-            >
-              <StepTwoTone
-                tones={tones}
-                setTones={setTones}
                 onBack={() => setStep(2)}
                 onComplete={handleComplete}
               />
