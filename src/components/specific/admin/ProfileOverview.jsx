@@ -1,21 +1,10 @@
 import { motion as Motion } from 'framer-motion'
-import { BadgeCheck, Globe2, MessageSquare, ShieldCheck, Sparkles, UserRound } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+import { Globe2, ShieldCheck, UserRound } from 'lucide-react'
 import { memo } from 'react'
-import { useApp } from '../../../context/AppProvider'
+import { useProfileData } from '../../../hooks/useProfileData'
 
 export const ProfileOverview = memo(function ProfileOverview() {
-  const { t } = useTranslation()
-  const { user, products, tones } = useApp()
-  const { i18n } = useTranslation()
-
-  const mockProfile = t('admin.mockData.profile', { returnObjects: true }) || {}
-
-  const activity = [
-    { label: t('admin.profile.activity.products'), value: products.length || '0', icon: BadgeCheck, tint: 'bg-emerald-50 text-emerald-600' },
-    { label: t('admin.profile.activity.automations'), value: mockProfile.automations || '06', icon: Sparkles, tint: 'bg-violet-50 text-violet-600' },
-    { label: t('admin.profile.activity.alerts'), value: mockProfile.alerts || '08', icon: MessageSquare, tint: 'bg-sky-50 text-sky-600' },
-  ]
+  const { t, i18n, user, products, tones, activity } = useProfileData()
 
   return (
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full admin-profile-shell">

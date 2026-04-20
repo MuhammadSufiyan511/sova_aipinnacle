@@ -706,7 +706,7 @@ export function EditProductOverview({ id: propId }) {
                             ))}
                             <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
                           </select>
-                          <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                          <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                         </div>
                       </Field>
 
@@ -722,7 +722,7 @@ export function EditProductOverview({ id: propId }) {
                                   ))}
                                   <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
                                 </select>
-                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                                <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                               </div>
                             </Field>
                           </Motion.div>
@@ -744,7 +744,7 @@ export function EditProductOverview({ id: propId }) {
                                   <option value="">{t('admin.addProductOverview.fields.selectOption')}</option>
                                   {field.options.map(o => <option key={o} value={o}>{o}</option>)}
                                 </select>
-                                <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                                <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                               </div>
                             ) : (
                               <input
@@ -796,13 +796,13 @@ export function EditProductOverview({ id: propId }) {
                       <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                         <div className="relative">
                           <input type="text" value={formData.price} onChange={(e) => set('price', e.target.value)} className={inputCls} placeholder="0.00" />
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
+                          <div className="absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
                         </div>
                       </Field>
                       <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Sparkles}>
                         <div className="relative">
                           <input type="text" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.salePricePlaceholder')} />
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
+                          <div className="absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
                         </div>
                       </Field>
                     </div>

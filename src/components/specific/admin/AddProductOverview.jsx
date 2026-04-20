@@ -760,7 +760,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                           ))}
                           <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
                         </select>
-                        <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                        <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                       </div>
                     </Field>
 
@@ -782,7 +782,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                                 ))}
                                 <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
                               </select>
-                              <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                              <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
                             </div>
                           </Field>
                         </Motion.div>
@@ -853,7 +853,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                                     ))}
                                     <option value="Custom">{t('admin.addProductOverview.fields.customValue')}</option>
                                   </select>
-                                  <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                                  <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
 
                                   {selectValue === 'Custom' && (
                                     <Motion.input
@@ -958,14 +958,14 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-                        <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
+                        <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8`} placeholder="0.00" />
                       </div>
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} pl-8`} placeholder="0.00" />
+                        <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8`} placeholder="0.00" />
                       </div>
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>

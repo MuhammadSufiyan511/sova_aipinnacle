@@ -595,6 +595,7 @@ admin.addProductOverview = {
   titleEdit: 'آئٹم سیٹنگز',
   subtitleAdd: 'اپنی شاپ لسٹ میں نئی آئٹم شامل کریں تاکہ خریدار اسے واٹس ایپ پر دیکھ سکیں۔',
   subtitleEdit: 'اس آئٹم کی تفصیل، قیمت یا اسٹاک تبدیل کریں۔',
+  backToCatalog: 'شاپ کیٹلاگ پر واپس جائیں',
   steps: {
     category: 'کیٹیگری منتخب کریں',
     dynamic: 'اضافی تفصیلات',
@@ -638,7 +639,7 @@ admin.addProductOverview = {
       subtitle: 'آپ کی منتخب کردہ کیٹیگری کی بنیاد پر اضافی سوالات۔'
     },
     media: {
-      title: 'آئٹم की تصاویر',
+      title: 'آئٹم کی تصاویر',
       subtitle: 'اپنے آئٹم کی تصاویر یا ویڈیوز شامل کریں۔',
       upload: 'تصاویر شامل کریں',
       uploadHint: 'تصاویر یا ویڈیوز',
@@ -799,5 +800,17 @@ admin.addProductOverview = {
     updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی',
     statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
     statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا'
+  },
+  summary: {
+    untitled: 'بغیر نام کا آئٹم',
+    statusReady: 'اسٹاک میں موجود ہے',
+    statusOutOfStock: 'اسٹاک ختم ہو گیا',
+    industryLabel: 'کاروبار کی کیٹیگری',
+    listingHealth: 'لسٹنگ کی حالت',
+    visibility: 'نمائش',
+    marketLive: 'شاپ پر فعال',
+    inventoryState: 'اسٹاک کی صورتحال',
+    lowStock: 'اسٹاک کم ہے!',
+    stable: 'اسٹاک ٹھیک ہے'
   }
 }
