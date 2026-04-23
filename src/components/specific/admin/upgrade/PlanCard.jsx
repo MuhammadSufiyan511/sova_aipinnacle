@@ -32,9 +32,14 @@ export const PlanCard = memo(function PlanCard({ plan, index, currentPlan, t, ac
         </div>
 
         <div className="mt-5">
-          <p className="admin-card-title text-[2.4rem] font-bold tracking-[-0.05em] text-[#173247]">
-            {plan.price}
-          </p>
+          <div className="flex items-end gap-1.5">
+            <p className="admin-card-title text-[2.4rem] font-bold tracking-[-0.05em] text-[#173247]">
+              {plan.price}
+            </p>
+            <span className="mb-2 text-[0.78rem] font-semibold text-[#62808D]">
+              {t('common.monthSuffix')}
+            </span>
+          </div>
           <p className="admin-card-desc mt-1.5 text-[0.82rem] leading-relaxed text-[#62808D]">
             {plan.blurb}
           </p>

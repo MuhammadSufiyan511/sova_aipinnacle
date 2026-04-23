@@ -2,8 +2,10 @@ import { motion as Motion } from 'framer-motion'
 import { Bell, Bot, Briefcase, MessageSquare, Shield, Sparkles, Zap } from 'lucide-react'
 import { memo } from 'react'
 import { BusinessProfileModal } from './settings/BusinessProfileModal'
+import { ToneSettingsModal } from './settings/ToneSettingsModal'
 import { useSettingsData, toneColors } from '../../../hooks/useSettingsData'
 import { Toggle } from '../../shared/Toggle'
+import sovaLogo from '../../../assets/logos/sova-bgless.png'
 
 function SettingRow({ icon, iconBg, title, desc, children }) {
   return (
@@ -31,43 +33,41 @@ export const SettingsOverview = memo(function SettingsOverview() {
     alerts, setAlerts, autoReply, setAutoReply, spamFilter, setSpamFilter,
     businessModalOpen, setBusinessModalOpen, draftBusinessType, setDraftBusinessType,
     draftCustomCategory, setDraftCustomCategory, isMobile, businessLabel,
-    toneOptions, openBusinessModal, saveBusinessProfile
+    toneOptions, openBusinessModal, saveBusinessProfile,
+    toneModalOpen, setToneModalOpen, draftTone, setDraftTone, openToneModal, saveToneSettings
   } = useSettingsData()
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">
-        <Motion.div variants={rowItem} className="text-center sm:text-left">
-          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title settings-main-title">{t('admin.settings.title')}</h2>
-          <p className="mt-0.5 text-[0.74rem] text-[#1E293B] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
-        </Motion.div>
+      <Motion.div variants={rowItem} className="text-center sm:text-left">
+        <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title settings-main-title">{t('admin.settings.title')}</h2>
+        <p className="mt-0.5 text-[0.74rem] text-[#1E293B] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
+      </Motion.div>
 
       <Motion.section variants={rowItem} className="rounded-[22px] border border-[#DDEFE7] p-4 shadow-sm admin-card-shell">
-        <div className="mb-4 flex flex-col items-center gap-3 text-center sm:flex-row sm:text-left">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
-            <Sparkles className="h-4.5 w-4.5" />
-          </span>
-          <div>
-            <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.voice.title')}</h3>
-            <p className="text-[0.7rem] text-[#1E293B]">{t('admin.settings.sections.voice.subtitle')}</p>
+        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+            {/* <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500 admin-stat-icon">
+            </span> */}
+            <div className="mx-auto mb-5 flex h-9 w-9 items-center justify-center rounded-xl bg-white text-white shadow-xl shadow-emerald-500/20 sm:h-11 sm:w-11 sm:rounded-2xl onboarding-step-icon">
+              <img src={sovaLogo} alt="SOVA Logo" className="h-5 w-5 sm:h-10 sm:w-10 object-contain rounded-xl" />
+
+            </div>
+
+
+
+
+            <div>
+              <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.voice.title')}</h3>
+              <p className="mt-0.5 text-[0.72rem] leading-5 text-[#1E293B]">{t('admin.settings.sections.voice.subtitle')}</p>
+              <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#10B981]">
+                {t('admin.settings.sections.voice.current')}: {toneOptions.find(opt => opt.id === activeTone)?.label || activeTone}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 md:grid-cols-3">
-          {toneOptions.map((tone) => {
-            const isActive = activeTone === tone.id
-            const style = toneColors[tone.color]
-            return (
-              <Motion.button
-                key={tone.id}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setTones([tone.id])}
-                className={`admin-tone-card relative rounded-2xl border-2 p-3 text-center transition-all sm:text-left ${isActive ? 'is-active ' + style.active : 'border-[#DDEFE7] bg-[#F2FBF7] hover:border-[#CFE6DC] hover:bg-[#EEF8F3]'}`}
-              >
-                {isActive ? <Motion.div layoutId="tone-dot" className={`tone-dot absolute right-3 top-3 h-2 w-2 rounded-full ${style.dot}`} /> : null}
-                <p className="text-[0.8rem] font-bold">{tone.label}</p>
-                <p className={`mt-0.5 text-[0.66rem] ${isActive ? 'opacity-70' : 'text-[#1E293B]'}`}>{tone.desc}</p>
-              </Motion.button>
-            )
-          })}
+          <button type="button" onClick={openToneModal} className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02]">
+            {t('admin.settings.sections.voice.button')}
+          </button>
         </div>
       </Motion.section>
 
@@ -131,6 +131,16 @@ export const SettingsOverview = memo(function SettingsOverview() {
         draftCustomCategory={draftCustomCategory}
         setDraftCustomCategory={setDraftCustomCategory}
         saveBusinessProfile={saveBusinessProfile}
+      />
+      <ToneSettingsModal
+        isOpen={toneModalOpen}
+        onClose={() => setToneModalOpen(false)}
+        isMobile={isMobile}
+        t={t}
+        toneOptions={toneOptions}
+        draftTone={draftTone}
+        setDraftTone={setDraftTone}
+        saveToneSettings={saveToneSettings}
       />
     </Motion.div>
   )

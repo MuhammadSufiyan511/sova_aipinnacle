@@ -268,6 +268,7 @@ export const admin = {
       selectOption: 'विकल्प चुनें',
       customValue: 'अपनी पसंद का...',
       customValuePlaceholder: 'विवरण लिखें',
+      colorNotFound: 'रंग का नाम पहचाना नहीं गया। इसे कस्टम लेबल के रूप में जोड़ा जाएगा।',
       size: { label: 'साइज', placeholder: 'जैसे: XL या 42' },
       color: { label: 'रंग', placeholder: 'जैसे: गहरा नीला' },
       fabric: { label: 'कपड़ा / मटेरियल', placeholder: 'जैसे: रेशम' },
@@ -640,7 +641,10 @@ export const admin = {
       },
       voice: {
         title: 'ब्रैंड की आवाज',
-        subtitle: 'चुनें कि SOVA आपके ग्राहकों से कैसे बात करता है।'
+        subtitle: 'चुनें कि SOVA आपके ग्राहकों से कैसे बात करता है।',
+        current: 'वर्तमान आवाज़',
+        button: 'आवाज़ बदलें',
+        modalTitle: 'आवाज़ सेटअप'
       },
       rules: {
         title: 'स्वचालन नियम',
@@ -861,6 +865,10 @@ admin.upgrade = {
 
 admin.nav.catalog = 'दुकान की लिस्ट'
 admin.nav.addProduct = 'सामान जोड़ें'
+admin.common = admin.common || {}
+admin.common.locked = 'लॉक्ड'
+admin.common.unlockToView = 'देखने के लिए अनलॉक करें'
+
 admin.overview.quickActions.businessSettings = 'बिज़नेस सेटिंग्स'
 admin.overview.quickActions.products = 'प्रोडक्ट देखें'
 admin.overview.quickActions.files = 'फाइलें देखें'
@@ -940,5 +948,5 @@ admin.mockData = {
       { from: 'user', text: 'प्रीमियम सिल्क स्कार्फ।' },
       { from: 'sova', text: 'बेहतरीन! मैं 3x प्रीमियम सिल्क स्كارफ के लिए चालान (Invoice) तैयार कर दूंगा। क्या मैं आपका ऑर्डर कन्फर्म कर दूं?' }
     ]
-  }
+  },
 }

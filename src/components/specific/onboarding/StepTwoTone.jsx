@@ -1,6 +1,7 @@
 import { Sparkles, Check, ChevronLeft, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTranslation, Trans } from 'react-i18next'
+import sovaLogo from '../../../assets/logos/sova-bgless.png'
 
 const availableTones = [
   { id: 'professional' },
@@ -32,8 +33,8 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-9 text-center"
       >
-        <div className="mx-auto mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-xl shadow-emerald-500/20 sm:h-13 sm:w-13 sm:rounded-2xl onboarding-step-icon">
-          <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+        <div className="mx-auto mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-white shadow-xl shadow-emerald-500/20 sm:h-13 sm:w-13 sm:rounded-2xl onboarding-step-icon">
+          <img src={sovaLogo} alt="SOVA Logo" className="h-5 w-5 sm:h-12 sm:w-12 object-contain rounded-xl" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
           <Trans i18nKey="onboarding.tone.title">
@@ -61,8 +62,8 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
               whileTap={{ scale: 0.98 }}
               onClick={() => toggleTone(tone.id)}
               className={`relative flex flex-col items-start rounded-[28px] border-2 p-5 text-left transition-all duration-300 onboarding-card ${isSelected
-                  ? 'border-emerald-500 bg-white shadow-xl shadow-emerald-500/10 ring-4 ring-emerald-500/5 is-selected'
-                  : 'border-slate-100 bg-white/50 hover:border-emerald-200 hover:bg-white hover:shadow-lg'
+                ? 'border-emerald-500 bg-white shadow-xl shadow-emerald-500/10 ring-4 ring-emerald-500/5 is-selected'
+                : 'border-slate-100 bg-white/50 hover:border-emerald-200 hover:bg-white hover:shadow-lg'
                 }`}
             >
               <div className="mb-3 flex w-full items-center justify-between">

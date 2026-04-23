@@ -339,7 +339,10 @@ const admin = {
       },
       voice: {
         title: 'AI آواز اور لہجہ',
-        subtitle: 'کنٹرول کریں کہ سوفا آپ کے کسٹمرز سے کس طرح بات کرتا ہے'
+        subtitle: 'کنٹرول کریں کہ سوفا آپ کے کسٹمرز سے کس طرح بات کرتا ہے',
+        current: 'موجودہ آواز',
+        button: 'آواز تبدیل کریں',
+        modalTitle: 'آواز کا سیٹ اپ'
       },
       rules: {
         title: 'آٹومیشن کے اصول'
@@ -505,7 +508,6 @@ const admin = {
     }
   }
 }
-
 export { onboarding, admin }
 
 admin.upgrade = {
@@ -578,6 +580,10 @@ admin.upgrade = {
 
 admin.nav.catalog = 'کیٹلاگ'
 admin.nav.addProduct = 'پروڈکٹ شامل کریں'
+admin.common = admin.common || {}
+admin.common.locked = 'مقفل'
+admin.common.unlockToView = 'دیکھنے کے لیے ان لاک کریں'
+
 admin.overview.quickActions.businessSettings = 'بزنس سیٹنگز'
 admin.overview.quickActions.products = 'پروڈکٹس دیکھیں'
 admin.overview.quickActions.files = 'فائلیں دیکھیں'
@@ -658,8 +664,11 @@ admin.addProductOverview = {
       salePriceLabel: 'رعایتی قیمت (اختیاری)',
       discountLabel: 'ڈسکاؤنٹ',
       stockLabel: 'کل اسٹاک',
+      stockPlaceholder: 'تعداد درج کریں',
       minStockLabel: 'لو اسٹاک الرٹ',
       skuLabel: 'آئٹم آئی ڈی (اختیاری)',
+      skuPlaceholder: 'مثلاً SKU-1234',
+      skuHelp: 'عالمی آئٹم شناختی کوڈ',
       minOrderLabel: 'کم از کم آرڈر'
     },
     summary: {
@@ -684,6 +693,12 @@ admin.addProductOverview = {
       schedule: 'تاریخ سیٹ کریں',
       submitAdd: 'شاپ میں شامل کریں',
       submitEdit: 'تبدیلیاں محفوظ کریں'
+    },
+    fields: {
+      selectOption: 'آپشن منتخب کریں',
+      customValue: 'اپنی مرضی کی قیمت',
+      customValuePlaceholder: 'اپنی قیمت درج کریں...',
+      colorNotFound: 'رنگ کا نام نہیں پہچانا گیا۔ اسے لیبل کے طور پر شامل کیا جائے گا۔'
     }
   },
   categories: {

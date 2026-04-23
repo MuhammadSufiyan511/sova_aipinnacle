@@ -1,5 +1,5 @@
 import { motion as Motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, Crown, Sparkles, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CheckCircle2, Crown, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
 import { memo } from 'react'
 import { useUpgradeData, accentMap } from '../../../hooks/useUpgradeData'
 import { PlanCard } from './upgrade/PlanCard'
@@ -14,15 +14,14 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mx-auto flex w-[94%] flex-col gap-6 sm:w-full pb-10">
       {/* Centered Header Section */}
       <div className="flex flex-col items-center text-center px-4 py-8 md:py-12">
-        <Motion.div 
+        <Motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           className="inline-flex items-center gap-2 rounded-full border border-[#D8F3EA] bg-[#ECFDF5] px-4 py-2 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[#10B981] admin-pill"
         >
-          <Sparkles className="h-4 w-4" />
           {t('admin.upgrade.eyebrow')}
         </Motion.div>
-        <Motion.h2 
+        <Motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -30,7 +29,7 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
         >
           {t('admin.upgrade.title')}
         </Motion.h2>
-        <Motion.p 
+        <Motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -40,7 +39,7 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
         </Motion.p>
 
         {/* Current Plan Sub-Indicator */}
-        <Motion.div 
+        <Motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
@@ -63,7 +62,7 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
         {/* Desktop View - Grid */}
         <div className="hidden lg:grid grid-cols-3 gap-6">
           {localizedPlans.map((plan, index) => (
-            <PlanCard 
+            <PlanCard
               key={plan.name}
               plan={plan}
               index={index}
@@ -96,7 +95,7 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="px-1"
             >
-              <PlanCard 
+              <PlanCard
                 plan={localizedPlans[activePlanIdx]}
                 index={activePlanIdx}
                 currentPlan={currentPlan}
@@ -108,7 +107,7 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
 
           {/* Slider Pagination Controls */}
           <div className="mt-8 flex items-center justify-center gap-6">
-            <button 
+            <button
               onClick={prevPlan}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDEFE7] bg-white text-[#476977] shadow-sm transition active:scale-95"
             >
@@ -119,13 +118,12 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
                 <button
                   key={i}
                   onClick={() => setActivePlanIdx(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activePlanIdx === i ? 'w-8 bg-[#10B981]' : 'w-2 bg-[#DCEEE7]'
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${activePlanIdx === i ? 'w-8 bg-[#10B981]' : 'w-2 bg-[#DCEEE7]'
+                    }`}
                 />
               ))}
             </div>
-            <button 
+            <button
               onClick={nextPlan}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDEFE7] bg-white text-[#476977] shadow-sm transition active:scale-95"
             >
@@ -139,17 +137,17 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
       <div className="mt-8 grid gap-6 xl:grid-cols-[1.3fr_0.9fr]">
         <div className="admin-card-shell rounded-[32px] border border-[#DDEFE7] bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
-             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
-               <CheckCircle2 className="h-5 w-5" />
-             </div>
-             <div>
-               <h3 className="admin-card-title font-display text-[1.1rem] font-bold text-[#173247]">
-                 {t('admin.upgrade.compareTitle')}
-               </h3>
-               <p className="admin-card-desc mt-1 text-[0.84rem] text-[#62808D]">
-                 {t('admin.upgrade.compareDesc')}
-               </p>
-             </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+              <CheckCircle2 className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="admin-card-title font-display text-[1.1rem] font-bold text-[#173247]">
+                {t('admin.upgrade.compareTitle')}
+              </h3>
+              <p className="admin-card-desc mt-1 text-[0.84rem] text-[#62808D]">
+                {t('admin.upgrade.compareDesc')}
+              </p>
+            </div>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[1, 2, 3, 4].map((benefitIndex) => (
@@ -168,16 +166,16 @@ export const UpgradeOverview = memo(function UpgradeOverview() {
         <div className="admin-card-shell rounded-[32px] border border-[#DDEFE7] bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
-               <Zap className="h-5 w-5" />
-             </div>
-             <div>
-                <h3 className="admin-card-title font-display text-[1.1rem] font-bold text-[#173247]">
-                  {t('admin.upgrade.summaryTitle')}
-                </h3>
-                <p className="admin-card-desc mt-1 text-[0.84rem] text-[#62808D]">
-                  {t('admin.upgrade.summaryDesc')}
-                </p>
-             </div>
+              <Zap className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="admin-card-title font-display text-[1.1rem] font-bold text-[#173247]">
+                {t('admin.upgrade.summaryTitle')}
+              </h3>
+              <p className="admin-card-desc mt-1 text-[0.84rem] text-[#62808D]">
+                {t('admin.upgrade.summaryDesc')}
+              </p>
+            </div>
           </div>
           <div className="mt-8 space-y-4">
             {[1, 2, 3].map((stepIndex) => (

@@ -23,6 +23,7 @@ import {
   Activity,
   Award,
   BookOpen,
+  AlertCircle,
   Cpu,
   Feather,
   Hammer,
@@ -351,6 +352,119 @@ const Field = ({ label, icon: Icon, children, error, helpText }) => (
   </div>
 )
 
+const TagInput = ({ value = [], onChange, placeholder, icon: Icon, isColor = false }) => {
+  const { t } = useTranslation()
+  const [inputValue, setInputValue] = useState('')
+
+  const isValidColor = (str) => {
+    if (typeof window === 'undefined') return false
+    const s = new Option().style
+    s.color = str
+    return s.color !== ''
+  }
+
+  const addTag = (tag) => {
+    const trimmed = tag.trim()
+    if (trimmed && !value.includes(trimmed)) {
+      onChange([...value, trimmed])
+      setInputValue('')
+    }
+  }
+
+  const removeTag = (tag) => {
+    onChange(value.filter((t) => t !== tag))
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="admin-tag-input-container relative flex min-h-[52px] w-full flex-wrap gap-2 rounded-2xl border border-emerald-100 bg-emerald-50/30 px-3 py-2 transition-all hover:border-emerald-200 focus-within:border-emerald-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-emerald-500/5">
+        <AnimatePresence>
+          {value.map((tag) => {
+            const displayColor = isColor && isValidColor(tag) ? tag : null
+            
+            return (
+              <Motion.span
+                key={tag}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className={`admin-tag-chip flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.76rem] font-bold shadow-sm ${
+                  displayColor 
+                    ? 'border border-black/5' 
+                    : (isColor ? 'border-2 border-dashed border-emerald-200 bg-emerald-50 text-emerald-900/40' : 'bg-emerald-900 text-white')
+                }`}
+                style={displayColor ? { 
+                  backgroundColor: displayColor,
+                  color: ['white', 'yellow', 'lime', 'cyan', 'pink'].some(c => tag.toLowerCase().includes(c)) ? '#064E3B' : 'white',
+                  textShadow: 'none',
+                  border: '1px solid rgba(0,0,0,0.1)'
+                } : {}}
+              >
+                {displayColor && (
+                  <span 
+                    className="h-2 w-2 rounded-full border border-white/20 bg-white"
+                    style={{ backgroundColor: tag }}
+                  />
+                )}
+                {isColor && !displayColor && <AlertCircle className="h-3 w-3 text-red-400" />}
+                {tag}
+                <button
+                  type="button"
+                  onClick={() => removeTag(tag)}
+                  className={`hover:shadow-lg transition-all opacity-70 hover:opacity-100 ${isColor && !displayColor ? 'text-red-400' : ''}`}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Motion.span>
+            )
+          })}
+        </AnimatePresence>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              addTag(inputValue)
+            }
+          }}
+          placeholder={value.length === 0 ? placeholder : ''}
+          className={`admin-tag-input-field flex-1 min-w-[120px] bg-transparent text-[0.9rem] text-emerald-950 outline-none placeholder:text-emerald-900/30 font-medium ${isColor && inputValue && !isValidColor(inputValue) ? 'text-red-500' : ''}`}
+        />
+        {inputValue && (
+          <div className="flex items-center gap-2 ltr:ml-auto rtl:mr-auto">
+            {isColor && isValidColor(inputValue) && (
+              <Motion.div 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="h-4 w-4 rounded-full border-2 border-emerald-500 bg-white"
+                style={{ backgroundColor: inputValue }}
+              />
+            )}
+            <button
+              type="button"
+              onClick={() => addTag(inputValue)}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg transition-all ${isColor && !isValidColor(inputValue) ? 'bg-red-50 text-red-500 hover:bg-red-100' : 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200'}`}
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+      </div>
+      {isColor && inputValue && !isValidColor(inputValue) && (
+        <Motion.p 
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[0.65rem] font-bold text-red-500 ltr:pl-2 rtl:pr-2"
+        >
+          {t('admin.addProductOverview.sections.fields.colorNotFound', { defaultValue: 'Color not recognized. It will be added as a label.' })}
+        </Motion.p>
+      )}
+    </div>
+  )
+}
+
 const inputCls =
   'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3.5 text-[0.92rem] text-[#1E293B] outline-none transition-all placeholder:text-[#1E293B]/40 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
 
@@ -428,6 +542,10 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
     discount: initialProduct?.discount || '0%',
     brand: initialProduct?.brand || '',
     specs: initialProduct?.specs || {},
+    variantGroups: initialProduct?.variantGroups || [{
+      id: Math.random().toString(36).slice(2, 11),
+      attributes: {}
+    }],
     gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
       id: 'legacy',
       preview: initialProduct.imagePreview,
@@ -436,6 +554,24 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
       isPrimary: true,
     }] : []),
   })
+
+  const [expandedGroups, setExpandedGroups] = useState([formData.variantGroups[0]?.id].filter(Boolean))
+
+  const toggleGroup = (id) => {
+    setExpandedGroups(prev => prev.includes(id) ? prev.filter(gid => gid !== id) : [...prev, id])
+  }
+
+  const expandAll = () => setExpandedGroups(formData.variantGroups.map(g => g.id))
+  const collapseAll = () => setExpandedGroups([])
+
+  const addVariantGroup = () => {
+    const newId = Math.random().toString(36).slice(2, 11)
+    setFormData(prev => ({
+      ...prev,
+      variantGroups: [...prev.variantGroups, { id: newId, attributes: {} }]
+    }))
+    setExpandedGroups(prev => [...prev, newId])
+  }
 
   useEffect(() => {
     if (initialProduct) {
@@ -457,6 +593,10 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
         discount: initialProduct.discount || '0%',
         brand: initialProduct.brand || '',
         specs: initialProduct.specs || {},
+        variantGroups: initialProduct.variantGroups || [{
+          id: Math.random().toString(36).slice(2, 11),
+          attributes: {}
+        }],
         gallery: initialProduct.gallery || (initialProduct.imagePreview ? [{
           id: 'legacy',
           preview: initialProduct.imagePreview,
@@ -578,13 +718,11 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
       // For legacy/list view compatibility
       category: formData.industry,
       subCategory: formData.category === 'custom' ? formData.customCategory : `${formData.category}${formData.subCategory && formData.subCategory !== 'custom' ? ` - ${formData.subCategory}` : ''}`,
+      variantGroups: formData.variantGroups,
       specs: finalSpecs,
       imagePreview: primary?.preview || null,
       mediaType: primary?.type || null,
       mediaName: primary?.name || '',
-      variantSizes: [],
-      variantColors: [],
-      variants: []
     }
 
     if (isEditMode) {
@@ -715,7 +853,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                         className={inputCls}
                       />
                     </Field>
-                    <Field label={t('admin.addProductOverview.summary.industryLabel')} icon={Layers}>
+                    <Field label={t('admin.addProductOverview.sections.summary.industryLabel', { defaultValue: 'Business Category' })} icon={Layers}>
                       <div className="flex h-[52px] items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50 admin-business-category-box transition-colors">
                         <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-[#1E293B]/80 admin-business-category-icon transition-colors">
                           <Check className="h-3.5 w-3.5" />
@@ -827,7 +965,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                         animate={{ opacity: 1, y: 0 }}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-3xl bg-emerald-50/50 p-4 md:p-6 ring-1 ring-emerald-100"
                       >
-                        {currentDynamicFields.map((field) => {
+                        {currentDynamicFields.filter(f => !['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'material', 'steelGrade', 'grade', 'fabric'].includes(f.key)).map((field) => {
                           const value = formData.specs[field.key] || ''
                           const isCustomVal = field.type === 'select' && value && !field.options.includes(value)
                           const selectValue = isCustomVal ? 'Custom' : value
@@ -883,6 +1021,212 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                       </Motion.div>
                     )}
                   </AnimatePresence>
+
+                  {/* Variant Groups Development Section */}
+                  <div className="space-y-6 pt-6">
+                     <div className="flex flex-col gap-4 border-b border-emerald-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <h3 className="admin-variant-main-title text-[1rem] font-black uppercase tracking-[0.2em] text-emerald-900">Product Variations</h3>
+                        <p className="admin-variant-sub-title mt-1 text-[0.85rem] font-medium text-emerald-800/70 italic">Define multiple sets of sizes, colors, and materials</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {formData.variantGroups.length > 2 && (
+                          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50/80 p-1.5 ltr:mr-2 rtl:ml-2 border border-emerald-100/50">
+                            <button
+                              type="button"
+                              onClick={expandAll}
+                              className="px-4 py-1.5 text-[0.7rem] font-black text-emerald-700 hover:text-emerald-900 transition-colors"
+                            >
+                              Expand All
+                            </button>
+                            <div className="h-4 w-[1px] bg-emerald-200" />
+                            <button
+                              type="button"
+                              onClick={collapseAll}
+                              className="px-4 py-1.5 text-[0.7rem] font-black text-emerald-700 hover:text-emerald-900 transition-colors"
+                            >
+                              Collapse All
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <AnimatePresence initial={false}>
+                        {formData.variantGroups.map((group, groupIdx) => {
+                          const isExpanded = expandedGroups.includes(group.id)
+                          // Summary logic: find Size and Color
+                          const sizeVal = group.attributes.size
+                          const colorVals = group.attributes.color || []
+                          const summaryText = [
+                            sizeVal && `Size: ${sizeVal}`,
+                            colorVals.length > 0 && `${colorVals.length} Color${colorVals.length > 1 ? 's' : ''}`
+                          ].filter(Boolean).join(' | ')
+
+                          return (
+                            <Motion.div
+                              key={group.id}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, scale: 0.98 }}
+                              className="admin-variant-card relative overflow-hidden rounded-[24px] border border-emerald-100 bg-white shadow-sm transition-all hover:shadow-md"
+                            >
+                              <div 
+                                className={`flex cursor-pointer items-center justify-between p-5 transition-colors ${isExpanded ? 'border-b border-emerald-100 bg-emerald-50/30' : 'hover:bg-emerald-50/10'}`}
+                                onClick={() => toggleGroup(group.id)}
+                              >
+                                <div className="flex items-center gap-4">
+                                  <span className="admin-variant-badge flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-[0.8rem] font-black text-emerald-900 shadow-sm border border-emerald-200">
+                                    {groupIdx + 1}
+                                  </span>
+                                  {!isExpanded && summaryText && (
+                                    <Motion.p 
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      className="admin-variant-summary-text text-[0.95rem] font-black text-emerald-900"
+                                    >
+                                      {summaryText}
+                                    </Motion.p>
+                                  )}
+                                  {!isExpanded && !summaryText && (
+                                    <p className="admin-variant-new-label text-[0.95rem] text-emerald-900/40 italic font-bold">New Variation Group</p>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-3">
+                                  {formData.variantGroups.length > 1 && (
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        setFormData(prev => ({
+                                          ...prev,
+                                          variantGroups: prev.variantGroups.filter((_, i) => i !== groupIdx)
+                                        }))
+                                      }}
+                                      className="admin-variant-delete-btn rounded-xl p-2.5 text-red-500/80 transition-colors hover:bg-red-50 hover:text-red-600"
+                                    >
+                                      <Trash2 className="h-6 w-6" />
+                                    </button>
+                                  )}
+                                  <div className={`admin-variant-chevron-wrapper flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ${isExpanded ? 'rotate-180 bg-emerald-600 text-white shadow-lg' : 'bg-emerald-100 text-emerald-900 font-bold'}`}>
+                                    <ChevronRight className="h-6 w-6 rotate-90" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <AnimatePresence>
+                                {isExpanded && (
+                                  <Motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                    className="overflow-hidden"
+                                  >
+                                    <div className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2">
+                                      {currentDynamicFields
+                                        .filter(f => ['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'steelGrade', 'grade', 'fabric'].includes(f.key))
+                                        .map((field) => {
+                                          const isMulti = ['color', 'material', 'fabric', 'strapMaterial', 'steelGrade'].includes(field.key)
+                                          const value = group.attributes[field.key] || (isMulti ? [] : '')
+
+                                          return (
+                                            <Field key={field.key} label={field.label}>
+                                              {isMulti ? (
+                                                <TagInput
+                                                  value={value}
+                                                  isColor={field.key === 'color'}
+                                                  onChange={(newVal) => {
+                                                    const newGroups = [...formData.variantGroups]
+                                                    newGroups[groupIdx].attributes[field.key] = newVal
+                                                    setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                  }}
+                                                  placeholder={field.placeholder}
+                                                />
+                                              ) : (
+                                                <div className="relative">
+                                                  {field.type === 'select' ? (
+                                                    <>
+                                                      <select
+                                                        value={value}
+                                                        onChange={(e) => {
+                                                          const newGroups = [...formData.variantGroups]
+                                                          newGroups[groupIdx].attributes[field.key] = e.target.value
+                                                          setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                        }}
+                                                        className={selectCls}
+                                                      >
+                                                        <option value="">{field.placeholder || t('admin.addProductOverview.fields.selectOption')}</option>
+                                                        {field.options.map((opt) => (
+                                                          <option key={opt} value={opt}>{opt}</option>
+                                                        ))}
+                                                      </select>
+                                                      <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-emerald-900/40" />
+                                                    </>
+                                                  ) : (
+                                                    <input
+                                                      type="text"
+                                                      value={value}
+                                                      onChange={(e) => {
+                                                        const newGroups = [...formData.variantGroups]
+                                                        newGroups[groupIdx].attributes[field.key] = e.target.value
+                                                        setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                      }}
+                                                      placeholder={field.placeholder}
+                                                      className={inputCls}
+                                                    />
+                                                  )}
+                                                </div>
+                                              )}
+                                            </Field>
+                                          )
+                                        })}
+                                      
+                                      {/* Fallback if no specific variant fields found for this category */}
+                                      {currentDynamicFields.filter(f => ['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'steelGrade', 'grade', 'fabric'].includes(f.key)).length === 0 && (
+                                        <div className="col-span-full py-4 text-center">
+                                          <p className="text-[0.74rem] text-emerald-900/30 italic">
+                                            No standard variant fields (Size, Color, etc.) defined for this category.
+                                          </p>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center justify-center border-t border-emerald-50 bg-emerald-50/10 p-4">
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          toggleGroup(group.id)
+                                        }}
+                                        className="flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-2.5 text-[0.8rem] font-black text-white transition-all hover:bg-emerald-700 hover:shadow-lg active:scale-95"
+                                      >
+                                        <Check className="h-4 w-4" />
+                                        Save Variant
+                                      </button>
+                                    </div>
+                                  </Motion.div>
+                                )}
+                              </AnimatePresence>
+                            </Motion.div>
+                          )
+                        })}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="flex justify-center pt-4">
+                      <button
+                        type="button"
+                        onClick={addVariantGroup}
+                        className="group flex items-center gap-3 rounded-2xl bg-emerald-900 px-8 py-4 text-[0.85rem] font-black text-white transition-all hover:bg-emerald-800 hover:shadow-2xl hover:shadow-emerald-900/20 active:scale-95"
+                      >
+                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/10 transition-transform group-hover:rotate-90">
+                          <Plus className="h-4 w-4" />
+                        </div>
+                        Add New Variant Group
+                      </button>
+                    </div>
+                  </div>
 
                   <div className="space-y-4 pt-4">
                     <div className="flex items-center justify-between">
@@ -959,17 +1303,17 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                     <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
                       <div className="relative">
                         <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-                        <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8`} placeholder="0.00" />
+                        <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`} placeholder="0.00" />
                       </div>
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
                       <div className="relative">
                         <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8`} placeholder="0.00" />
+                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`} placeholder="0.00" />
                       </div>
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>
-                      <input type="number" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
+                      <input type="number" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={`${inputCls} rtl:text-left`} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
                     </Field>
                   </div>
                   <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
@@ -977,7 +1321,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                       <input type="text" value={formData.sku} onChange={(e) => set('sku', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.skuPlaceholder')} />
                     </Field>
                     <Field label={t('admin.addProductOverview.sections.pricing.minOrderLabel')} icon={Package}>
-                      <input type="number" value={formData.minOrder} onChange={(e) => set('minOrder', e.target.value)} className={inputCls} placeholder="1" />
+                      <input type="number" value={formData.minOrder} onChange={(e) => set('minOrder', e.target.value)} className={`${inputCls} rtl:text-left`} placeholder="1" />
                     </Field>
                   </div>
                 </SectionCard>
@@ -1034,7 +1378,7 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                 </div>
                 <div className="space-y-3">
                   <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-[#1E293B]">
-                    {formData.name || t('admin.addProductOverview.summary.untitled')}
+                    {formData.name || t('admin.addProductOverview.sections.summary.untitled', { defaultValue: 'Untitled Item' })}
                   </h3>
 
                   <div className="flex items-center justify-between">
@@ -1043,12 +1387,14 @@ export function AddProductOverview({ isOnboarding = false, onSave, onCancel, fix
                     </p>
                     <div className="flex flex-col items-end gap-1">
                       <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${formData.stock > 0 ? 'bg-emerald-50 text-[#1E293B]/80' : 'bg-red-50 text-red-600'}`}>
-                        {formData.stock > 0 ? t('admin.addProductOverview.summary.statusReady') : t('admin.addProductOverview.summary.statusOutOfStock')}
+                        {formData.stock > 0
+                          ? t('admin.addProductOverview.sections.summary.statusReady', { defaultValue: 'Ready in Stock' })
+                          : t('admin.addProductOverview.sections.summary.statusOutOfStock', { defaultValue: 'No Stock Left' })}
                       </span>
                       <div className="flex items-center gap-1.5 px-1">
                         <div className={`h-1.5 w-1.5 rounded-full ${formData.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-emerald-300'}`} />
                         <span className="text-[0.6rem] font-bold uppercase tracking-wider text-[#1E293B]/50">
-                          {t('admin.addProductOverview.summary.listingHealth')}: {formData.status === 'active' ? t('admin.common.active') : t('admin.common.inactive')}
+                          {t('admin.addProductOverview.sections.summary.listingHealth', { defaultValue: 'Listing Status' })}: {formData.status === 'active' ? t('admin.common.active') : t('admin.common.inactive')}
                         </span>
                       </div>
                     </div>

@@ -16,9 +16,9 @@ export function useOverviewData() {
   ]
 
   const quickTabs = [
-    { label: t('admin.overview.quickActions.businessSettings'), icon: Settings, action: 'settings' },
-    { label: t('admin.overview.quickActions.products'), icon: Box, action: 'products' },
-    { label: t('admin.overview.quickActions.files'), icon: Files, action: 'files' },
+    { label: t('admin.overview.quickActions.businessSettings', { defaultValue: 'Business settings' }), icon: Settings, action: 'settings' },
+    { label: t('admin.overview.quickActions.products', { defaultValue: 'View products' }), icon: Box, action: 'products' },
+    { label: t('admin.overview.quickActions.files', { defaultValue: 'View files' }), icon: Files, action: 'files' },
   ]
 
   const activityFeed = [

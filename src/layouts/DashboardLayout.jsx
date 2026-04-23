@@ -28,12 +28,12 @@ export function DashboardLayout({ children }) {
     { icon: LayoutDashboard, label: t('admin.nav.overview'), path: ROUTES.admin },
     {
       icon: Box,
-      label: t('admin.nav.catalog'),
+      label: t('admin.nav.catalog', { defaultValue: 'Catalog' }),
       path: ROUTES.adminProducts,
       children: [
-        { icon: PlusCircle, label: t('admin.nav.addProduct'), path: ROUTES.adminAddProduct },
-        { icon: Box, label: t('admin.nav.products'), path: ROUTES.adminProducts },
-        { icon: Files, label: t('admin.nav.files'), path: ROUTES.adminFiles },
+        { icon: PlusCircle, label: t('admin.nav.addProduct', { defaultValue: 'Add product' }), path: ROUTES.adminAddProduct },
+        { icon: Box, label: t('admin.nav.products', { defaultValue: 'Products' }), path: ROUTES.adminProducts },
+        { icon: Files, label: t('admin.nav.files', { defaultValue: 'Files' }), path: ROUTES.adminFiles },
       ],
     },
     { icon: MessageSquare, label: t('admin.nav.chat'), path: ROUTES.adminConversations },

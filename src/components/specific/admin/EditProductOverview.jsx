@@ -21,17 +21,25 @@ import {
   Activity,
   Award,
   BookOpen,
+  AlertCircle,
   Cpu,
+  Feather,
   Hammer,
   Heart,
   Home,
+  Laptop,
   Monitor,
+  Music,
+  Printer,
   Shield,
   Smartphone,
   Sparkles,
   Stethoscope,
   Target,
+  Thermometer,
   Truck,
+  Watch,
+  Wind,
   Zap,
   Save,
   RotateCcw,
@@ -347,6 +355,119 @@ const Field = ({ label, icon: Icon, children, error, helpText }) => (
   </div>
 )
 
+const TagInput = ({ value = [], onChange, placeholder, icon: Icon, isColor = false }) => {
+  const { t } = useTranslation()
+  const [inputValue, setInputValue] = useState('')
+
+  const isValidColor = (str) => {
+    if (typeof window === 'undefined') return false
+    const s = new Option().style
+    s.color = str
+    return s.color !== ''
+  }
+
+  const addTag = (tag) => {
+    const trimmed = tag.trim()
+    if (trimmed && !value.includes(trimmed)) {
+      onChange([...value, trimmed])
+      setInputValue('')
+    }
+  }
+
+  const removeTag = (tag) => {
+    onChange(value.filter((t) => t !== tag))
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="admin-tag-input-container relative flex min-h-[52px] w-full flex-wrap gap-2 rounded-2xl border border-emerald-100 bg-emerald-50/30 px-3 py-2 transition-all hover:border-emerald-200 focus-within:border-emerald-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-emerald-500/5">
+        <AnimatePresence>
+          {value.map((tag) => {
+            const displayColor = isColor && isValidColor(tag) ? tag : null
+            
+            return (
+              <Motion.span
+                key={tag}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className={`admin-tag-chip flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.76rem] font-bold shadow-sm transition-all ${
+                  displayColor 
+                    ? 'border border-black/5' 
+                    : (isColor ? 'border-2 border-dashed border-emerald-200 bg-emerald-50 text-emerald-900/40' : 'bg-emerald-900 text-white')
+                }`}
+                style={displayColor ? { 
+                  backgroundColor: displayColor,
+                  color: ['white', 'yellow', 'lime', 'cyan', 'pink', 'silver', 'linen', 'ivory', 'snow', 'azure', 'gold'].some(c => tag.toLowerCase().includes(c)) ? '#064E3B' : 'white',
+                  textShadow: 'none',
+                  border: '1px solid rgba(0,0,0,0.1)'
+                } : {}}
+              >
+                {displayColor && (
+                  <span 
+                    className="h-2 w-2 rounded-full border border-white/20 bg-white"
+                    style={{ backgroundColor: tag }}
+                  />
+                )}
+                {isColor && !displayColor && <AlertCircle className="h-3 w-3 text-red-400" />}
+                {tag}
+                <button
+                  type="button"
+                  onClick={() => removeTag(tag)}
+                  className={`hover:shadow-lg transition-all opacity-70 hover:opacity-100 ${isColor && !displayColor ? 'text-red-400' : ''}`}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Motion.span>
+            )
+          })}
+        </AnimatePresence>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              addTag(inputValue)
+            }
+          }}
+          placeholder={value.length === 0 ? placeholder : ''}
+          className={`admin-tag-input-field flex-1 min-w-[120px] bg-transparent text-[0.9rem] text-emerald-950 outline-none placeholder:text-emerald-900/30 font-medium ${isColor && inputValue && !isValidColor(inputValue) ? 'text-red-500' : ''}`}
+        />
+        {inputValue && (
+          <div className="flex items-center gap-2 ltr:ml-auto rtl:mr-auto">
+            {isColor && isValidColor(inputValue) && (
+              <Motion.div 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="h-4 w-4 rounded-full border-2 border-emerald-500 bg-white"
+                style={{ backgroundColor: inputValue }}
+              />
+            )}
+            <button
+              type="button"
+              onClick={() => addTag(inputValue)}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg transition-all ${isColor && !isValidColor(inputValue) ? 'bg-red-50 text-red-500 hover:bg-red-100' : 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200'}`}
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+      </div>
+      {isColor && inputValue && !isValidColor(inputValue) && (
+        <Motion.p 
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[0.65rem] font-bold text-red-500 ltr:pl-2 rtl:pr-2"
+        >
+          {t('admin.addProductOverview.sections.fields.colorNotFound', { defaultValue: 'Color not recognized. It will be added as a label.' })}
+        </Motion.p>
+      )}
+    </div>
+  )
+}
+
 const inputCls =
   'admin-pro-input w-full rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3.5 text-[0.92rem] text-[#1E293B] outline-none transition-all placeholder:text-[#1E293B]/40 hover:border-emerald-200 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/5'
 
@@ -401,25 +522,53 @@ export function EditProductOverview({ id: propId }) {
 
   const [currentStep, setCurrentStep] = useState('basics')
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    industry: businessProfile?.type || 'clothing',
-    category: '',
-    subCategory: '',
-    customCategory: '',
-    customSubCategory: '',
-    customFields: [],
-    price: '',
-    salePrice: '',
-    stock: '',
-    minStock: '',
-    sku: '',
-    minOrder: '1',
-    discount: '0%',
-    brand: '',
-    specs: {},
-    gallery: [],
+    name: initialProduct?.name || '',
+    description: initialProduct?.description || '',
+    industry: initialProduct?.industry || businessProfile?.type || 'clothing',
+    category: initialProduct?.categoryAt || '',
+    subCategory: initialProduct?.subCategoryAt || '',
+    customCategory: initialProduct?.customCategory || '',
+    customSubCategory: initialProduct?.customSubCategory || '',
+    customFields: initialProduct?.customFields || [],
+    price: initialProduct?.price || '',
+    salePrice: initialProduct?.salePrice || '',
+    stock: initialProduct?.stock || '',
+    minStock: initialProduct?.minStock || '',
+    sku: initialProduct?.sku || '',
+    minOrder: initialProduct?.minOrder || '1',
+    discount: initialProduct?.discount || '0%',
+    brand: initialProduct?.brand || '',
+    specs: initialProduct?.specs || {},
+    variantGroups: initialProduct?.variantGroups || [{
+      id: Math.random().toString(36).slice(2, 11),
+      attributes: {}
+    }],
+    gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
+      id: 'legacy',
+      preview: initialProduct.imagePreview,
+      type: initialProduct.mediaType || 'image',
+      name: initialProduct.mediaName || 'Primary',
+      isPrimary: true,
+    }] : []),
   })
+
+  const [expandedGroups, setExpandedGroups] = useState([formData.variantGroups[0]?.id].filter(Boolean))
+
+  const toggleGroup = (id) => {
+    setExpandedGroups(prev => prev.includes(id) ? prev.filter(gid => gid !== id) : [...prev, id])
+  }
+
+  const expandAll = () => setExpandedGroups(formData.variantGroups.map(g => g.id))
+  const collapseAll = () => setExpandedGroups([])
+
+  const addVariantGroup = () => {
+    const newId = Math.random().toString(36).slice(2, 11)
+    setFormData(prev => ({
+      ...prev,
+      variantGroups: [...prev.variantGroups, { id: newId, attributes: {} }]
+    }))
+    setExpandedGroups(prev => [...prev, newId])
+  }
 
   useEffect(() => {
     if (initialProduct) {
@@ -441,6 +590,10 @@ export function EditProductOverview({ id: propId }) {
         discount: initialProduct.discount || '0%',
         brand: initialProduct.brand || '',
         specs: initialProduct.specs || {},
+        variantGroups: initialProduct.variantGroups || [{
+          id: Math.random().toString(36).slice(2, 11),
+          attributes: {}
+        }],
         gallery: initialProduct.gallery || (initialProduct.imagePreview ? [{
           id: 'legacy',
           preview: initialProduct.imagePreview,
@@ -551,6 +704,7 @@ export function EditProductOverview({ id: propId }) {
       id: initialProduct?.id || id,
       categoryAt: formData.category,
       subCategoryAt: formData.subCategory,
+      variantGroups: formData.variantGroups,
       // Compatibility
       category: formData.industry,
       subCategory: formData.category === 'custom' ? formData.customCategory : `${formData.category}${formData.subCategory && formData.subCategory !== 'custom' ? ` - ${formData.subCategory}` : ''}`,
@@ -595,12 +749,13 @@ export function EditProductOverview({ id: propId }) {
 
   const currentStepIndex = STEPS.findIndex(s => s.id === currentStep)
   const isLastStep = currentStepIndex === STEPS.length - 1
+  const isEditMode = true
 
   if (!initialProduct) return (
     <div className="flex min-h-screen items-center justify-center bg-white md:bg-emerald-50/40">
       <div className="text-center">
         <div className="mb-4 inline-flex h-12 w-12 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-        <p className="text-sm font-bold text-[#1E293B]/60 uppercase tracking-widest">{t('admin.addProductOverview.editorInitialising')}</p>
+        <p className="text-[0.7rem] font-black text-emerald-900/40 uppercase tracking-widest">{t('admin.addProductOverview.editorInitialising')}</p>
       </div>
     </div>
   )
@@ -612,9 +767,9 @@ export function EditProductOverview({ id: propId }) {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => navigate(ROUTES.adminProducts)}
-          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-[#1E293B]/  80 transition-all hover:text-[#1E293B]/80"
+          className="group mb-6 md:mb-8 flex items-center gap-2 text-[0.78rem] md:text-[0.82rem] font-bold text-emerald-950/80 transition-all hover:text-emerald-950"
         >
-          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white text-[#1E293B] shadow-sm ring-1 ring-emerald-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
+          <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-xl bg-white text-emerald-950 shadow-sm ring-1 ring-emerald-100 transition-all group-hover:bg-emerald-50 group-hover:ring-emerald-200">
             <ArrowLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
           </div>
           {t('admin.addProductOverview.backToCatalog')}
@@ -624,25 +779,27 @@ export function EditProductOverview({ id: propId }) {
           <div className="space-y-6 md:space-y-8">
             <div className="flex flex-col gap-6">
               <div>
-                <h1 className="text-xl font-black tracking-tight text-[#1E293B] md:text-3xl line-clamp-1">
+                <h1 className="text-xl font-black tracking-tight text-emerald-950 md:text-3xl line-clamp-1">
                   {t('admin.addProductOverview.titleEdit')}: {formData.name || initialProduct.name}
                 </h1>
-                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-[#1E293B]/80 text-ellipsis overflow-hidden">
+                <p className="mt-1 text-[0.82rem] md:text-[0.9rem] font-medium text-emerald-950/60 text-ellipsis overflow-hidden">
                   {t('admin.addProductOverview.subtitleEdit')}
                 </p>
               </div>
 
-              <nav className="flex items-center gap-2 overflow-x-auto pb-2 scroll-smooth no-scrollbar md:pb-0">
+              <nav className="flex items-center gap-3 overflow-x-auto pb-2 scroll-smooth no-scrollbar md:pb-0">
                 {STEPS.map((step, idx) => (
                   <button
                     key={step.id}
                     onClick={() => setCurrentStep(step.id)}
                     className={`admin-wizard-step flex shrink-0 items-center gap-2 rounded-xl md:rounded-2xl px-4 py-2.5 md:px-5 md:py-3 text-[0.75rem] md:text-[0.82rem] font-bold transition-all ${currentStep === step.id
                       ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 is-active'
-                      : 'bg-white text-[#1E293B]/80 hover:text-[#1E293B]/80 ring-1 ring-emerald-100/80 shadow-sm'
+                      : 'bg-white text-emerald-950/75 hover:text-emerald-950 ring-1 ring-emerald-100/80 shadow-sm'
                       }`}
                   >
-                    <step.icon className={`h-3.5 w-3.5 md:h-4 md:w-4 ${currentStep === step.id ? 'text-white' : 'text-[#1E293B]/80'}`} />
+                    <span className={`flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-lg ${currentStep === step.id ? 'bg-white/20' : 'bg-emerald-50'}`}>
+                      {idx + 1}
+                    </span>
                     {t(step.title)}
                   </button>
                 ))}
@@ -651,241 +808,590 @@ export function EditProductOverview({ id: propId }) {
 
             <AnimatePresence mode="wait">
               {currentStep === 'basics' && (
-                <Motion.div key="basics" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard
-                    title={t('admin.addProductOverview.sections.basics.title')}
-                    subtitle={t('admin.addProductOverview.sections.basics.subtitle')}
-                    icon={Info}
-                  >
-                    <Field label={t('admin.addProductOverview.sections.basics.nameLabel')} icon={Tag}>
-                      <input type="text" value={formData.name} onChange={(e) => set('name', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.basics.namePlaceholder')} />
+                <SectionCard
+                  key="basics"
+                  title={t('admin.addProductOverview.sections.basics.title')}
+                  subtitle={t('admin.addProductOverview.sections.basics.subtitle')}
+                  icon={Info}
+                >
+                  <Field label={t('admin.addProductOverview.sections.basics.nameLabel')} icon={Tag}>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => set('name', e.target.value)}
+                      placeholder={t('admin.addProductOverview.sections.basics.namePlaceholder')}
+                      className={inputCls}
+                    />
+                  </Field>
+                  <Field label={t('admin.addProductOverview.sections.basics.descriptionLabel')} icon={FileText}>
+                    <textarea
+                      rows={4}
+                      value={formData.description}
+                      onChange={(e) => set('description', e.target.value)}
+                      placeholder={t('admin.addProductOverview.sections.basics.descriptionPlaceholder')}
+                      className={`${inputCls} resize-none`}
+                    />
+                  </Field>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Field label={t('admin.addProductOverview.sections.basics.brandLabel')} icon={Star}>
+                      <input
+                        type="text"
+                        value={formData.brand}
+                        onChange={(e) => set('brand', e.target.value)}
+                        placeholder={t('admin.addProductOverview.sections.basics.brandPlaceholder')}
+                        className={inputCls}
+                      />
                     </Field>
-                    <Field label={t('admin.addProductOverview.sections.basics.descriptionLabel')} icon={FileText}>
-                      <textarea rows={4} value={formData.description} onChange={(e) => set('description', e.target.value)} className={`${inputCls} resize-none`} placeholder={t('admin.addProductOverview.sections.basics.descriptionPlaceholder')} />
-                    </Field>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field label={t('admin.addProductOverview.sections.basics.brandLabel')} icon={Award}>
-                        <input type="text" value={formData.brand} onChange={(e) => set('brand', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.basics.brandPlaceholder')} />
-                      </Field>
-                      <Field label={t('admin.addProductOverview.summary.industryLabel')} icon={Layers}>
-                        <div className="flex xl:h-[52px] h-[3.8rem] w-full items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50 admin-business-category-box transition-colors">
-                          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-[#1E293B]/80 admin-business-category-icon transition-colors">
-                            <Check className="h-3.5 w-3.5" />
-                          </div>
-                          <span className="text-[0.9rem] font-bold capitalize text-[#1E293B]/90 truncate admin-business-category-text transition-colors">
-                            {t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)}
-                          </span>
+                    <Field label={t('admin.addProductOverview.sections.summary.industryLabel', { defaultValue: 'Business Category' })} icon={Layers}>
+                      <div className="flex h-[52px] items-center gap-3 rounded-2xl bg-emerald-50/50 px-5 ring-1 ring-emerald-100/50 admin-business-category-box transition-colors">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-100 text-[#1E293B]/80 admin-business-category-icon transition-colors">
+                          <Check className="h-3.5 w-3.5" />
                         </div>
-                      </Field>
-                    </div>
-                  </SectionCard>
-                </Motion.div>
+                        <span className="text-[0.9rem] font-bold capitalize text-[#1E293B]/90 truncate admin-business-category-text transition-colors">
+                          {t(`onboarding.business.categories.${formData.industry}.label`, formData.industry.replace('-', ' '))}
+                        </span>
+                      </div>
+                    </Field>
+                  </div>
+                </SectionCard>
               )}
 
               {currentStep === 'classification' && (
-                <Motion.div key="classification" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard
-                    title={t('admin.addProductOverview.sections.category.title')}
-                    subtitle={t('admin.addProductOverview.sections.category.subtitle')}
-                    icon={Layers}
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <Field label={t('admin.addProductOverview.sections.category.categoryLabel')}>
-                        <div className="relative">
-                          <select
-                            value={formData.category}
-                            onChange={(e) => {
-                              const val = e.target.value
-                              setFormData(prev => ({ ...prev, category: val, subCategory: '', specs: {} }))
-                            }}
-                            className={selectCls}
-                          >
-                            <option value="">{t('admin.addProductOverview.sections.category.categoryPlaceholder')}</option>
-                            {industryCategories.map((item) => (
-                              <option key={item.value} value={item.value}>{item.label}</option>
-                            ))}
-                            <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
-                          </select>
-                          <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
-                        </div>
-                      </Field>
+                <SectionCard
+                  key="classification"
+                  title={t('admin.addProductOverview.sections.category.title')}
+                  subtitle={t('admin.addProductOverview.sections.category.subtitle')}
+                  icon={Layers}
+                >
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <Field label={t('admin.addProductOverview.sections.category.categoryLabel')} icon={Package}>
+                      <div className="relative">
+                        <select
+                          value={formData.category}
+                          onChange={(e) => {
+                            const nextVal = e.target.value
+                            setFormData((prev) => ({
+                              ...prev,
+                              category: nextVal,
+                              subCategory: '',
+                              customCategory: '',
+                              customSubCategory: '',
+                              specs: {},
+                            }))
+                          }}
+                          className={selectCls}
+                        >
+                          <option value="">{t('admin.addProductOverview.sections.category.categoryPlaceholder')}</option>
+                          {industryCategories.map((item) => (
+                            <option key={item.value} value={item.value}>{item.label}</option>
+                          ))}
+                          <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.categoryLabel')}</option>
+                        </select>
+                        <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                      </div>
+                    </Field>
 
-                      <AnimatePresence>
-                        {formData.category && formData.category !== 'custom' && (
-                          <Motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                            <Field label={t('admin.addProductOverview.sections.category.subCategoryLabel')}>
-                              <div className="relative">
-                                <select value={formData.subCategory} onChange={(e) => set('subCategory', e.target.value)} className={selectCls}>
-                                  <option value="">{t('admin.addProductOverview.sections.category.subCategoryPlaceholder')}</option>
-                                  {nestedOptions.map((opt) => (
-                                    <option key={opt} value={opt}>{opt}</option>
-                                  ))}
-                                  <option value="custom" className="font-bold text-[#1E293B]/80">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
-                                </select>
-                                <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
-                              </div>
+                    <AnimatePresence>
+                      {(formData.category && formData.category !== 'custom') && (
+                        <Motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                          <Field label={t('admin.addProductOverview.sections.category.subCategoryLabel')} icon={Tag}>
+                            <div className="relative">
+                              <select
+                                value={formData.subCategory}
+                                onChange={(e) => {
+                                  setFormData(prev => ({ ...prev, subCategory: e.target.value, customSubCategory: '' }))
+                                }}
+                                className={selectCls}
+                              >
+                                <option value="">{t('admin.addProductOverview.sections.category.subCategoryPlaceholder')}</option>
+                                {nestedOptions.map((opt) => (
+                                  <option key={opt} value={opt}>{opt}</option>
+                                ))}
+                                <option value="custom" className="text-[#1E293B]/80 font-bold">+ {t('admin.addProductOverview.sections.category.newSubCategory')}</option>
+                              </select>
+                              <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                            </div>
+                          </Field>
+                        </Motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <AnimatePresence>
+                    {formData.category === 'custom' && (
+                      <Motion.div layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-2">
+                        <Field label={t('admin.addProductOverview.sections.category.customCategoryLabel')}>
+                          <input
+                            type="text"
+                            value={formData.customCategory}
+                            onChange={(e) => set('customCategory', e.target.value)}
+                            placeholder={t('admin.addProductOverview.sections.category.customCategoryPlaceholder')}
+                            className={inputCls}
+                          />
+                        </Field>
+                      </Motion.div>
+                    )}
+
+                    {formData.subCategory === 'custom' && (
+                      <Motion.div layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-2">
+                        <Field label={t('admin.addProductOverview.sections.category.customSubCategoryLabel')}>
+                          <input
+                            type="text"
+                            value={formData.customSubCategory}
+                            onChange={(e) => set('customSubCategory', e.target.value)}
+                            placeholder={t('admin.addProductOverview.sections.category.customSubCategoryPlaceholder')}
+                            className={inputCls}
+                          />
+                        </Field>
+                      </Motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence>
+                    {currentDynamicFields.length > 0 && (
+                      <Motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-3xl bg-emerald-50/50 p-4 md:p-6 ring-1 ring-emerald-100"
+                      >
+                        {currentDynamicFields.filter(f => !['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'material', 'steelGrade', 'grade', 'fabric'].includes(f.key)).map((field) => {
+                          const value = formData.specs[field.key] || ''
+                          const isCustomVal = field.type === 'select' && value && !field.options.includes(value)
+                          const selectValue = isCustomVal ? 'Custom' : value
+
+                          return (
+                            <Field key={field.key} label={field.label}>
+                              {field.type === 'select' ? (
+                                <div className="relative">
+                                  <select
+                                    value={selectValue}
+                                    onChange={(e) => {
+                                      const val = e.target.value
+                                      setFormData((prev) => ({
+                                        ...prev,
+                                        specs: { ...prev.specs, [field.key]: val === 'Custom' ? '' : val },
+                                      }))
+                                    }}
+                                    className={selectCls}
+                                  >
+                                    <option value="">{field.placeholder || t('admin.addProductOverview.fields.selectOption')}</option>
+                                    {field.options.map((opt) => (
+                                      <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                    <option value="Custom">{t('admin.addProductOverview.fields.customValue')}</option>
+                                  </select>
+                                  <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+
+                                  {selectValue === 'Custom' && (
+                                    <Motion.input
+                                      initial={{ opacity: 0, y: -10 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      type="text"
+                                      autoFocus
+                                      className={`${inputCls} mt-2 border-emerald-200 bg-white shadow-sm ring-1 ring-emerald-50`}
+                                      placeholder={t('admin.addProductOverview.fields.customValuePlaceholder')}
+                                      onChange={(e) => setFormData(prev => ({ ...prev, specs: { ...prev.specs, [field.key]: e.target.value } }))}
+                                      value={value}
+                                    />
+                                  )}
+                                </div>
+                              ) : (
+                                <input
+                                  type="text"
+                                  value={value}
+                                  onChange={(e) => setFormData((prev) => ({ ...prev, specs: { ...prev.specs, [field.key]: e.target.value } }))}
+                                  placeholder={field.placeholder}
+                                  className={inputCls}
+                                />
+                              )}
                             </Field>
-                          </Motion.div>
+                          )
+                        })}
+                      </Motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Variant Groups Development Section */}
+                  <div className="space-y-6 pt-6">
+                     <div className="flex flex-col gap-4 border-b border-emerald-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <h3 className="admin-variant-main-title text-[1rem] font-black uppercase tracking-[0.2em] text-emerald-900">Product Variations</h3>
+                        <p className="admin-variant-sub-title mt-1 text-[0.85rem] font-medium text-emerald-800/70 italic">Define multiple sets of sizes, colors, and materials</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {formData.variantGroups.length > 2 && (
+                          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50/80 p-1.5 ltr:mr-2 rtl:ml-2 border border-emerald-100/50">
+                            <button
+                              type="button"
+                              onClick={expandAll}
+                              className="px-4 py-1.5 text-[0.7rem] font-black text-emerald-700 hover:text-emerald-900 transition-colors"
+                            >
+                              Expand All
+                            </button>
+                            <div className="h-4 w-[1px] bg-emerald-200" />
+                            <button
+                              type="button"
+                              onClick={collapseAll}
+                              className="px-4 py-1.5 text-[0.7rem] font-black text-emerald-700 hover:text-emerald-900 transition-colors"
+                            >
+                              Collapse All
+                            </button>
+                          </div>
                         )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <AnimatePresence initial={false}>
+                        {formData.variantGroups.map((group, groupIdx) => {
+                          const isExpanded = expandedGroups.includes(group.id)
+                          // Summary logic: find Size and Color
+                          const sizeVal = group.attributes.size
+                          const colorVals = group.attributes.color || []
+                          const summaryText = [
+                            sizeVal && `Size: ${sizeVal}`,
+                            colorVals.length > 0 && `${colorVals.length} Color${colorVals.length > 1 ? 's' : ''}`
+                          ].filter(Boolean).join(' | ')
+
+                          return (
+                            <Motion.div
+                              key={group.id}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, scale: 0.98 }}
+                              className="admin-variant-card relative overflow-hidden rounded-[24px] border border-emerald-100 bg-white shadow-sm transition-all hover:shadow-md"
+                            >
+                              <div 
+                                className={`flex cursor-pointer items-center justify-between p-5 transition-colors ${isExpanded ? 'border-b border-emerald-100 bg-emerald-50/30' : 'hover:bg-emerald-50/10'}`}
+                                onClick={() => toggleGroup(group.id)}
+                              >
+                                <div className="flex items-center gap-4">
+                                  <span className="admin-variant-badge flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-[0.8rem] font-black text-emerald-900 shadow-sm border border-emerald-200">
+                                    {groupIdx + 1}
+                                  </span>
+                                  {!isExpanded && summaryText && (
+                                    <Motion.p 
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      className="admin-variant-summary-text text-[0.95rem] font-black text-emerald-900"
+                                    >
+                                      {summaryText}
+                                    </Motion.p>
+                                  )}
+                                  {!isExpanded && !summaryText && (
+                                    <p className="admin-variant-new-label text-[0.95rem] text-emerald-900/40 italic font-bold">New Variation Group</p>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-3">
+                                  {formData.variantGroups.length > 1 && (
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        setFormData(prev => ({
+                                          ...prev,
+                                          variantGroups: prev.variantGroups.filter((_, i) => i !== groupIdx)
+                                        }))
+                                      }}
+                                      className="admin-variant-delete-btn rounded-xl p-2.5 text-red-500/80 transition-colors hover:bg-red-50 hover:text-red-600"
+                                    >
+                                      <Trash2 className="h-6 w-6" />
+                                    </button>
+                                  )}
+                                  <div className={`admin-variant-chevron-wrapper flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ${isExpanded ? 'rotate-180 bg-emerald-600 text-white shadow-lg' : 'bg-emerald-100 text-emerald-900 font-bold'}`}>
+                                    <ChevronRight className="h-6 w-6 rotate-90" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <AnimatePresence>
+                                {isExpanded && (
+                                  <Motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                    className="overflow-hidden"
+                                  >
+                                    <div className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2">
+                                      {currentDynamicFields
+                                        .filter(f => ['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'steelGrade', 'grade', 'fabric'].includes(f.key))
+                                        .map((field) => {
+                                          const isMulti = ['color', 'material', 'fabric', 'strapMaterial', 'steelGrade'].includes(field.key)
+                                          const value = group.attributes[field.key] || (isMulti ? [] : '')
+
+                                          return (
+                                            <Field key={field.key} label={field.label}>
+                                              {isMulti ? (
+                                                <TagInput
+                                                  value={value}
+                                                  isColor={field.key === 'color'}
+                                                  onChange={(newVal) => {
+                                                    const newGroups = [...formData.variantGroups]
+                                                    newGroups[groupIdx].attributes[field.key] = newVal
+                                                    setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                  }}
+                                                  placeholder={field.placeholder}
+                                                />
+                                              ) : (
+                                                <div className="relative">
+                                                  {field.type === 'select' ? (
+                                                    <>
+                                                      <select
+                                                        value={value}
+                                                        onChange={(e) => {
+                                                          const newGroups = [...formData.variantGroups]
+                                                          newGroups[groupIdx].attributes[field.key] = e.target.value
+                                                          setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                        }}
+                                                        className={selectCls}
+                                                      >
+                                                        <option value="">{field.placeholder || t('admin.addProductOverview.fields.selectOption')}</option>
+                                                        {field.options.map((opt) => (
+                                                          <option key={opt} value={opt}>{opt}</option>
+                                                        ))}
+                                                      </select>
+                                                      <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-emerald-900/40" />
+                                                    </>
+                                                  ) : (
+                                                    <input
+                                                      type="text"
+                                                      value={value}
+                                                      onChange={(e) => {
+                                                        const newGroups = [...formData.variantGroups]
+                                                        newGroups[groupIdx].attributes[field.key] = e.target.value
+                                                        setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                                      }}
+                                                      placeholder={field.placeholder}
+                                                      className={inputCls}
+                                                    />
+                                                  )}
+                                                </div>
+                                              )}
+                                            </Field>
+                                          )
+                                        })}
+                                      
+                                      {/* Fallback if no specific variant fields found for this category */}
+                                      {currentDynamicFields.filter(f => ['size', 'color', 'material', 'ageRange', 'storage', 'ram', 'weight', 'purity', 'strapMaterial', 'steelGrade', 'grade', 'fabric'].includes(f.key)).length === 0 && (
+                                        <div className="col-span-full py-4 text-center">
+                                          <p className="text-[0.74rem] text-emerald-900/30 italic">
+                                            No standard variant fields (Size, Color, etc.) defined for this category.
+                                          </p>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center justify-center border-t border-emerald-50 bg-emerald-50/10 p-4">
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          toggleGroup(group.id)
+                                        }}
+                                        className="flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-2.5 text-[0.8rem] font-black text-white transition-all hover:bg-emerald-700 hover:shadow-lg active:scale-95"
+                                      >
+                                        <Check className="h-4 w-4" />
+                                        Save Variant
+                                      </button>
+                                    </div>
+                                  </Motion.div>
+                                )}
+                              </AnimatePresence>
+                            </Motion.div>
+                          )
+                        })}
                       </AnimatePresence>
                     </div>
 
-                    {currentDynamicFields.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-3xl bg-emerald-50/80 p-6 md:p-8 ring-1 ring-emerald-100">
-                        {currentDynamicFields.map((field) => (
-                          <Field key={field.key} label={field.label}>
-                            {field.type === 'select' ? (
-                              <div className="relative">
-                                <select
-                                  value={formData.specs[field.key] || ''}
-                                  onChange={(e) => setFormData(prev => ({ ...prev, specs: { ...prev.specs, [field.key]: e.target.value } }))}
-                                  className={selectCls}
-                                >
-                                  <option value="">{t('admin.addProductOverview.fields.selectOption')}</option>
-                                  {field.options.map(o => <option key={o} value={o}>{o}</option>)}
-                                </select>
-                                <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
-                              </div>
-                            ) : (
-                              <input
-                                type="text"
-                                value={formData.specs[field.key] || ''}
-                                onChange={(e) => setFormData(prev => ({ ...prev, specs: { ...prev.specs, [field.key]: e.target.value } }))}
-                                className={inputCls}
-                                placeholder={field.placeholder}
-                              />
-                            )}
-                          </Field>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-[0.62rem] font-black uppercase tracking-[0.2em] text-[#1E293B]/50">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
-                        <button
-                          onClick={() => setFormData(p => ({ ...p, customFields: [...p.customFields, { id: Date.now(), label: '', value: '' }] }))}
-                          className="flex h-8 items-center gap-1.5 rounded-full bg-emerald-50 px-3 text-[0.7rem] font-black text-[#1E293B]/80 transition hover:bg-emerald-100"
-                        >
-                          <Plus className="h-3 w-3" />
-                          {t('admin.addProductOverview.sections.category.addFieldBtn')}
-                        </button>
-                      </div>
-                      <div className="space-y-3">
-                        {formData.customFields.map((field, idx) => (
-                          <div key={field.id} className="flex items-center gap-3">
-                            <input type="text" placeholder={t('admin.addProductOverview.sections.category.fieldLabelPlaceholder')} value={field.label} onChange={(e) => { const next = [...formData.customFields]; next[idx].label = e.target.value; set('customFields', next) }} className={`${inputCls} !py-3`} />
-                            <input type="text" placeholder={t('admin.addProductOverview.sections.category.fieldValuePlaceholder')} value={field.value} onChange={(e) => { const next = [...formData.customFields]; next[idx].value = e.target.value; set('customFields', next) }} className={`${inputCls} !py-3`} />
-                            <button onClick={() => set('customFields', formData.customFields.filter(f => f.id !== field.id))} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-red-500 transition hover:bg-red-100 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
-                          </div>
-                        ))}
-                      </div>
+                    <div className="flex justify-center pt-4">
+                      <button
+                        type="button"
+                        onClick={addVariantGroup}
+                        className="group flex items-center gap-3 rounded-2xl bg-emerald-900 px-8 py-4 text-[0.85rem] font-black text-white transition-all hover:bg-emerald-800 hover:shadow-2xl hover:shadow-emerald-900/20 active:scale-95"
+                      >
+                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/10 transition-transform group-hover:rotate-90">
+                          <Plus className="h-4 w-4" />
+                        </div>
+                        Add New Variant Group
+                      </button>
                     </div>
-                  </SectionCard>
-                </Motion.div>
+                  </div>
+
+                  <div className="space-y-4 pt-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#1E293B]/50">{t('admin.addProductOverview.sections.category.customFieldsTitle')}</h3>
+                      <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({
+                          ...prev,
+                          customFields: [...prev.customFields, { id: Date.now(), label: '', value: '' }]
+                        }))}
+                        className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[0.7rem] font-black text-[#1E293B]/80 transition-all hover:bg-emerald-100"
+                      >
+                        <Plus className="h-3 w-3" />
+                        {t('admin.addProductOverview.sections.category.addFieldBtn')}
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3">
+                      <AnimatePresence>
+                        {formData.customFields.map((field, idx) => (
+                          <Motion.div
+                            layout
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            key={field.id}
+                            className="group flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-emerald-50 p-3 transition-all hover:bg-emerald-50/30"
+                          >
+                            <input
+                              type="text"
+                              value={field.label}
+                              onChange={(e) => {
+                                const newFields = [...formData.customFields]
+                                newFields[idx].label = e.target.value
+                                setFormData(prev => ({ ...prev, customFields: newFields }))
+                              }}
+                              placeholder={t('admin.addProductOverview.sections.category.fieldLabelPlaceholder')}
+                              className="w-full sm:w-1/3 bg-transparent px-3 py-1 text-[0.88rem] font-bold text-[#1E293B]/90 outline-none placeholder:text-[#1E293B]/40"
+                            />
+                            <div className="hidden sm:block h-6 w-[2px] bg-emerald-200" />
+                            <input
+                              type="text"
+                              value={field.value}
+                              onChange={(e) => {
+                                const newFields = [...formData.customFields]
+                                newFields[idx].value = e.target.value
+                                setFormData(prev => ({ ...prev, customFields: newFields }))
+                              }}
+                              placeholder={t('admin.addProductOverview.sections.category.fieldValuePlaceholder')}
+                              className="flex-1 bg-transparent px-3 py-1 text-[0.88rem] text-[#1E293B]/80 outline-none placeholder:text-[#1E293B]/40"
+                            />
+                            <button
+                              onClick={() => setFormData(prev => ({ ...prev, customFields: prev.customFields.filter((_, i) => i !== idx) }))}
+                              className="self-end sm:self-center h-8 w-8 items-center justify-center rounded-xl bg-white text-[#1E293B]/40 transition-all hover:text-red-500 flex shadow-sm sm:opacity-0 group-hover:opacity-100"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </Motion.div>
+                        ))}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </SectionCard>
               )}
 
               {currentStep === 'pricing' && (
-                <Motion.div key="pricing" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 md:space-y-8">
-                  <SectionCard
-                    title={t('admin.addProductOverview.sections.pricing.title')}
-                    subtitle={t('admin.addProductOverview.sections.pricing.subtitle')}
-                    icon={DollarSign}
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
-                        <div className="relative">
-                          <input type="text" value={formData.price} onChange={(e) => set('price', e.target.value)} className={inputCls} placeholder="0.00" />
-                          <div className="absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
-                        </div>
-                      </Field>
-                      <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Sparkles}>
-                        <div className="relative">
-                          <input type="text" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.salePricePlaceholder')} />
-                          <div className="absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 text-[0.85rem] font-bold text-[#1E293B]/40">{t('admin.common.currencyCode', 'USD')}</div>
-                        </div>
-                      </Field>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>
-                        <input type="text" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
-                      </Field>
-                      <Field label={t('admin.addProductOverview.sections.pricing.skuLabel')} icon={BadgeCheck}>
-                        <input type="text" value={formData.sku} onChange={(e) => set('sku', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.skuPlaceholder')} />
-                      </Field>
-                    </div>
-                  </SectionCard>
-                </Motion.div>
+                <SectionCard
+                  key="pricing"
+                  title={t('admin.addProductOverview.sections.pricing.title')}
+                  subtitle={t('admin.addProductOverview.sections.pricing.subtitle')}
+                  icon={DollarSign}
+                >
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <Field label={t('admin.addProductOverview.sections.pricing.priceLabel')} icon={DollarSign}>
+                      <div className="relative">
+                        <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <input type="number" value={formData.price} onChange={(e) => set('price', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`} placeholder="0.00" />
+                      </div>
+                    </Field>
+                    <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel')} icon={Tag}>
+                      <div className="relative">
+                        <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                        <input type="number" value={formData.salePrice} onChange={(e) => set('salePrice', e.target.value)} className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`} placeholder="0.00" />
+                      </div>
+                    </Field>
+                    <Field label={t('admin.addProductOverview.sections.pricing.stockLabel')} icon={Package}>
+                      <input type="number" value={formData.stock} onChange={(e) => set('stock', e.target.value)} className={`${inputCls} rtl:text-left`} placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} />
+                    </Field>
+                  </div>
+                  <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
+                    <Field label={t('admin.addProductOverview.sections.pricing.skuLabel')} icon={Info} helpText={t('admin.addProductOverview.sections.pricing.skuHelp')}>
+                      <input type="text" value={formData.sku} onChange={(e) => set('sku', e.target.value)} className={inputCls} placeholder={t('admin.addProductOverview.sections.pricing.skuPlaceholder')} />
+                    </Field>
+                    <Field label={t('admin.addProductOverview.sections.pricing.minOrderLabel')} icon={Package}>
+                      <input type="number" value={formData.minOrder} onChange={(e) => set('minOrder', e.target.value)} className={`${inputCls} rtl:text-left`} placeholder="1" />
+                    </Field>
+                  </div>
+                </SectionCard>
               )}
             </AnimatePresence>
 
-            <div className="admin-footer-actions flex items-center justify-between rounded-[28px] bg-white p-5 md:p-6 shadow-sm ring-1 ring-emerald-100">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
               <button
                 disabled={currentStepIndex === 0}
                 onClick={() => setCurrentStep(STEPS[currentStepIndex - 1].id)}
-                className="admin-cta-secondary flex h-12 items-center gap-2 rounded-2xl px-6 text-[0.88rem] font-bold text-[#1E293B]/50 transition hover:bg-emerald-50 disabled:opacity-30 disabled:hover:bg-transparent"
+                className="admin-cta-secondary flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-4 font-bold text-[#1E293B]/50 transition-all hover:text-[#1E293B]/80 disabled:opacity-30"
               >
-                <ChevronLeft className="h-4 w-4" />
-                {t('admin.common.previous')}
+                <ChevronLeft className="h-5 w-5" /> {t('common.previous')}
               </button>
-              <Motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={isLastStep ? handleSubmit : handleNextStep}
-                className="admin-cta-premium flex h-12 items-center gap-2 rounded-2xl bg-emerald-900 px-8 text-[0.88rem] font-black text-white shadow-xl shadow-emerald-900/10 transition"
-              >
-                {isLastStep ? <Save className="h-4 w-4" /> : null}
-                {isLastStep ? t('admin.addProductOverview.sections.actions.submitEdit') : t('admin.common.next')}
-                {!isLastStep ? <ChevronRight className="h-4 w-4" /> : null}
-              </Motion.button>
+              <div className="flex w-full sm:w-auto gap-4">
+                {!isLastStep ? (
+                  <button
+                    onClick={handleNextStep}
+                    className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none"
+                  >
+                    {t('common.next')} <ChevronRight className="h-5 w-5" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-10 py-4 font-bold text-white shadow-xl shadow-emerald-500/20 transition-all sm:flex-none"
+                  >
+                    <Check className="h-5 w-5" />
+                    {t('admin.addProductOverview.sections.actions.submitEdit')}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
-          <aside className="admin-media-sidebar space-y-8">
-            <div className="sticky top-10 space-y-8">
-              <SectionCard title={t('admin.addProductOverview.sections.media.title')} icon={ImageIcon}>
-                <div className="space-y-6">
-                  <div className="aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-emerald-100/50 ring-1 ring-emerald-100">
-                    {formData.gallery.length > 0 ? (
-                      <Motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview} className="h-full w-full object-cover" alt="Primary" />
-                    ) : (
-                      <div className="flex h-full w-full flex-col items-center justify-center text-[#1E293B]/40">
-                        <ImageIcon className="mb-2 h-10 w-10 opacity-20" />
-                        <span className="text-[0.65rem] font-bold uppercase tracking-widest opacity-40">{t('admin.addProductOverview.sections.media.noMediaAttached')}</span>
-                      </div>
-                    )}
+          <aside className="admin-media-sidebar space-y-6 md:space-y-8">
+            <div className="lg:sticky lg:top-10 space-y-6 md:space-y-8">
+              <section className="rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-6 shadow-sm ring-1 ring-emerald-100/50">
+                <div className="relative mb-6 h-40 md:h-48 w-full overflow-hidden rounded-2xl md:rounded-3xl bg-emerald-50">
+                  {formData.gallery.length > 0 ? (
+                    <img
+                      src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview}
+                      className="h-full w-full object-cover"
+                      alt="Preview"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-emerald-950/20" />
+                    </div>
+                  )}
+                  <div className="absolute left-3 top-3 md:left-4 md:top-4 rounded-full bg-white/90 px-3 py-1 text-[0.6rem] md:text-[0.65rem] font-black uppercase tracking-widest text-[#1E293B]/80 backdrop-blur-sm">
+                    {t('admin.common.preview')}
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-emerald-950">
+                    {formData.name || t('admin.addProductOverview.sections.summary.untitled', { defaultValue: 'Untitled Item' })}
+                  </h3>
+
+                  <div className="flex items-center justify-between">
+                    <p className="text-xl md:text-2xl font-black text-emerald-950/80">
+                      {t('admin.common.currencySymbol', '$')}{formData.price || '0.00'}
+                    </p>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${formData.stock > 0 ? 'bg-emerald-50 text-emerald-950/60' : 'bg-red-50 text-red-600'}`}>
+                        {formData.stock > 0
+                          ? t('admin.addProductOverview.sections.summary.statusReady', { defaultValue: 'Ready in Stock' })
+                          : t('admin.addProductOverview.sections.summary.statusOutOfStock', { defaultValue: 'No Stock Left' })}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-3">
-                    {formData.gallery.map((item) => (
-                      <div key={item.id} className="group relative aspect-square cursor-pointer overflow-hidden rounded-xl ring-2 ring-inset transition-all" style={{ ringColor: item.isPrimary ? '#10b981' : 'transparent' }}>
-                        <img src={item.preview} onClick={() => setPrimaryMedia(item.id)} className="h-full w-full object-cover" />
-                        <button onClick={(e) => { e.stopPropagation(); removeMedia(item.id) }} className="absolute -right-1 -top-1 rounded-bl-xl bg-red-500 p-1.5 text-white opacity-0 transition-opacity group-hover:opacity-100"><X className="h-3 w-3" /></button>
-                      </div>
-                    ))}
-                    <button onClick={() => fileInputRef.current?.click()} className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed border-emerald-200 bg-emerald-50 text-[#1E293B]/50 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-[#1E293B]/80"><Plus className="h-5 w-5" /></button>
-                  </div>
-                  <input ref={fileInputRef} type="file" multiple accept="image/*,video/*" onChange={handleMediaUpload} className="hidden" />
-                </div>
-              </SectionCard>
-
-              <div className="rounded-[32px] border border-[#1E293B] bg-[#1E293B] p-8 text-white shadow-2xl">
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-emerald-200 animate-pulse" />
-                    <span className="text-[0.6rem] font-black uppercase tracking-widest text-white">{t('admin.addProductOverview.summary.listingHealth')}</span>
-                  </div>
-                  <TrendingUp className="h-4 w-4 text-white" />
-                </div>
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-white">
+                  <div className="h-[1px] w-full bg-emerald-100" />
+                  <div className="flex flex-wrap items-center gap-2 text-[0.72rem] font-bold text-emerald-950/40">
                     <Tag className="h-3 w-3 shrink-0" />
                     <span className="truncate max-w-full">
                       {formData.category ? (
                         <>
                           {t(`admin.addProductOverview.categories.${formData.category}`, formData.category)}
-                          {formData.subCategory && <span className="text-[#1E293B]/40 mx-1">/</span>}
-                          {formData.subCategory && <span className="text-[#1E293B]/60">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
+                          {formData.subCategory && <span className="text-emerald-950/20 mx-1">/</span>}
+                          {formData.subCategory && <span className="text-emerald-950/40">{t(`admin.addProductOverview.subcategories.${formData.subCategory}`, formData.subCategory)}</span>}
                         </>
                       ) : (
                         t(`admin.addProductOverview.categories.${formData.industry}`, formData.industry)
@@ -893,7 +1399,71 @@ export function EditProductOverview({ id: propId }) {
                     </span>
                   </div>
                 </div>
-              </div>
+              </section>
+
+              <section className="rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-6 shadow-sm">
+                <div className="mb-6 flex items-center justify-between">
+                  <h3 className="text-[0.65rem] md:text-[0.7rem] font-black uppercase tracking-[0.2em] text-emerald-900/40">
+                    {t('admin.addProductOverview.sections.media.title')}
+                  </h3>
+                  <span className="text-[0.65rem] font-bold text-emerald-950/30">{formData.gallery.length} / 10</span>
+                </div>
+
+                <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 gap-3">
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-emerald-100 bg-emerald-50/10 text-emerald-950/80 transition-all hover:bg-emerald-50 hover:border-emerald-300"
+                  >
+                    <div className="rounded-full bg-white p-2 shadow-sm">
+                      <Plus className="h-4 w-4" />
+                    </div>
+                    <span className="text-[0.55rem] font-black uppercase tracking-widest">
+                      {t('admin.addProductOverview.sections.media.upload')}
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {formData.gallery.map((item) => (
+                      <Motion.div
+                        layout
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        key={item.id}
+                        className="group relative aspect-square overflow-hidden rounded-2xl bg-emerald-100/50"
+                      >
+                        {item.type === 'image' ? (
+                          <img src={item.preview} className="h-full w-full object-cover transition-transform group-hover:scale-110" alt={item.name} />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-emerald-900">
+                            <PlayCircle className="h-7 w-7 text-white" />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-emerald-900/40 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
+                          <button
+                            onClick={() => removeMedia(item.id)}
+                            className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-red-500"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            onClick={() => setPrimaryMedia(item.id)}
+                            className={`w-full py-1 rounded-lg text-[0.5rem] md:text-[0.55rem] font-black uppercase tracking-widest backdrop-blur-md ${item.isPrimary ? 'bg-emerald-500 text-white' : 'bg-white/20 text-white hover:bg-white/40'}`}
+                          >
+                            {item.isPrimary ? t('admin.addProductOverview.sections.media.primary') : t('admin.addProductOverview.sections.media.makePrimary')}
+                          </button>
+                        </div>
+                        {item.isPrimary && (
+                          <div className="absolute right-2 top-2 flex h-4 w-4 md:h-5 md:w-5 items-center justify-center rounded-lg bg-emerald-500 text-white shadow-lg">
+                            <Star className="h-2 w-2 md:h-2.5 md:w-2.5 fill-current" />
+                          </div>
+                        )}
+                      </Motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+                <input ref={fileInputRef} type="file" multiple accept="image/*,video/*" className="hidden" onChange={handleMediaUpload} />
+              </section>
             </div>
           </aside>
         </div>

@@ -38,6 +38,9 @@ export function useSettingsData() {
   const [businessModalOpen, setBusinessModalOpen] = useState(false)
   const [draftBusinessType, setDraftBusinessType] = useState(businessProfile?.type || 'clothing')
   const [draftCustomCategory, setDraftCustomCategory] = useState(businessProfile?.customCategory || '')
+
+  const [toneModalOpen, setToneModalOpen] = useState(false)
+  const [draftTone, setDraftTone] = useState(activeTone)
   
   const [isMobile, setIsMobile] = useState(false)
 
@@ -76,6 +79,16 @@ export function useSettingsData() {
     setBusinessModalOpen(false)
   }
 
+  const openToneModal = () => {
+    setDraftTone(activeTone)
+    setToneModalOpen(true)
+  }
+
+  const saveToneSettings = () => {
+    setTones([draftTone])
+    setToneModalOpen(false)
+  }
+
   return {
     t,
     businessProfile,
@@ -91,5 +104,9 @@ export function useSettingsData() {
     toneOptions,
     openBusinessModal,
     saveBusinessProfile,
+    toneModalOpen, setToneModalOpen,
+    draftTone, setDraftTone,
+    openToneModal,
+    saveToneSettings,
   }
 }

@@ -269,6 +269,7 @@ export const admin = {
       selectOption: 'বিকল্প নির্বাচন করুন',
       customValue: 'আপনার ইচ্ছা মতো...',
       customValuePlaceholder: 'বিবরণ লিখুন',
+      colorNotFound: 'রঙের নাম সনাক্ত করা যায়নি। এটি একটি কাস্টম লেবেল হিসাবে যোগ করা হবে।',
       size: { label: 'সাইজ', placeholder: 'যেমন: XL বা ৪২' },
       color: { label: 'রং', placeholder: 'যেমন: গাঢ় নীল' },
       fabric: { label: 'উপাদান', placeholder: 'যেমন: রেশম' },
@@ -641,7 +642,10 @@ export const admin = {
       },
       voice: {
         title: 'AI কণ্ঠস্বর এবং টোন',
-        subtitle: 'SOVA কীভাবে আপনার গ্রাহকদের সাথে কথা বলে তা নিয়ন্ত্রণ করে'
+        subtitle: 'SOVA কীভাবে আপনার গ্রাহকদের সাথে কথা বলে তা নিয়ন্ত্রণ করে',
+        current: 'বর্তমান ভয়েস',
+        button: 'ভয়েস পরিবর্তন করুন',
+        modalTitle: 'ভয়েস সেটআপ'
       },
       rules: {
         title: 'অটোমেশন নিয়মসমূহ'
@@ -854,6 +858,10 @@ admin.upgrade = {
 
 admin.nav.catalog = 'পণ্যের ক্যাটালগ'
 admin.nav.addProduct = 'পণ্য যোগ করুন'
+admin.common = admin.common || {}
+admin.common.locked = 'লক করা আছে'
+admin.common.unlockToView = 'দেখতে আনলক করুন'
+
 admin.overview.quickActions.businessSettings = 'বিজনেস সেটিংস'
 admin.overview.quickActions.products = 'পণ্য দেখুন'
 admin.overview.quickActions.files = 'ফাইল দেখুন'
@@ -933,5 +941,5 @@ admin.mockData = {
       { from: 'user', text: 'প্রিমিয়াম সিল্ক স্কার্ফ।' },
       { from: 'sova', text: 'চমৎকার! আমি ৩টি প্রিমিয়াম সিল্ক স্কার্ফের ইনভয়েস প্রস্তুত করছি। আমি কি আপনার অর্ডারটি নিশ্চিত করব?' }
     ]
-  }
+  },
 }

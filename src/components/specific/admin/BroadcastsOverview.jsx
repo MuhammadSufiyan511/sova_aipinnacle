@@ -2,6 +2,7 @@ import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { Clock3, Megaphone, PlayCircle, Plus, Radio, Send, Sparkles, Users, Zap } from 'lucide-react'
 import { useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import sovaLogo from '../../../assets/logos/sova.png'
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } }
 const item = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }
@@ -129,7 +130,8 @@ export const BroadcastsOverview = memo(function BroadcastsOverview() {
                 </div>
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-[0.72rem] font-medium text-[#1E293B] sm:justify-start admin-item-meta">
                   <span className="flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{c.sendAt}</span>
-                  <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-[#10B981]" />{t('admin.broadcasts.campaigns.meta.powered')}</span>
+
+                  <span className="flex items-center gap-1.5"><img src={sovaLogo} alt="SOVA" className="h-8.5 w-8.5 rounded-full object-contain " />{t('admin.broadcasts.campaigns.meta.powered')}</span>
                   {c.opens !== '—' && (
                     <span className="font-semibold text-[#295565]">
                       {t('admin.broadcasts.campaigns.meta.stats', { opens: c.opens, replies: c.replies })}

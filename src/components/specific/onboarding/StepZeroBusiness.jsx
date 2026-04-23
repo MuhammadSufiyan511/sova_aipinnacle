@@ -38,7 +38,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-9 text-center"
       >
-        <div className="mx-auto mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-xl shadow-emerald-500/20 sm:h-13 sm:w-13 sm:rounded-2xl onboarding-step-icon">
+        <div className="mx-auto mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-xl shadow-emerald-500/20 sm:h-13 sm:w-13 sm:rounded-2xl ">
           <Building2 className="h-5 w-5 sm:h-6 w-6" />
         </div>
         <h2 className="font-display text-[1.6rem] font-extrabold tracking-tight text-slate-900 sm:text-[2.5rem] onboarding-card-title">
@@ -67,16 +67,14 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setBusinessType(type.id)}
-              className={`relative flex flex-col items-start rounded-[24px] border-2 p-4 text-left transition-all duration-300 onboarding-card ${
-                isSelected
+              className={`relative flex flex-col items-start rounded-[24px] border-2 p-4 text-left transition-all duration-300 onboarding-card ${isSelected
                   ? 'border-emerald-500 bg-white shadow-xl shadow-emerald-500/10 ring-4 ring-emerald-500/5 is-selected'
                   : 'border-slate-100 bg-white/50 hover:border-emerald-200 hover:bg-white hover:shadow-lg'
-              }`}
+                }`}
             >
               {/* Check badge */}
-              <div className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border-2 transition-all duration-300 onboarding-check-badge ${
-                isSelected ? 'border-emerald-500 bg-emerald-500 text-white scale-110' : 'border-slate-200 bg-transparent text-transparent'
-              }`}>
+              <div className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border-2 transition-all duration-300 onboarding-check-badge ${isSelected ? 'border-emerald-500 bg-emerald-500 text-white scale-110' : 'border-slate-200 bg-transparent text-transparent'
+                }`}>
                 <Check className="h-3 w-3" strokeWidth={4} />
               </div>
 

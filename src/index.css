@@ -982,6 +982,11 @@
     box-shadow: 0 0 30px rgba(245, 158, 11, 0.1) !important;
   }
 
+  .home-dark-mode .onboarding-step-icon {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15) !important;
+  }
+
   .home-dark-mode .onboarding-card-title {
     color: #FFFFFF !important;
   }
@@ -1643,10 +1648,12 @@
 
   /* Inspection Modal (Lux Sova Version) */
   .home-dark-mode .admin-modal-lux {
-    background-color: #020617 !important; /* Denser Midnight */
-    border: 1px solid rgba(245, 158, 11, 0.15) !important; /* Gold Dust Border */
+    background-color: #020617 !important;
+    /* Denser Midnight */
+    border: 1px solid rgba(245, 158, 11, 0.15) !important;
+    /* Gold Dust Border */
     backdrop-filter: blur(40px) saturate(200%) !important;
-    box-shadow: 
+    box-shadow:
       0 0 0 1px rgba(245, 158, 11, 0.05),
       0 40px 100px rgba(0, 0, 0, 0.9) !important;
   }
@@ -1705,7 +1712,7 @@
   }
 
   .home-dark-mode .admin-modal-specs h4 {
-     color: #34D399 !important;
+    color: #34D399 !important;
   }
 
   .home-dark-mode .admin-btn-danger-glass {
@@ -1720,6 +1727,13 @@
     color: #FFFFFF !important;
     box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
   }
+
+  .home-dark-mode .admin-tone-modal-title {
+    color: #FFFFFF !important;
+  }
+
+
+
 
   /* Media Management Refinements */
   .home-dark-mode .admin-media-sidebar section {
@@ -1743,5 +1757,103 @@
 
   .home-dark-mode .app-splash-screen p {
     color: #A7C4BD !important;
+  }
+
+  /* Variant Groups & Tag Input Premium Styling */
+  .admin-variant-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .home-dark-mode .admin-variant-card {
+    background-color: #0A1B19 !important;
+    border-color: rgba(16, 185, 129, 0.15) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .home-dark-mode .admin-variant-card:hover {
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 15px 45px rgba(16, 185, 129, 0.08) !important;
+  }
+
+  .home-dark-mode .admin-variant-header {
+    border-color: rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .admin-tag-input-container {
+    transition: all 0.2s ease;
+  }
+
+  .home-dark-mode .admin-tag-input-container {
+    background-color: rgba(16, 185, 129, 0.05) !important;
+    border-color: rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .home-dark-mode .admin-tag-input-container:focus-within {
+    background-color: #0A1B19 !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .home-dark-mode .admin-tag-input-field {
+    color: #FAF7ED !important;
+  }
+
+  .home-dark-mode .admin-tag-chip {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2) !important;
+  }
+
+  .home-dark-mode .admin-variant-summary-text {
+    color: #34D399CC !important;
+  }
+
+  .home-dark-mode .admin-variant-badge {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #34D399 !important;
+  }
+
+  /* High Contrast Visibility Overrides */
+  .admin-variant-main-title {
+    color: #064E3B !important; /* Emerald 900 */
+  }
+
+  .admin-variant-sub-title {
+    color: #065F46 !important; /* Emerald 800 */
+    opacity: 0.7;
+  }
+
+  .admin-variant-summary-text {
+    color: #064E3B !important;
+  }
+
+  .admin-variant-delete-btn {
+    color: #DC2626 !important; /* Red 600 */
+  }
+
+  .home-dark-mode .admin-variant-main-title {
+    color: #34D399 !important; /* Vibrant Light Emerald */
+    text-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+  }
+
+  .home-dark-mode .admin-variant-sub-title {
+    color: #ECFDF5 !important; /* Emerald 50 */
+    opacity: 0.6 !important;
+  }
+
+  .home-dark-mode .admin-variant-summary-text {
+    color: #ECFDF5 !important;
+  }
+
+  .home-dark-mode .admin-variant-new-label {
+    color: rgba(236, 253, 245, 0.3) !important;
+  }
+
+  .home-dark-mode .admin-variant-delete-btn {
+    color: #F87171 !important; /* Red 400 */
+  }
+
+  .home-dark-mode .admin-variant-chevron-wrapper {
+    background-color: #065F46 !important;
+    color: #FFFFFF !important;
   }
 }

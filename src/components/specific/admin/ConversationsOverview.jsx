@@ -114,8 +114,19 @@ export const ConversationsOverview = memo(function ConversationsOverview() {
               </div>
               {(mockThreads[selected.id] || [
                 { from: 'user', text: selected.message },
-                { from: 'sova', text: t('admin.chat.defaultReply') }
-              ]).map((msg, i) => {
+                { from: 'sova', text: t('admin.chat.defaultReply', { defaultValue: "Hi! Thanks for reaching out. I'm SOVA, your sales assistant. How can I help you today?" }) }
+              ])
+                .map((msg) =>
+                  msg.from === 'user'
+                    ? msg
+                    : {
+                        ...msg,
+                        text:
+                          msg.text ||
+                          t('admin.chat.defaultReply', { defaultValue: "Hi! Thanks for reaching out. I'm SOVA, your sales assistant. How can I help you today?" }),
+                      }
+                )
+                .map((msg, i) => {
                 const bubbleTime = selected.time || '12:05'
                 const sender = msg.from === 'user' ? 'user' : 'sova'
 
@@ -134,7 +145,7 @@ export const ConversationsOverview = memo(function ConversationsOverview() {
                             AI
                           </span>
                           <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#10B981] admin-bubble-label">
-                            {t('admin.chat.sovaLabel')}
+                            {t('admin.chat.sovaLabel', { defaultValue: 'SOVA AI' })}
                           </p>
                         </div>
                       ) : (

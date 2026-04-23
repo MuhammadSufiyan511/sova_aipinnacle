@@ -270,6 +270,7 @@ export const admin = {
       selectOption: 'Option wählen',
       customValue: 'Eigener Wert...',
       customValuePlaceholder: 'Eigenen Wert eingeben',
+      colorNotFound: 'Farbname nicht erkannt. Es wird als benutzerdefiniertes Label hinzugefügt.',
       size: { label: 'Größe', placeholder: 'z.B. XL oder 42' },
       color: { label: 'Farbe', placeholder: 'z.B. Königsblau' },
       fabric: { label: 'Material/Stoff', placeholder: 'z.B. Seide' },
@@ -726,7 +727,10 @@ export const admin = {
       },
       voice: {
         title: 'Markenstimme & Persönlichkeit',
-        subtitle: 'Wählen Sie, wie SOVA mit Ihren Kunden spricht.'
+        subtitle: 'Wählen Sie, wie SOVA mit Ihren Kunden spricht.',
+        current: 'Aktuelle Stimme',
+        button: 'Stimme ändern',
+        modalTitle: 'Stimmen-Setup'
       },
       rules: {
         title: 'Automatisierungsregeln',
@@ -940,6 +944,10 @@ admin.upgrade = {
 
 admin.nav.catalog = 'Shop-Katalog'
 admin.nav.addProduct = 'Artikel hinzufügen'
+admin.common = admin.common || {}
+admin.common.locked = 'Gesperrt'
+admin.common.unlockToView = 'Zum Entsperren klicken'
+
 admin.overview.quickActions.businessSettings = 'Geschäftseinstellungen'
 admin.overview.quickActions.products = 'Artikel ansehen'
 admin.overview.quickActions.files = 'Dateien ansehen'
@@ -1017,7 +1025,6 @@ admin.mockData = {
       { from: 'user', text: 'Ich möchte 3 Stück bestellen.' },
       { from: 'sova', text: 'Gute Wahl! Ich habe Ihre Bestellung über 3 Stück notiert. Darf ich fragen, auf welches Produkt Sie sich beziehen?' },
       { from: 'user', text: 'Der Premium-Seidenschal.' },
-      { from: 'sova', text: 'Perfekt! Ich erstelle eine Rechnung für 3x Premium-Seidenschal. Soll ich Ihre Bestellung bestätigen?' }
     ]
-  }
+  },
 }

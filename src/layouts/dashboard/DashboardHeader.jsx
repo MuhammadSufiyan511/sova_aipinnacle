@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { Bell, ChevronDown, Crown, Menu, Moon, Sparkles, Sun } from 'lucide-react'
+import { Bell, ChevronDown, Crown, Menu, Moon, Sun } from 'lucide-react'
 
 export function DashboardHeader({
   activeLabel,
@@ -42,8 +42,8 @@ export function DashboardHeader({
       type="button"
       onClick={onOpenUpgrade}
       className={`upgrade-plan-cta inline-flex items-center gap-2 rounded-full border px-3 py-2 text-[0.72rem] font-bold shadow-lg transition hover:scale-[1.02] sm:px-3.5 ${homeDarkMode
-          ? 'border-[#3B7A74] bg-[linear-gradient(135deg,#0F3F38_0%,#14524A_55%,#1B6D61_100%)] text-[#F4FFF9] shadow-[0_12px_30px_rgba(6,182,212,0.16)]'
-          : 'border-[#BDEFE4] bg-[linear-gradient(135deg,#ECFDF5_0%,#E0F7FF_58%,#F4EDFF_100%)] text-[#0F766E] shadow-[0_12px_30px_rgba(16,185,129,0.16)]'
+        ? 'border-[#3B7A74] bg-[linear-gradient(135deg,#0F3F38_0%,#14524A_55%,#1B6D61_100%)] text-[#F4FFF9] shadow-[0_12px_30px_rgba(6,182,212,0.16)]'
+        : 'border-[#BDEFE4] bg-[linear-gradient(135deg,#ECFDF5_0%,#E0F7FF_58%,#F4EDFF_100%)] text-[#0F766E] shadow-[0_12px_30px_rgba(16,185,129,0.16)]'
         }`}
     >
       <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${homeDarkMode ? 'bg-white/12 text-[#FACC15]' : 'bg-white text-[#10B981]'}`}>
@@ -51,7 +51,6 @@ export function DashboardHeader({
       </span>
       <span className="hidden sm:inline">{t('admin.upgrade.cta')}</span>
       <span className="sm:hidden">{t('admin.upgrade.mobileCta')}</span>
-      <Sparkles className={`h-3.5 w-3.5 ${homeDarkMode ? 'text-[#FACC15]' : 'text-[#10B981]'}`} />
     </button>
   )
 
@@ -80,7 +79,7 @@ export function DashboardHeader({
             <h1 className="truncate font-display text-[0.92rem] font-bold text-slate-800 sm:text-[0.95rem]">{activeLabel}</h1>
           </div>
         </div>
-        
+
         {/* Tablet/Mobile Upgrade Button - Pushed to end row when stacked */}
         {!isDesktop && (
           <div className="ms-auto shrink-0">
@@ -132,8 +131,8 @@ export function DashboardHeader({
                     key={lang.code}
                     onClick={() => onChangeLanguage(lang.code)}
                     className={`language-option-btn flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] transition ${currentLanguage.code === lang.code
-                        ? 'is-active bg-emerald-50 font-bold text-emerald-700'
-                        : 'font-medium text-slate-600 hover:bg-slate-50'
+                      ? 'is-active bg-emerald-50 font-bold text-emerald-700'
+                      : 'font-medium text-slate-600 hover:bg-slate-50'
                       }`}
                   >
                     <span className="text-base leading-none">{lang.flag}</span>

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Eye, FileText, Package, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, ArrowRight, Tag, Box, BadgeCheck, TrendingUp } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Eye, FileText, Package, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, ArrowRight, Tag, Box, BadgeCheck, TrendingUp, ZoomIn } from 'lucide-react'
 import { useMemo, useState, memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../../context/AppProvider'
@@ -35,6 +35,44 @@ const getProductMediaItems = (product) => {
   }
 
   return []
+}
+
+/* ─── Full-screen image lightbox ─────────────────────────────────────────── */
+function ImageLightbox({ src, alt, onClose }) {
+  useEffect(() => {
+    const handleEsc = (e) => (e.key === 'Escape') && onClose()
+    window.addEventListener('keydown', handleEsc)
+    return () => window.removeEventListener('keydown', handleEsc)
+  }, [onClose])
+  return (
+    <Motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4"
+      onClick={onClose}
+      style={{ willChange: 'opacity' }}
+    >
+      <Motion.img
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.92 }}
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        src={src}
+        alt={alt}
+        className="max-h-[90vh] max-w-full rounded-2xl object-contain shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+        style={{ willChange: 'transform, opacity' }}
+      />
+      <button
+        onClick={onClose}
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition hover:bg-white/20"
+      >
+        <X className="h-5 w-5" />
+      </button>
+    </Motion.div>
+  )
 }
 
 const RadioToggle = ({ id, active, onChange, activeColor = 'bg-[#ECFDF5]' }) => {
@@ -276,6 +314,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const [activeModalMediaIndex, setActiveModalMediaIndex] = useState(0)
   const [modalSlideDirection, setModalSlideDirection] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   useEffect(() => {
     setActiveModalMediaIndex(0)
@@ -537,7 +576,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 30 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="admin-modal-lux admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[24px] md:rounded-[32px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] will-change-[transform,opacity]"
+              className="admin-modal-lux admin-card-shell relative z-[130] flex flex-col w-full max-w-lg max-h-[calc(100dvh-2rem)] md:max-h-[min(90dvh,850px)] overflow-hidden rounded-[24px] md:rounded-[32px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] will-change-[transform,opacity]"
             >
               <button
                 type="button"
@@ -564,7 +603,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 }
 
                 return (
-                  <div className="relative h-48 md:h-56 w-full overflow-hidden bg-slate-950">
+                  <div className="relative h-48 md:h-56 w-full shrink-0 overflow-hidden bg-slate-950">
                     <AnimatePresence initial={false} custom={modalSlideDirection}>
                       <Motion.div
                         key={currentModalMedia.preview || activeModalMediaIndex}
@@ -652,12 +691,24 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     )}
 
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute z-20 left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none">
+                    
+                    {/* Magnify / Expand */}
+                    {currentModalMedia.type === 'image' && (
+                      <button
+                        onClick={() => setLightboxOpen(true)}
+                        className="absolute bottom-4 right-4 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/60 hover:scale-105 active:scale-95"
+                        title={t('admin.common.preview')}
+                      >
+                        <ZoomIn className="h-4 w-4" />
+                      </button>
+                    )}
+                    
+                    <div className="absolute z-20 left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none pr-16">
                       <span className="mb-2 flex w-fit items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-[0.14em] shadow-lg">
                         <TrendingUp className="h-3 w-3" />
                         {viewingProduct.isActive !== false ? 'Live' : 'Archived'}
                       </span>
-                      <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-sm">
+                      <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-sm line-clamp-1">
                         {viewingProduct.name}
                       </h3>
                     </div>
@@ -665,7 +716,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 )
               })()}
 
-        <div className="admin-modal-ribbon flex flex-col md:flex-row md:h-14 items-start md:items-center border-b border-slate-100 bg-white/50 px-6 py-4 md:py-0">
+        <div className="admin-modal-ribbon flex shrink-0 flex-col md:flex-row md:h-14 items-start md:items-center border-b border-slate-100 bg-white/50 px-6 py-4 md:py-0">
           <div className="flex w-full items-center justify-between">
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
               <div className="flex flex-col">
@@ -686,7 +737,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
           </div>
         </div>
 
-        <div className="max-h-[50vh] overflow-y-auto px-6 py-6 no-scrollbar">
+        <div className="flex-1 overflow-y-auto px-6 py-6 min-h-0 no-scrollbar">
           <div className="space-y-6 md:space-y-8">
             <section>
               <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -741,7 +792,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
           </div>
         </div>
 
-        <div className="p-6 md:p-8 pt-0">
+        <div className="shrink-0 p-6 md:p-8 pt-0">
           <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
             <Motion.button
               whileHover={{ scale: 1.02 }}
@@ -770,6 +821,20 @@ export const ProductsOverview = memo(function ProductsOverview() {
             </Motion.div>
           </div>
         ) : null}
+      </AnimatePresence>
+      
+      {/* ── Lightbox ─────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <ImageLightbox
+            src={
+              getProductMediaItems(viewingProduct)[activeModalMediaIndex]?.preview || 
+              viewingProduct?.imagePreview
+            }
+            alt={viewingProduct?.name}
+            onClose={() => setLightboxOpen(false)}
+          />
+        )}
       </AnimatePresence>
     </Motion.div>
   )
