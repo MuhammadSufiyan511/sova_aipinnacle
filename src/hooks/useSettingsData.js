@@ -51,8 +51,8 @@ export function useSettingsData() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const businessLabel = draftBusinessType === 'other' && draftCustomCategory.trim()
-    ? draftCustomCategory.trim()
+  const businessLabel = businessProfile?.type === 'other' && businessProfile?.customCategory?.trim()
+    ? businessProfile.customCategory.trim()
     : t(`onboarding.business.categories.${businessProfile?.type || 'clothing'}.label`)
 
   const toneOptions = [
@@ -71,10 +71,11 @@ export function useSettingsData() {
   }
 
   const saveBusinessProfile = () => {
-    if (draftBusinessType === 'other' && !draftCustomCategory.trim()) return
+    const customCategoryValue = draftCustomCategory.trim()
+    if (draftBusinessType === 'other' && !customCategoryValue) return
     setBusinessProfile({
       type: draftBusinessType,
-      customCategory: draftBusinessType === 'other' ? draftCustomCategory.trim() : '',
+      customCategory: draftBusinessType === 'other' ? customCategoryValue : '',
     })
     setBusinessModalOpen(false)
   }

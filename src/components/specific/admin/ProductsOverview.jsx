@@ -83,7 +83,10 @@ const RadioToggle = ({ id, active, onChange, activeColor = 'bg-[#ECFDF5]' }) => 
       <div className="z-10 grid h-full w-full grid-cols-2">
         <button
           type="button"
-          onClick={() => !active && onChange()}
+          onClick={(event) => {
+            event.stopPropagation()
+            if (!active) onChange()
+          }}
           className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
         >
           <span className="relative z-10">{t('admin.common.active')}</span>
@@ -97,7 +100,10 @@ const RadioToggle = ({ id, active, onChange, activeColor = 'bg-[#ECFDF5]' }) => 
         </button>
         <button
           type="button"
-          onClick={() => active && onChange()}
+          onClick={(event) => {
+            event.stopPropagation()
+            if (active) onChange()
+          }}
           className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${!active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
         >
           <span className="relative z-10">{t('admin.common.inactive')}</span>
@@ -145,10 +151,11 @@ const ProductCard = memo(function ProductCard({
       layout
       variants={cardItem}
       exit={{ opacity: 0, scale: 0.92 }}
+      onClick={() => onView(product)}
       className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${isActive
         ? 'border-[#DDEFE7] hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-500/10'
         : 'border-[#E5E7EB] bg-[#FCFCFC] opacity-75 saturate-[0.35]'
-        }`}
+        } cursor-pointer`}
     >
       <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[index % gradients.length]} admin-item-img-shell ${isActive ? '' : 'grayscale'}`}>
         {currentMedia ? (
@@ -275,7 +282,10 @@ const ProductCard = memo(function ProductCard({
         {product.description ? <p className={`mt-1 line-clamp-2 text-[0.72rem] leading-5 admin-item-desc ${isActive ? 'text-[#62808D]' : 'text-[#9CA3AF]'}`}>{product.description}</p> : null}
         <div className="mt-3 grid grid-cols-2 gap-2">
           <button
-            onClick={() => onView(product)}
+            onClick={(event) => {
+              event.stopPropagation()
+              onView(product)
+            }}
             className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary"
           >
             <Eye className="h-3.5 w-3.5" />
@@ -289,11 +299,23 @@ const ProductCard = memo(function ProductCard({
               activeColor="bg-[#ECFDF5]"
             />
           </div>
-          <button onClick={() => onEdit(product)} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary">
+          <button
+            onClick={(event) => {
+              event.stopPropagation()
+              onEdit(product)
+            }}
+            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary"
+          >
             <Pencil className="h-3.5 w-3.5" />
             {t('admin.common.edit')}
           </button>
-          <button onClick={() => onRemove(product.id)} className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger">
+          <button
+            onClick={(event) => {
+              event.stopPropagation()
+              onRemove(product.id)
+            }}
+            className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger"
+          >
             <Trash2 className="h-3.5 w-3.5" />
           </button>
         </div>

@@ -14,6 +14,8 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
   setDraftCustomCategory,
   saveBusinessProfile
 }) {
+  const showCustomField = draftBusinessType === 'other' || Boolean(draftCustomCategory.trim())
+
   return (
     <AnimatePresence>
       {isOpen ? (
@@ -86,15 +88,21 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
                 })}
               </div>
 
-              {draftBusinessType === 'other' ? (
+              {showCustomField ? (
                 <div className="mt-5">
                   <label className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#648E89]">
-                    {t('onboarding.business.customCategoryPlaceholder')}
+                    {t('admin.settings.sections.business.customCategoryLabel', {
+                      defaultValue: t('onboarding.business.customCategoryPlaceholder'),
+                    })}
                   </label>
                   <input
                     type="text"
                     value={draftCustomCategory}
-                    onChange={(event) => setDraftCustomCategory(event.target.value)}
+                    onChange={(event) => {
+                      const value = event.target.value
+                      setDraftCustomCategory(value)
+                      if (value.trim()) setDraftBusinessType('other')
+                    }}
                     placeholder={t('onboarding.business.customCategoryPlaceholder')}
                     className="h-12 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] px-4 text-[0.88rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
                   />
