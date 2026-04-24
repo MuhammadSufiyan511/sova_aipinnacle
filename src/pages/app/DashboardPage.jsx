@@ -12,6 +12,7 @@ import { ConversationsOverview } from '../../components/specific/admin/Conversat
 import { SettingsOverview } from '../../components/specific/admin/SettingsOverview'
 import { AddProductOverview } from '../../components/specific/admin/AddProductOverview'
 import { EditProductOverview } from '../../components/specific/admin/EditProductOverview'
+import { ProductDetailsOverview } from '../../components/specific/admin/ProductDetailsOverview'
 import { useApp } from '../../context/AppProvider'
 import { CelebrationModal } from '../../components/specific/admin/CelebrationModal'
 import { ROUTES } from '../../utils/routes'
@@ -25,6 +26,9 @@ export function DashboardPage() {
     
     const editMatch = matchPath(ROUTES.adminEditProduct, location.pathname)
     if (editMatch) return <EditProductOverview id={editMatch.params.id} />
+
+    const viewMatch = matchPath(ROUTES.adminViewProduct, location.pathname)
+    if (viewMatch) return <ProductDetailsOverview id={viewMatch.params.id} />
 
     switch (location.pathname) {
       case ROUTES.adminProducts:

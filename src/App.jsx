@@ -13,6 +13,7 @@ import {
   PrivacyPage,
   TermsPage,
 } from './pages/index.js'
+import NotFoundPage from './pages/NotFoundPage'
 
 // Lazy load large routes for performance
 const OnboardingPage = lazy(() => import('./pages/app/OnboardingPage'))
@@ -80,6 +81,7 @@ function App() {
             <Route path="/admin/*" element={<DashboardPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/privacy_policy" element={<PrivacyPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </AppShell>

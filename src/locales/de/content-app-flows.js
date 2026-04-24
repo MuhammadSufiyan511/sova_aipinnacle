@@ -167,7 +167,12 @@ export const admin = {
       deactivate: 'Deaktivieren',
       modalTitle: 'Produktübersicht',
       noDescription: 'Noch keine Beschreibung hinzugefügt.',
-      none: 'Keine'
+      none: 'Keine',
+      deleteConfirmTitle: 'Produkt löschen?',
+      deleteConfirmDesc: 'Diese Aktion kann nicht rückgängig gemacht werden. Alle mit diesem Produkt verbundenen Daten werden dauerhaft entfernt.',
+      deleteConfirmBtn: 'Ja, Produkt löschen',
+      deleteCancelBtn: 'Vorerst behalten',
+      deleteSuccess: 'Produkt erfolgreich gelöscht',
     },
     controls: {
       searchPlaceholder: 'Produkte suchen...',
@@ -1069,4 +1074,12 @@ admin.mockData = {
       { from: 'user', text: 'Der Premium-Seidenschal.' },
     ]
   },
+}
+
+export const notFound = {
+  title: '404',
+  subtitle: 'Verirrt?',
+  desc: "Die Seite, die Sie suchen, existiert nicht oder wurde in ein anderes Universum verschoben.",
+  backBtn: 'Bring mich nach Hause',
+  backLink: 'Zurück',
 }

@@ -9,7 +9,7 @@ import { industries, pricing, trustedBusinesses, reviews, faq } from './content-
 import { about, auth, metaIntegration, metaModal } from './content-pages-basic'
 import { caseStudiesA } from './content-caseStudies-a'
 import { caseStudiesB } from './content-caseStudies-b'
-import { onboarding, admin } from './content-app-flows'
+import { onboarding, admin, notFound } from './content-app-flows'
 import { termsSections } from './content-legal-terms'
 import { privacySections } from './content-legal-privacy'
 
@@ -22,6 +22,7 @@ const en = {
     sections,
     onboarding,
     admin,
+    notFound,
     content: {
       brandFeature,
       aeoOverview,

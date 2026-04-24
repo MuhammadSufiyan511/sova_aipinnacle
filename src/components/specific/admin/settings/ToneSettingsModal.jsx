@@ -24,12 +24,20 @@ export const ToneSettingsModal = memo(function ToneSettingsModal({
             onClick={onClose}
           />
           <Motion.div
-            initial={{ opacity: 0, y: isMobile ? 12 : 24, scale: isMobile ? 1 : 0.96 }}
+            initial={isMobile ? { y: '100%' } : { opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: isMobile ? 8 : 16, scale: isMobile ? 1 : 0.97 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed left-1/2 top-1/2 z-[130] flex w-[min(94vw,680px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2 flex-col rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell overflow-hidden will-change-[transform,opacity]"
+            exit={isMobile ? { y: '100%' } : { opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300, duration: 0.2 }}
+            className={`fixed z-[130] flex flex-col border border-[#DDEFE7] bg-white shadow-[0_30px_80px_rgba(30,41,59,0.22)] admin-card-shell overflow-hidden will-change-[transform,opacity] ${isMobile
+              ? 'bottom-0 left-0 w-full rounded-t-[32px] rounded-b-none max-h-[92vh]'
+              : 'left-1/2 top-1/2 w-[min(94vw,680px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2 rounded-[28px]'
+              }`}
           >
+            {isMobile && (
+              <div className="flex w-full items-center justify-center pt-3 pb-1">
+                <div className="h-1.5 w-12 rounded-full bg-[#DDEFE7]" />
+              </div>
+            )}
             <div className="flex items-start justify-between gap-4 px-5 pt-5 sm:px-7 sm:pt-7">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-[#10B981]">

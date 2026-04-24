@@ -20,4 +20,5 @@ export const ROUTES = {
   adminUpgrade: '/admin/upgrade',
   adminAddProduct: '/admin/products/new',
   adminEditProduct: '/admin/products/edit/:id',
+  adminViewProduct: '/admin/products/view/:id',
 }

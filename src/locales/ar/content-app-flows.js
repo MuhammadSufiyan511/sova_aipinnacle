@@ -167,7 +167,12 @@ export const admin = {
       deactivate: 'إلغاء التفعيل',
       modalTitle: 'نظرة على المنتج',
       noDescription: 'لا يوجد وصف مضاف حتى الآن.',
-      none: 'لا يوجد'
+      none: 'لا يوجد',
+      deleteConfirmTitle: 'حذف المنتج؟',
+      deleteConfirmDesc: 'لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع البيانات المرتبطة بهذا المنتج نهائياً.',
+      deleteConfirmBtn: 'نعم، احذف المنتج',
+      deleteCancelBtn: 'الاحتفاظ به الآن',
+      deleteSuccess: 'تم حذف المنتج بنجاح',
     },
     controls: {
       searchPlaceholder: 'ابحث في المنتجات...',
@@ -813,4 +818,12 @@ admin.mockData = {
       { from: 'sova', text: 'ممتاز! سأقوم بتجهيز الفاتورة لـ 3 وشاح حرير فاخر. هل أؤكد طلبك؟' }
     ]
   }
+}
+
+export const notFound = {
+  title: '404',
+  subtitle: 'هل ضللت الطريق؟',
+  desc: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى كون آخر.",
+  backBtn: 'خذني إلى المنزل',
+  backLink: 'العودة',
 }

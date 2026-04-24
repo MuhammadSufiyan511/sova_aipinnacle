@@ -218,7 +218,12 @@ const admin = {
       deactivate: 'Deactivate',
       modalTitle: 'Product Overview',
       noDescription: 'No details added yet.',
-      none: 'None'
+      none: 'None',
+      deleteConfirmTitle: 'Delete Product?',
+      deleteConfirmDesc: 'This action cannot be undone. All data associated with this product will be permanently removed.',
+      deleteConfirmBtn: 'Yes, Delete Product',
+      deleteCancelBtn: 'Keep it for now',
+      deleteSuccess: 'Product deleted successfully',
     },
     controls: {
       searchPlaceholder: 'Search products...',
@@ -1179,3 +1184,11 @@ admin.profile.business = {
   locationPlaceholder: 'e.g. Karachi, Pakistan',
   emptyLocation: 'Add your location',
 };
+
+export const notFound = {
+  title: '404',
+  subtitle: 'Lost in Space?',
+  desc: "The page you're looking for doesn't exist or has been moved to another universe.",
+  backBtn: 'Take Me Home',
+  backLink: 'Go Back',
+}

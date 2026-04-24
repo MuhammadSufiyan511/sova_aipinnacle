@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Eye, FileText, Package, DollarSign, Layers, Star, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, Tag, Box, BadgeCheck, TrendingUp, ZoomIn } from 'lucide-react'
+import { Package, Plus, Zap, Search } from 'lucide-react'
 import { useMemo, useState, memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../../context/AppProvider'
@@ -7,336 +7,36 @@ import { ROUTES } from '../../../utils/routes'
 import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
-const gradients = [
-  'from-emerald-400/20 to-teal-400/20',
-  'from-violet-400/20 to-purple-400/20',
-  'from-amber-400/20 to-orange-400/20',
-  'from-blue-400/20 to-indigo-400/20',
-  'from-rose-400/20 to-pink-400/20',
-]
+// Modular Components
+import { ProductCard } from './products/ProductCard'
+import { ProductViewModal } from './products/ProductViewModal'
+import { ProductFilters } from './products/ProductFilters'
+import { ProductPagination } from './products/ProductPagination'
+import { ImageLightbox } from './products/ImageLightbox'
+import { getProductMediaItems } from './products/utils'
+import { DeleteConfirmationSheet } from '../../shared/DeleteConfirmationSheet'
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
-const cardItem = { hidden: { opacity: 0, scale: 0.94 }, show: { opacity: 1, scale: 1 } }
 const PER_PAGE_OPTIONS = [12, 24, 48, 96, 'all']
-
-const getProductMediaItems = (product) => {
-  if (Array.isArray(product?.gallery) && product.gallery.length > 0) {
-    return [...product.gallery].sort((a, b) => Number(Boolean(b?.isPrimary)) - Number(Boolean(a?.isPrimary)))
-  }
-
-  if (product?.imagePreview) {
-    return [{
-      id: `${product.id || product.name || 'product'}-legacy`,
-      preview: product.imagePreview,
-      type: product.mediaType || 'image',
-      name: product.mediaName || product.name || 'Media',
-      isPrimary: true,
-    }]
-  }
-
-  return []
-}
-
-/* ─── Full-screen image lightbox ─────────────────────────────────────────── */
-function ImageLightbox({ src, alt, onClose }) {
-  useEffect(() => {
-    const handleEsc = (e) => (e.key === 'Escape') && onClose()
-    window.addEventListener('keydown', handleEsc)
-    return () => window.removeEventListener('keydown', handleEsc)
-  }, [onClose])
-  return (
-    <Motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.18 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4"
-      onClick={onClose}
-      style={{ willChange: 'opacity' }}
-    >
-      <Motion.img
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.92 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        src={src}
-        alt={alt}
-        className="max-h-[90vh] max-w-full rounded-2xl object-contain shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-        style={{ willChange: 'transform, opacity' }}
-      />
-      <button
-        onClick={onClose}
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition hover:bg-white/20"
-      >
-        <X className="h-5 w-5" />
-      </button>
-    </Motion.div>
-  )
-}
-
-const RadioToggle = ({ id, active, onChange, activeColor = 'bg-[#ECFDF5]' }) => {
-  const { t } = useTranslation()
-
-  return (
-    <div className="admin-radio-toggle-track relative flex h-[34px] w-full rounded-full border border-slate-200/50 bg-slate-100/80 p-0.5 transition-all duration-300 dark:border-white/70 dark:bg-white/5">
-      <div className="z-10 grid h-full w-full grid-cols-2">
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation()
-            if (!active) onChange()
-          }}
-          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
-        >
-          <span className="relative z-10">{t('admin.common.active')}</span>
-          {active && (
-            <Motion.div
-              layoutId={`highlight-${id}`}
-              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
-              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
-            />
-          )}
-        </button>
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation()
-            if (active) onChange()
-          }}
-          className={`admin-radio-toggle-btn relative flex items-center justify-center text-[0.65rem] font-extrabold transition-colors duration-300 ${!active ? 'text-emerald-700 is-active' : 'text-[#648E89] is-inactive dark:text-slate-400'}`}
-        >
-          <span className="relative z-10">{t('admin.common.inactive')}</span>
-          {!active && (
-            <Motion.div
-              layoutId={`highlight-${id}`}
-              className={`absolute inset-0 rounded-full shadow-sm ${activeColor}`}
-              transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
-            />
-          )}
-        </button>
-      </div>
-    </div>
-  )
-}
-
-const ProductCard = memo(function ProductCard({
-  product,
-  index,
-  onView,
-  onToggleStatus,
-  onEdit,
-  onRemove,
-  t,
-}) {
-  const mediaItems = useMemo(() => getProductMediaItems(product), [product])
-  const [activeMediaIndex, setActiveMediaIndex] = useState(0)
-  const [slideDirection, setSlideDirection] = useState(0)
-  const currentMedia = mediaItems[activeMediaIndex] || null
-  const hasMultipleMedia = mediaItems.length > 1
-  const isActive = product.isActive !== false
-
-  const showPreviousMedia = () => {
-    setSlideDirection(-1)
-    setActiveMediaIndex((current) => (current === 0 ? mediaItems.length - 1 : current - 1))
-  }
-
-  const showNextMedia = () => {
-    setSlideDirection(1)
-    setActiveMediaIndex((current) => (current === mediaItems.length - 1 ? 0 : current + 1))
-  }
-
-  return (
-    <Motion.div
-      layout
-      variants={cardItem}
-      exit={{ opacity: 0, scale: 0.92 }}
-      onClick={() => onView(product)}
-      className={`group relative overflow-hidden rounded-[20px] border bg-white shadow-sm transition-all admin-item-row ${isActive
-        ? 'border-[#DDEFE7] hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-500/10'
-        : 'border-[#E5E7EB] bg-[#FCFCFC] opacity-75 saturate-[0.35]'
-        } cursor-pointer`}
-    >
-      <div className={`relative h-36 overflow-hidden bg-gradient-to-br ${gradients[index % gradients.length]} admin-item-img-shell ${isActive ? '' : 'grayscale'}`}>
-        {currentMedia ? (
-          <AnimatePresence initial={false} custom={slideDirection}>
-            <Motion.div
-              key={currentMedia.preview || activeMediaIndex}
-              custom={slideDirection}
-              variants={{
-                enter: (direction) => ({
-                  x: direction > 0 ? 200 : direction < 0 ? -200 : 0,
-                  opacity: 0,
-                  scale: 0.95
-                }),
-                center: {
-                  zIndex: 1,
-                  x: 0,
-                  opacity: 1,
-                  scale: 1
-                },
-                exit: (direction) => ({
-                  zIndex: 0,
-                  x: direction < 0 ? 200 : direction > 0 ? -200 : 0,
-                  opacity: 0,
-                  scale: 0.95
-                })
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
-              className="absolute inset-0 h-full w-full"
-            >
-              {currentMedia.type === 'video' ? (
-                <div className="relative h-full w-full bg-slate-900">
-                  <video
-                    src={currentMedia.preview}
-                    className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  />
-                  <span className={`absolute inset-0 flex items-center justify-center text-white ${isActive ? 'bg-slate-900/20' : 'bg-slate-900/45'}`}>
-                    <PlayCircle className="h-9 w-9" />
-                  </span>
-                </div>
-              ) : currentMedia.type === 'file' ? (
-                <div className={`flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center ${isActive ? 'bg-[#F2FBF7]' : 'bg-[#F5F5F5] opacity-55 grayscale'}`}>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
-                    <FileText className="h-6 w-6 text-emerald-600" />
-                  </span>
-                  <span className="line-clamp-2 text-[0.7rem] font-semibold text-[#295565]">{currentMedia.name || product.name}</span>
-                </div>
-              ) : (
-                <img
-                  src={currentMedia.preview}
-                  alt={product.name}
-                  className={`h-full w-full object-cover transition duration-500 ${isActive ? 'group-hover:scale-110' : 'blur-[4px] grayscale opacity-45 scale-[1.03]'}`}
-                />
-              )}
-            </Motion.div>
-          </AnimatePresence>
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-black/5 text-black/20">
-            <Package className="h-10 w-10" />
-          </div>
-        )}
-
-        {hasMultipleMedia ? (
-          <>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation()
-                showPreviousMedia()
-              }}
-              aria-label={t('common.previous')}
-              className="absolute left-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 text-[#173247] dark:text-slate-200 opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-800 group-hover:opacity-100 focus-visible:opacity-100"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation()
-                showNextMedia()
-              }}
-              aria-label={t('common.next')}
-              className="absolute right-2 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 text-[#173247] dark:text-slate-200 opacity-0 shadow-md transition duration-200 hover:scale-105 hover:bg-white dark:hover:bg-slate-800 group-hover:opacity-100 focus-visible:opacity-100"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-            <div className="absolute bottom-2 right-2 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 dark:bg-slate-800/90 px-2 py-1 shadow-sm">
-              {mediaItems.map((item, itemIndex) => (
-                <span
-                  key={item.id || itemIndex}
-                  className={`h-1.5 w-1.5 rounded-full transition ${itemIndex === activeMediaIndex ? 'bg-[#10B981]' : 'bg-[#B6CCC6] dark:bg-slate-500'}`}
-                />
-              ))}
-            </div>
-          </>
-        ) : null}
-
-        <div className="absolute left-2 top-2">
-          <span
-            className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-bold uppercase tracking-[0.12em] shadow-sm ${isActive
-              ? 'bg-emerald-500/90 text-white'
-              : 'bg-white/90 text-[#6B7280]'
-              }`}
-          >
-            {isActive ? t('admin.products.item.active') : t('admin.products.item.inactive')}
-          </span>
-        </div>
-        <div className="admin-item-price absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white/80 px-2 py-0.5 text-[0.6rem] font-bold text-[#173247] shadow-sm">
-          {t('admin.products.item.price', { price: product.price || '0' })}
-        </div>
-      </div>
-
-      <div className={`p-3.5 text-center sm:text-left admin-item-content ${isActive ? '' : 'text-[#7A8A93]'}`}>
-        <p className={`text-[0.88rem] font-bold admin-item-title ${isActive ? 'text-[#173247]' : 'text-[#7A8A93]'}`}>{product.name}</p>
-        {product.description ? <p className={`mt-1 line-clamp-2 text-[0.72rem] leading-5 admin-item-desc ${isActive ? 'text-[#62808D]' : 'text-[#9CA3AF]'}`}>{product.description}</p> : null}
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <button
-            onClick={(event) => {
-              event.stopPropagation()
-              onView(product)
-            }}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary"
-          >
-            <Eye className="h-3.5 w-3.5" />
-            {t('admin.products.item.view')}
-          </button>
-          <div className="flex items-center">
-            <RadioToggle
-              id={`prod-${product.id}`}
-              active={isActive}
-              onChange={() => onToggleStatus(product)}
-              activeColor="bg-[#ECFDF5]"
-            />
-          </div>
-          <button
-            onClick={(event) => {
-              event.stopPropagation()
-              onEdit(product)
-            }}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#DDEFE7] px-3 py-2 text-[0.68rem] font-bold text-[#476977] transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600 admin-btn-secondary"
-          >
-            <Pencil className="h-3.5 w-3.5" />
-            {t('admin.common.edit')}
-          </button>
-          <button
-            onClick={(event) => {
-              event.stopPropagation()
-              onRemove(product.id)
-            }}
-            className="inline-flex items-center justify-center rounded-full border border-[#DDEFE7] p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50 admin-btn-danger"
-          >
-            <Trash2 className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      </div>
-    </Motion.div>
-  )
-})
 
 export const ProductsOverview = memo(function ProductsOverview() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { products, removeProduct, updateProduct } = useApp()
+
+  // UI State
   const [viewingProduct, setViewingProduct] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
-  const [activeModalMediaIndex, setActiveModalMediaIndex] = useState(0)
-  const [modalSlideDirection, setModalSlideDirection] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [productToRemove, setProductToRemove] = useState(null)
+
+  // Modal Gallery State
+  const [activeModalMediaIndex, setActiveModalMediaIndex] = useState(0)
+  const [modalSlideDirection, setModalSlideDirection] = useState(0)
 
   useEffect(() => {
     setActiveModalMediaIndex(0)
@@ -367,45 +67,30 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const toggleProductStatus = (product) => {
     const isNowActive = !(product.isActive !== false)
     updateProduct({ ...product, isActive: isNowActive })
-    if (isNowActive) {
-      toast.success(t('admin.addProductOverview.validation.statusActive'))
-    } else {
-      toast.success(t('admin.addProductOverview.validation.statusInactive'))
-    }
+    toast.success(t(isNowActive ? 'admin.addProductOverview.validation.statusActive' : 'admin.addProductOverview.validation.statusInactive'))
   }
 
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase()
-
     return products.filter((product) => {
       const isActive = product.isActive !== false
-      const matchesFilter =
-        statusFilter === 'all' ||
-        (statusFilter === 'active' && isActive) ||
-        (statusFilter === 'inactive' && !isActive)
-
+      const matchesFilter = statusFilter === 'all' || (statusFilter === 'active' && isActive) || (statusFilter === 'inactive' && !isActive)
       if (!matchesFilter) return false
       if (!normalizedSearch) return true
-
-      return [product.name, product.description, product.mediaName]
-        .filter(Boolean)
-        .some((value) => String(value).toLowerCase().includes(normalizedSearch))
+      return [product.name, product.description, product.mediaName].filter(Boolean).some((value) => String(value).toLowerCase().includes(normalizedSearch))
     })
   }, [products, searchTerm, statusFilter])
 
   const normalizedItemsPerPage = itemsPerPage === 'all' ? Math.max(filteredProducts.length, 1) : itemsPerPage
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / normalizedItemsPerPage))
   const safePage = Math.min(currentPage, totalPages)
-  const paginatedProducts =
-    itemsPerPage === 'all'
-      ? filteredProducts
-      : filteredProducts.slice((safePage - 1) * normalizedItemsPerPage, safePage * normalizedItemsPerPage)
+  const paginatedProducts = itemsPerPage === 'all' ? filteredProducts : filteredProducts.slice((safePage - 1) * normalizedItemsPerPage, safePage * normalizedItemsPerPage)
   const pageStart = filteredProducts.length === 0 ? 0 : (safePage - 1) * normalizedItemsPerPage + 1
   const pageEnd = Math.min(safePage * normalizedItemsPerPage, filteredProducts.length)
-  const formatFieldLabel = (label) => label?.replace(/([A-Z])/g, ' $1')?.replace(/[_-]/g, ' ') || ''
 
   return (
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full admin-products-shell">
+      {/* Header Section */}
       <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
         <div>
           <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.4rem] admin-card-title">{t('admin.products.title')}</h2>
@@ -423,106 +108,60 @@ export const ProductsOverview = memo(function ProductsOverview() {
         </Motion.button>
       </div>
 
+      {/* Banner */}
       <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 px-3.5 py-3 text-center sm:flex-row sm:text-left">
         <Zap className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
-        <p className="text-[0.74rem] text-emerald-700">
-          {t('admin.products.banner')}
-        </p>
+        <p className="text-[0.74rem] text-emerald-700">{t('admin.products.banner')}</p>
       </div>
 
       {products.length === 0 ? (
-        <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center rounded-[22px] border-2 border-dashed border-[#DDEFE7] bg-white px-4 py-10 text-center sm:py-14">
-          <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F2FBF7] sm:h-12 sm:w-12">
-            <Package className="h-5 w-5 text-[#86A29B] sm:h-6 sm:w-6" />
-          </div>
-          <p className="font-bold text-[#295565]">{t('admin.products.empty.title')}</p>
-          <p className="mt-1 max-w-xs text-[0.74rem] text-[#1E293B]">{t('admin.products.empty.desc')}</p>
-          <Motion.button whileHover={{ scale: 1.03 }} onClick={openAddPage} className="mt-5 flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-[0.78rem] font-bold text-white shadow-md shadow-emerald-500/20">
-            <Plus className="h-4 w-4" /> {t('admin.products.empty.btn')}
-          </Motion.button>
-        </Motion.div>
+        <EmptyProductsState onAdd={openAddPage} t={t} />
       ) : (
         <>
-          <div className="rounded-[22px] border border-[#DDEFE7] bg-white p-3.5 shadow-sm">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="relative w-full lg:max-w-sm">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#1E293B]" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(event) => {
-                    setSearchTerm(event.target.value)
-                    setCurrentPage(1)
-                  }}
-                  placeholder={translateOr('admin.products.controls.searchPlaceholder', 'Search products...')}
-                  className="h-11 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] pl-10 pr-4 text-[0.82rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
-                />
-              </div>
+          {/* Filters & Controls */}
+          <ProductFilters
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            filterOptions={filterOptions}
+            translateOr={translateOr}
+            setCurrentPage={setCurrentPage}
+          />
 
-              <div className="flex flex-wrap gap-2">
-                {filterOptions.map((option) => {
-                  const isActive = statusFilter === option.id
-                  return (
-                    <button
-                      key={option.id}
-                      type="button"
-                      onClick={() => {
-                        setStatusFilter(option.id)
-                        setCurrentPage(1)
-                      }}
-                      className={`rounded-full px-3.5 py-2 text-[0.72rem] font-bold transition ${isActive
-                        ? 'bg-[#10B981] text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)]'
-                        : 'border border-[#DDEFE7] bg-white text-[#476977] hover:border-[#BFE7DA] hover:bg-[#F8FFFC]'
-                        }`}
-                    >
-                      {option.label}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            <div className="mt-3 flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-              <p className="text-[0.72rem] font-medium text-[#62808D]">
-                {translateOr('admin.products.controls.pageInfo', '{{start}}-{{end}} of {{total}} products')
-                  .replace('{{start}}', String(pageStart))
-                  .replace('{{end}}', String(pageEnd))
-                  .replace('{{total}}', String(filteredProducts.length))}
-              </p>
-              <div className="flex items-center justify-center gap-2 sm:justify-end">
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">
-                  {translateOr('admin.products.controls.show', 'Show')}
-                </span>
-                <select
-                  value={String(itemsPerPage)}
-                  onChange={(event) => {
-                    const nextValue = event.target.value === 'all' ? 'all' : Number(event.target.value)
-                    setItemsPerPage(nextValue)
-                    setCurrentPage(1)
-                  }}
-                  className="h-9 rounded-full border border-[#DDEFE7] bg-white px-3 text-[0.72rem] font-bold text-[#476977] outline-none transition focus:border-[#10B981]"
-                >
-                  {PER_PAGE_OPTIONS.map((option) => (
-                    <option key={String(option)} value={String(option)}>
-                      {option === 'all' ? translateOr('admin.products.controls.all', 'All') : option}
-                    </option>
-                  ))}
-                </select>
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">
-                  / {translateOr('admin.products.controls.perPage', 'page')}
-                </span>
-              </div>
+          {/* Page Info & Selection */}
+          <div className="flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-[0.72rem] font-medium text-[#62808D]">
+              {translateOr('admin.products.controls.pageInfo', '{{start}}-{{end}} of {{total}} products')
+                .replace('{{start}}', String(pageStart))
+                .replace('{{end}}', String(pageEnd))
+                .replace('{{total}}', String(filteredProducts.length))}
+            </p>
+            <div className="flex items-center justify-center gap-2 sm:justify-end">
+              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">{translateOr('admin.products.controls.show', 'Show')}</span>
+              <select
+                value={String(itemsPerPage)}
+                onChange={(e) => {
+                  setItemsPerPage(e.target.value === 'all' ? 'all' : Number(e.target.value))
+                  setCurrentPage(1)
+                }}
+                className="h-9 rounded-full border border-[#DDEFE7] bg-white px-3 text-[0.72rem] font-bold text-[#476977] outline-none transition focus:border-[#10B981]"
+              >
+                {PER_PAGE_OPTIONS.map((opt) => (
+                  <option key={String(opt)} value={String(opt)}>{opt === 'all' ? translateOr('admin.products.controls.all', 'All') : opt}</option>
+                ))}
+              </select>
+              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#1E293B]">/ {translateOr('admin.products.controls.perPage', 'page')}</span>
             </div>
           </div>
 
+          {/* Product Grid */}
           {paginatedProducts.length === 0 ? (
-            <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center rounded-[22px] border border-dashed border-[#DDEFE7] bg-white px-4 py-12 text-center">
+            <div className="flex flex-col items-center justify-center rounded-[22px] border border-dashed border-[#DDEFE7] bg-white px-4 py-12 text-center">
               <Search className="mb-3 h-9 w-9 text-[#86A29B]" />
               <p className="font-bold text-[#295565]">{translateOr('admin.products.controls.empty.title', 'No matching products')}</p>
-              <p className="mt-1 max-w-sm text-[0.74rem] text-[#62808D]">
-                {translateOr('admin.products.controls.empty.desc', 'Try a different search term or switch the active filter.')}
-              </p>
-            </Motion.div>
+              <p className="mt-1 max-w-sm text-[0.74rem] text-[#62808D]">{translateOr('admin.products.controls.empty.desc', 'Try a different search term.')}</p>
+            </div>
           ) : (
             <Motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               <AnimatePresence mode="popLayout">
@@ -531,10 +170,16 @@ export const ProductsOverview = memo(function ProductsOverview() {
                     key={product.id}
                     product={product}
                     index={i}
-                    onView={setViewingProduct}
+                    onView={(p) => {
+                      if (isMobile) {
+                        navigate(ROUTES.adminViewProduct.replace(':id', p.id))
+                      } else {
+                        setViewingProduct(p)
+                      }
+                    }}
                     onToggleStatus={toggleProductStatus}
                     onEdit={openEditPage}
-                    onRemove={removeProduct}
+                    onRemove={(id) => setProductToRemove(products.find(p => p.id === id))}
                     t={t}
                   />
                 ))}
@@ -542,447 +187,70 @@ export const ProductsOverview = memo(function ProductsOverview() {
             </Motion.div>
           )}
 
-          {totalPages > 1 ? (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-[20px] border border-[#DDEFE7] bg-white px-4 py-4 shadow-sm">
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-                  <button
-                    key={pageNumber}
-                    type="button"
-                    onClick={() => setCurrentPage(pageNumber)}
-                    className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[0.72rem] font-bold transition ${safePage === pageNumber
-                      ? 'bg-[#10B981] text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)]'
-                      : 'border border-[#DDEFE7] bg-white text-[#476977] hover:bg-[#F8FFFC]'
-                      }`}
-                  >
-                    {pageNumber}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-                  disabled={safePage === 1}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#DDEFE7] px-4 py-2 text-[0.74rem] font-bold text-[#476977] transition hover:bg-[#F8FFFC] disabled:cursor-not-allowed disabled:opacity-45"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  {t('common.previous')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
-                  disabled={safePage === totalPages}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#DDEFE7] px-4 py-2 text-[0.74rem] font-bold text-[#476977] transition hover:bg-[#F8FFFC] disabled:cursor-not-allowed disabled:opacity-45"
-                >
-                  {t('common.next')}
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          ) : null}
+          {/* Pagination */}
+          <ProductPagination totalPages={totalPages} currentPage={safePage} setCurrentPage={setCurrentPage} t={t} />
         </>
       )}
 
+      {/* Product Detail Modal */}
       <AnimatePresence>
-        {viewingProduct ? (
-          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-            <Motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setViewingProduct(null)}
-              className={`absolute inset-0 bg-[#0F172A]/70 ${isMobile ? '' : 'backdrop-blur-xl'}`}
-            />
-            <Motion.div
-              initial={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 12 : 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 30 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="admin-modal-lux admin-card-shell relative z-[130] flex w-full max-w-6xl flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] md:flex-row md:h-[min(90vh,950px)] md:rounded-[32px] h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)]"
-            >
-              <button
-                type="button"
-                onClick={() => setViewingProduct(null)}
-                className="absolute right-4 top-4 z-[100] flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/40 text-white backdrop-blur-md transition hover:bg-slate-900/60 hover:text-red-400 shadow-xl"
-              >
-                <X className="h-5 w-5 drop-shadow-md" />
-              </button>
-
-              {(() => {
-                const modalMediaItems = getProductMediaItems(viewingProduct)
-                const currentModalMedia = modalMediaItems[activeModalMediaIndex] || { preview: viewingProduct.imagePreview, type: 'image' }
-                const hasMultipleModalMedia = modalMediaItems.length > 1
-
-                const showNextModalMedia = (e) => {
-                  e?.stopPropagation()
-                  setModalSlideDirection(1)
-                  setActiveModalMediaIndex(curr => (curr === modalMediaItems.length - 1 ? 0 : curr + 1))
-                }
-                const showPrevModalMedia = (e) => {
-                  e?.stopPropagation()
-                  setModalSlideDirection(-1)
-                  setActiveModalMediaIndex(curr => (curr === 0 ? modalMediaItems.length - 1 : curr - 1))
-                }
-
-                return (
-                  <>
-                    {/* LEFT SIDE: Media */}
-                    <div className="relative h-[280px] sm:h-[320px] w-full shrink-0 overflow-hidden bg-slate-950 md:h-full md:w-[45%]">
-                      <AnimatePresence initial={false} custom={modalSlideDirection}>
-                        <Motion.div
-                          key={currentModalMedia.preview || activeModalMediaIndex}
-                          custom={modalSlideDirection}
-                          variants={{
-                            enter: (direction) => ({ x: direction > 0 ? 300 : -300, opacity: 0, scale: 0.95 }),
-                            center: { zIndex: 1, x: 0, opacity: 1, scale: 1 },
-                            exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 300 : -300, opacity: 0, scale: 0.95 })
-                          }}
-                          initial="enter"
-                          animate="center"
-                          exit="exit"
-                          transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                          drag="x"
-                          dragConstraints={{ left: 0, right: 0 }}
-                          dragElastic={1}
-                          onDragEnd={(e, { offset, velocity }) => {
-                            const swipe = offset.x
-                            if (swipe < -50) {
-                              showNextModalMedia()
-                            } else if (swipe > 50) {
-                              showPrevModalMedia()
-                            }
-                          }}
-                          className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing"
-                        >
-                          {currentModalMedia.type === 'video' ? (
-                            <video src={currentModalMedia.preview} className="h-full w-full object-contain bg-black/50" controls autoPlay muted loop playsInline />
-                          ) : currentModalMedia.type === 'file' ? (
-                            <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-50 text-slate-400">
-                              <FileText className="h-12 w-12 text-slate-300" />
-                              <span className="max-w-[80%] text-center text-[0.75rem] font-bold text-slate-500">{currentModalMedia.name || viewingProduct.name}</span>
-                            </div>
-                          ) : (
-                            <img src={currentModalMedia.preview} className="h-full w-full object-cover" alt={viewingProduct.name} />
-                          )}
-                        </Motion.div>
-                      </AnimatePresence>
-
-                      <div className="absolute left-4 top-4 z-40 flex flex-wrap gap-2 pr-12">
-                        <span className={`text-[0.6rem] font-black px-3 py-1 rounded-full border shadow-sm backdrop-blur-md tracking-wider uppercase ${viewingProduct.isActive !== false ? 'bg-emerald-500/90 text-white border-emerald-400/50' : 'bg-slate-900/80 text-slate-300 border-slate-700/50'
-                          }`}>
-                          {viewingProduct.isActive !== false ? t('admin.common.active') : t('admin.common.inactive')}
-                        </span>
-                        {viewingProduct.industry && (
-                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/40 text-white border border-white/10 shadow-sm backdrop-blur-md tracking-wider uppercase">
-                            {viewingProduct.industry}
-                          </span>
-                        )}
-                        {viewingProduct.brand && (
-                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/40 text-white border border-white/10 shadow-sm backdrop-blur-md tracking-wider uppercase">
-                            {viewingProduct.brand}
-                          </span>
-                        )}
-                        {viewingProduct.sku && (
-                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/60 text-white border border-white/20 shadow-sm backdrop-blur-md tracking-wider uppercase">
-                            SKU: {viewingProduct.sku}
-                          </span>
-                        )}
-                      </div>
-
-                      <button
-                        onClick={() => setLightboxOpen(true)}
-                        className="absolute bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white border border-white/20 shadow-2xl backdrop-blur-lg transition hover:bg-emerald-500 hover:border-emerald-400 hover:scale-110 active:scale-95"
-                      >
-                        <ZoomIn className="h-5 w-5" />
-                      </button>
-
-                      {hasMultipleModalMedia && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={showPrevModalMedia}
-                            className="absolute left-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md transition hover:bg-white hover:text-slate-900"
-                          >
-                            <ChevronLeft className="h-5 w-5" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={showNextModalMedia}
-                            className="absolute right-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md transition hover:bg-white hover:text-slate-900"
-                          >
-                            <ChevronRight className="h-5 w-5" />
-                          </button>
-                          <div className="absolute bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/20 px-3 py-1.5 backdrop-blur-md">
-                            {modalMediaItems.map((_, i) => (
-                              <span key={i} className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === activeModalMediaIndex ? 'w-4 bg-white shadow-sm' : 'bg-white/40'}`} />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    {/* RIGHT SIDE: Details */}
-                    <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-slate-50/20">
-                      <div className="flex-1 overflow-y-auto px-5 py-6 md:px-10 md:py-10">
-                        {/* Header Section */}
-                        <div className="mb-10">
-                          <h3 className="text-[1.25rem] sm:text-[1.5rem] md:text-[1.85rem] font-bold text-[#1E293B] leading-tight mb-2">
-                            {viewingProduct.name || t('admin.products.item.none')}
-                          </h3>
-                        </div>
-
-                        {/* Content Sections */}
-                        <div className="space-y-8">
-                          {/* 1. Category Section */}
-                          <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
-                            <div className="flex items-center gap-3 mb-6">
-                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-                                <Layers className="h-4.5 w-4.5" />
-                              </span>
-                              <div>
-                                <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-[#1E293B]">
-                                  {t('admin.addProductOverview.sections.category.title')}
-                                </p>
-                                <p className="text-[0.75rem] font-medium text-slate-400">
-                                  {t('admin.addProductOverview.sections.category.desc') || 'Classification and hierarchy'}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                              <div className="flex flex-col gap-2">
-                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
-                                  {t('admin.addProductOverview.sections.category.industryLabel') || 'Industry'}
-                                </span>
-                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">{viewingProduct.industry?.replace('-', ' ')}</span>
-                              </div>
-                              <div className="flex flex-col gap-2">
-                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.categoryLabel')}</span>
-                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
-                                  {viewingProduct.categoryAt === 'custom' ? viewingProduct.customCategory : viewingProduct.categoryAt?.replace(/-/g, ' ')}
-                                </span>
-                              </div>
-                              <div className="flex flex-col gap-2">
-                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.subCategoryLabel')}</span>
-                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
-                                  {viewingProduct.subCategoryAt === 'custom' ? viewingProduct.customSubCategory : viewingProduct.subCategoryAt}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* 2. Main Stats Grid */}
-                          <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
-                            {/* Sale Price Card */}
-                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
-                              <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
-                                <DollarSign className="h-3 w-3 text-emerald-500" />
-                                {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
-                              </p>
-                              <p className="text-[1.25rem] font-bold text-[#10B981]">
-                                {viewingProduct.salePrice ? t('admin.products.item.price', { price: viewingProduct.salePrice }) : t('admin.products.item.none')}
-                              </p>
-                              {viewingProduct.price && Number(viewingProduct.price) > Number(viewingProduct.salePrice) && (
-                                <div className="mt-2 flex items-center gap-2">
-                                  <p className="text-[0.72rem] font-medium text-slate-400 line-through">
-                                    {t('admin.products.item.price', { price: viewingProduct.price })}
-                                  </p>
-                                  <span className="text-[0.62rem] font-black text-rose-500 uppercase">
-                                    -{viewingProduct.discount || '0%'}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Inventory Card */}
-                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
-                              <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
-                                <Package className="h-3 w-3 text-slate-400" />
-                                {t('admin.addProductOverview.sections.pricing.currentStockLabel', { defaultValue: 'Current Stock' })}
-                              </p>
-                              <div className="flex items-baseline gap-1.5">
-                                <p className={`text-[1.25rem] font-bold ${Number(viewingProduct.stock) <= Number(viewingProduct.minStock) ? 'text-rose-500' : 'text-[#1E293B]'}`}>
-                                  {viewingProduct.stock ?? '0'}
-                                </p>
-                                <span className="text-[0.65rem] font-bold text-[#1E293B] uppercase tracking-wider">{t('admin.common.units')}</span>
-                              </div>
-                              <p className="mt-2 text-[0.68rem] font-medium text-slate-400">
-                                {t('admin.addProductOverview.sections.pricing.minStockLabel')}: {viewingProduct.minStock || '0'}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Extra Metadata Grid */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-400">
-                                <Box className="h-5 w-5" />
-                              </div>
-                              <div>
-                                <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.pricing.minOrderLabel')}</p>
-                                <p className="text-[0.88rem] font-bold text-[#1E293B]">{viewingProduct.minOrder || '1'} {t('admin.common.units')}</p>
-                              </div>
-                            </div>
-                            {viewingProduct.brand && (
-                              <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
-                                  <Star className="h-5 w-5" />
-                                </div>
-                                <div>
-                                  <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.basics.brandLabel') || 'Brand'}</p>
-                                  <p className="text-[0.88rem] font-bold text-[#1E293B]">{viewingProduct.brand}</p>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Description Card */}
-                          <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-5 sm:p-6 shadow-sm group">
-                            <div className="flex items-center gap-3 mb-4">
-                              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-colors group-hover:bg-emerald-50 group-hover:text-emerald-600">
-                                <FileText className="h-4 w-4" />
-                              </span>
-                              <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
-                                {t('admin.addProductOverview.sections.basics.descriptionLabel')}
-                              </p>
-                            </div>
-                            <p className="text-[0.95rem] font-medium leading-[1.8] text-[#476172] min-h-[50px] whitespace-pre-wrap">
-                              {viewingProduct.description || t('admin.products.item.noDescription')}
-                            </p>
-                          </div>
-
-                          {/* Variants Card */}
-                          {Array.isArray(viewingProduct.variantGroups) && viewingProduct.variantGroups.length > 0 && (
-                            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
-                              <div className="flex items-center gap-3 mb-6">
-                                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
-                                  <Tag className="h-4.5 w-4.5" />
-                                </span>
-                                <div>
-                                  <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
-                                    {t('admin.addProductOverview.sections.variants.title')}
-                                  </p>
-                                  <p className="text-[0.75rem] font-medium text-slate-400">
-                                    {t('admin.addProductOverview.sections.variants.desc') || 'Available size and color sets'}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="space-y-4">
-                                {viewingProduct.variantGroups.map((group, groupIdx) => (
-                                  <div key={group.id || groupIdx} className="p-4 sm:p-5 rounded-2xl bg-slate-50/50 border border-slate-100/30">
-                                    <div className="flex items-center gap-3 mb-4">
-                                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border border-slate-200 text-[0.7rem] font-black text-slate-900 shadow-sm">
-                                        {groupIdx + 1}
-                                      </span>
-                                      <span className="text-[0.75rem] font-black text-slate-900/40 uppercase tracking-[0.1em]">
-                                        {t('admin.addProductOverview.sections.variants.rowLabel') || 'Variation Set'}
-                                      </span>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                                      {Object.entries(group.attributes || {}).map(([key, val]) => (
-                                        <div key={key} className="flex flex-col gap-2">
-                                          <span className="text-[0.55rem] font-black uppercase tracking-[0.12em] text-[#1E293B]">
-                                            {formatFieldLabel(key)}
-                                          </span>
-                                          <div className="flex flex-wrap gap-1.5">
-                                            {Array.isArray(val) ? (
-                                              val.map(v => (
-                                                <span key={v} className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
-                                                  {v}
-                                                </span>
-                                              ))
-                                            ) : (
-                                              <span className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
-                                                {val}
-                                              </span>
-                                            )}
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Technical Specs Card */}
-                          {viewingProduct.specs && Object.keys(viewingProduct.specs).length > 0 && (
-                            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
-                              <div className="flex items-center gap-3 mb-6">
-                                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                                  <BadgeCheck className="h-4 w-4" />
-                                </span>
-                                <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
-                                  {t('admin.products.item.specsTitle')}
-                                </p>
-                              </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {Object.entries(viewingProduct.specs).map(([key, value]) => (
-                                  <div key={key} className="flex flex-col gap-1.5 pl-3 border-l-2 border-emerald-100">
-                                    <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
-                                      {key.replace(/([A-Z])/g, ' $1')}
-                                    </span>
-                                    <span className="text-[0.88rem] font-bold text-[#1E293B] leading-tight">{value}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          {/* Bottom Spacing for mobile to avoid footer overlap */}
-                          <div className="h-6 md:hidden" />
-                        </div>
-                      </div>
-
-                      {/* Footer Actions */}
-                      <div className="shrink-0 border-t border-[#EAF1EE] bg-white/90 p-4 sm:p-6 md:px-10 backdrop-blur-md">
-                        <div className="flex items-center gap-3 md:gap-4">
-                          <Motion.button
-                            whileHover={{ scale: 1.01, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => openEditPage(viewingProduct)}
-                            className="flex-1 h-13 flex items-center justify-center gap-3 rounded-2xl bg-slate-900 text-[0.88rem] font-black text-white shadow-xl shadow-slate-900/10 transition hover:bg-emerald-600 hover:shadow-emerald-600/20"
-                          >
-                            <Pencil className="h-4 w-4" />
-                            {t('admin.products.item.editBtn')}
-                          </Motion.button>
-                          <Motion.button
-                            whileHover={{ scale: 1.05, rotate: 2 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => {
-                              if (window.confirm('Archive this product?')) {
-                                removeProduct(viewingProduct.id)
-                                setViewingProduct(null)
-                              }
-                            }}
-                            className="h-13 w-13 flex items-center justify-center rounded-2xl bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100"
-                          >
-                            <Trash2 className="h-5 w-5" />
-                          </Motion.button>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )
-              })()}
-            </Motion.div>
-          </div>
-        ) : null}
+        {viewingProduct && (
+          <ProductViewModal
+            product={viewingProduct}
+            onClose={() => setViewingProduct(null)}
+            onEdit={openEditPage}
+            onRemove={removeProduct}
+            t={t}
+            isMobile={isMobile}
+            setLightboxOpen={setLightboxOpen}
+            activeMediaIndex={activeModalMediaIndex}
+            setActiveMediaIndex={setActiveModalMediaIndex}
+            modalSlideDirection={modalSlideDirection}
+            setModalSlideDirection={setModalSlideDirection}
+          />
+        )}
       </AnimatePresence>
 
-      {/* ── Lightbox ─────────────────────────────────────────────────── */}
       <AnimatePresence>
         {lightboxOpen && (
           <ImageLightbox
-            src={
-              getProductMediaItems(viewingProduct)[activeModalMediaIndex]?.preview ||
-              viewingProduct?.imagePreview
-            }
+            src={getProductMediaItems(viewingProduct)[activeModalMediaIndex]?.preview || viewingProduct?.imagePreview}
             alt={viewingProduct?.name}
             onClose={() => setLightboxOpen(false)}
           />
         )}
       </AnimatePresence>
+
+      <DeleteConfirmationSheet
+        isOpen={Boolean(productToRemove)}
+        onClose={() => setProductToRemove(null)}
+        onConfirm={() => {
+          if (productToRemove) {
+            removeProduct(productToRemove.id)
+            setProductToRemove(null)
+            toast.success(t('admin.products.item.deleteSuccess'))
+          }
+        }}
+        title={t('admin.products.item.deleteConfirmTitle')}
+        description={t('admin.products.item.deleteConfirmDesc')}
+        confirmText={t('admin.products.item.deleteConfirmBtn')}
+        cancelText={t('admin.products.item.deleteCancelBtn')}
+        isMobile={isMobile}
+      />
     </Motion.div>
   )
 })
+
+const EmptyProductsState = ({ onAdd, t }) => (
+  <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center rounded-[22px] border-2 border-dashed border-[#DDEFE7] bg-white px-4 py-10 text-center sm:py-14">
+    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F2FBF7] sm:h-12 sm:w-12">
+      <Package className="h-5 w-5 text-[#86A29B] sm:h-6 sm:w-6" />
+    </div>
+    <p className="font-bold text-[#295565]">{t('admin.products.empty.title')}</p>
+    <p className="mt-1 max-w-xs text-[0.74rem] text-[#1E293B]">{t('admin.products.empty.desc')}</p>
+    <Motion.button whileHover={{ scale: 1.03 }} onClick={onAdd} className="mt-5 flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-[0.78rem] font-bold text-white shadow-md shadow-emerald-500/20">
+      <Plus className="h-4 w-4" /> {t('admin.products.empty.btn')}
+    </Motion.button>
+  </Motion.div>
+)
+

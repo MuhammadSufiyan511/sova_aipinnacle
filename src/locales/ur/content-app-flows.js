@@ -218,7 +218,12 @@ const admin = {
       deactivate: 'غیر فعال کریں',
       modalTitle: 'پروڈکٹ کا جائزہ',
       noDescription: 'ابھی تک کوئی تفصیل شامل نہیں کی گئی۔',
-      none: 'کوئی نہیں'
+      none: 'کوئی نہیں',
+      deleteConfirmTitle: 'پروڈکٹ حذف کریں؟',
+      deleteConfirmDesc: 'یہ عمل واپس نہیں لیا جا سکتا۔ اس پروڈکٹ سے وابستہ تمام ڈیٹا مستقل طور پر ہٹا دیا جائے گا۔',
+      deleteConfirmBtn: 'جی ہاں، پروڈکٹ حذف کریں',
+      deleteCancelBtn: 'ابھی رہنے دیں',
+      deleteSuccess: 'پروڈکٹ کامیابی سے حذف کر دی گئی',
     },
     controls: {
       searchPlaceholder: 'پروڈکٹس تلاش کریں...',
@@ -885,4 +890,12 @@ admin.addProductOverview = {
     lowStock: 'اسٹاک کم ہے!',
     stable: 'اسٹاک ٹھیک ہے'
   }
+}
+
+export const notFound = {
+  title: '404',
+  subtitle: 'راستہ بھٹک گئے؟',
+  desc: "جس صفحے کو آپ تلاش کر رہے ہیں وہ موجود نہیں ہے یا اسے کسی دوسری کائنات میں منتقل کر دیا گیا ہے۔",
+  backBtn: 'مجھے گھر لے جائیں',
+  backLink: 'واپس جائیں',
 }

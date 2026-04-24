@@ -167,7 +167,12 @@ export const admin = {
       deactivate: 'निष्क्रिय करें',
       modalTitle: 'प्रोडक्ट ओवरव्यू',
       noDescription: 'अभी कोई विवरण जोड़ा नहीं गया है।',
-      none: 'कोई नहीं'
+      none: 'कोई नहीं',
+      deleteConfirmTitle: 'उत्पाद हटाएं?',
+      deleteConfirmDesc: 'इस क्रिया को वापस नहीं लिया जा सकता। इस उत्पाद से जुड़ा सारा डेटा स्थायी रूप से हटा दिया जाएगा।',
+      deleteConfirmBtn: 'हाँ, उत्पाद हटाएं',
+      deleteCancelBtn: 'अभी रहने दें',
+      deleteSuccess: 'उत्पाद सफलतापूर्वक हटा दिया गया',
     },
     controls: {
       searchPlaceholder: 'प्रोडक्ट खोजें...',
@@ -991,4 +996,12 @@ admin.mockData = {
       { from: 'sova', text: 'बेहतरीन! मैं 3x प्रीमियम सिल्क स्كارफ के लिए चालान (Invoice) तैयार कर दूंगा। क्या मैं आपका ऑर्डर कन्फर्म कर दूं?' }
     ]
   },
+}
+
+export const notFound = {
+  title: '404',
+  subtitle: 'रास्ता भटक गए?',
+  desc: "जिस पेज को आप ढूंढ रहे हैं वह मौजूद नहीं है या उसे किसी दूसरी दुनिया में भेज दिया गया है।",
+  backBtn: 'वापस घर चलें',
+  backLink: 'पीछे जाएं',
 }
