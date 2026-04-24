@@ -4,7 +4,7 @@ import { useApp } from '../context/AppProvider'
 
 export function useProfileData() {
   const { t, i18n } = useTranslation()
-  const { user, products, tones } = useApp()
+  const { user, products, tones, businessDetails, setBusinessDetails } = useApp()
 
   const mockProfile = t('admin.mockData.profile', { returnObjects: true }) || {}
 
@@ -20,6 +20,8 @@ export function useProfileData() {
     user,
     products,
     tones,
+    businessDetails,
+    setBusinessDetails,
     activity
   }
 }

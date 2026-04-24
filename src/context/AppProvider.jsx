@@ -24,6 +24,18 @@ export function AppProvider({ children }) {
     return saved ? JSON.parse(saved) : []
   })
 
+  const [businessDetails, setBusinessDetails] = useState(() => {
+    const saved = localStorage.getItem('sova-business-details')
+    return saved
+      ? JSON.parse(saved)
+      : {
+          name: '',
+          description: '',
+          location: '',
+          image: ''
+        }
+  })
+
   const [user, setUser] = useState({ name: 'User', plan: 'Free' })
   const [showCelebration, setShowCelebration] = useState(false)
   const [homeDarkMode, setHomeDarkMode] = useState(() => {
@@ -50,6 +62,10 @@ export function AppProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('sova-business-profile', JSON.stringify(businessProfile))
   }, [businessProfile])
+
+  useEffect(() => {
+    localStorage.setItem('sova-business-details', JSON.stringify(businessDetails))
+  }, [businessDetails])
 
   const addProduct = (product) => {
     if (product?.mediaType === 'file') {
@@ -95,6 +111,8 @@ export function AppProvider({ children }) {
     setFiles,
     tones,
     setTones,
+    businessDetails,
+    setBusinessDetails,
     user,
     setUser,
     addProduct,
@@ -107,7 +125,7 @@ export function AppProvider({ children }) {
     setShowCelebration,
     homeDarkMode,
     setHomeDarkMode
-  }), [businessProfile, products, files, tones, user, showCelebration, homeDarkMode])
+  }), [businessProfile, products, files, tones, businessDetails, user, showCelebration, homeDarkMode])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

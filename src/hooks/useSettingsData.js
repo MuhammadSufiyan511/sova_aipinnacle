@@ -17,19 +17,10 @@ export const businessTypes = [
   { id: 'other', emoji: '🌟' },
 ]
 
-export const toneColors = {
-  emerald: { active: 'border-emerald-500 bg-emerald-50 text-emerald-700', dot: 'bg-emerald-500' },
-  blue: { active: 'border-blue-400 bg-blue-50 text-blue-700', dot: 'bg-blue-400' },
-  amber: { active: 'border-amber-400 bg-amber-50 text-amber-700', dot: 'bg-amber-400' },
-  violet: { active: 'border-violet-500 bg-violet-50 text-violet-700', dot: 'bg-violet-500' },
-  rose: { active: 'border-rose-400 bg-rose-50 text-rose-700', dot: 'bg-rose-400' },
-  cyan: { active: 'border-cyan-400 bg-cyan-50 text-cyan-700', dot: 'bg-cyan-400' },
-}
-
 export function useSettingsData() {
   const { t } = useTranslation()
   const { businessProfile, setBusinessProfile, tones, setTones } = useApp()
-  const activeTone = tones[0] || 'Professional'
+  const normalizedTones = Array.isArray(tones) && tones.length > 0 ? tones : ['Professional']
   
   const [alerts, setAlerts] = useState(true)
   const [autoReply, setAutoReply] = useState(true)
@@ -40,7 +31,7 @@ export function useSettingsData() {
   const [draftCustomCategory, setDraftCustomCategory] = useState(businessProfile?.customCategory || '')
 
   const [toneModalOpen, setToneModalOpen] = useState(false)
-  const [draftTone, setDraftTone] = useState(activeTone)
+  const [draftTones, setDraftTones] = useState(normalizedTones)
   
   const [isMobile, setIsMobile] = useState(false)
 
@@ -81,19 +72,19 @@ export function useSettingsData() {
   }
 
   const openToneModal = () => {
-    setDraftTone(activeTone)
+    setDraftTones(normalizedTones)
     setToneModalOpen(true)
   }
 
   const saveToneSettings = () => {
-    setTones([draftTone])
+    setTones(draftTones.length > 0 ? draftTones : ['Professional'])
     setToneModalOpen(false)
   }
 
   return {
     t,
     businessProfile,
-    activeTone, setTones,
+    normalizedTones,
     alerts, setAlerts,
     autoReply, setAutoReply,
     spamFilter, setSpamFilter,
@@ -106,7 +97,7 @@ export function useSettingsData() {
     openBusinessModal,
     saveBusinessProfile,
     toneModalOpen, setToneModalOpen,
-    draftTone, setDraftTone,
+    draftTones, setDraftTones,
     openToneModal,
     saveToneSettings,
   }

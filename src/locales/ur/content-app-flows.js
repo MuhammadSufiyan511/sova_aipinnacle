@@ -104,6 +104,7 @@ const admin = {
     starter: 'اسٹارٹر',
     growth: 'گروتھ',
     scale: 'اسکیل',
+    units: 'یونٹ',
   },
   overview: {
     performance: 'ورک اسپیس کی کارکردگی',
@@ -405,6 +406,24 @@ const admin = {
         ready: '{{count}} ٹون سیٹنگ {{s}} کنفیگر ہو گئی'
       }
     },
+    business: {
+      title: 'بزنس پروفائل',
+      cancel: 'منسوخ کریں',
+      save: 'محفوظ کریں',
+      edit: 'ترمیم کریں',
+      photoAlt: 'بزنس پروفائل',
+      noPhoto: 'بزنس کی تصویر موجود نہیں',
+      uploadPhoto: 'تصویر اپلوڈ کریں',
+      nameLabel: 'بزنس کا نام',
+      namePlaceholder: 'مثال: نور عبایا ہاؤس',
+      emptyName: 'اپنا بزنس نیم درج کریں',
+      descriptionLabel: 'بزنس کی تفصیل',
+      descriptionPlaceholder: 'خریداروں کو بتائیں کہ آپ کیا فروخت کرتے ہیں اور لوگ آپ کو کیوں منتخب کرتے ہیں۔',
+      emptyDescription: 'بزنس کی مختصر تفصیل شامل کریں',
+      locationLabel: 'بزنس لوکیشن',
+      locationPlaceholder: 'مثال: کراچی، پاکستان',
+      emptyLocation: 'اپنی لوکیشن درج کریں'
+    },
     summary: {
       title: 'پروفائل کا خلاصہ',
       desc: 'یہ ورک اسپیس واٹس ایپ گفتگو کو مینیج کرنے، کوالٹی لیڈز کو روٹ کرنے اور سوفا کے ذریعے جوابات کو خودکار بنانے کے لیے تیار ہے۔'
@@ -624,6 +643,8 @@ admin.addProductOverview = {
     category: {
       title: 'کیٹیگری اور قسم',
       subtitle: 'منتخب کریں کہ یہ آئٹم آپ کی شاپ میں کہاں آتی ہے۔',
+      industryLabel: 'صنعت',
+      desc: 'اقسام اور معیار',
       categoryLabel: 'کیٹیگری',
       subCategoryLabel: 'قسم',
       categoryPlaceholder: 'کیٹیگری منتخب کریں',
@@ -652,11 +673,25 @@ admin.addProductOverview = {
       primary: 'اصلی تصویر',
       makePrimary: 'اصلی تصویر بنائیں'
     },
-    variants: {
-      title: '3. آپشنز',
-      subtitle: 'اگر دستیاب ہو تو مختلف سائز، رنگ یا پیک شامل کریں۔',
-      inputPlaceholder: 'لکھ کر Enter دبائیں'
-    },
+      variants: {
+        title: 'پروڈکٹ کی اقسام',
+        subtitle: 'سائز، رنگ اور میٹریل کے مختلف سیٹ متعین کریں۔',
+        desc: 'دستیاب سائز اور رنگوں کے سیٹ',
+        rowLabel: 'اقسام کا سیٹ',
+        inputPlaceholder: 'لکھ کر Enter دبائیں',
+        expandAll: 'سب کھولیں',
+        collapseAll: 'سب بند کریں',
+        newGroupLabel: 'نیا ویرینٹ گروپ',
+        addGroup: 'ویرینٹ گروپ شامل کریں',
+        saveVariant: 'ویرینٹ محفوظ کریں',
+        sizeLabel: 'سائز',
+        colorsLabel: '{{count}} رنگ',
+        colorLabel: '{{count}} رنگ',
+        noVariantsFound: 'اس زمرے کے لیے کوئی پروڈکٹ کی مختلف قسمیں نہیں ملییں',
+        noStandardFields: 'اس زمرے کے لیے کوئی معیاری مختلف فیلڈز (سائز، رنگ وغیرہ) متعین نہیں ہیں۔',
+        noVariantFields: 'اس زمرے کے لیے کوئی معیاری مختلف فیلڈز (سائز، رنگ وغیرہ) متعین نہیں ہیں۔',
+        noVariantFieldsSubtitle: 'آپ اب بھی نیچے حسب ضرورت تفصیلات شامل کر سکتے ہیں۔',
+      },
     pricing: {
       title: 'قیمت اور اسٹاک',
       subtitle: 'اپنی شاپ میں قیمت اور کل اسٹاک کی تعداد سیٹ کریں۔',
@@ -665,7 +700,8 @@ admin.addProductOverview = {
       discountLabel: 'ڈسکاؤنٹ',
       stockLabel: 'کل اسٹاک',
       stockPlaceholder: 'تعداد درج کریں',
-      minStockLabel: 'لو اسٹاک الرٹ',
+      currentStockLabel: 'موجودہ اسٹاک',
+      minStockLabel: 'کم اسٹاک الرٹ',
       skuLabel: 'آئٹم آئی ڈی (اختیاری)',
       skuPlaceholder: 'مثلاً SKU-1234',
       skuHelp: 'عالمی آئٹم شناختی کوڈ',
@@ -816,6 +852,27 @@ admin.addProductOverview = {
     statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
     statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا'
   },
+  summary: {
+    untitled: 'بغیر نام کا آئٹم',
+    statusReady: 'اسٹاک میں موجود ہے',
+    statusOutOfStock: 'اسٹاک ختم ہو گیا',
+    industryLabel: 'کاروبار کی کیٹیگری',
+    listingHealth: 'لسٹنگ کی حالت',
+    visibility: 'نمائش',
+    marketLive: 'شاپ پر فعال',
+    inventoryState: 'اسٹاک کی صورتحال',
+    lowStock: 'اسٹاک کم ہے!',
+    stable: 'اسٹاک ٹھیک ہے'
+  },
+  categoryRequired: 'براہ کرم ایک مرکزی زمرہ منتخب کریں',
+  subCategoryRequired: 'براہ کرم ایک ذیلی زمرہ منتخب کریں',
+  priceRequired: 'براہ کرم فروخت کی قیمت درج کریں',
+  stockRequired: 'براہ کرم اسٹاک کی مقدار درج کریں',
+  missingFields: 'محفوظ کرنے سے پہلے تمام ضروری فیلڈز پُر کریں',
+  createSuccess: 'پروڈکٹ کامیابی سے شامل ہو گئی',
+  updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی',
+  statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
+  statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا',
   summary: {
     untitled: 'بغیر نام کا آئٹم',
     statusReady: 'اسٹاک میں موجود ہے',

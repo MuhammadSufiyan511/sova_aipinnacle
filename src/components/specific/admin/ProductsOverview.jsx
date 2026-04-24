@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Eye, FileText, Package, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, ArrowRight, Tag, Box, BadgeCheck, TrendingUp, ZoomIn } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Eye, FileText, Package, DollarSign, Layers, Star, Pencil, PlayCircle, Plus, Search, Trash2, X, Zap, Tag, Box, BadgeCheck, TrendingUp, ZoomIn } from 'lucide-react'
 import { useMemo, useState, memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../../context/AppProvider'
@@ -402,6 +402,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
       : filteredProducts.slice((safePage - 1) * normalizedItemsPerPage, safePage * normalizedItemsPerPage)
   const pageStart = filteredProducts.length === 0 ? 0 : (safePage - 1) * normalizedItemsPerPage + 1
   const pageEnd = Math.min(safePage * normalizedItemsPerPage, filteredProducts.length)
+  const formatFieldLabel = (label) => label?.replace(/([A-Z])/g, ' $1')?.replace(/[_-]/g, ' ') || ''
 
   return (
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mx-auto flex w-[94%] flex-col gap-4 sm:w-full admin-products-shell">
@@ -523,7 +524,7 @@ export const ProductsOverview = memo(function ProductsOverview() {
               </p>
             </Motion.div>
           ) : (
-            <Motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+            <Motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               <AnimatePresence mode="popLayout">
                 {paginatedProducts.map((product, i) => (
                   <ProductCard
@@ -598,12 +599,12 @@ export const ProductsOverview = memo(function ProductsOverview() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 30 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="admin-modal-lux admin-card-shell relative z-[130] flex flex-col w-full max-w-lg max-h-[calc(100dvh-2rem)] md:max-h-[min(90dvh,850px)] overflow-hidden rounded-[24px] md:rounded-[32px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] will-change-[transform,opacity]"
+              className="admin-modal-lux admin-card-shell relative z-[130] flex w-full max-w-6xl flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white shadow-[0_40px_100px_rgba(15,23,42,0.3)] md:flex-row md:h-[min(90vh,950px)] md:rounded-[32px] h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)]"
             >
               <button
                 type="button"
                 onClick={() => setViewingProduct(null)}
-                className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/40 text-white backdrop-blur-md transition hover:bg-slate-900/60 hover:text-red-400 shadow-xl"
+                className="absolute right-4 top-4 z-[100] flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/40 text-white backdrop-blur-md transition hover:bg-slate-900/60 hover:text-red-400 shadow-xl"
               >
                 <X className="h-5 w-5 drop-shadow-md" />
               </button>
@@ -625,232 +626,356 @@ export const ProductsOverview = memo(function ProductsOverview() {
                 }
 
                 return (
-                  <div className="relative h-48 md:h-56 w-full shrink-0 overflow-hidden bg-slate-950">
-                    <AnimatePresence initial={false} custom={modalSlideDirection}>
-                      <Motion.div
-                        key={currentModalMedia.preview || activeModalMediaIndex}
-                        custom={modalSlideDirection}
-                        variants={{
-                          enter: (direction) => ({
-                            x: direction > 0 ? 300 : direction < 0 ? -300 : 0,
-                            opacity: 0,
-                            scale: 0.95
-                          }),
-                          center: {
-                            zIndex: 1,
-                            x: 0,
-                            opacity: 1,
-                            scale: 1
-                          },
-                          exit: (direction) => ({
-                            zIndex: 0,
-                            x: direction < 0 ? 300 : direction > 0 ? -300 : 0,
-                            opacity: 0,
-                            scale: 0.95
-                          })
-                        }}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                          x: { type: 'spring', stiffness: 300, damping: 30 },
-                          opacity: { duration: 0.2 }
-                        }}
-                        className="absolute inset-0 h-full w-full"
-                      >
-                        {currentModalMedia.type === 'video' ? (
-                          <video
-                            src={currentModalMedia.preview}
-                            className="h-full w-full object-contain bg-black/50"
-                            controls
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                          />
-                        ) : currentModalMedia.type === 'file' ? (
-                          <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-50 text-slate-400">
-                            <FileText className="h-12 w-12 text-slate-300" />
-                            <span className="max-w-[80%] text-center text-[0.75rem] font-bold text-slate-500">
-                              {currentModalMedia.name || viewingProduct.name}
-                            </span>
-                          </div>
-                        ) : (
-                          <img
-                            src={currentModalMedia.preview}
-                            className="h-full w-full object-cover"
-                            alt={viewingProduct.name}
-                          />
+                  <>
+                    {/* LEFT SIDE: Media */}
+                    <div className="relative h-[280px] sm:h-[320px] w-full shrink-0 overflow-hidden bg-slate-950 md:h-full md:w-[45%]">
+                      <AnimatePresence initial={false} custom={modalSlideDirection}>
+                        <Motion.div
+                          key={currentModalMedia.preview || activeModalMediaIndex}
+                          custom={modalSlideDirection}
+                          variants={{
+                            enter: (direction) => ({ x: direction > 0 ? 300 : -300, opacity: 0, scale: 0.95 }),
+                            center: { zIndex: 1, x: 0, opacity: 1, scale: 1 },
+                            exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 300 : -300, opacity: 0, scale: 0.95 })
+                          }}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                          drag="x"
+                          dragConstraints={{ left: 0, right: 0 }}
+                          dragElastic={1}
+                          onDragEnd={(e, { offset, velocity }) => {
+                            const swipe = offset.x
+                            if (swipe < -50) {
+                              showNextModalMedia()
+                            } else if (swipe > 50) {
+                              showPrevModalMedia()
+                            }
+                          }}
+                          className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing"
+                        >
+                          {currentModalMedia.type === 'video' ? (
+                            <video src={currentModalMedia.preview} className="h-full w-full object-contain bg-black/50" controls autoPlay muted loop playsInline />
+                          ) : currentModalMedia.type === 'file' ? (
+                            <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-50 text-slate-400">
+                              <FileText className="h-12 w-12 text-slate-300" />
+                              <span className="max-w-[80%] text-center text-[0.75rem] font-bold text-slate-500">{currentModalMedia.name || viewingProduct.name}</span>
+                            </div>
+                          ) : (
+                            <img src={currentModalMedia.preview} className="h-full w-full object-cover" alt={viewingProduct.name} />
+                          )}
+                        </Motion.div>
+                      </AnimatePresence>
+
+                      <div className="absolute left-4 top-4 z-40 flex flex-wrap gap-2 pr-12">
+                        <span className={`text-[0.6rem] font-black px-3 py-1 rounded-full border shadow-sm backdrop-blur-md tracking-wider uppercase ${viewingProduct.isActive !== false ? 'bg-emerald-500/90 text-white border-emerald-400/50' : 'bg-slate-900/80 text-slate-300 border-slate-700/50'
+                          }`}>
+                          {viewingProduct.isActive !== false ? t('admin.common.active') : t('admin.common.inactive')}
+                        </span>
+                        {viewingProduct.industry && (
+                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/40 text-white border border-white/10 shadow-sm backdrop-blur-md tracking-wider uppercase">
+                            {viewingProduct.industry}
+                          </span>
                         )}
-                      </Motion.div>
-                    </AnimatePresence>
+                        {viewingProduct.brand && (
+                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/40 text-white border border-white/10 shadow-sm backdrop-blur-md tracking-wider uppercase">
+                            {viewingProduct.brand}
+                          </span>
+                        )}
+                        {viewingProduct.sku && (
+                          <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/60 text-white border border-white/20 shadow-sm backdrop-blur-md tracking-wider uppercase">
+                            SKU: {viewingProduct.sku}
+                          </span>
+                        )}
+                      </div>
 
-                    {hasMultipleModalMedia && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={showPrevModalMedia}
-                          className="absolute left-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/60 text-slate-900 shadow-lg backdrop-blur-md transition hover:bg-white"
-                        >
-                          <ChevronLeft className="h-5 w-5" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={showNextModalMedia}
-                          className="absolute right-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/60 text-slate-900 shadow-lg backdrop-blur-md transition hover:bg-white"
-                        >
-                          <ChevronRight className="h-5 w-5" />
-                        </button>
-                        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/20 px-3 py-1.5 backdrop-blur-md">
-                          {modalMediaItems.map((_, i) => (
-                            <span
-                              key={i}
-                              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === activeModalMediaIndex ? 'w-4 bg-white shadow-sm' : 'bg-white/40'}`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-
-                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
-                    
-                    {/* Magnify / Expand */}
-                    {currentModalMedia.type === 'image' && (
                       <button
                         onClick={() => setLightboxOpen(true)}
-                        className="absolute bottom-4 right-4 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/60 hover:scale-105 active:scale-95"
-                        title={t('admin.common.preview')}
+                        className="absolute bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white border border-white/20 shadow-2xl backdrop-blur-lg transition hover:bg-emerald-500 hover:border-emerald-400 hover:scale-110 active:scale-95"
                       >
-                        <ZoomIn className="h-4 w-4" />
+                        <ZoomIn className="h-5 w-5" />
                       </button>
-                    )}
-                    
-                    <div className="absolute z-20 left-6 bottom-4 md:left-8 md:bottom-6 text-white pointer-events-none pr-16">
-                      <span className="mb-2 flex w-fit items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-[0.14em] shadow-lg">
-                        <TrendingUp className="h-3 w-3" />
-                        {viewingProduct.isActive !== false ? 'Live' : 'Archived'}
-                      </span>
-                      <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white drop-shadow-sm line-clamp-1">
-                        {viewingProduct.name}
-                      </h3>
+
+                      {hasMultipleModalMedia && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={showPrevModalMedia}
+                            className="absolute left-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md transition hover:bg-white hover:text-slate-900"
+                          >
+                            <ChevronLeft className="h-5 w-5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={showNextModalMedia}
+                            className="absolute right-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md transition hover:bg-white hover:text-slate-900"
+                          >
+                            <ChevronRight className="h-5 w-5" />
+                          </button>
+                          <div className="absolute bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/20 px-3 py-1.5 backdrop-blur-md">
+                            {modalMediaItems.map((_, i) => (
+                              <span key={i} className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === activeModalMediaIndex ? 'w-4 bg-white shadow-sm' : 'bg-white/40'}`} />
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
-                  </div>
+
+                    {/* RIGHT SIDE: Details */}
+                    <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-slate-50/20">
+                      <div className="flex-1 overflow-y-auto px-5 py-6 md:px-10 md:py-10">
+                        {/* Header Section */}
+                        <div className="mb-10">
+                          <h3 className="text-[1.25rem] sm:text-[1.5rem] md:text-[1.85rem] font-bold text-[#1E293B] leading-tight mb-2">
+                            {viewingProduct.name || t('admin.products.item.none')}
+                          </h3>
+                        </div>
+
+                        {/* Content Sections */}
+                        <div className="space-y-8">
+                          {/* 1. Category Section */}
+                          <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+                            <div className="flex items-center gap-3 mb-6">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                                <Layers className="h-4.5 w-4.5" />
+                              </span>
+                              <div>
+                                <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-[#1E293B]">
+                                  {t('admin.addProductOverview.sections.category.title')}
+                                </p>
+                                <p className="text-[0.75rem] font-medium text-slate-400">
+                                  {t('admin.addProductOverview.sections.category.desc') || 'Classification and hierarchy'}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                              <div className="flex flex-col gap-2">
+                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
+                                  {t('admin.addProductOverview.sections.category.industryLabel') || 'Industry'}
+                                </span>
+                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">{viewingProduct.industry?.replace('-', ' ')}</span>
+                              </div>
+                              <div className="flex flex-col gap-2">
+                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.categoryLabel')}</span>
+                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
+                                  {viewingProduct.categoryAt === 'custom' ? viewingProduct.customCategory : viewingProduct.categoryAt?.replace(/-/g, ' ')}
+                                </span>
+                              </div>
+                              <div className="flex flex-col gap-2">
+                                <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.subCategoryLabel')}</span>
+                                <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
+                                  {viewingProduct.subCategoryAt === 'custom' ? viewingProduct.customSubCategory : viewingProduct.subCategoryAt}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* 2. Main Stats Grid */}
+                          <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
+                            {/* Sale Price Card */}
+                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
+                              <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
+                                <DollarSign className="h-3 w-3 text-emerald-500" />
+                                {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
+                              </p>
+                              <p className="text-[1.25rem] font-bold text-[#10B981]">
+                                {viewingProduct.salePrice ? t('admin.products.item.price', { price: viewingProduct.salePrice }) : t('admin.products.item.none')}
+                              </p>
+                              {viewingProduct.price && Number(viewingProduct.price) > Number(viewingProduct.salePrice) && (
+                                <div className="mt-2 flex items-center gap-2">
+                                  <p className="text-[0.72rem] font-medium text-slate-400 line-through">
+                                    {t('admin.products.item.price', { price: viewingProduct.price })}
+                                  </p>
+                                  <span className="text-[0.62rem] font-black text-rose-500 uppercase">
+                                    -{viewingProduct.discount || '0%'}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Inventory Card */}
+                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
+                              <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
+                                <Package className="h-3 w-3 text-slate-400" />
+                                {t('admin.addProductOverview.sections.pricing.currentStockLabel', { defaultValue: 'Current Stock' })}
+                              </p>
+                              <div className="flex items-baseline gap-1.5">
+                                <p className={`text-[1.25rem] font-bold ${Number(viewingProduct.stock) <= Number(viewingProduct.minStock) ? 'text-rose-500' : 'text-[#1E293B]'}`}>
+                                  {viewingProduct.stock ?? '0'}
+                                </p>
+                                <span className="text-[0.65rem] font-bold text-[#1E293B] uppercase tracking-wider">{t('admin.common.units')}</span>
+                              </div>
+                              <p className="mt-2 text-[0.68rem] font-medium text-slate-400">
+                                {t('admin.addProductOverview.sections.pricing.minStockLabel')}: {viewingProduct.minStock || '0'}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Extra Metadata Grid */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-400">
+                                <Box className="h-5 w-5" />
+                              </div>
+                              <div>
+                                <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.pricing.minOrderLabel')}</p>
+                                <p className="text-[0.88rem] font-bold text-[#1E293B]">{viewingProduct.minOrder || '1'} {t('admin.common.units')}</p>
+                              </div>
+                            </div>
+                            {viewingProduct.brand && (
+                              <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
+                                  <Star className="h-5 w-5" />
+                                </div>
+                                <div>
+                                  <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.basics.brandLabel') || 'Brand'}</p>
+                                  <p className="text-[0.88rem] font-bold text-[#1E293B]">{viewingProduct.brand}</p>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Description Card */}
+                          <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-5 sm:p-6 shadow-sm group">
+                            <div className="flex items-center gap-3 mb-4">
+                              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-colors group-hover:bg-emerald-50 group-hover:text-emerald-600">
+                                <FileText className="h-4 w-4" />
+                              </span>
+                              <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                                {t('admin.addProductOverview.sections.basics.descriptionLabel')}
+                              </p>
+                            </div>
+                            <p className="text-[0.95rem] font-medium leading-[1.8] text-[#476172] min-h-[50px] whitespace-pre-wrap">
+                              {viewingProduct.description || t('admin.products.item.noDescription')}
+                            </p>
+                          </div>
+
+                          {/* Variants Card */}
+                          {Array.isArray(viewingProduct.variantGroups) && viewingProduct.variantGroups.length > 0 && (
+                            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+                              <div className="flex items-center gap-3 mb-6">
+                                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                                  <Tag className="h-4.5 w-4.5" />
+                                </span>
+                                <div>
+                                  <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                                    {t('admin.addProductOverview.sections.variants.title')}
+                                  </p>
+                                  <p className="text-[0.75rem] font-medium text-slate-400">
+                                    {t('admin.addProductOverview.sections.variants.desc') || 'Available size and color sets'}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                {viewingProduct.variantGroups.map((group, groupIdx) => (
+                                  <div key={group.id || groupIdx} className="p-4 sm:p-5 rounded-2xl bg-slate-50/50 border border-slate-100/30">
+                                    <div className="flex items-center gap-3 mb-4">
+                                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border border-slate-200 text-[0.7rem] font-black text-slate-900 shadow-sm">
+                                        {groupIdx + 1}
+                                      </span>
+                                      <span className="text-[0.75rem] font-black text-slate-900/40 uppercase tracking-[0.1em]">
+                                        {t('admin.addProductOverview.sections.variants.rowLabel') || 'Variation Set'}
+                                      </span>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                                      {Object.entries(group.attributes || {}).map(([key, val]) => (
+                                        <div key={key} className="flex flex-col gap-2">
+                                          <span className="text-[0.55rem] font-black uppercase tracking-[0.12em] text-[#1E293B]">
+                                            {formatFieldLabel(key)}
+                                          </span>
+                                          <div className="flex flex-wrap gap-1.5">
+                                            {Array.isArray(val) ? (
+                                              val.map(v => (
+                                                <span key={v} className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
+                                                  {v}
+                                                </span>
+                                              ))
+                                            ) : (
+                                              <span className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
+                                                {val}
+                                              </span>
+                                            )}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Technical Specs Card */}
+                          {viewingProduct.specs && Object.keys(viewingProduct.specs).length > 0 && (
+                            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+                              <div className="flex items-center gap-3 mb-6">
+                                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                                  <BadgeCheck className="h-4 w-4" />
+                                </span>
+                                <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                                  {t('admin.products.item.specsTitle')}
+                                </p>
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {Object.entries(viewingProduct.specs).map(([key, value]) => (
+                                  <div key={key} className="flex flex-col gap-1.5 pl-3 border-l-2 border-emerald-100">
+                                    <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
+                                      {key.replace(/([A-Z])/g, ' $1')}
+                                    </span>
+                                    <span className="text-[0.88rem] font-bold text-[#1E293B] leading-tight">{value}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {/* Bottom Spacing for mobile to avoid footer overlap */}
+                          <div className="h-6 md:hidden" />
+                        </div>
+                      </div>
+
+                      {/* Footer Actions */}
+                      <div className="shrink-0 border-t border-[#EAF1EE] bg-white/90 p-4 sm:p-6 md:px-10 backdrop-blur-md">
+                        <div className="flex items-center gap-3 md:gap-4">
+                          <Motion.button
+                            whileHover={{ scale: 1.01, y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => openEditPage(viewingProduct)}
+                            className="flex-1 h-13 flex items-center justify-center gap-3 rounded-2xl bg-slate-900 text-[0.88rem] font-black text-white shadow-xl shadow-slate-900/10 transition hover:bg-emerald-600 hover:shadow-emerald-600/20"
+                          >
+                            <Pencil className="h-4 w-4" />
+                            {t('admin.products.item.editBtn')}
+                          </Motion.button>
+                          <Motion.button
+                            whileHover={{ scale: 1.05, rotate: 2 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => {
+                              if (window.confirm('Archive this product?')) {
+                                removeProduct(viewingProduct.id)
+                                setViewingProduct(null)
+                              }
+                            }}
+                            className="h-13 w-13 flex items-center justify-center rounded-2xl bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100"
+                          >
+                            <Trash2 className="h-5 w-5" />
+                          </Motion.button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 )
               })()}
-
-        <div className="admin-modal-ribbon flex shrink-0 flex-col md:flex-row md:h-14 items-start md:items-center border-b border-slate-100 bg-white/50 px-6 py-4 md:py-0">
-          <div className="flex w-full items-center justify-between">
-            <div className="flex flex-wrap items-center gap-4 md:gap-6">
-              <div className="flex flex-col">
-                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.priceLabel')}</span>
-                <span className="text-[0.85rem] md:text-[0.95rem] font-black text-emerald-600">{t('admin.products.item.price', { price: viewingProduct.price || '0.00' })}</span>
-              </div>
-              <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
-              <div className="flex flex-col">
-                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.stockLabel')}</span>
-                <span className="admin-modal-value text-[0.85rem] md:text-[0.95rem] font-black text-slate-900">{viewingProduct.stock || '0'}</span>
-              </div>
-              <div className="admin-modal-divider hidden md:block h-8 w-px bg-slate-100" />
-              <div className="flex flex-col">
-                <span className="text-[0.5rem] md:text-[0.55rem] font-bold uppercase tracking-widest text-slate-400">{t('admin.products.item.skuLabel')}</span>
-                <span className="admin-modal-value text-[0.75rem] md:text-[0.85rem] font-bold text-slate-900">{viewingProduct.sku || t('admin.products.item.none')}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-6 py-6 min-h-0 no-scrollbar">
-          <div className="space-y-6 md:space-y-8">
-            <section>
-              <div className="mb-4 flex flex-wrap items-center gap-2">
-                <span className="admin-modal-tag inline-flex items-center gap-1.5 rounded-full bg-slate-100/50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-bold text-slate-500">
-                  <Box className="h-3.5 w-3.5" />
-                  {viewingProduct.industry || 'Catalog'}
-                </span>
-                {viewingProduct.categoryAt && (
-                  <>
-                    <ArrowRight className="h-3 w-3 text-slate-300" />
-                    <span className="admin-modal-badge-emerald inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-emerald-600">
-                      {viewingProduct.categoryAt}
-                    </span>
-                  </>
-                )}
-                {viewingProduct.subCategoryAt && (
-                  <>
-                    <ArrowRight className="h-3 w-3 text-slate-300" />
-                    <span className="admin-modal-badge-dark inline-flex items-center rounded-full bg-slate-900 px-2.5 py-1.5 md:px-3 text-[0.55rem] md:text-[0.62rem] font-extrabold text-white">
-                      {viewingProduct.subCategoryAt}
-                    </span>
-                  </>
-                )}
-              </div>
-              <h4 className="sr-only">Description</h4>
-              <p className="admin-modal-description max-w-2xl text-[0.85rem] md:text-[0.95rem] font-medium leading-[1.8] text-slate-600">
-                {viewingProduct.description || t('admin.products.item.noDescription')}
-              </p>
-            </section>
-
-            {viewingProduct.specs && Object.keys(viewingProduct.specs).length > 0 && (
-              <section className="admin-modal-specs">
-                <div className="mb-5 md:mb-6 flex items-center gap-4">
-                  <h4 className="flex items-center gap-2 text-[0.55rem] md:text-[0.6rem] font-black uppercase tracking-[0.2em] text-slate-300">
-                    <BadgeCheck className="h-4 w-4 text-emerald-500" />
-                    {t('admin.products.item.specsTitle')}
-                  </h4>
-                  <div className="admin-modal-divider h-px flex-1 bg-slate-100" />
-                </div>
-                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 md:gap-y-8">
-                  {Object.entries(viewingProduct.specs).map(([key, value]) => (
-                    <div key={key} className="flex flex-col gap-1 md:gap-1.5">
-                      <span className="text-[0.5rem] md:text-[0.55rem] font-black uppercase tracking-[0.18em] text-slate-400">
-                        {key.replace(/([A-Z])/g, ' $1')}
-                      </span>
-                      <span className="admin-modal-value text-[0.82rem] md:text-[0.9rem] font-bold tracking-tight text-slate-900">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-        </div>
-
-        <div className="shrink-0 p-6 md:p-8 pt-0">
-          <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4">
-            <Motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => openEditPage(viewingProduct)}
-              className="admin-cta-premium w-full sm:flex-1 h-14 flex items-center justify-center gap-3 rounded-[20px] md:rounded-[24px] bg-slate-900 text-[0.85rem] md:text-[0.92rem] font-black text-white shadow-2xl transition hover:bg-emerald-600"
-            >
-              <Pencil className="h-4 w-4" />
-              {t('admin.products.item.editBtn')}
-            </Motion.button>
-            <Motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                if (window.confirm('Archive this product?')) {
-                  removeProduct(viewingProduct.id)
-                  setViewingProduct(null)
-                }
-              }}
-              className="admin-btn-danger-glass h-16 w-16 flex items-center justify-center rounded-[24px] bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100/50"
-            >
-              <Trash2 className="h-5 w-5" />
-            </Motion.button>
-          </div>
-        </div>
             </Motion.div>
           </div>
         ) : null}
       </AnimatePresence>
-      
+
       {/* ── Lightbox ─────────────────────────────────────────────────── */}
       <AnimatePresence>
         {lightboxOpen && (
           <ImageLightbox
             src={
-              getProductMediaItems(viewingProduct)[activeModalMediaIndex]?.preview || 
+              getProductMediaItems(viewingProduct)[activeModalMediaIndex]?.preview ||
               viewingProduct?.imagePreview
             }
             alt={viewingProduct?.name}

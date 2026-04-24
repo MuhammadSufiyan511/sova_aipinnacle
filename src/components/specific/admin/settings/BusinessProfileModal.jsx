@@ -1,5 +1,5 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { Check, X } from 'lucide-react'
+import { Check, X, PencilLine } from 'lucide-react'
 import { memo } from 'react'
 import { businessTypes } from '../../../../hooks/useSettingsData'
 
@@ -14,7 +14,8 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
   setDraftCustomCategory,
   saveBusinessProfile
 }) {
-  const showCustomField = draftBusinessType === 'other' || Boolean(draftCustomCategory.trim())
+  const isOther = draftBusinessType === 'other'
+  const showCustomField = isOther || Boolean(draftCustomCategory.trim())
 
   return (
     <AnimatePresence>
@@ -65,22 +66,21 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
                       key={type.id}
                       type="button"
                       onClick={() => setDraftBusinessType(type.id)}
-                      className={`relative rounded-[20px] border-2 p-3 text-left transition ${
-                        isSelected
-                          ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
-                          : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
-                      }`}
+                      className={`relative rounded-[20px] border-2 p-3 text-left transition ${isSelected
+                        ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
+                        : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
+                        }`}
                     >
                       {isSelected ? (
                         <span className="absolute right-3 top-3 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#10B981] text-white">
                           <Check className="h-3 w-3" />
                         </span>
                       ) : null}
-                      <span className="text-[1.3rem] leading-none">{type.emoji}</span>
-                      <p className="mt-1.5 text-[0.78rem] font-bold text-[#173247]">
+                      <span className="text-[1.3rem] leading-none mb-1">{type.emoji}</span>
+                      <p className={`text-[0.78rem] font-bold ${isSelected ? 'text-emerald-700' : 'text-[#173247]'}`}>
                         {t(`onboarding.business.categories.${type.id}.label`)}
                       </p>
-                      <p className="mt-0.5 text-[0.66rem] leading-4 text-[#1E293B]">
+                      <p className="mt-0.5 text-[0.66rem] leading-4 text-[#1E293B] opacity-70">
                         {t(`onboarding.business.categories.${type.id}.desc`)}
                       </p>
                     </button>
@@ -88,26 +88,38 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
                 })}
               </div>
 
-              {showCustomField ? (
-                <div className="mt-5">
-                  <label className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#648E89]">
-                    {t('admin.settings.sections.business.customCategoryLabel', {
-                      defaultValue: t('onboarding.business.customCategoryPlaceholder'),
-                    })}
-                  </label>
-                  <input
-                    type="text"
-                    value={draftCustomCategory}
-                    onChange={(event) => {
-                      const value = event.target.value
-                      setDraftCustomCategory(value)
-                      if (value.trim()) setDraftBusinessType('other')
-                    }}
-                    placeholder={t('onboarding.business.customCategoryPlaceholder')}
-                    className="h-12 w-full rounded-2xl border border-[#DDEFE7] bg-[#F8FAFC] px-4 text-[0.88rem] text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white"
-                  />
-                </div>
-              ) : null}
+              <AnimatePresence>
+                {showCustomField && (
+                  <Motion.div
+                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                    animate={{ opacity: 1, height: 'auto', marginTop: 24 }}
+                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <label className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#648E89]">
+                      {t('admin.settings.sections.business.customCategoryLabel', {
+                        defaultValue: t('onboarding.business.customCategoryPlaceholder'),
+                      })}
+                    </label>
+                    <div className="relative">
+                      <PencilLine className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-emerald-500" />
+                      <input
+                        autoFocus={isOther}
+                        type="text"
+                        value={draftCustomCategory}
+                        onChange={(event) => {
+                          const value = event.target.value
+                          setDraftCustomCategory(value)
+                          if (value.trim()) setDraftBusinessType('other')
+                        }}
+                        placeholder={t('onboarding.business.customCategoryPlaceholder')}
+                        className="h-13 w-full rounded-2xl border-2 border-[#DDEFE7] bg-emerald-50/20 pl-12 pr-4 text-[0.88rem] font-medium text-[#173247] outline-none transition focus:border-[#10B981] focus:bg-white focus:shadow-lg focus:shadow-emerald-500/5"
+                      />
+                    </div>
+                  </Motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <div className="flex flex-col-reverse gap-2.5 border-t border-[#ECF8F3] bg-[#F8FAFC]/50 px-5 py-4 sm:flex-row sm:justify-end sm:px-7 sm:py-5">

@@ -104,6 +104,7 @@ const admin = {
     starter: 'Starter',
     growth: 'Growth',
     scale: 'Scale',
+    units: 'Units',
   },
   overview: {
     performance: 'Workspace performance',
@@ -279,6 +280,8 @@ const admin = {
         customCategoryPlaceholder: 'e.g. Handmade Crafts',
         customSubCategoryLabel: 'Custom Type Name',
         customSubCategoryPlaceholder: 'e.g. Vintage Edition',
+        industryLabel: 'Industry',
+        desc: 'Classification and hierarchy',
         customFieldsTitle: 'Extra Details',
         addFieldBtn: 'Add New Detail',
         fieldLabelPlaceholder: 'e.g. Fabric Weight',
@@ -302,9 +305,25 @@ const admin = {
         makePrimary: 'Set as Main'
       },
       variants: {
-        title: '3. Options',
-        subtitle: 'Add different sizes, colors, or packs if available.',
-        inputPlaceholder: 'Type and press Enter'
+        title: 'Product Variations',
+        subtitle: 'Define multiple sets of sizes, colors, and materials',
+        desc: 'Available size and color sets',
+        rowLabel: 'Variation Set',
+        inputPlaceholder: 'Type and press Enter',
+        expandAll: 'Expand All',
+        collapseAll: 'Collapse All',
+        newGroupLabel: 'New Variation Group',
+        addGroupBtn: 'Add New Variant Group',
+        addGroup: 'Add Variant Group',
+        saveVariantBtn: 'Save Variant',
+        saveVariant: 'Save Variant',
+        noVariantsFound: 'No product variants found for this category',
+        noStandardFields: 'No standard variant fields (Size, Color, etc.) defined for this category.',
+        noVariantFields: 'No standard variant fields (Size, Color, etc.) defined for this category.',
+        noVariantFieldsSubtitle: 'You can still add custom specifications below.',
+        sizeLabel: 'Size',
+        colorsLabel: '{{count}} Colors',
+        colorLabel: '{{count}} Color'
       },
       pricing: {
         title: 'Price & Stock',
@@ -314,6 +333,7 @@ const admin = {
         discountLabel: 'Discount',
         stockLabel: 'Total Items in Hand',
         stockPlaceholder: 'Enter units',
+        currentStockLabel: 'Current Stock',
         minStockLabel: 'Low Stock Alert At',
         skuLabel: 'Item ID (Optional)',
         skuHelp: 'A unique code used to identify your item.',
@@ -1139,3 +1159,23 @@ const admin = {
 };
 
 export { onboarding, admin };
+
+admin.profile = admin.profile || {};
+admin.profile.business = {
+  title: 'Business Profile',
+  cancel: 'Cancel',
+  save: 'Save',
+  edit: 'Edit',
+  photoAlt: 'Business profile',
+  noPhoto: 'No business photo',
+  uploadPhoto: 'Upload photo',
+  nameLabel: 'Business name',
+  namePlaceholder: 'e.g. Noor Abaya House',
+  emptyName: 'Add your business name',
+  descriptionLabel: 'Business description',
+  descriptionPlaceholder: 'Tell buyers what you sell and why they choose you.',
+  emptyDescription: 'Add a short business description',
+  locationLabel: 'Business location',
+  locationPlaceholder: 'e.g. Karachi, Pakistan',
+  emptyLocation: 'Add your location',
+};

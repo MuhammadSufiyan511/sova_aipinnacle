@@ -1,9 +1,9 @@
 import { motion as Motion } from 'framer-motion'
-import { Bell, Bot, Briefcase, MessageSquare, Shield, Sparkles, Zap } from 'lucide-react'
+import { Bell, Bot, Briefcase, MessageSquare, Shield, Zap } from 'lucide-react'
 import { memo } from 'react'
 import { BusinessProfileModal } from './settings/BusinessProfileModal'
 import { ToneSettingsModal } from './settings/ToneSettingsModal'
-import { useSettingsData, toneColors } from '../../../hooks/useSettingsData'
+import { useSettingsData } from '../../../hooks/useSettingsData'
 import { Toggle } from '../../shared/Toggle'
 import sovaLogo from '../../../assets/logos/sova-bgless.png'
 
@@ -29,13 +29,17 @@ const rowItem = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }
 
 export const SettingsOverview = memo(function SettingsOverview() {
   const {
-    t, activeTone, setTones,
+    t, normalizedTones,
     alerts, setAlerts, autoReply, setAutoReply, spamFilter, setSpamFilter,
     businessModalOpen, setBusinessModalOpen, draftBusinessType, setDraftBusinessType,
     draftCustomCategory, setDraftCustomCategory, isMobile, businessLabel,
     toneOptions, openBusinessModal, saveBusinessProfile,
-    toneModalOpen, setToneModalOpen, draftTone, setDraftTone, openToneModal, saveToneSettings
+    toneModalOpen, setToneModalOpen, draftTones, setDraftTones, openToneModal, saveToneSettings
   } = useSettingsData()
+
+  const selectedToneLabels = normalizedTones
+    .map((toneId) => toneOptions.find((opt) => opt.id === toneId)?.label || toneId)
+    .join(', ')
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">
@@ -61,7 +65,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
               <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.voice.title')}</h3>
               <p className="mt-0.5 text-[0.72rem] leading-5 text-[#1E293B]">{t('admin.settings.sections.voice.subtitle')}</p>
               <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#10B981]">
-                {t('admin.settings.sections.voice.current')}: {toneOptions.find(opt => opt.id === activeTone)?.label || activeTone}
+                {t('admin.settings.sections.voice.current')}: {selectedToneLabels}
               </p>
             </div>
           </div>
@@ -138,8 +142,8 @@ export const SettingsOverview = memo(function SettingsOverview() {
         isMobile={isMobile}
         t={t}
         toneOptions={toneOptions}
-        draftTone={draftTone}
-        setDraftTone={setDraftTone}
+        draftTones={draftTones}
+        setDraftTones={setDraftTones}
         saveToneSettings={saveToneSettings}
       />
     </Motion.div>

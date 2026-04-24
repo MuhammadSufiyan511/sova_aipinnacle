@@ -1,7 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { Check, X, MessageSquare } from 'lucide-react'
 import { memo } from 'react'
-import { toneColors } from '../../../../hooks/useSettingsData'
 
 export const ToneSettingsModal = memo(function ToneSettingsModal({
   isOpen,
@@ -9,8 +8,8 @@ export const ToneSettingsModal = memo(function ToneSettingsModal({
   isMobile,
   t,
   toneOptions,
-  draftTone,
-  setDraftTone,
+  draftTones,
+  setDraftTones,
   saveToneSettings
 }) {
   return (
@@ -58,14 +57,17 @@ export const ToneSettingsModal = memo(function ToneSettingsModal({
             <div className="no-scrollbar flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6">
               <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2 md:grid-cols-3">
                 {toneOptions.map((tone) => {
-                  const isSelected = draftTone === tone.id
-                  const style = toneColors[tone.color]
+                  const isSelected = draftTones.includes(tone.id)
 
                   return (
                     <button
                       key={tone.id}
                       type="button"
-                      onClick={() => setDraftTone(tone.id)}
+                      onClick={() =>
+                        setDraftTones((prev) =>
+                          prev.includes(tone.id) ? prev.filter((id) => id !== tone.id) : [...prev, tone.id]
+                        )
+                      }
                       className={`admin-tone-card relative overflow-hidden rounded-[20px] border-2 p-3 text-left transition-all ${isSelected
                         ? 'border-[#10B981] bg-[#ECFDF5] shadow-[0_10px_24px_rgba(16,185,129,0.12)]'
                         : 'border-[#DDEFE7] bg-white hover:border-[#BFE7DA] hover:bg-[#F8FAFC]'
