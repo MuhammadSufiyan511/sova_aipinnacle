@@ -47,7 +47,7 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
 
   const mockupY = useTransform(activeProgress, [0, 0.15, 0.85, 1], [300, 0, 0, -300])
   const mockupOpacity = useTransform(activeProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
-  
+
   // ON MOBILE: Limit transforms to y/opacity only for smoother 60fps scrolling
   const mockupScale = useTransform(activeProgress, [0, 0.2, 0.5, 0.8, 1], isMobile ? [1, 1, 1, 1, 1] : [0.9, 1, 1.05, 1, 0.95])
   const mockupRotate = useTransform(activeProgress, [0, 0.5, 1], isMobile ? [0, 0, 0] : [5, 0, -5])
@@ -114,8 +114,8 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
         </div>
 
         {/* Below fold — auto section */}
-        <div className="relative z-10 -mt-[20%] will-change-transform">
-          <div className="bg-white pb-10 pt-10 2xl:pb-20 2xl:pt-20">
+        <div className="relative z-10 -mt-[20%] will-change-transform rounded-3xl">
+          {/* <div className="brand-feature-heading bg-white pb-10 pt-10 2xl:pb-20 2xl:pt-20 rounded-3xl">
             <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "150px" }} transition={{ duration: 0.6 }} className="text-center">
               <h2 className="font-display text-[2.6rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.2rem] 2xl:text-[4rem] 3xl:text-[4.6rem]">
                 {copy.autoTitle[0]}{' '}
@@ -125,9 +125,18 @@ export const BrandFeatureSection = memo(function BrandFeatureSection() {
                 {copy.autoTitle[2]}
               </h2>
             </MotionDiv>
-          </div>
+          </div> */}
 
-          <div className="-mt-8 rounded-2xl bg-white px-4 pb-20 sm:px-8 sm:w-full">
+          <div className="rounded-2xl py-12 bg-white px-4 sm:px-8 sm:w-full">
+            <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "150px" }} transition={{ duration: 0.6 }} className="text-center">
+              <h2 className="font-display text-[2.6rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[3.2rem] 2xl:text-[4rem] 3xl:text-[4.6rem]">
+                {copy.autoTitle[0]}{' '}
+                <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">
+                  {copy.autoTitle[1]}
+                </span>{' '}
+                {copy.autoTitle[2]}
+              </h2>
+            </MotionDiv>
             {/* MOBILE ONLY: 3D Swipe Stack */}
             <BrandFeatureSwipeStack cards={copy.cards} microCopy={copy.micro} t={t} />
 

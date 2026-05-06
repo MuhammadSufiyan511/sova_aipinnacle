@@ -316,6 +316,11 @@
     border-color: #1C3D3A !important;
   }
 
+  .home-dark-mode .brand-feature-heading,
+  .home-dark-mode .brand-feature-heading.bg-white {
+    background-color: #081917 !important;
+  }
+
   /* Global Border Overrides */
   .home-dark-mode [class*="border-[#E"],
   .home-dark-mode [class*="border-[#F"],
