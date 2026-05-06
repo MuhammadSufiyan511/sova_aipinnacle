@@ -3,7 +3,7 @@ import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { X, AlertCircle, Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-export const TagInput = ({ value = [], onChange, placeholder, icon: Icon, isColor = false }) => {
+export const TagInput = ({ value = [], onChange, placeholder, isColor = false }) => {
   const { t } = useTranslation()
   const [inputValue, setInputValue] = useState('')
 

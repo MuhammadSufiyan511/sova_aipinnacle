@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 
 export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
   return (
@@ -32,7 +32,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
             </span>
           </div>
           {copy.messages.map((message, index) => (
-            <motion.div
+            <Motion.div
               key={message}
               initial={{ opacity: 0, y: 14, scale: 0.92 }}
               animate={{
@@ -60,11 +60,11 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
               } max-w-[80%] px-3 py-2 text-[11px] leading-[1.45] text-[#1E293B] shadow-sm`}
             >
               {message}
-            </motion.div>
+            </Motion.div>
           ))}
 
           {/* Typing indicator — WhatsApp style */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{
               opacity: [0, 0, 1, 1, 0],
@@ -81,7 +81,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
             className="chat-bubble-received mr-auto flex max-w-[80%] items-center gap-0.5 rounded-[20px] rounded-bl-none px-4 py-3 bg-white shadow-sm"
           >
             {[0, 0.18, 0.36].map((delay, i) => (
-              <motion.span
+              <Motion.span
                 key={i}
                 className="block h-2 w-2 rounded-full"
                 style={{ background: '#999', opacity: 0.6, willChange: 'transform, opacity' }}
@@ -89,7 +89,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
                 transition={{ duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }}
               />
             ))}
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Input bar - WhatsApp style */}
@@ -97,7 +97,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
           <span className="flex-1 text-[11px]" style={{ color: '#888' }}>
             {copy.micro.inputPlaceholder}
           </span>
-          <motion.div
+          <Motion.div
             className="flex h-6 w-6 items-center justify-center rounded-full bg-[#00BFA5]"
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
@@ -105,7 +105,7 @@ export function ChatScreen({ copy, chatLoopDuration = 10, isMobile }) {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
               <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
             </svg>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
     </div>

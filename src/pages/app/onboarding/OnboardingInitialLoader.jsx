@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 
 export function OnboardingInitialLoader({ t }) {
   return (
-    <motion.div
+    <Motion.div
       key="step-init"
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.1, transition: { duration: 0.4 } }}
@@ -16,6 +16,6 @@ export function OnboardingInitialLoader({ t }) {
         {t('onboarding.loader.init')}
       </p>
       <p className="mt-2 font-medium text-slate-400 onboarding-init-desc">{t('onboarding.loader.wait')}</p>
-    </motion.div>
+    </Motion.div>
   )
 }

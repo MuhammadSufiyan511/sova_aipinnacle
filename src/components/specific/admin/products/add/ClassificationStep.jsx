@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Layers, Package, ChevronRight, Tag, Info, Trash2, Plus, Check, X } from 'lucide-react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { SectionCard } from './components/SectionCard'
@@ -18,9 +19,11 @@ export const ClassificationStep = ({
   collapseAll,
   addVariantGroup,
   set,
-  t,
-  formatFieldLabel // Helper for variant labels
+  t
 }) => {
+  const [isAddingType, setIsAddingType] = useState(false)
+  const [newType, setNewType] = useState('')
+
   return (
     <SectionCard
       key="classification"
@@ -84,16 +87,124 @@ export const ClassificationStep = ({
 
       <AnimatePresence>
         {formData.category === 'custom' && (
-          <Motion.div layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-2">
-            <Field label={t('admin.addProductOverview.sections.category.customCategoryLabel')}>
-              <input
-                type="text"
-                value={formData.customCategory}
-                onChange={(e) => set('customCategory', e.target.value)}
-                placeholder={t('admin.addProductOverview.sections.category.customCategoryPlaceholder')}
-                className={inputCls}
-              />
-            </Field>
+          <Motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="col-span-full mt-2 rounded-[28px] border border-emerald-100 bg-white p-6 shadow-sm ring-1 ring-emerald-500/5"
+          >
+            <div className="mb-6 flex items-center justify-between border-b border-slate-50 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-lg shadow-emerald-500/20">
+                  <Package className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-[0.95rem] font-bold text-slate-900">{t('admin.addProductOverview.sections.category.customSetupTitle', 'Custom Category Configuration')}</h4>
+                  <p className="text-[0.72rem] font-medium text-slate-500">{t('admin.addProductOverview.sections.category.customSetupSubtitle', 'Define how this custom item behaves')}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {/* Custom Category Name */}
+              <Field label={t('admin.addProductOverview.sections.category.customCategoryLabel')} icon={Tag}>
+                <input
+                  type="text"
+                  value={formData.customCategory}
+                  onChange={(e) => set('customCategory', e.target.value)}
+                  placeholder={t('admin.addProductOverview.sections.category.customCategoryPlaceholder')}
+                  className={inputCls}
+                />
+              </Field>
+              {/* Custom Product Type with Inline Add UI */}
+              <Field label={t('admin.addProductOverview.sections.category.productTypeLabel', 'Product Classification')} icon={Layers}>
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-2">
+                    {!isAddingType ? (
+                      <>
+                        <div className="relative flex-1">
+                          <select
+                            value={formData.productType}
+                            onChange={(e) => set('productType', e.target.value)}
+                            className={selectCls}
+                          >
+                            <option value="physical">{t('admin.addProductOverview.sections.category.typePhysical', 'Physical Product')}</option>
+                            <option value="digital">{t('admin.addProductOverview.sections.category.typeDigital', 'Digital Asset')}</option>
+                            <option value="service">{t('admin.addProductOverview.sections.category.typeService', 'Service')}</option>
+                            <option value="subscription">{t('admin.addProductOverview.sections.category.typeSubscription', 'Subscription')}</option>
+                            {formData.specs._customTypes?.map(type => (
+                              <option key={type} value={type}>{type}</option>
+                            ))}
+                          </select>
+                          <ChevronRight className="pointer-events-none absolute ltr:right-4 rtl:left-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#1E293B]/50" />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setIsAddingType(true)}
+                          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition hover:bg-emerald-100 hover:text-emerald-700 active:scale-95"
+                          title={t('admin.addProductOverview.sections.category.addNewType', 'Add New Type')}
+                        >
+                          <Plus className="h-6 w-6" />
+                        </button>
+                      </>
+                    ) : (
+                      <Motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex w-full gap-2">
+                        <input
+                          autoFocus
+                          type="text"
+                          value={newType}
+                          onChange={(e) => setNewType(e.target.value)}
+                          placeholder={t('admin.addProductOverview.sections.category.promptNewType', 'Enter new product type...')}
+                          className={inputCls}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              const val = newType.trim()
+                              if (val) {
+                                const currentTypes = formData.specs._customTypes || []
+                                setFormData(prev => ({
+                                  ...prev,
+                                  productType: val,
+                                  specs: { ...prev.specs, _customTypes: [...currentTypes, val] }
+                                }))
+                                setIsAddingType(false)
+                                setNewType('')
+                              }
+                            }
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const val = newType.trim()
+                            if (val) {
+                              const currentTypes = formData.specs._customTypes || []
+                              setFormData(prev => ({
+                                ...prev,
+                                productType: val,
+                                specs: { ...prev.specs, _customTypes: [...currentTypes, val] }
+                              }))
+                              setIsAddingType(false)
+                              setNewType('')
+                            }
+                          }}
+                          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-600"
+                        >
+                          <Check className="h-5 w-5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setIsAddingType(false); setNewType('') }}
+                          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 transition hover:bg-slate-200"
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
+                      </Motion.div>
+                    )}
+                  </div>
+                </div>
+              </Field>
+            </div>
           </Motion.div>
         )}
 

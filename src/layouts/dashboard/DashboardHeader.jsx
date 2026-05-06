@@ -6,7 +6,6 @@ export function DashboardHeader({
   currentLanguage,
   homeDarkMode,
   isDesktop,
-  isRTL,
   langMenuRef,
   langOpen,
   languages,
@@ -19,6 +18,7 @@ export function DashboardHeader({
   onToggleTheme,
   onViewProfile,
   t,
+  userAvatar,
   userInitial,
 }) {
   const menuButton = (
@@ -60,9 +60,13 @@ export function DashboardHeader({
       className="h-8 w-8 overflow-hidden rounded-full border-2 border-emerald-200 bg-gradient-to-br from-emerald-400 to-teal-600 shadow-sm transition hover:scale-[1.05]"
       aria-label={t('admin.nav.profile')}
     >
-      <div className="flex h-full w-full items-center justify-center text-[0.7rem] font-bold text-white">
-        {userInitial}
-      </div>
+      {userAvatar ? (
+        <img src={userAvatar} alt="Profile" className="h-full w-full object-cover" />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center text-[0.7rem] font-bold text-white">
+          {userInitial}
+        </div>
+      )}
     </button>
   )
 

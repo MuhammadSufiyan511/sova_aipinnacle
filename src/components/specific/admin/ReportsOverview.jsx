@@ -2,6 +2,7 @@ import { motion as Motion } from 'framer-motion'
 import { ArrowUpRight, BarChart3, CircleDollarSign, Download, TrendingUp } from 'lucide-react'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useApp } from '../../../context/AppProvider'
 
 const barData = [82, 95, 110, 130, 150]
 const maxBar = Math.max(...barData)
@@ -11,6 +12,7 @@ const item = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }
 
 export const ReportsOverview = memo(function ReportsOverview() {
   const { t } = useTranslation()
+  const { homeDarkMode } = useApp()
 
   const mockReports = t('admin.mockData.reports', { returnObjects: true }) || {}
   const mockStats = mockReports.stats || {}
@@ -35,10 +37,13 @@ export const ReportsOverview = memo(function ReportsOverview() {
       {/* Header */}
       <Motion.div variants={item} className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
         <div className="max-w-md">
-          <h2 className="font-display text-[1.2rem] font-bold text-[#173247] sm:text-[1.35rem] admin-card-title">{t('admin.reports.title')}</h2>
-          <p className="mt-0.5 text-[0.7rem] leading-5 text-[#1E293B] sm:text-[0.74rem] admin-card-desc">{t('admin.reports.subtitle')}</p>
+          <h2 className={`font-display text-[1.2rem] font-bold sm:text-[1.35rem] admin-card-title ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{t('admin.reports.title')}</h2>
+          <p className={`mt-0.5 text-[0.7rem] leading-5 sm:text-[0.74rem] admin-card-desc ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.reports.subtitle')}</p>
         </div>
-        <button className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-[#DDEFE7] bg-white px-4 py-2.5 text-[0.78rem] font-bold text-[#1E293B] shadow-sm transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 admin-btn-secondary">
+        <button className={`flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-[0.78rem] font-bold shadow-sm transition admin-btn-secondary ${homeDarkMode
+          ? 'bg-[#0A1B19] border-emerald-900/30 text-slate-200 hover:bg-[#142B2A] hover:border-emerald-800/50'
+          : 'bg-white border-[#DDEFE7] text-[#1E293B] hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600'
+          }`}>
           <Download className="h-4 w-4" /> {t('admin.reports.exportBtn')}
         </button>
       </Motion.div>
@@ -46,49 +51,54 @@ export const ReportsOverview = memo(function ReportsOverview() {
       {/* KPI Cards */}
       <Motion.div variants={item} className="grid grid-cols-1 gap-3 xs:grid-cols-2 lg:grid-cols-3">
         {reportStats.map((stat) => (
-          <div key={stat.label} className="flex flex-col items-center gap-4 rounded-[22px] border border-[#DDEFE7] bg-white p-4 text-center shadow-sm sm:flex-row sm:text-left admin-stat-box">
+          <div key={stat.label} className={`flex flex-col items-center gap-4 rounded-[22px] border p-4 text-center shadow-sm sm:flex-row sm:text-left admin-stat-box ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/10' : 'bg-white border-[#DDEFE7]'
+            }`}>
             <div className="flex w-full items-center justify-between sm:w-auto sm:flex-col sm:gap-2">
               <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${stat.color} admin-stat-icon`}>
                 <stat.icon className="h-5 w-5" />
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold text-[#059669] admin-pill sm:hidden">
+              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.68rem] font-extrabold admin-pill sm:hidden ${homeDarkMode ? 'bg-emerald-950/30 text-emerald-400' : 'bg-[#F4FBF8] text-[#059669]'
+                }`}>
                 <ArrowUpRight className="h-3 w-3" /> {stat.change}
               </span>
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-center gap-2 sm:justify-between">
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] admin-stat-label">{stat.label}</p>
-                <span className="hidden items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-1 text-[0.68rem] font-extrabold text-[#059669] admin-pill sm:inline-flex">
+                <p className={`text-[0.62rem] font-bold uppercase tracking-[0.14em] admin-stat-label ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{stat.label}</p>
+                <span className={`hidden items-center gap-1 rounded-full px-2.5 py-1 text-[0.68rem] font-extrabold admin-pill sm:inline-flex ${homeDarkMode ? 'bg-emerald-950/30 text-emerald-400' : 'bg-[#F4FBF8] text-[#059669]'
+                  }`}>
                   <ArrowUpRight className="h-3 w-3" /> {stat.change}
                 </span>
               </div>
-              <p className="mt-1 font-display text-[1.4rem] font-extrabold text-[#173247] 2xl:text-[1.6rem] admin-stat-value">{stat.value}</p>
+              <p className={`mt-1 font-display text-[1.4rem] font-extrabold 2xl:text-[1.6rem] admin-stat-value ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{stat.value}</p>
             </div>
           </div>
         ))}
       </Motion.div>
 
       {/* Revenue Bar Chart */}
-      <Motion.div variants={item} className="rounded-[24px] border border-[#DDEFE7] bg-white p-4 shadow-sm sm:rounded-[26px] sm:p-5 admin-card-shell w-full min-w-0">
+      <Motion.div variants={item} className={`rounded-[24px] border p-4 shadow-sm sm:rounded-[26px] sm:p-5 admin-card-shell w-full min-w-0 ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/10' : 'bg-white border-[#DDEFE7]'
+        }`}>
         <div className="mb-4 flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:items-center sm:text-left">
           <div>
-            <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">{t('admin.reports.chart.title')}</h3>
-            <p className="text-[0.7rem] sm:text-[0.74rem] text-[#1E293B] admin-card-desc">{t('admin.reports.chart.subtitle')}</p>
+            <h3 className={`font-display text-[0.96rem] font-bold admin-card-title ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{t('admin.reports.chart.title')}</h3>
+            <p className={`text-[0.7rem] sm:text-[0.74rem] admin-card-desc ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.reports.chart.subtitle')}</p>
           </div>
-          <div className="rounded-full bg-violet-50 px-3 py-1 text-[0.66rem] font-bold text-violet-600 admin-pill">{t('admin.reports.chart.pill')}</div>
+          <div className={`rounded-full px-3 py-1 text-[0.66rem] font-bold admin-pill ${homeDarkMode ? 'bg-violet-950/30 text-violet-400' : 'bg-violet-50 text-violet-600'
+            }`}>{t('admin.reports.chart.pill')}</div>
         </div>
         <div className="overflow-x-auto sm:overflow-visible -mx-2 px-2">
           <div className="flex h-44 min-w-[320px] items-end justify-between gap-3 pt-4 sm:min-w-0 admin-chart-container">
             {weeklyRows.map((row, i) => (
               <div key={row.label} className="group flex min-w-[44px] flex-1 flex-col items-center gap-2">
-              <span className="hidden text-[0.62rem] font-bold text-[#1E293B] opacity-0 transition group-hover:opacity-100 sm:block">{row.revenue}</span>
-              <Motion.div
-                initial={{ height: 0 }}
-                animate={{ height: `${(barData[i] / maxBar) * 140}px` }}
-                transition={{ duration: 0.7, delay: i * 0.06, ease: 'easeOut' }}
-                className="w-full rounded-t-[14px] bg-gradient-to-t from-[#10B981] via-[#34D399] to-[#A78BFA] shadow-[0_8px_20px_rgba(16,185,129,0.2)] transition group-hover:shadow-[0_8px_30px_rgba(16,185,129,0.35)] admin-chart-bar"
-              />
-              <span className="text-[0.66rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{row.label}</span>
+                <span className={`hidden text-[0.62rem] font-bold opacity-0 transition group-hover:opacity-100 sm:block ${homeDarkMode ? 'text-white/90' : 'text-[#1E293B]'}`}>{row.revenue}</span>
+                <Motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: `${(barData[i] / maxBar) * 140}px` }}
+                  transition={{ duration: 0.7, delay: i * 0.06, ease: 'easeOut' }}
+                  className="w-full rounded-t-[14px] bg-gradient-to-t from-[#10B981] via-[#34D399] to-[#A78BFA] shadow-[0_8px_20px_rgba(16,185,129,0.2)] transition group-hover:shadow-[0_8px_30px_rgba(16,185,129,0.35)] admin-chart-bar"
+                />
+                <span className={`text-[0.66rem] font-bold uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>{row.label}</span>
               </div>
             ))}
           </div>
@@ -98,14 +108,16 @@ export const ReportsOverview = memo(function ReportsOverview() {
       {/* Weekly Table */}
       <Motion.div
         variants={item}
-        className="overflow-hidden rounded-[24px] border border-[#DDEFE7] bg-white shadow-sm sm:rounded-[26px] admin-card-shell w-full min-w-0"
+        className={`overflow-hidden rounded-[24px] border shadow-sm sm:rounded-[26px] admin-card-shell w-full min-w-0 ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/10' : 'bg-white border-[#DDEFE7]'
+          }`}
       >
         {/* Header */}
-        <div className="border-b border-[#DDEFE7] px-4 py-4 text-center sm:px-5 sm:text-left">
-          <h3 className="font-display text-[0.96rem] font-bold text-[#173247] admin-card-title">
+        <div className={`border-b px-4 py-4 text-center sm:px-5 sm:text-left ${homeDarkMode ? 'bg-[#020617]/40 border-emerald-900/20' : 'bg-transparent border-[#DDEFE7]'
+          }`}>
+          <h3 className={`font-display text-[0.96rem] font-bold admin-card-title ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>
             {t('admin.reports.table.title')}
           </h3>
-          <p className="mt-0.5 text-[0.7rem] sm:text-[0.74rem] text-[#1E293B] admin-card-desc">
+          <p className={`mt-0.5 text-[0.7rem] sm:text-[0.74rem] admin-card-desc ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>
             {t('admin.reports.table.subtitle')}
           </p>
         </div>
@@ -113,26 +125,30 @@ export const ReportsOverview = memo(function ReportsOverview() {
         {/* ── MOBILE: stacked cards (hidden on md+) ─────────────── */}
         <div className="divide-y divide-[#DDEFE7] md:hidden">
           {weeklyRows.map((row) => (
-            <div key={row.label} className="px-4 py-4 transition hover:bg-[#F8FDFB]">
+            <div key={row.label} className={`px-4 py-4 transition ${homeDarkMode ? 'hover:bg-[#142B2A]/50' : 'hover:bg-[#F8FDFB]'}`}>
               <div className="mb-3.5 flex flex-col items-center justify-between gap-2 xs:flex-row xs:items-center">
-                <span className="text-[0.88rem] font-bold text-[#295565]">{row.label}</span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2.5 py-0.5 text-[0.68rem] font-bold text-[#059669] admin-pill">
+                <span className={`text-[0.88rem] font-bold ${homeDarkMode ? 'text-emerald-400' : 'text-[#295565]'}`}>{row.label}</span>
+                <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[0.68rem] font-bold admin-pill ${homeDarkMode ? 'bg-emerald-950/30 text-emerald-400' : 'bg-[#F4FBF8] text-[#059669]'
+                  }`}>
                   <ArrowUpRight className="h-3 w-3" /> {row.rate}
                 </span>
               </div>
 
               <div className="grid grid-cols-1 gap-2 xs:grid-cols-3">
-                <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{t('admin.reports.table.headers.chats')}</p>
-                  <p className="mt-0.5 text-[0.82rem] font-bold text-[#476977]">{row.chats}</p>
+                <div className={`rounded-[12px] px-2.5 py-2.5 text-center ${homeDarkMode ? 'bg-slate-900/40 border border-emerald-900/10' : 'bg-[#F2FBF7]'
+                  }`}>
+                  <p className={`text-[0.58rem] font-bold uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.reports.table.headers.chats')}</p>
+                  <p className={`mt-0.5 text-[0.82rem] font-bold ${homeDarkMode ? 'text-slate-200' : 'text-[#476977]'}`}>{row.chats}</p>
                 </div>
-                <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#1E293B]">{t('admin.reports.table.headers.orders')}</p>
-                  <p className="mt-0.5 text-[0.82rem] font-bold text-[#476977]">{row.orders}</p>
+                <div className={`rounded-[12px] px-2.5 py-2.5 text-center ${homeDarkMode ? 'bg-slate-900/40 border border-emerald-900/10' : 'bg-[#F2FBF7]'
+                  }`}>
+                  <p className={`text-[0.58rem] font-bold uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.reports.table.headers.orders')}</p>
+                  <p className={`mt-0.5 text-[0.82rem] font-bold ${homeDarkMode ? 'text-slate-200' : 'text-[#476977]'}`}>{row.orders}</p>
                 </div>
-                <div className="rounded-[12px] bg-[#F2FBF7] px-2.5 py-2.5 text-center">
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-[#6D8A88]">{t('admin.reports.table.headers.revenue')}</p>
-                  <p className="mt-0.5 text-[0.82rem] font-extrabold text-[#173247]">{row.revenue}</p>
+                <div className={`rounded-[12px] px-2.5 py-2.5 text-center ${homeDarkMode ? 'bg-slate-900/40 border border-emerald-900/10' : 'bg-[#F2FBF7]'
+                  }`}>
+                  <p className={`text-[0.58rem] font-bold uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-500' : 'text-[#6D8A88]'}`}>{t('admin.reports.table.headers.revenue')}</p>
+                  <p className={`mt-0.5 text-[0.82rem] font-extrabold ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{row.revenue}</p>
                 </div>
               </div>
             </div>
@@ -143,7 +159,8 @@ export const ReportsOverview = memo(function ReportsOverview() {
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full min-w-[480px]">
             <thead>
-              <tr className="bg-[#F2FBF7] text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B] admin-table-header">
+              <tr className={`text-[0.62rem] font-bold uppercase tracking-[0.14em] admin-table-header ${homeDarkMode ? 'bg-slate-900/50 text-slate-400' : 'bg-[#F2FBF7] text-[#1E293B]'
+                }`}>
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.day')}</th>
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.chats')}</th>
                 <th className="px-5 py-3 text-left">{t('admin.reports.table.headers.orders')}</th>
@@ -153,16 +170,17 @@ export const ReportsOverview = memo(function ReportsOverview() {
             </thead>
             <tbody className="divide-y divide-[#DDEFE7] admin-table-body">
               {weeklyRows.map((row) => (
-                <tr key={row.label} className="transition hover:bg-[#F8FDFB] admin-table-row">
-                  <td className="px-5 py-3 text-[0.84rem] font-bold text-[#295565]">{row.label}</td>
-                  <td className="px-5 py-3 text-[0.84rem] text-[#1E293B]">{row.chats}</td>
-                  <td className="px-5 py-3 text-[0.84rem] text-[#1E293B]">{row.orders}</td>
+                <tr key={row.label} className={`transition ${homeDarkMode ? 'hover:bg-[#142B2A]/50' : 'hover:bg-[#F8FDFB]'}`}>
+                  <td className={`px-5 py-3 text-[0.84rem] font-bold ${homeDarkMode ? 'text-emerald-400' : 'text-[#295565]'}`}>{row.label}</td>
+                  <td className={`px-5 py-3 text-[0.84rem] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>{row.chats}</td>
+                  <td className={`px-5 py-3 text-[0.84rem] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>{row.orders}</td>
                   <td className="px-5 py-3">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#F4FBF8] px-2 py-0.5 text-[0.68rem] font-bold text-[#059669] admin-pill">
+                    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.68rem] font-bold admin-pill ${homeDarkMode ? 'bg-emerald-950/30 text-emerald-400' : 'bg-[#F4FBF8] text-[#059669]'
+                      }`}>
                       <ArrowUpRight className="h-3 w-3" /> {row.rate}
                     </span>
                   </td>
-                  <td className="px-5 py-3 text-[0.84rem] font-semibold text-[#173247]">{row.revenue}</td>
+                  <td className={`px-5 py-3 text-[0.84rem] font-semibold ${homeDarkMode ? 'text-white' : 'text-[#173247]'}`}>{row.revenue}</td>
                 </tr>
               ))}
             </tbody>

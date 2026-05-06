@@ -14,7 +14,7 @@ export function DashboardLayout({ children }) {
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, homeDarkMode, setHomeDarkMode } = useApp()
+  const { user, homeDarkMode, toggleHomeDarkMode } = useApp()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [desktopSidebarOpen, setDesktopSidebarOpen] = useState(true)
@@ -144,7 +144,6 @@ export function DashboardLayout({ children }) {
           currentLanguage={currentLanguage}
           homeDarkMode={homeDarkMode}
           isDesktop={isDesktop}
-          isRTL={isRTL}
           langMenuRef={langMenuRef}
           langOpen={langOpen}
           languages={LANGUAGES}
@@ -154,9 +153,10 @@ export function DashboardLayout({ children }) {
           onOpenUpgrade={() => navigate(ROUTES.adminUpgrade)}
           onToggleDesktopSidebar={() => setDesktopSidebarOpen((v) => !v)}
           onToggleLangOpen={() => setLangOpen((v) => !v)}
-          onToggleTheme={() => setHomeDarkMode(!homeDarkMode)}
+          onToggleTheme={toggleHomeDarkMode}
           onViewProfile={() => navigate(ROUTES.adminProfile)}
           t={t}
+          userAvatar={user.avatar || ''}
           userInitial={(user.name || 'U')[0]}
         />
 

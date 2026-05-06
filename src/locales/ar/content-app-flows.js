@@ -42,7 +42,7 @@ export const onboarding = {
       descPlaceholder: 'مثال: وشاح حريري فاخر مع لمسة ناعمة وتغليف هدايا.',
       saveBtn: 'حفظ المنتج',
       updateBtn: 'تحديث',
-      invalidMediaType: 'يرجى رفع صورة أو فيديو أو ملف PDF صالح'
+      invalidMediaType: 'يرجى رفع صورة أو فيديو صالح'
     }
   },
   tone: {
@@ -250,6 +250,19 @@ export const admin = {
         customCategoryPlaceholder: 'أدخل اسم القسم',
         customSubCategoryLabel: 'اسم النوع المخصص',
         customSubCategoryPlaceholder: 'أدخل اسم النوع',
+        newSubCategory: 'نوع جديد',
+        customSetupTitle: 'إعدادات التصنيف المخصص',
+        customSetupSubtitle: 'حدد كيفية تعامل النظام مع هذه القطعة المخصصة',
+        productTypeLabel: 'تصنيف نوع المنتج',
+        typePhysical: 'منتج مادي',
+        typeDigital: 'أصل رقمي',
+        typeService: 'خدمة',
+        typeSubscription: 'اشتراك',
+        promptNewType: 'أدخل نوع منتج جديد...',
+        addNewType: 'إضافة نوع جديد',
+        trackStock: 'تتبع المخزون',
+        taxable: 'خاضع للضريبة',
+        weightLabel: 'الوزن (كجم)',
         customFieldsTitle: 'تفاصيل إضافية',
         addFieldBtn: 'إضافة تفصيل',
         fieldLabelPlaceholder: 'مثال: الخامة',
@@ -297,6 +310,10 @@ export const admin = {
         upload: 'رفع الوسائط',
         primary: 'الصورة الرئيسية',
         makePrimary: 'تعيين كرئيسية',
+        dropTitle: 'أفلت للتحميل',
+        dropSubtitle: 'أفلت لإضافة صور أو مقاطع فيديو',
+        editorTitle: 'محرر الوسائط',
+        editorSubtitle: 'قم بقص وتعديل صور منتجك',
       },
       actions: {
         submitAdd: 'إنشاء القائمة',
@@ -819,6 +836,144 @@ admin.mockData = {
     ]
   }
 }
+
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = admin.addProductOverview.validation || {};
+admin.addProductOverview.validation.imageTooLarge = 'يتجاوز 5 ميجابايت.';
+admin.addProductOverview.validation.videoTooLarge = 'يتجاوز حد 15 ميجابايت.';
+admin.addProductOverview.validation.videoDurationInvalid = 'يجب أن يكون بين 15-20 ثانية (الحالي: {{duration}} ثانية).';
+admin.addProductOverview.validation.compressLink = 'اضغط هنا للتقليص';
+admin.addProductOverview.validation.maxFilesExceeded = 'يمكنك فقط تحميل ما يصل إلى {{max}} ملفات وسائط.';
+
+admin.settings = admin.settings || {};
+admin.settings.businessUpdateSuccess = 'تم تحديث ملف المنشأة بنجاح';
+admin.settings.toneUpdateSuccess = 'تم تحديث إعدادات الصوت بنجاح';
+admin.settings.tones = {
+  none: 'لا شيء',
+  professional: { label: 'احترافي', desc: 'مهذب وعملي' },
+  friendly: { label: 'ودود', desc: 'دافئ وسهل التعامل' },
+  direct: { label: 'مباشر', desc: 'موجز وواضح' },
+  persuasive: { label: 'مقنع', desc: 'مقنع ومركز على المبيعات' },
+  playful: { label: 'مرح', desc: 'خفيف وممتع' },
+  empathetic: { label: 'متعاطف', desc: 'هادئ ومتفهم' }
+};
+
+admin.profile = admin.profile || {};
+admin.profile.user = {
+  title: 'الملف الشخصي',
+  cancel: 'إلغاء',
+  save: 'حفظ',
+  edit: 'تعديل',
+  photoAlt: 'الملف الشخصي',
+  noPhoto: 'لا توجد صورة',
+  uploadPhoto: 'رفع صورة',
+  removePhoto: 'إزالة الصورة',
+  nameLabel: 'الاسم الكامل',
+  namePlaceholder: 'مثال: أحمد محمد',
+  emptyName: 'أضف اسمك الكامل',
+  emailLabel: 'البريد الإلكتروني',
+  emailPlaceholder: 'مثال: ahmed@example.com',
+  emptyEmail: 'أضف بريدك الإلكتروني',
+  phoneLabel: 'رقم الهاتف',
+  phonePlaceholder: 'مثال: +966 50 123 4567',
+  emptyPhone: 'أضف رقم هاتفك'
+};
+
+admin.profile.business = {
+  removePhoto: 'إزالة'
+};
+
+
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'تم تحديث تفاصيل البنك بنجاح';
+admin.settings.bankDeleteSuccess = 'تم حذف تفاصيل البنك بنجاح';
+admin.settings.resetAllSuccess = 'تم إعادة تعيين جميع الإعدادات';
+admin.settings.account = {
+  title: 'إدارة الحساب',
+  deleteTitle: 'حذف بيانات الملف الشخصي',
+  deleteDesc: 'سيؤدي هذا إلى مسح معلومات البنك وملف الأعمال وتفضيلات الذكاء الاصطناعي.',
+  deleteBtn: 'حذف جميع المعلومات',
+  confirmTitle: 'حذف جميع بيانات الملف الشخصي؟',
+  confirmDesc: 'هل أنت متأكد؟ سيؤدي هذا إلى إزالة تفاصيل البنك وملف الأعمال وإعدادات الذكاء الاصطناعي بشكل دائم.',
+  confirmBtn: 'نعم، احذف كل شيء',
+  cancelBtn: 'إلغاء',
+};
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'معلومات البنك',
+  subtitle: 'تكوين بيانات الدفع والبنك الخاصة بك هنا',
+  current: 'حالة',
+  configured: 'معد',
+  notConfigured: 'غير معد',
+  button: 'تعديل بيانات البنك'
+};
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = {
+  nameRequired: 'اسم المنتج مطلوب',
+  descriptionRequired: 'يرجى إضافة وصف المنتج',
+  mediaRequired: 'يرجى رفع صورة أو فيديو واحدة على الأقل',
+  categoryRequired: 'يرجى اختيار فئة رئيسية',
+  subCategoryRequired: 'يرجى اختيار فئة فرعية',
+  priceRequired: 'يرجى إدخال سعر البيع',
+  stockRequired: 'يرجى إدخال كمية المخزون',
+  maxFilesExceeded: 'يمكنك تحميل ما يصل إلى {{max}} ملفات فقط.',
+  imageTooLarge: 'كبيرة جداً.',
+  videoTooLarge: '{{name}} يتجاوز حد 15 ميجابايت.',
+  videoDurationInvalid: 'يجب أن يكون {{name}} بين 15-20 ثانية (الحالي: {{duration}} ثانية).',
+  compressLink: 'اضغط هنا',
+  createSuccess: 'تمت إضافة القطعة بنجاح',
+  updateSuccess: 'تم تحديث التفاصيل بنجاح',
+  statusActive: 'تم تحديد المنتج كنشط',
+  statusInactive: 'تم تحديد المنتج كغير نشط'
+};
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'معلومات البنك',
+  subtitle: 'تكوين إعدادات الدفع لمتجرك',
+  current: 'الحالة',
+  configured: 'تم الضبط',
+  notConfigured: 'لم يتم الضبط',
+  button: 'تعديل بيانات البنك'
+};
+admin.settings.bank = {
+  title: 'معلومات البنك',
+  subtitle: 'تكوين بيانات الدفع والبنك الخاصة بك هنا',
+  accountTitle: 'صاحب الحساب',
+  accountTitlePlaceholder: 'مثال: أحمد محمد',
+  accountTitleHint: 'كما يظهر في حسابك البنكي',
+  accountNumber: 'رقم الحساب / IBAN',
+  accountNumberPlaceholder: 'مثال: PK00 BANK 0000 0000 0000 0000',
+  ibanHint: 'يتكون IBAN عادةً من 24 حرفًا للحسابات الباكستانية',
+  bankName: 'اسم البنك',
+  bankNamePlaceholder: 'مثال: HBL، Alfalah، Meezan',
+  description: 'تعليمات الدفع',
+  descriptionPlaceholder: 'مثال: يرجى تضمين رقم الطلب في ملاحظات التحويل',
+  required: 'مطلوب',
+  configured: 'تفاصيل الدفع مُعدَّة',
+  notConfigured: 'لم تتم الإضافة بعد',
+  verified: 'محفوظ',
+  savedSuccess: 'تم حفظ بيانات البنك بنجاح!',
+  notConfiguredTitle: 'لا توجد بيانات بنكية',
+  addDetails: 'إضافة حساب بنكي',
+  sectionPayment: 'تفاصيل الدفع',
+  sectionAccount: 'معلومات الحساب',
+  sectionNotes: 'معلومات إضافية',
+  copyIBAN: 'نسخ IBAN',
+  copied: 'تم النسخ!',
+  updateBank: 'تحديث البنك',
+  removeAccount: 'إزالة',
+  warning: 'تأكد من دقة جميع التفاصيل. سيتم استخدام هذه المعلومات لمدفوعات متجرك.',
+  errors: {
+    accountTitleRequired: 'اسم الحساب مطلوب',
+    bankNameRequired: 'اسم البنك مطلوب',
+    accountNumberRequired: 'رقم الحساب مطلوب'
+  },
+  notConfiguredDesc: 'أضف حسابك البنكي حتى يتمكن العملاء من الدفع مباشرةً.',
+  deleteConfirmTitle: 'حذف معلومات البنك؟',
+  deleteConfirmDesc: 'سيؤدي هذا إلى إزالة تفاصيل البنك الخاصة بك نهائيًا من النظام. ستحتاج إلى إعادة إدخالها لتلقي المدفوعات.',
+  deleteConfirmBtn: 'نعم، احذف المعلومات',
+  deleteCancelBtn: 'احتفظ بالمعلومات'
+};
 
 export const notFound = {
   title: '404',

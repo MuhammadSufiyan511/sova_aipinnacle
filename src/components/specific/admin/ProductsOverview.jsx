@@ -39,11 +39,6 @@ export const ProductsOverview = memo(function ProductsOverview() {
   const [modalSlideDirection, setModalSlideDirection] = useState(0)
 
   useEffect(() => {
-    setActiveModalMediaIndex(0)
-    setModalSlideDirection(0)
-  }, [viewingProduct])
-
-  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
@@ -174,6 +169,8 @@ export const ProductsOverview = memo(function ProductsOverview() {
                       if (isMobile) {
                         navigate(ROUTES.adminViewProduct.replace(':id', p.id))
                       } else {
+                        setActiveModalMediaIndex(0)
+                        setModalSlideDirection(0)
                         setViewingProduct(p)
                       }
                     }}

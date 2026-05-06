@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect, memo } from 'react'
+import { useMemo, useRef, useState, memo } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -19,8 +19,44 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams()
-  const { businessProfile, products, addProduct, updateProduct } = useApp()
+   const { businessProfile, products, addProduct, updateProduct } = useApp()
   const fileInputRef = useRef(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragCounter = useRef(0)
+
+  const handleDrag = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  const handleDragIn = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dragCounter.current++
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      setIsDragging(true)
+    }
+  }
+
+  const handleDragOut = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dragCounter.current--
+    if (dragCounter.current === 0) {
+      setIsDragging(false)
+    }
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    dragCounter.current = 0
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleMediaUpload({ target: { files: e.dataTransfer.files } })
+      e.dataTransfer.clearData()
+    }
+  }
 
   const initialProduct = useMemo(() => {
     if (!id) return null
@@ -41,6 +77,10 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
     customCategory: initialProduct?.customCategory || '',
     customSubCategory: initialProduct?.customSubCategory || '',
     customFields: initialProduct?.customFields || [],
+    productType: initialProduct?.productType || 'physical', // physical, digital, service
+    taxable: initialProduct?.taxable ?? true,
+    trackStock: initialProduct?.trackStock ?? true,
+    weight: initialProduct?.weight || '',
     price: initialProduct?.price || '',
     salePrice: initialProduct?.salePrice || '',
     stock: initialProduct?.stock || '',
@@ -51,7 +91,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
     brand: initialProduct?.brand || '',
     specs: initialProduct?.specs || {},
     variantGroups: initialProduct?.variantGroups || [{
-      id: Math.random().toString(36).slice(2, 11),
+      id: 'initial-group',
       attributes: {}
     }],
     gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
@@ -65,40 +105,43 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
 
   const [expandedGroups, setExpandedGroups] = useState([formData.variantGroups[0]?.id].filter(Boolean))
 
-  useEffect(() => {
-    if (initialProduct) {
-      setFormData({
-        name: initialProduct.name || '',
-        description: initialProduct.description || '',
-        industry: initialProduct.industry || fixedIndustry,
-        category: initialProduct.categoryAt || '',
-        subCategory: initialProduct.subCategoryAt || '',
-        customCategory: initialProduct.customCategory || '',
-        customSubCategory: initialProduct.customSubCategory || '',
-        customFields: initialProduct.customFields || [],
-        price: initialProduct.price || '',
-        salePrice: initialProduct.salePrice || '',
-        stock: initialProduct.stock || '',
-        minStock: initialProduct.minStock || '',
-        sku: initialProduct.sku || '',
-        minOrder: initialProduct.minOrder || '1',
-        discount: initialProduct.discount || '0%',
-        brand: initialProduct.brand || '',
-        specs: initialProduct.specs || {},
-        variantGroups: initialProduct.variantGroups || [{
-          id: Math.random().toString(36).slice(2, 11),
-          attributes: {}
-        }],
-        gallery: initialProduct.gallery || (initialProduct.imagePreview ? [{
-          id: 'legacy',
-          preview: initialProduct.imagePreview,
-          type: initialProduct.mediaType || 'image',
-          name: initialProduct.mediaName || 'Primary',
-          isPrimary: true,
-        }] : []),
-      })
-    }
-  }, [initialProduct, fixedIndustry])
+  const [prevInitialProduct, setPrevInitialProduct] = useState(initialProduct)
+  const [prevFixedIndustry, setPrevFixedIndustry] = useState(fixedIndustry)
+
+  if (initialProduct !== prevInitialProduct || fixedIndustry !== prevFixedIndustry) {
+    setPrevInitialProduct(initialProduct)
+    setPrevFixedIndustry(fixedIndustry)
+    setFormData({
+      name: initialProduct?.name || '',
+      description: initialProduct?.description || '',
+      industry: initialProduct?.industry || fixedIndustry,
+      category: initialProduct?.categoryAt || '',
+      subCategory: initialProduct?.subCategoryAt || '',
+      customCategory: initialProduct?.customCategory || '',
+      customSubCategory: initialProduct?.customSubCategory || '',
+      customFields: initialProduct?.customFields || [],
+      price: initialProduct?.price || '',
+      salePrice: initialProduct?.salePrice || '',
+      stock: initialProduct?.stock || '',
+      minStock: initialProduct?.minStock || '',
+      sku: initialProduct?.sku || '',
+      minOrder: initialProduct?.minOrder || '1',
+      discount: initialProduct?.discount || '0%',
+      brand: initialProduct?.brand || '',
+      specs: initialProduct?.specs || {},
+      variantGroups: initialProduct?.variantGroups || [{
+        id: 'initial-group',
+        attributes: {}
+      }],
+      gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
+        id: 'legacy',
+        preview: initialProduct.imagePreview,
+        type: initialProduct.mediaType || 'image',
+        name: initialProduct.mediaName || 'Primary',
+        isPrimary: true,
+      }] : []),
+    })
+  }
 
   const currentIndustryConfig = categoryConfig[formData.industry] || categoryConfig['clothing']
   const industryCategories = useMemo(() => currentIndustryConfig?.subcategories || [], [currentIndustryConfig])
@@ -120,12 +163,74 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
 
   const set = (key, value) => setFormData((prev) => ({ ...prev, [key]: value }))
 
-  const handleMediaUpload = (e) => {
+  const checkVideoDuration = (file) => {
+    return new Promise((resolve) => {
+      const video = document.createElement('video')
+      video.preload = 'metadata'
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src)
+        resolve(video.duration)
+      }
+      video.onerror = () => resolve(0)
+      video.src = URL.createObjectURL(file)
+    })
+  }
+
+  const handleMediaUpload = async (e) => {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
-    const allValid = files.every((f) => f.type.startsWith('image/') || f.type.startsWith('video/') || f.type === 'application/pdf')
-    if (!allValid) { toast.error(t('onboarding.products.modal.invalidMediaType')); e.target.value = ''; return }
-    const newMedia = files.map((file) => ({
+
+    const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+    const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
+    const MIN_VIDEO_DURATION = 15
+    const MAX_VIDEO_DURATION = 20
+    const MAX_FILES = 10
+
+    if (formData.gallery.length + files.length > MAX_FILES) {
+      toast.error(t('admin.addProductOverview.validation.maxFilesExceeded', { max: MAX_FILES }))
+      e.target.value = ''
+      return
+    }
+
+    const validFiles = []
+
+    for (const file of files) {
+      if (file.type.startsWith('image/')) {
+        if (file.size > MAX_IMAGE_SIZE) {
+          toast.error(
+            (toastObj) => (
+              <span>
+                <b>{file.name}</b> {t('admin.addProductOverview.validation.imageTooLarge', 'exceeds 5MB.')}
+                <br />
+                <a href="https://tinypng.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline font-bold ml-1">
+                  {t('admin.addProductOverview.validation.compressLink', 'Compress here')}
+                </a>
+              </span>
+            ),
+            { duration: 6000 }
+          )
+          continue
+        }
+        validFiles.push(file)
+      } else if (file.type.startsWith('video/')) {
+        if (file.size > MAX_VIDEO_SIZE) {
+          toast.error(t('admin.addProductOverview.validation.videoTooLarge', { name: file.name }))
+          continue
+        }
+        const duration = await checkVideoDuration(file)
+        if (duration < MIN_VIDEO_DURATION || duration > MAX_VIDEO_DURATION) {
+          toast.error(t('admin.addProductOverview.validation.videoDurationInvalid', { name: file.name, duration: Math.round(duration) }))
+          continue
+        }
+        validFiles.push(file)
+      } else {
+        toast.error(t('admin.products.modal.invalidMediaType', 'Please upload a valid image or video file'))
+      }
+    }
+
+    if (!validFiles.length) { e.target.value = ''; return }
+
+    const newMedia = validFiles.map((file) => ({
       id: Math.random().toString(36).slice(2, 11),
       preview: URL.createObjectURL(file),
       type: file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'file',
@@ -204,8 +309,38 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
   const isLastStep = currentStepIndex === STEPS.length - 1
 
   return (
-    <div className="admin-product-wizard min-h-screen bg-white md:bg-emerald-50/40">
-      <main className="mx-auto max-w-[1440px] px-4 py-6 md:px-8 md:py-10">
+    <div
+      onDragEnter={handleDragIn}
+      onDragLeave={handleDragOut}
+      onDragOver={handleDrag}
+      onDrop={handleDrop}
+      className="admin-product-wizard relative min-h-screen bg-white md:bg-emerald-50/40"
+    >
+      <AnimatePresence>
+        {isDragging && (
+          <Motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-emerald-900/90 backdrop-blur-md"
+          >
+            <Motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="flex flex-col items-center gap-6 text-white"
+            >
+              <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-dashed border-white/50 bg-white/10 animate-pulse">
+                <Check className="h-12 w-12" />
+              </div>
+              <div className="text-center">
+                <h2 className="text-3xl font-black">{t('admin.addProductOverview.sections.media.dropTitle', 'Drop to Upload')}</h2>
+                <p className="mt-2 text-lg font-medium text-emerald-100">{t('admin.addProductOverview.sections.media.dropSubtitle', 'Release to add images or videos')}</p>
+              </div>
+            </Motion.div>
+          </Motion.div>
+        )}
+      </AnimatePresence>
+      <main className="mx-auto max-w-[1540px] px-4 py-6 md:px-8 md:py-10">
         <Motion.button
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -218,7 +353,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
           {t('admin.addProductOverview.backToCatalog')}
         </Motion.button>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_360px]">
           <div className="space-y-6 md:space-y-8">
             <div className="flex flex-col gap-6">
               <div>
@@ -284,6 +419,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
 
           <MediaSidebar
             formData={formData}
+            setFormData={setFormData}
             fileInputRef={fileInputRef}
             handleMediaUpload={handleMediaUpload}
             removeMedia={removeMedia}

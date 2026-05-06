@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -39,7 +39,7 @@ export function BrandFeatureSwipeStack({ cards, microCopy, t }) {
       {stackOrder.map((cardIndex, i) => {
         const isFront = i === 0
         return (
-          <motion.div
+          <Motion.div
             key={cardIndex}
             drag={isFront ? 'x' : false}
             dragConstraints={{ left: 0, right: 0 }}
@@ -62,7 +62,7 @@ export function BrandFeatureSwipeStack({ cards, microCopy, t }) {
               {cardIndex === 2 && <TypingSimulationCard cardCopy={cards[2]} microCopy={microCopy} />}
               {cardIndex === 3 && <ChatSimulationCard cardCopy={cards[3]} microCopy={microCopy} />}
             </div>
-          </motion.div>
+          </Motion.div>
         )
       })}
       <div className="absolute -bottom-8 left-0 right-0 flex justify-center gap-1.5">

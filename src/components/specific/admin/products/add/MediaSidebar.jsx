@@ -1,14 +1,30 @@
-import { ImageIcon, Tag, Plus, PlayCircle, Trash2, Star } from 'lucide-react'
+import { ImageIcon, Tag, Plus, PlayCircle, Trash2, Star, Pencil } from 'lucide-react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { MediaEditorModal } from './components/MediaEditorModal'
 
 export const MediaSidebar = ({
   formData,
+  setFormData,
   fileInputRef,
   handleMediaUpload,
   removeMedia,
   setPrimaryMedia,
   t
 }) => {
+  const [editingMedia, setEditingMedia] = useState(null)
+
+  const handleEditSave = (newPreview, editorState) => {
+    setFormData(prev => ({
+      ...prev,
+      gallery: prev.gallery.map(item =>
+        item.id === editingMedia.id 
+          ? { ...item, originalPreview: item.originalPreview || item.preview, preview: newPreview, editorState } 
+          : item
+      )
+    }))
+    setEditingMedia(null)
+  }
   return (
     <aside className="admin-media-sidebar space-y-6 md:space-y-8">
       <div className="lg:sticky lg:top-10 space-y-6 md:space-y-8">
@@ -103,7 +119,7 @@ export const MediaSidebar = ({
                   className="group relative aspect-square overflow-hidden rounded-2xl bg-emerald-100"
                 >
                   {item.type === 'image' ? (
-                    <img src={item.preview} className="h-full w-full object-cover transition-transform group-hover:scale-110" alt={item.name} />
+                    <img src={item.preview} className="h-full w-full object-cover transition-transform group-hover:scale-110" alt={item.name} draggable="false" />
                   ) : item.type === 'video' ? (
                     <div className="flex h-full w-full items-center justify-center bg-emerald-900">
                       <PlayCircle className="h-7 w-7 text-white" />
@@ -117,12 +133,24 @@ export const MediaSidebar = ({
                     </div>
                   )}
                   <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-emerald-900/40 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-                    <button
-                      onClick={() => removeMedia(item.id)}
-                      className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-red-500"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => removeMedia(item.id)}
+                        className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-red-500"
+                        title={t('common.remove')}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                      {item.type === 'image' && (
+                        <button
+                          onClick={() => setEditingMedia(item)}
+                          className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-emerald-500"
+                          title={t('common.edit')}
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                      )}
+                    </div>
                     <button
                       onClick={() => setPrimaryMedia(item.id)}
                       className={`w-full py-1 rounded-lg text-[0.5rem] md:text-[0.55rem] font-black uppercase tracking-widest backdrop-blur-md ${item.isPrimary ? 'bg-emerald-500 text-white' : 'bg-white/20 text-white hover:bg-white/40'}`}
@@ -139,9 +167,21 @@ export const MediaSidebar = ({
               ))}
             </AnimatePresence>
           </div>
-          <input ref={fileInputRef} type="file" multiple accept="image/*,video/*,application/pdf" className="hidden" onChange={handleMediaUpload} />
+          <input ref={fileInputRef} type="file" multiple accept="image/*,video/*" className="hidden" onChange={handleMediaUpload} />
         </section>
       </div>
+
+      <AnimatePresence>
+        {editingMedia && (
+          <MediaEditorModal
+            image={editingMedia.originalPreview || editingMedia.preview}
+            initialSettings={editingMedia.editorState}
+            onClose={() => setEditingMedia(null)}
+            onSave={handleEditSave}
+            t={t}
+          />
+        )}
+      </AnimatePresence>
     </aside>
   )
 }

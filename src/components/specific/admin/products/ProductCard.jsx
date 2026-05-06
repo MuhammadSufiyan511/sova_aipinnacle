@@ -1,7 +1,7 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Eye, FileText, Package, Pencil, PlayCircle, Trash2 } from 'lucide-react'
 import { useState, useEffect, useMemo, memo, useRef } from 'react'
-import { RadioToggle } from './RadioToggle'
+import { RadioToggle } from '../../../shared/RadioToggle'
 import { gradients, getProductMediaItems } from './utils'
 
 const cardItem = { hidden: { opacity: 0, scale: 0.94 }, show: { opacity: 1, scale: 1 } }
@@ -218,6 +218,8 @@ export const ProductCard = memo(function ProductCard({
               active={isActive}
               onChange={() => onToggleStatus(product)}
               activeColor="bg-[#ECFDF5]"
+              activeTextColor="text-emerald-700"
+              stopPropagation={true}
             />
           </div>
           <button

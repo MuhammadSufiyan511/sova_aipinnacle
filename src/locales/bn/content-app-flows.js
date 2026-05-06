@@ -42,7 +42,7 @@ export const onboarding = {
       descPlaceholder: 'যেমন: নরম ফিনিশ এবং গিফট প্যাকেজিং সহ প্রিমিয়াম সিল্ক স্কার্ফ।',
       saveBtn: 'পণ্য সংরক্ষণ করুন',
       updateBtn: 'পণ্য আপডেট করুন',
-      invalidMediaType: 'অনুগ্রহ করে একটি বৈধ ছবি, ভিডিও বা PDF ফাইল আপলোড করুন'
+      invalidMediaType: 'অনুগ্রহ করে একটি বৈধ ছবি বা ভিডিও ফাইল আপলোড করুন'
     }
   },
   tone: {
@@ -229,6 +229,19 @@ export const admin = {
         customCategoryPlaceholder: 'বিভাগ লিখুন',
         customSubCategoryLabel: 'আপনার ধরনের নাম',
         customSubCategoryPlaceholder: 'ধরন লিখুন',
+        newSubCategory: 'নতুন ধরন',
+        customSetupTitle: 'কাস্টম বিভাগ কনফিগারেশন',
+        customSetupSubtitle: 'এই পণ্যটি কীভাবে কাজ করবে তা নির্ধারণ করুন',
+        productTypeLabel: 'পণ্যের শ্রেণীবিভাগ',
+        typePhysical: 'ভৌত পণ্য',
+        typeDigital: 'ডিজিটাল পণ্য',
+        typeService: 'সেবা',
+        typeSubscription: 'সাবস্ক্রিপশন',
+        promptNewType: 'নতুন পণ্যের ধরন লিখুন...',
+        addNewType: 'নতুন ধরন যোগ করুন',
+        trackStock: 'স্টক ট্র্যাক করুন',
+        taxable: 'করযোগ্য (Taxable)',
+        weightLabel: 'ওজন (কেজি)',
         customFieldsTitle: 'অতিরিক্ত বিবরণ',
         addFieldBtn: 'বিবরণ যোগ করুন',
         fieldLabelPlaceholder: 'যেমন: উপাদান',
@@ -269,11 +282,15 @@ export const admin = {
         colorLabel: '{{count}} রঙ',
       },
       media: {
-        title: 'পণ্যের ছবি',
+        title: 'পণ্যের ছবি ও ভিডিও',
         noMediaAttached: 'কোনো ছবি আপলোড করা হয়নি',
-        upload: 'ছবি আপলোড করুন',
+        upload: 'মিডিয়া আপলোড করুন',
         primary: 'প্রধান ছবি',
         makePrimary: 'প্রধান ছবি হিসেবে সেট করুন',
+        dropTitle: 'আপলোড করতে ছেড়ে দিন',
+        dropSubtitle: 'ছবি বা ভিডিও যোগ করতে এখানে ছেড়ে দিন',
+        editorTitle: 'মিডিয়া সম্পাদক',
+        editorSubtitle: 'আপনার পণ্যের ছবি ক্রপ এবং সমন্বয় করুন',
       },
       actions: {
         submitAdd: 'তালিকায় যোগ করুন',
@@ -990,6 +1007,135 @@ admin.mockData = {
     ]
   },
 }
+
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = admin.addProductOverview.validation || {};
+admin.addProductOverview.validation.imageTooLarge = '৫ এমবির বেশি।';
+admin.addProductOverview.validation.videoTooLarge = '১৫ এমবির বেশি।';
+admin.addProductOverview.validation.videoDurationInvalid = '১৫-২০ সেকেন্ডের মধ্যে হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।';
+admin.addProductOverview.validation.compressLink = 'এখানে কম্প্রেস করুন';
+admin.addProductOverview.validation.maxFilesExceeded = 'আপনি সর্বাধিক {{max}} টি মিডিয়া ফাইল আপলোড করতে পারবেন।';
+
+admin.settings = admin.settings || {};
+admin.settings.businessUpdateSuccess = 'ব্যবসার প্রোফাইল সফলভাবে আপডেট করা হয়েছে';
+admin.settings.toneUpdateSuccess = 'টোন সেটিংস সফলভাবে আপডেট করা হয়েছে';
+admin.settings.tones = {
+  none: 'কিছুই না',
+  professional: { label: 'পেশাদার (Professional)', desc: 'মার্জিত এবং ব্যবসায়িক' },
+  friendly: { label: 'বন্ধুত্বপূর্ণ (Friendly)', desc: 'উষ্ণ এবং সহজবোধ্য' },
+  direct: { label: 'সরাসরি (Direct)', desc: 'সংক্ষিপ্ত এবং স্পষ্ট' },
+  persuasive: { label: 'প্ররোচনামূলক (Persuasive)', desc: 'বিশ্বাসযোগ্য এবং বিক্রয়-ভিত্তিক' },
+  playful: { label: 'চঞ্চল (Playful)', desc: 'হালকা এবং মজাদার' },
+  empathetic: { label: 'সহানুভূতিশীল (Empathetic)', desc: 'শান্ত এবং সহানুভূতিশীল' }
+};
+
+admin.profile = admin.profile || {};
+admin.profile.user = {
+  title: 'ব্যবহারকারীর প্রোফাইল',
+  cancel: 'বাতিল করুন',
+  save: 'সংরক্ষণ করুন',
+  edit: 'সম্পাদনা করুন',
+  photoAlt: 'ব্যবহারকারীর প্রোফাইল',
+  noPhoto: 'কোনো ছবি নেই',
+  uploadPhoto: 'ছবি আপলোড করুন',
+  removePhoto: 'ছবি মুছে ফেলুন',
+  nameLabel: 'পুরো নাম',
+  namePlaceholder: 'যেমন: রহিম মিয়া',
+  emptyName: 'আপনার পুরো নাম যোগ করুন',
+  emailLabel: 'ইমেইল ঠিকানা',
+  emailPlaceholder: 'যেমন: rahim@example.com',
+  emptyEmail: 'আপনার ইমেইল যোগ করুন',
+  phoneLabel: 'ফোন নম্বর',
+  phonePlaceholder: 'যেমন: +880 171 234 5678',
+  emptyPhone: 'আপনার ফোন নম্বর যোগ করুন'
+};
+
+admin.profile.business = {
+  removePhoto: 'মুছে ফেলুন'
+};
+
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = {
+  nameRequired: 'পণ্যের নাম আবশ্যক',
+  descriptionRequired: 'দয়া করে পণ্যের বিবরণ যোগ করুন',
+  mediaRequired: 'দয়া করে অন্তত একটি ফটো বা ভিডিও আপলোড করুন',
+  categoryRequired: 'দয়া করে একটি বিভাগ নির্বাচন করুন',
+  subCategoryRequired: 'দয়া করে একটি উপ-বিভাগ নির্বাচন করুন',
+  priceRequired: 'দয়া করে সঠিক মূল্য লিখুন',
+  stockRequired: 'দয়া করে স্টকের পরিমাণ লিখুন',
+  maxFilesExceeded: 'আপনি কেবল {{max}} টি ফাইল আপলোড করতে পারেন।',
+  imageTooLarge: '5MB সীমা ছাড়িয়ে গেছে।',
+  videoTooLarge: '{{name}} ১৫ মেগাবাইট সীমা ছাড়িয়ে গেছে।',
+  videoDurationInvalid: '{{name}} অবশ্যই ১৫-২০ সেকেন্ড হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।',
+  compressLink: 'এখানে কম্প্রেস করুন',
+  statusActive: 'পণ্যটি সক্রিয় হিসেবে চিহ্নিত করা হয়েছে',
+  statusInactive: 'পণ্যটি নিষ্ক্রিয় হিসেবে চিহ্নিত করা হয়েছে',
+  createSuccess: 'পণ্যটি সফলভাবে যোগ করা হয়েছে',
+  updateSuccess: 'পণ্যটি সফলভাবে আপডেট করা হয়েছে'
+};
+
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'ব্যাংক বিবরণ সফলভাবে আপডেট করা হয়েছে';
+admin.settings.bankDeleteSuccess = 'ব্যাংক বিবরণ সফলভাবে মুছে ফেলা হয়েছে';
+admin.settings.resetAllSuccess = 'সমস্ত সেটিংস রিসেট করা হয়েছে';
+admin.settings.account = {
+  title: 'অ্যাকাউন্ট ব্যবস্থাপনা',
+  deleteTitle: 'প্রোফাইল ডেটা মুছুন',
+  deleteDesc: 'এটি আপনার ব্যাংক তথ্য, ব্যবসায়িক প্রোফাইল এবং AI পছন্দগুলি মুছে ফেলবে।',
+  deleteBtn: 'সব তথ্য মুছুন',
+  confirmTitle: 'সব প্রোফাইল ডেটা মুছবেন?',
+  confirmDesc: 'আপনি কি নিশ্চিত? এটি আপনার ব্যাংক বিবরণ, ব্যবসায়িক প্রোফাইল এবং AI সেটিংস স্থায়ীভাবে সরিয়ে দেবে।',
+  confirmBtn: 'হ্যাঁ, সব মুছুন',
+  cancelBtn: 'বাতিল করুন',
+};
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'ব্যাংক তথ্য',
+  subtitle: 'আপনার দোকানের জন্য পেমেন্ট সেটিংস কনফিগার করুন',
+  current: 'অবস্থা',
+  configured: 'সেট করা আছে',
+  notConfigured: 'সেট করা নেই',
+  button: 'ব্যাংক বিবরণ সম্পাদনা করুন'
+};
+admin.settings.bank = {
+  title: 'ব্যাংক তথ্য',
+  subtitle: 'আপনার পেমেন্ট এবং ব্যাংক বিবরণ এখানে কনফিগার করুন',
+  accountTitle: 'অ্যাকাউন্ট হোল্ডার',
+  accountTitlePlaceholder: 'যেমন: রহিম মিয়া',
+  accountTitleHint: 'আপনার ব্যাংক অ্যাকাউন্টে যেভাবে আছে',
+  accountNumber: 'অ্যাকাউন্ট নম্বর / IBAN',
+  accountNumberPlaceholder: 'যেমন: PK00 BANK 0000 0000 0000 0000',
+  ibanHint: 'পাকিস্তানি অ্যাকাউন্টের জন্য IBAN সাধারণত ২৪টি অক্ষরের হয়',
+  bankName: 'ব্যাংকের নাম',
+  bankNamePlaceholder: 'যেমন: HBL, Alfalah, Meezan',
+  description: 'পেমেন্ট নির্দেশাবলী',
+  descriptionPlaceholder: 'যেমন: ট্রান্সফারে অর্ডার আইডি অন্তর্ভুক্ত করুন',
+  required: 'আবশ্যক',
+  configured: 'পেমেন্ট বিবরণ কনফিগার করা হয়েছে',
+  notConfigured: 'এখনো কোনো তথ্য নেই',
+  verified: 'সংরক্ষিত',
+  savedSuccess: 'ব্যাংক বিবরণ সফলভাবে সংরক্ষিত হয়েছে!',
+  notConfiguredTitle: 'কোনো ব্যাংক বিবরণ নেই',
+  addDetails: 'ব্যাংক অ্যাকাউন্ট যোগ করুন',
+  sectionPayment: 'পেমেন্ট বিবরণ',
+  sectionAccount: 'অ্যাকাউন্ট তথ্য',
+  sectionNotes: 'অতিরিক্ত তথ্য',
+  copyIBAN: 'IBAN কপি করুন',
+  copied: 'কপি হয়েছে!',
+  updateBank: 'ব্যাংক আপডেট করুন',
+  removeAccount: 'সরান',
+  warning: 'নিশ্চিত করুন যে সমস্ত বিবরণ সঠিক। এই তথ্য আপনার দোকানের পেমেন্টের জন্য ব্যবহার করা হবে।',
+  errors: {
+    accountTitleRequired: 'অ্যাকাউন্টের নাম আবশ্যক',
+    bankNameRequired: 'ব্যাংকের নাম আবশ্যক',
+    accountNumberRequired: 'অ্যাকাউন্ট নম্বর আবশ্যক'
+  },
+  notConfiguredDesc: 'আপনার ব্যাংক অ্যাকাউন্ট যোগ করুন যাতে গ্রাহকরা সরাসরি পেমেন্ট করতে পারে।',
+  deleteConfirmTitle: 'ব্যাংক তথ্য মুছে ফেলবেন?',
+  deleteConfirmDesc: 'এটি আপনার ব্যাংক বিবরণ সিস্টেম থেকে স্থায়ীভাবে সরিয়ে দেবে। পেমেন্ট পেতে আপনাকে সেগুলি আবার প্রবেশ করতে হবে।',
+  deleteConfirmBtn: 'হ্যাঁ, তথ্য মুছুন',
+  deleteCancelBtn: 'তথ্য রাখুন'
+};
 
 export const notFound = {
   title: '404',

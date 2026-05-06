@@ -35,7 +35,7 @@ export const FilesOverview = memo(function FilesOverview() {
     viewingFile, setViewingFile,
     searchTerm, setSearchTerm,
     typeFilter, setTypeFilter,
-    currentPage, setCurrentPage,
+    setCurrentPage,
     itemsPerPage, setItemsPerPage,
     isMobile, filteredFiles,
     totalPages, safePage, paginatedFiles,

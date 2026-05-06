@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../context/AppProvider'
+import toast from 'react-hot-toast'
 
 export const businessTypes = [
   { id: 'clothing', emoji: '🛍️' },
@@ -19,8 +20,8 @@ export const businessTypes = [
 
 export function useSettingsData() {
   const { t } = useTranslation()
-  const { businessProfile, setBusinessProfile, tones, setTones } = useApp()
-  const normalizedTones = Array.isArray(tones) && tones.length > 0 ? tones : ['Professional']
+  const { businessProfile, setBusinessProfile, tones, setTones, setHomeDarkMode } = useApp()
+  const normalizedTones = Array.isArray(tones) ? tones : []
   
   const [alerts, setAlerts] = useState(true)
   const [autoReply, setAutoReply] = useState(true)
@@ -33,6 +34,10 @@ export function useSettingsData() {
   const [toneModalOpen, setToneModalOpen] = useState(false)
   const [draftTones, setDraftTones] = useState(normalizedTones)
   
+  const { bankDetails, setBankDetails } = useApp()
+  const [draftBankDetails, setDraftBankDetails] = useState(bankDetails)
+  const [isEditingBank, setIsEditingBank] = useState(false)
+
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -69,6 +74,7 @@ export function useSettingsData() {
       customCategory: draftBusinessType === 'other' ? customCategoryValue : '',
     })
     setBusinessModalOpen(false)
+    toast.success(t('admin.settings.businessUpdateSuccess'))
   }
 
   const openToneModal = () => {
@@ -77,8 +83,59 @@ export function useSettingsData() {
   }
 
   const saveToneSettings = () => {
-    setTones(draftTones.length > 0 ? draftTones : ['Professional'])
+    setTones(draftTones)
     setToneModalOpen(false)
+    toast.success(t('admin.settings.toneUpdateSuccess'))
+  }
+
+  const saveBankDetails = () => {
+    if (!draftBankDetails.accountTitle?.trim()) {
+      toast.error(t('admin.settings.bank.errors.accountTitleRequired'))
+      return
+    }
+    if (!draftBankDetails.bankName?.trim()) {
+      toast.error(t('admin.settings.bank.errors.bankNameRequired'))
+      return
+    }
+    if (!draftBankDetails.accountNumber?.trim()) {
+      toast.error(t('admin.settings.bank.errors.accountNumberRequired'))
+      return
+    }
+
+    setBankDetails(draftBankDetails)
+    setIsEditingBank(false)
+    toast.success(t('admin.settings.bankUpdateSuccess', 'Bank details updated successfully'))
+  }
+
+  const deleteBankDetails = () => {
+    const emptyBank = { accountTitle: '', accountNumber: '', bankName: '', description: '' }
+    setBankDetails(emptyBank)
+    setDraftBankDetails(emptyBank)
+    setIsEditingBank(false)
+    toast.success(t('admin.settings.bankDeleteSuccess', 'Bank details deleted successfully'))
+  }
+
+  const cancelBankEdit = () => {
+    setDraftBankDetails(bankDetails)
+    setIsEditingBank(false)
+  }
+
+  const resetAllSettings = () => {
+    const emptyBank = { accountTitle: '', accountNumber: '', bankName: '', description: '' }
+    setBankDetails(emptyBank)
+    setDraftBankDetails(emptyBank)
+    setIsEditingBank(false)
+    setBusinessProfile({ type: 'clothing', customCategory: '' })
+    setTones([])
+    setAlerts(true)
+    setAutoReply(true)
+    setSpamFilter(true)
+    
+    // Reset theme to system default
+    localStorage.removeItem('sova-home-theme')
+    setHomeDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    
+    toast.success(t('admin.settings.resetAllSuccess', 'All settings have been reset'))
   }
 
   return {
@@ -100,5 +157,13 @@ export function useSettingsData() {
     draftTones, setDraftTones,
     openToneModal,
     saveToneSettings,
+    bankDetails,
+    draftBankDetails, setDraftBankDetails,
+    saveBankDetails,
+    isEditingBank, setIsEditingBank,
+    cancelBankEdit,
+    deleteBankDetails,
+    resetAllSettings
   }
 }
+

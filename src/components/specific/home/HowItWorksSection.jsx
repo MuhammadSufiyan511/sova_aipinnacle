@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,8 +8,6 @@ import { ROUTES } from '../../../utils/routes'
 import { HowItWorksCard } from './how-it-works/HowItWorksCard'
 import { stepVideoUrls } from './how-it-works/videoUrls'
 import { useRef } from 'react'
-
-const MotionDiv = motion.div
 
 const defaultSteps = [
   { num: '01', title: 'Sign In With Meta', description: 'Log in with your Meta account and connect the WhatsApp business number you want to use.', gradientFrom: '#10B981', gradientTo: '#047857', shadowColor: 'rgba(16,185,129,0.24)' },
@@ -34,7 +32,6 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
     if (!scrollRef.current) return
     const container = scrollRef.current
     const scrollLeft = container.scrollLeft
-    const width = container.clientWidth
     
     // Each step on mobile is approx 290px + 24px gap = 314px
     // But we can just use the percentage of total scroll
@@ -47,7 +44,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
   return (
     <section className="home-how-it-works-section w-full pb-8 pt-10 sm:pb-12 sm:pt-16 2xl:pb-24 2xl:pt-28 3xl:pb-32 3xl:pt-36">
       <div className="mx-auto max-w-[1160px] px-5 2xl:max-w-[1440px] 3xl:max-w-[1600px]">
-        <MotionDiv initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
+        <Motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
           <p className="section-eyebrow mb-4 inline-flex rounded-full border border-[#CDEDE5] bg-[linear-gradient(135deg,#ECFDF5_0%,#F5F3FF_100%)] px-5 py-2 text-[0.74rem] font-bold tracking-[0.08em] text-[#10B981] shadow-[0_8px_24px_rgba(16,185,129,0.1)]">
             {t('sections.howEyebrow')}
           </p>
@@ -56,12 +53,12 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
             <span className="bg-gradient-to-r from-[#10B981] to-[#F59E0B] bg-clip-text text-transparent">{t('sections.howTitle').split(' ').slice(-1)[0]}</span>
           </h2>
           <p className="mx-auto mt-3 max-w-[420px] text-[0.96rem] leading-[1.75] text-[#5a9e88] 2xl:mt-5 2xl:max-w-[600px] 2xl:text-[1.2rem] 3xl:max-w-[800px] 3xl:text-[1.4rem]">{t('sections.howDescription')}</p>
-        </MotionDiv>
+        </Motion.div>
 
         <div 
           ref={scrollRef}
           onScroll={handleScroll}
-          className="no-scrollbar flex w-full flex-nowrap gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:items-stretch lg:px-0 lg:pb-0"
+          className="no-scrollbar flex w-full flex-nowrap gap-6 overflow-x-auto snap-x snap-mandatory pb-8 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:items-stretch lg:px-0 lg:pb-0"
         >
           {localizedSteps.map((step, index) => (
             <div key={step.title} className="w-[290px] shrink-0 snap-center sm:w-[340px] md:w-auto md:snap-align-none">
@@ -78,7 +75,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
         </div>
 
         {/* Mobile Pagination Dots */}
-        <div className="flex justify-center gap-2 mb-6 md:hidden">
+        <div className="mb-6 flex justify-center gap-2 md:hidden">
           {localizedSteps.map((_, i) => (
             <div 
               key={i}
@@ -89,14 +86,14 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
           ))}
         </div>
 
-        <MotionDiv initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: 0.3 }} className="mt-6 flex justify-center">
+        <Motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: 0.3 }} className="mt-6 flex justify-center">
           <div className="flex flex-col items-center">
             <Link to={ROUTES.auth} className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-7 py-3.5 text-[0.93rem] font-bold text-white shadow-[0_8px_28px_rgba(16,185,129,0.3)] transition hover:scale-[1.03] hover:bg-[#0F8F72]">
               {t('common.getStartedFree')} <ArrowUpRight className="h-4 w-4" />
             </Link>
             <p className="mt-2 text-[0.72rem] font-medium text-[#F1990A]">{t('common.noCardRequired')}</p>
           </div>
-        </MotionDiv>
+        </Motion.div>
       </div>
     </section>
   )

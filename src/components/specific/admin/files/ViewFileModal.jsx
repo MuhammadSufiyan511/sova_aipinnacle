@@ -31,7 +31,7 @@ export const ViewFileModal = memo(function ViewFileModal({ viewingFile, setViewi
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 18 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="admin-card-shell relative z-[130] w-full max-w-lg overflow-hidden rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)] will-change-[transform,opacity]"
+          className="admin-card-shell relative z-[130] w-full max-w-lg overflow-y-auto max-h-[92vh] rounded-[28px] border border-[#DDEFE7] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.2)] lux-scrollbar will-change-[transform,opacity]"
         >
           <button
             type="button"

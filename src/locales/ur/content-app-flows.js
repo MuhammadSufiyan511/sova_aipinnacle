@@ -42,7 +42,7 @@ const onboarding = {
       descPlaceholder: 'مثلاً نرم فنش اور گفٹ پیکنگ کے ساتھ پریمیم سلک اسکارف۔',
       saveBtn: 'پروڈکٹ محفوظ کریں',
       updateBtn: 'پروڈکٹ اپ ڈیٹ کریں',
-      invalidMediaType: 'براہ کرم درست تصویر، ویڈیو یا PDF فائل اپ لوڈ کریں',
+      invalidMediaType: 'براہ کرم درست تصویر یا ویڈیو اپ لوڈ کریں',
     },
   },
   tone: {
@@ -654,12 +654,27 @@ admin.addProductOverview = {
       subCategoryLabel: 'قسم',
       categoryPlaceholder: 'کیٹیگری منتخب کریں',
       subCategoryPlaceholder: 'قسم منتخب کریں',
-      customSubCategoryLabel: 'اپنی کیٹیگری کا نام',
-      customSubCategoryPlaceholder: 'مثلاً خاص ہینڈی کرافٹ',
+      customCategoryLabel: 'کسٹم کیٹیگری کا نام',
+      customCategoryPlaceholder: 'مثلاً ہینڈ میڈ کرافٹس',
+      customSubCategoryLabel: 'کسٹم قسم کا نام',
+      customSubCategoryPlaceholder: 'مثلاً کروشیا',
+      newSubCategory: 'نئی قسم شامل کریں',
+      customSetupTitle: 'کسٹم کیٹیگری کنفیگریشن',
+      customSetupSubtitle: 'طے کریں کہ یہ کسٹم آئٹم کیسے کام کرے گی',
+      productTypeLabel: 'پروڈکٹ کی درجہ بندی',
+      typePhysical: 'طبعی پروڈکٹ',
+      typeDigital: 'ڈیجیٹل اثاثہ',
+      typeService: 'سروس',
+      typeSubscription: 'سبسکرپشن',
+      promptNewType: 'نئی پروڈکٹ کی قسم درج کریں:',
+      addNewType: 'نئی قسم شامل کریں',
+      trackStock: 'اسٹاک ٹریک کریں',
+      taxable: 'ٹیکس کے قابل',
+      weightLabel: 'وزن (کلو)',
       customFieldsTitle: 'مزید تفصیلات',
       addFieldBtn: 'نئی تفصیل شامل کریں',
-      fieldLabelPlaceholder: 'مثلاً کپڑے کا وزن',
-      fieldValuePlaceholder: 'مثلاً 200 GSM',
+      fieldLabelPlaceholder: 'مثلاً میٹریل',
+      fieldValuePlaceholder: 'مثلاً 100% کاٹن',
       noCustomFields: 'ابھی تک کوئی اضافی تفصیل شامل نہیں کی گئی۔'
     },
     brandIdentity: {
@@ -671,12 +686,15 @@ admin.addProductOverview = {
       subtitle: 'آپ کی منتخب کردہ کیٹیگری کی بنیاد پر اضافی سوالات۔'
     },
     media: {
-      title: 'آئٹم کی تصاویر',
+      title: 'پروڈکٹ میڈیا',
       subtitle: 'اپنے آئٹم کی تصاویر یا ویڈیوز شامل کریں۔',
-      upload: 'تصاویر شامل کریں',
-      uploadHint: 'تصاویر یا ویڈیوز',
-      primary: 'اصلی تصویر',
-      makePrimary: 'اصلی تصویر بنائیں'
+      upload: 'میڈیا شامل کریں',
+      primary: 'بنیادی تصویر',
+      makePrimary: 'بنیادی بنائیں',
+      dropTitle: 'اپلوڈ کرنے کے لیے چھوڑیں',
+      dropSubtitle: 'تصاویر یا ویڈیوز شامل کرنے کے لیے یہاں چھوڑیں',
+      editorTitle: 'میڈیا ایڈیٹر',
+      editorSubtitle: 'اپنی پروڈکٹ کی تصاویر کو کراپ اور ایڈجسٹ کریں',
     },
       variants: {
         title: 'پروڈکٹ کی اقسام',
@@ -855,7 +873,12 @@ admin.addProductOverview = {
     createSuccess: 'پروڈکٹ کامیابی سے شامل ہو گئی',
     updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی',
     statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
-    statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا'
+    statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا',
+    imageTooLarge: '5MB سے زیادہ ہے۔',
+    videoTooLarge: '15MB کی حد سے زیادہ ہے۔',
+    videoDurationInvalid: '15-20 سیکنڈ کے درمیان ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
+    compressLink: 'یہاں کمپریس کریں',
+    maxFilesExceeded: 'آپ زیادہ سے زیادہ {{max}} میڈیا فائلیں اپ لوڈ کر سکتے ہیں۔'
   },
   summary: {
     untitled: 'بغیر نام کا آئٹم',
@@ -877,20 +900,131 @@ admin.addProductOverview = {
   createSuccess: 'پروڈکٹ کامیابی سے شامل ہو گئی',
   updateSuccess: 'پروڈکٹ کامیابی سے اپ ڈیٹ ہو گئی',
   statusActive: 'پروڈکٹ کو فعال کے طور پر نشان زد کیا گیا',
-  statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا',
-  summary: {
-    untitled: 'بغیر نام کا آئٹم',
-    statusReady: 'اسٹاک میں موجود ہے',
-    statusOutOfStock: 'اسٹاک ختم ہو گیا',
-    industryLabel: 'کاروبار کی کیٹیگری',
-    listingHealth: 'لسٹنگ کی حالت',
-    visibility: 'نمائش',
-    marketLive: 'شاپ پر فعال',
-    inventoryState: 'اسٹاک کی صورتحال',
-    lowStock: 'اسٹاک کم ہے!',
-    stable: 'اسٹاک ٹھیک ہے'
-  }
+  statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا'
 }
+
+admin.settings = admin.settings || {};
+admin.settings.businessUpdateSuccess = 'کاروباری پروفائل کامیابی سے اپ ڈیٹ ہو گئی';
+admin.settings.toneUpdateSuccess = 'ٹون سیٹنگز کامیابی سے اپ ڈیٹ ہو گئیں';
+admin.settings.tones = {
+  none: 'کوئی نہیں',
+  professional: { label: 'پیشہ ورانہ (Professional)', desc: 'مہذب اور کاروباری انداز' },
+  friendly: { label: 'دوستانہ (Friendly)', desc: 'گرمجوش اور خوش اخلاق' },
+  direct: { label: 'براہ راست (Direct)', desc: 'مختصر اور واضح' },
+  persuasive: { label: 'قائل کرنے والا (Persuasive)', desc: 'مؤثر اور سیلز پر مبنی' },
+  playful: { label: 'خوش مزاج (Playful)', desc: 'ہلکا پھلکا اور دلچسپ' },
+  empathetic: { label: 'ہمدرد (Empathetic)', desc: 'پُرسکون اور ہمدردانہ' }
+};
+
+admin.profile = admin.profile || {};
+admin.profile.user = {
+  title: 'صارف کی پروفائل',
+  cancel: 'منسوخ کریں',
+  save: 'محفوظ کریں',
+  edit: 'ترمیم کریں',
+  photoAlt: 'صارف کی پروفائل',
+  noPhoto: 'کوئی تصویر نہیں',
+  uploadPhoto: 'تصویر اپ لوڈ کریں',
+  removePhoto: 'تصویر ہٹائیں',
+  nameLabel: 'پورا نام',
+  namePlaceholder: 'جیسے: علی احمد',
+  emptyName: 'اپنا پورا نام شامل کریں',
+  emailLabel: 'ای میل ایڈریس',
+  emailPlaceholder: 'جیسے: ali@example.com',
+  emptyEmail: 'اپنی ای میل شامل کریں',
+  phoneLabel: 'فون نمبر',
+  phonePlaceholder: 'جیسے: +92 300 1234567',
+  emptyPhone: 'اپنا فون نمبر شامل کریں'
+};
+
+admin.profile.business = {
+  removePhoto: 'ہٹائیں'
+};
+
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'بینک کی تفصیلات کامیابی سے اپ ڈیٹ ہو گئیں';
+admin.settings.bankDeleteSuccess = 'بینک کی تفصیلات کامیابی سے حذف کر دی گئیں';
+admin.settings.resetAllSuccess = 'تمام ترتیبات ری سیٹ کر دی گئیں';
+admin.settings.account = {
+  title: 'اکاؤنٹ کی ترتیبات',
+  deleteTitle: 'پروفائل ڈیٹا حذف کریں',
+  deleteDesc: 'بینک کی معلومات، کاروباری پروفائل اور AI ترجیحات صاف کریں۔',
+  deleteBtn: 'تمام معلومات حذف کریں',
+  confirmTitle: 'تمام پروفائل ڈیٹا حذف کریں؟',
+  confirmDesc: 'کیا آپ کو یقین ہے؟ اس سے آپ کی بینک معلومات، کاروباری پروفائل اور AI ترتیبات مستقل طور پر ختم ہو جائیں گی۔',
+  confirmBtn: 'جی ہاں، سب کچھ حذف کریں',
+  cancelBtn: 'منسوخ کریں',
+};
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'بینک کی معلومات',
+  subtitle: 'اپنی شاپ کے لیے ادائیگی کی سیٹنگز سیٹ کریں',
+  current: 'حالت',
+  configured: 'سیٹ ہے',
+  notConfigured: 'سیٹ نہیں ہے',
+  button: 'بینک کی تفصیلات تبدیل کریں'
+};
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'بینک کی تفصیلات کامیابی سے اپ ڈیٹ ہو گئیں';
+admin.settings.bankDeleteSuccess = 'بینک کی تفصیلات کامیابی سے حذف کر دی گئیں';
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = {
+  nameRequired: 'پروڈکٹ کا نام ضروری ہے',
+  descriptionRequired: 'براہ کرم پروڈکٹ کی تفصیل شامل کریں',
+  mediaRequired: 'براہ کرم کم از کم ایک تصویر یا ویڈیو اپ لوڈ کریں',
+  categoryRequired: 'براہ کرم ایک زمرہ منتخب کریں',
+  subCategoryRequired: 'براہ کرم ایک ذیلی زمرہ منتخب کریں',
+  priceRequired: 'براہ کرم درست قیمت درج کریں',
+  stockRequired: 'براہ کرم اسٹاک کی مقدار درج کریں',
+  maxFilesExceeded: 'آپ صرف {{max}} فائلیں اپ لوڈ کر سکتے ہیں۔',
+  imageTooLarge: 'بہت بڑی ہے۔',
+  videoTooLarge: '{{name}} 15MB کی حد سے زیادہ ہے۔',
+  videoDurationInvalid: '{{name}} کی لمبائی 15-20 سیکنڈ ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
+  compressLink: 'یہاں سائز کم کریں',
+  createSuccess: 'پروڈکٹ کامیابی سے شامل کر دی گئی',
+  updateSuccess: 'تفصیلات کامیابی سے اپ ڈیٹ ہو گئیں',
+  statusActive: 'پروڈکٹ کو فعال کر دیا گیا ہے',
+  statusInactive: 'پروڈکٹ کو غیر فعال کر دیا گیا ہے'
+};
+admin.settings.bank = {
+  title: 'بینک کی معلومات',
+  subtitle: 'اپنی ادائیگی اور بینک کی تفصیلات یہاں درج کریں',
+  accountTitle: 'اکاؤنٹ ہولڈر',
+  accountTitlePlaceholder: 'مثلاً: محمد احمد',
+  accountTitleHint: 'جیسا کہ آپ کے بینک اکاؤنٹ پر درج ہے',
+  accountNumber: 'اکاؤنٹ نمبر / IBAN',
+  accountNumberPlaceholder: 'مثلاً: PK00 BANK 0000 0000 0000 0000',
+  ibanHint: 'پاکستانی اکاؤنٹس کے لیے IBAN عام طور پر 24 حروف کا ہوتا ہے',
+  bankName: 'بینک کا نام',
+  bankNamePlaceholder: 'مثلاً: ایچ بی ایل، الفلاح، میزان',
+  description: 'ادائیگی کی ہدایات',
+  descriptionPlaceholder: 'مثلاً: برائے کرم ٹرانسفر میں آرڈر آئی ڈی شامل کریں',
+  required: 'ضروری ہے',
+  configured: 'ادائیگی کی تفصیلات موجود ہیں',
+  notConfigured: 'ابھی تک کوئی تفصیل نہیں',
+  verified: 'محفوظ',
+  savedSuccess: 'بینک کی تفصیلات کامیابی سے محفوظ ہو گئیں!',
+  notConfiguredTitle: 'کوئی بینک تفصیل نہیں',
+  addDetails: 'بینک اکاؤنٹ شامل کریں',
+  sectionPayment: 'ادائیگی کی تفصیلات',
+  sectionAccount: 'اکاؤنٹ کی معلومات',
+  sectionNotes: 'اضافی معلومات',
+  copyIBAN: 'IBAN کاپی کریں',
+  copied: 'کاپی ہو گیا!',
+  updateBank: 'بینک اپ ڈیٹ کریں',
+  removeAccount: 'ہٹائیں',
+  warning: 'براہ کرم یقینی بنائیں کہ تمام تفصیلات درست ہیں۔ یہ معلومات آپ کی شاپ کی ادائیگیوں کے لیے استعمال ہوں گی۔',
+  errors: {
+    accountTitleRequired: 'اکاؤنٹ کا نام درج کرنا ضروری ہے',
+    bankNameRequired: 'بینک کا نام درج کرنا ضروری ہے',
+    accountNumberRequired: 'اکاؤنٹ نمبر درج کرنا ضروری ہے'
+  },
+  notConfiguredDesc: 'اپنا بینک اکاؤنٹ شامل کریں تاکہ گاہک آپ کو براہ راست ادائیگی کر سکیں۔',
+  deleteConfirmTitle: 'بینک کی معلومات حذف کریں؟',
+  deleteConfirmDesc: 'اس سے آپ کے بینک کی تفصیلات سسٹم سے مستقل طور پر ختم ہو جائیں گی۔ ادائیگی حاصل کرنے کے لیے آپ کو انہیں دوبارہ درج کرنا ہوگا۔',
+  deleteConfirmBtn: 'جی ہاں، معلومات حذف کریں',
+  deleteCancelBtn: 'معلومات محفوظ رکھیں'
+};
 
 export const notFound = {
   title: '404',

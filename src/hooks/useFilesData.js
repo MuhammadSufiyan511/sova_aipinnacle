@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useApp } from '../context/AppProvider'
 
 export function useFilesData() {
-  const { t } = useTranslation()
+  useTranslation()
   const { files, addFile, updateFile, removeFile } = useApp()
   const [modalOpen, setModalOpen] = useState(false)
   const [editingFile, setEditingFile] = useState(null)

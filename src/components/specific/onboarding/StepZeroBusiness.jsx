@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { Building2, Check, PencilLine, ArrowRight } from 'lucide-react'
 import { useTranslation, Trans } from 'react-i18next'
 
@@ -33,7 +33,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
   return (
     <div className="w-full max-w-[58rem] onboarding-step-container">
       {/* Header */}
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-9 text-center"
@@ -49,7 +49,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-700 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.business.subtitle')}
         </p>
-      </motion.div>
+      </Motion.div>
 
       {/* Business Type Grid */}
       <div className="grid grid-cols-2 gap-3.5 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
@@ -59,7 +59,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
           const descKey = `onboarding.business.categories.${type.id}.desc`
 
           return (
-            <motion.button
+            <Motion.button
               key={type.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
               <p className="mt-1 text-[0.76rem] font-medium leading-5 text-slate-800 onboarding-desc">
                 {t(descKey)}
               </p>
-            </motion.button>
+            </Motion.button>
           )
         })}
       </div>
@@ -95,7 +95,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
       {/* Custom Category Input */}
       <AnimatePresence>
         {isOther && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
             animate={{ opacity: 1, height: 'auto', marginTop: 32 }}
             exit={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -112,7 +112,7 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
                 className="h-14 w-full rounded-2xl border-2 border-emerald-100 bg-emerald-50/30 pl-12 pr-4 font-medium text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
               />
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
 

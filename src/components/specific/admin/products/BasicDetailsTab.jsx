@@ -9,7 +9,6 @@ export const BasicDetailsTab = memo(function BasicDetailsTab({
   setFormData,
   errors,
   setErrors,
-  dynamicValues,
   setDynamicValues,
 }) {
   const { t } = useTranslation()

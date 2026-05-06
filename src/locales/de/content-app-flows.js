@@ -42,7 +42,7 @@ export const onboarding = {
       descPlaceholder: 'z.B. Premium-Seidenschal mit weichem Finish und Geschenkverpackung.',
       saveBtn: 'Produkt speichern',
       updateBtn: 'Aktualisieren',
-      invalidMediaType: 'Bitte laden Sie ein gültiges Bild, Video oder eine PDF-Datei hoch'
+      invalidMediaType: 'Bitte laden Sie ein gültiges Bild oder Video hoch'
     }
   },
   tone: {
@@ -229,6 +229,19 @@ export const admin = {
         customCategoryPlaceholder: 'Kategorienamen eingeben',
         customSubCategoryLabel: 'Eigener Typname',
         customSubCategoryPlaceholder: 'Typnamen eingeben',
+        newSubCategory: 'Neuer Typ',
+        customSetupTitle: 'Eigene Kategorie-Konfiguration',
+        customSetupSubtitle: 'Legen Sie fest, wie sich dieser Artikel verhält',
+        productTypeLabel: 'Produkt-Klassifizierung',
+        typePhysical: 'Physisches Produkt',
+        typeDigital: 'Digitales Asset',
+        typeService: 'Dienstleistung',
+        typeSubscription: 'Abonnement',
+        promptNewType: 'Neuen Produkttyp eingeben...',
+        addNewType: 'Neuen Typ hinzufügen',
+        trackStock: 'Bestand verfolgen',
+        taxable: 'Steuerpflichtig',
+        weightLabel: 'Gewicht (kg)',
         customFieldsTitle: 'Zusätzliche Details',
         addFieldBtn: 'Detail hinzufügen',
         fieldLabelPlaceholder: 'z.B. Material',
@@ -274,6 +287,10 @@ export const admin = {
         upload: 'Medien hochladen',
         primary: 'Hauptbild',
         makePrimary: 'Als Hauptbild festlegen',
+        dropTitle: 'Zum Hochladen ablegen',
+        dropSubtitle: 'Legen Sie Dateien hier ab',
+        editorTitle: 'Medien-Editor',
+        editorSubtitle: 'Bilder zuschneiden und anpassen',
       },
       actions: {
         submitAdd: 'Eintrag erstellen',
@@ -289,6 +306,11 @@ export const admin = {
       subCategoryRequired: 'Bitte eine Unterkategorie auswählen',
       priceRequired: 'Bitte gib einen Verkaufspreis ein',
       stockRequired: 'Bitte gib eine Lagerbestandsmenge ein',
+      maxFilesExceeded: 'Sie können nur bis zu {{max}} Dateien hochladen.',
+      imageTooLarge: 'ist zu groß.',
+      videoTooLarge: '{{name}} überschreitet das Limit von 15 MB.',
+      videoDurationInvalid: '{{name}} muss 15-20 Sekunden lang sein (Aktuell: {{duration}}s).',
+      compressLink: 'Hier komprimieren',
       missingFields: 'Bitte fülle alle Pflichtfelder aus, bevor du speicherst',
       createSuccess: 'Artikel erfolgreich hinzugefügt',
       updateSuccess: 'Details erfolgreich aktualisiert',
@@ -1075,6 +1097,118 @@ admin.mockData = {
     ]
   },
 }
+
+admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.validation = admin.addProductOverview.validation || {};
+admin.addProductOverview.validation.imageTooLarge = 'überschreitet 5MB.';
+admin.addProductOverview.validation.videoTooLarge = 'überschreitet 15MB Limit.';
+admin.addProductOverview.validation.videoDurationInvalid = 'muss 15-20 Sekunden lang sein (Aktuell: {{duration}}s).';
+admin.addProductOverview.validation.compressLink = 'Hier komprimieren';
+admin.addProductOverview.validation.maxFilesExceeded = 'Sie können maximal {{max}} Mediendateien hochladen.';
+
+admin.settings = admin.settings || {};
+admin.settings.businessUpdateSuccess = 'Geschäftsprofil erfolgreich aktualisiert';
+admin.settings.toneUpdateSuccess = 'Tone-Einstellungen erfolgreich aktualisiert';
+admin.settings.tones = {
+  none: 'Keiner',
+  professional: { label: 'Professionell', desc: 'Seriös und geschäftsmäßig' },
+  friendly: { label: 'Freundlich', desc: 'Herzlich und nahbar' },
+  direct: { label: 'Direkt', desc: 'Prägnant, ohne Umschweife' },
+  persuasive: { label: 'Überzeugend', desc: 'Überzeugend und verkaufsorientiert' },
+  playful: { label: 'Verspielt', desc: 'Leicht, lebhaft und lustig' },
+  empathetic: { label: 'Empathisch', desc: 'Ruhig, verständnisvoll und beruhigend' }
+};
+
+admin.profile = admin.profile || {};
+admin.profile.user = {
+  title: 'Benutzerprofil',
+  cancel: 'Abbrechen',
+  save: 'Speichern',
+  edit: 'Bearbeiten',
+  photoAlt: 'Benutzerprofil',
+  noPhoto: 'Kein Foto',
+  uploadPhoto: 'Foto hochladen',
+  removePhoto: 'Foto entfernen',
+  nameLabel: 'Vollständiger Name',
+  namePlaceholder: 'z.B. Max Mustermann',
+  emptyName: 'Fügen Sie Ihren Namen hinzu',
+  emailLabel: 'E-Mail-Adresse',
+  emailPlaceholder: 'z.B. max@example.com',
+  emptyEmail: 'Fügen Sie Ihre E-Mail hinzu',
+  phoneLabel: 'Telefonnummer',
+  phonePlaceholder: 'z.B. +49 151 1234567',
+  emptyPhone: 'Fügen Sie Ihre Telefonnummer hinzu'
+};
+
+admin.profile.business = {
+  removePhoto: 'Entfernen'
+};
+
+
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'Bankdaten erfolgreich aktualisiert';
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'Bankinformationen',
+  subtitle: 'Konfigurieren Sie die Auszahlungs- und Zahlungseinstellungen für Ihren Shop',
+  current: 'Status',
+  configured: 'Konfiguriert',
+  notConfigured: 'Nicht festgelegt',
+  button: 'Bankdaten bearbeiten'
+};
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'Bankverbindung erfolgreich aktualisiert';
+admin.settings.bankDeleteSuccess = 'Bankverbindung erfolgreich gelöscht';
+admin.settings.resetAllSuccess = 'Alle Einstellungen wurden zurückgesetzt';
+admin.settings.account = {
+  title: 'Kontoverwaltung',
+  deleteTitle: 'Profildaten löschen',
+  deleteDesc: 'Dies löscht Ihre Bankdaten, Ihr Geschäftsprofil und Ihre KI-Einstellungen.',
+  deleteBtn: 'Alle Informationen löschen',
+  confirmTitle: 'Alle Profildaten löschen?',
+  confirmDesc: 'Sind Sie sicher? Dies wird Ihre Bankdaten, Ihr Geschäftsprofil und Ihre KI-Einstellungen dauerhaft entfernen.',
+  confirmBtn: 'Ja, alles löschen',
+  cancelBtn: 'Abbrechen',
+};
+admin.settings.bank = {
+  title: 'Bankinformationen',
+  subtitle: 'Konfigurieren Sie hier Ihre Auszahlungs- und Bankdaten',
+  accountTitle: 'Kontoinhaber',
+  accountTitlePlaceholder: 'z.B. Max Mustermann',
+  accountTitleHint: 'Wie auf Ihrem Bankkonto angegeben',
+  accountNumber: 'Kontonummer / IBAN',
+  accountNumberPlaceholder: 'z.B. PK00 BANK 0000 0000 0000 0000',
+  ibanHint: 'Eine IBAN hat für pakistanische Konten in der Regel 24 Zeichen',
+  bankName: 'Bankname',
+  bankNamePlaceholder: 'z.B. HBL, Alfalah, Meezan',
+  description: 'Zahlungshinweise',
+  descriptionPlaceholder: 'z.B. Bitte Bestellnummer im Verwendungszweck angeben',
+  required: 'Pflichtfeld',
+  configured: 'Zahlungsdaten konfiguriert',
+  notConfigured: 'Noch keine Daten',
+  verified: 'Gespeichert',
+  savedSuccess: 'Bankdaten erfolgreich gespeichert!',
+  notConfiguredTitle: 'Keine Bankdaten vorhanden',
+  addDetails: 'Bankkonto hinzufügen',
+  sectionPayment: 'Zahlungsdetails',
+  sectionAccount: 'Kontoinformationen',
+  sectionNotes: 'Zusätzliche Informationen',
+  copyIBAN: 'IBAN kopieren',
+  copied: 'Kopiert!',
+  updateBank: 'Bank aktualisieren',
+  removeAccount: 'Entfernen',
+  warning: 'Stellen Sie sicher, dass alle Angaben korrekt sind.',
+  errors: {
+    accountTitleRequired: 'Kontoinhaber ist erforderlich',
+    bankNameRequired: 'Bankname ist erforderlich',
+    accountNumberRequired: 'Kontonummer ist erforderlich'
+  },
+  notConfiguredDesc: 'Fügen Sie Ihr Bankkonto hinzu, damit Kunden direkt bezahlen können.',
+  deleteConfirmTitle: 'Bankverbindung löschen?',
+  deleteConfirmDesc: 'Dies wird Ihre Bankverbindung dauerhaft aus dem System entfernen.',
+  deleteConfirmBtn: 'Ja, Info löschen',
+  deleteCancelBtn: 'Abbrechen'
+};
 
 export const notFound = {
   title: '404',

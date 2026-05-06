@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { StepZeroBusiness } from '../../components/specific/onboarding/StepZeroBusiness'
 import { StepOneProducts } from '../../components/specific/onboarding/StepOneProducts'
 import { StepTwoTone } from '../../components/specific/onboarding/StepTwoTone'
@@ -15,7 +15,7 @@ import { OnboardingThemeToggle } from './onboarding/OnboardingThemeToggle'
 
 export function OnboardingPage() {
   const { t } = useTranslation()
-  const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, setHomeDarkMode } = useApp()
+  const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, toggleHomeDarkMode } = useApp()
   const [step, setStep] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -95,13 +95,13 @@ export function OnboardingPage() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 py-10 onboarding-page-shell">
       <OnboardingThemeToggle
         homeDarkMode={homeDarkMode}
-        onToggle={() => setHomeDarkMode(!homeDarkMode)}
+        onToggle={toggleHomeDarkMode}
         t={t}
       />
 
       <OnboardingBackground />
 
-      <motion.div
+      <Motion.div
         key="onboarding-main-container"
         initial={{ opacity: 0, scale: isMobile ? 1 : 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -113,7 +113,7 @@ export function OnboardingPage() {
           {step === 0 && <OnboardingInitialLoader t={t} />}
 
           {step === 1 && (
-            <motion.div
+            <Motion.div
               key="step-business"
               custom={isMobile}
               variants={stepVariants}
@@ -127,11 +127,11 @@ export function OnboardingPage() {
                 setBusinessType={setBusinessType}
                 onNext={() => setStep(2)}
               />
-            </motion.div>
+            </Motion.div>
           )}
 
           {step === 2 && (
-            <motion.div
+            <Motion.div
               key="step-tone"
               custom={isMobile}
               variants={stepVariants}
@@ -146,11 +146,11 @@ export function OnboardingPage() {
                 onBack={() => setStep(1)}
                 onNext={() => setStep(3)}
               />
-            </motion.div>
+            </Motion.div>
           )}
 
           {step === 3 && (
-            <motion.div
+            <Motion.div
               key="step-products"
               custom={isMobile}
               variants={stepVariants}
@@ -166,14 +166,14 @@ export function OnboardingPage() {
                 onBack={() => setStep(2)}
                 onComplete={handleComplete}
               />
-            </motion.div>
+            </Motion.div>
           )}
 
           {step === 4 && (
             <OnboardingFinalLoader loadingIndex={loadingIndex} steps={LOADING_STEPS} t={t} />
           )}
         </AnimatePresence>
-      </motion.div>
+      </Motion.div>
     </div>
   )
 }

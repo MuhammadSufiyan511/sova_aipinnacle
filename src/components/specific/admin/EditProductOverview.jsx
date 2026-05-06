@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -51,7 +51,7 @@ export function EditProductOverview({ id: propId }) {
     brand: initialProduct?.brand || '',
     specs: initialProduct?.specs || {},
     variantGroups: initialProduct?.variantGroups || [{
-      id: Math.random().toString(36).slice(2, 11),
+      id: 'initial-group',
       attributes: {}
     }],
     gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
@@ -65,40 +65,43 @@ export function EditProductOverview({ id: propId }) {
 
   const [expandedGroups, setExpandedGroups] = useState([formData.variantGroups[0]?.id].filter(Boolean))
 
-  useEffect(() => {
-    if (initialProduct) {
-      setFormData({
-        name: initialProduct.name || '',
-        description: initialProduct.description || '',
-        industry: initialProduct.industry || fixedIndustry,
-        category: initialProduct.categoryAt || '',
-        subCategory: initialProduct.subCategoryAt || '',
-        customCategory: initialProduct.customCategory || '',
-        customSubCategory: initialProduct.customSubCategory || '',
-        customFields: initialProduct.customFields || [],
-        price: initialProduct.price || '',
-        salePrice: initialProduct.salePrice || '',
-        stock: initialProduct.stock || '',
-        minStock: initialProduct.minStock || '',
-        sku: initialProduct.sku || '',
-        minOrder: initialProduct.minOrder || '1',
-        discount: initialProduct.discount || '0%',
-        brand: initialProduct.brand || '',
-        specs: initialProduct.specs || {},
-        variantGroups: initialProduct.variantGroups || [{
-          id: Math.random().toString(36).slice(2, 11),
-          attributes: {}
-        }],
-        gallery: initialProduct.gallery || (initialProduct.imagePreview ? [{
-          id: 'legacy',
-          preview: initialProduct.imagePreview,
-          type: initialProduct.mediaType || 'image',
-          name: initialProduct.mediaName || 'Primary',
-          isPrimary: true,
-        }] : []),
-      })
-    }
-  }, [initialProduct, fixedIndustry])
+  const [prevInitialProduct, setPrevInitialProduct] = useState(initialProduct)
+  const [prevFixedIndustry, setPrevFixedIndustry] = useState(fixedIndustry)
+
+  if (initialProduct !== prevInitialProduct || fixedIndustry !== prevFixedIndustry) {
+    setPrevInitialProduct(initialProduct)
+    setPrevFixedIndustry(fixedIndustry)
+    setFormData({
+      name: initialProduct?.name || '',
+      description: initialProduct?.description || '',
+      industry: initialProduct?.industry || fixedIndustry,
+      category: initialProduct?.categoryAt || '',
+      subCategory: initialProduct?.subCategoryAt || '',
+      customCategory: initialProduct?.customCategory || '',
+      customSubCategory: initialProduct?.customSubCategory || '',
+      customFields: initialProduct?.customFields || [],
+      price: initialProduct?.price || '',
+      salePrice: initialProduct?.salePrice || '',
+      stock: initialProduct?.stock || '',
+      minStock: initialProduct?.minStock || '',
+      sku: initialProduct?.sku || '',
+      minOrder: initialProduct?.minOrder || '1',
+      discount: initialProduct?.discount || '0%',
+      brand: initialProduct?.brand || '',
+      specs: initialProduct?.specs || {},
+      variantGroups: initialProduct?.variantGroups || [{
+        id: 'initial-group',
+        attributes: {}
+      }],
+      gallery: initialProduct?.gallery || (initialProduct?.imagePreview ? [{
+        id: 'legacy',
+        preview: initialProduct.imagePreview,
+        type: initialProduct.mediaType || 'image',
+        name: initialProduct.mediaName || 'Primary',
+        isPrimary: true,
+      }] : []),
+    })
+  }
 
   const currentIndustryConfig = categoryConfig[formData.industry] || categoryConfig['clothing']
   const industryCategories = useMemo(() => currentIndustryConfig?.subcategories || [], [currentIndustryConfig])
@@ -120,19 +123,82 @@ export function EditProductOverview({ id: propId }) {
 
   const set = (key, value) => setFormData((prev) => ({ ...prev, [key]: value }))
 
-  const handleMediaUpload = (e) => {
+  const checkVideoDuration = (file) => {
+    return new Promise((resolve) => {
+      const video = document.createElement('video')
+      video.preload = 'metadata'
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src)
+        resolve(video.duration)
+      }
+      video.onerror = () => resolve(0)
+      video.src = URL.createObjectURL(file)
+    })
+  }
+
+  const handleMediaUpload = async (e) => {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
-    const allValid = files.every((f) => f.type.startsWith('image/') || f.type.startsWith('video/'))
-    if (!allValid) { toast.error(t('onboarding.products.modal.invalidMediaType')); return }
-    const newMedia = files.map((file) => ({
+
+    const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+    const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
+    const MIN_VIDEO_DURATION = 15
+    const MAX_VIDEO_DURATION = 20
+    const MAX_FILES = 10
+
+    if (formData.gallery.length + files.length > MAX_FILES) {
+      toast.error(t('admin.addProductOverview.validation.maxFilesExceeded', { max: MAX_FILES }))
+      e.target.value = ''
+      return
+    }
+
+    const validFiles = []
+
+    for (const file of files) {
+      if (file.type.startsWith('image/')) {
+        if (file.size > MAX_IMAGE_SIZE) {
+          toast.error(
+            (toastObj) => (
+              <span>
+                <b>{file.name}</b> {t('admin.addProductOverview.validation.imageTooLarge', 'exceeds 5MB.')}
+                <br />
+                <a href="https://tinypng.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline font-bold ml-1">
+                  Compress here
+                </a>
+              </span>
+            ),
+            { duration: 6000 }
+          )
+          continue
+        }
+        validFiles.push(file)
+      } else if (file.type.startsWith('video/')) {
+        if (file.size > MAX_VIDEO_SIZE) {
+          toast.error(`${file.name} exceeds 15MB limit.`)
+          continue
+        }
+        const duration = await checkVideoDuration(file)
+        if (duration < MIN_VIDEO_DURATION || duration > MAX_VIDEO_DURATION) {
+          toast.error(`${file.name} must be 15-20 seconds (Current: ${Math.round(duration)}s).`)
+          continue
+        }
+        validFiles.push(file)
+      } else if (file.type === 'application/pdf') {
+        validFiles.push(file)
+      }
+    }
+
+    if (!validFiles.length) { e.target.value = ''; return }
+
+    const newMedia = validFiles.map((file) => ({
       id: Math.random().toString(36).slice(2, 11),
       preview: URL.createObjectURL(file),
-      type: file.type.startsWith('image/') ? 'image' : 'video',
+      type: file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'file',
       name: file.name,
       isPrimary: formData.gallery.length === 0,
     }))
     setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, ...newMedia] }))
+    e.target.value = ''
   }
 
   const setPrimaryMedia = (id) => setFormData((prev) => ({
@@ -277,6 +343,7 @@ export function EditProductOverview({ id: propId }) {
 
           <MediaSidebar
             formData={formData}
+            setFormData={setFormData}
             fileInputRef={fileInputRef}
             handleMediaUpload={handleMediaUpload}
             removeMedia={removeMedia}

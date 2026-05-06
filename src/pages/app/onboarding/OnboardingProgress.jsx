@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 
 export function OnboardingProgress({ currentStepNum, totalSteps }) {
   if (!currentStepNum) return null
 
   return (
-    <motion.div
+    <Motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       className="mb-10 flex items-center justify-center gap-2.5 onboarding-progress-nav"
@@ -36,6 +36,6 @@ export function OnboardingProgress({ currentStepNum, totalSteps }) {
           </div>
         )
       })}
-    </motion.div>
+    </Motion.div>
   )
 }

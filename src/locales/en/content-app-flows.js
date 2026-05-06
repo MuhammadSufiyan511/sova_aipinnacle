@@ -42,7 +42,7 @@ const onboarding = {
       descPlaceholder: 'e.g. Premium silk scarf with soft finish and gift packaging.',
       saveBtn: 'Save Product',
       updateBtn: 'Update Product',
-      invalidMediaType: 'Please upload a valid image, video, or PDF file'
+      invalidMediaType: 'Please upload a valid image or video file'
     }
   },
   tone: {
@@ -277,20 +277,32 @@ const admin = {
         title: 'Category & Type',
         subtitle: 'Choose where this item belongs in your shop.',
         categoryLabel: 'Category',
+        industryLabel: 'Industry',
+        desc: 'Classification and hierarchy',
         subCategoryLabel: 'Type',
-        categoryPlaceholder: 'Select Category',
-        subCategoryPlaceholder: 'Select Type',
-        newSubCategory: 'New Type',
+        categoryPlaceholder: 'Select category',
+        subCategoryPlaceholder: 'Select type',
         customCategoryLabel: 'Custom Category Name',
         customCategoryPlaceholder: 'e.g. Handmade Crafts',
         customSubCategoryLabel: 'Custom Type Name',
-        customSubCategoryPlaceholder: 'e.g. Vintage Edition',
-        industryLabel: 'Industry',
-        desc: 'Classification and hierarchy',
-        customFieldsTitle: 'Extra Details',
-        addFieldBtn: 'Add New Detail',
-        fieldLabelPlaceholder: 'e.g. Fabric Weight',
-        fieldValuePlaceholder: 'e.g. 200 GSM',
+        customSubCategoryPlaceholder: 'e.g. Crochet',
+        newSubCategory: 'Add new type',
+        customSetupTitle: 'Custom Category Configuration',
+        customSetupSubtitle: 'Define how this custom item behaves',
+        productTypeLabel: 'Product Classification',
+        typePhysical: 'Physical Product',
+        typeDigital: 'Digital Asset',
+        typeService: 'Service',
+        typeSubscription: 'Subscription',
+        promptNewType: 'Enter new product type:',
+        addNewType: 'Add New Type',
+        trackStock: 'Track Stock',
+        taxable: 'Taxable',
+        weightLabel: 'Weight (kg)',
+        customFieldsTitle: 'Additional Specifications',
+        addFieldBtn: 'Add Detail',
+        fieldLabelPlaceholder: 'e.g. Material',
+        fieldValuePlaceholder: 'e.g. 100% Cotton',
         noCustomFields: 'No extra details added yet.'
       },
       brandIdentity: {
@@ -302,12 +314,14 @@ const admin = {
         subtitle: 'Additional questions based on the category you picked.'
       },
       media: {
-        title: 'Item Photos',
-        subtitle: 'Add pictures or videos of your item.',
-        upload: 'Add Photos',
-        uploadHint: 'Photos or Videos',
-        primary: 'Main Photo',
-        makePrimary: 'Set as Main'
+        title: 'Product Media',
+        upload: 'Add Media',
+        primary: 'Main Image',
+        makePrimary: 'Set as Main',
+        dropTitle: 'Drop to Upload',
+        dropSubtitle: 'Release to add images or videos',
+        editorTitle: 'Media Editor',
+        editorSubtitle: 'Crop and adjust your product images',
       },
       variants: {
         title: 'Product Variations',
@@ -363,17 +377,32 @@ const admin = {
         stable: 'Optimal Stock'
       },
       actions: {
-        saveDraft: 'Save for Later',
-        schedule: 'Set Date',
-        submitAdd: 'Add to Shop',
-        submitEdit: 'Save Changes'
+        submitAdd: 'Create Listing',
+        submitEdit: 'Save Changes',
+        saveDraft: 'Save as Draft',
       },
-      fields: {
-        selectOption: 'Select Option',
-        customValue: 'Custom...',
-        customValuePlaceholder: 'Enter custom value',
-        colorNotFound: 'Color not recognized. It will be added as a label.'
-      }
+    },
+    validation: {
+      nameRequired: 'Item name is required',
+      descriptionRequired: 'Please add an item description',
+      mediaRequired: 'Please upload at least one photo or video',
+      categoryRequired: 'Please select a category',
+      subCategoryRequired: 'Please select a sub-category',
+      priceRequired: 'Please enter a valid price',
+      stockRequired: 'Please enter stock quantity',
+      maxFilesExceeded: 'You can only upload up to {{max}} files.',
+      imageTooLarge: 'is too large.',
+      videoTooLarge: '{{name}} exceeds 15MB limit.',
+      videoDurationInvalid: '{{name}} must be 15-20 seconds (Current: {{duration}}s).',
+      compressLink: 'Compress here',
+      createSuccess: 'Item added to shop successfully',
+      updateSuccess: 'Details updated successfully'
+    },
+    fields: {
+      selectOption: 'Select Option',
+      customValue: 'Custom...',
+      customValuePlaceholder: 'Enter custom value',
+      colorNotFound: 'Color not recognized. It will be added as a label.'
     },
     categories: {
       electronics: 'Electronics',
@@ -559,6 +588,11 @@ const admin = {
       updateSuccess: 'Item details updated successfully',
       statusActive: 'Product marked as active',
       statusInactive: 'Product marked as inactive',
+      imageTooLarge: 'exceeds 5MB.',
+      videoTooLarge: 'exceeds 15MB limit.',
+      videoDurationInvalid: 'must be 15-20 seconds (Current: {{duration}}s).',
+      compressLink: 'Compress here',
+      maxFilesExceeded: 'You can only upload up to {{max}} media files.',
     },
     nested: {
       formal_shirts: 'Formal Shirts',
@@ -936,6 +970,7 @@ const admin = {
       }
     },
     tones: {
+      none: 'None',
       professional: { label: 'Professional', desc: 'Polished and business-like' },
       friendly: { label: 'Friendly', desc: 'Warm and approachable' },
       direct: { label: 'Direct', desc: 'Concise, no fluff' },
@@ -1183,6 +1218,99 @@ admin.profile.business = {
   locationLabel: 'Business location',
   locationPlaceholder: 'e.g. Karachi, Pakistan',
   emptyLocation: 'Add your location',
+};
+
+admin.settings = admin.settings || {};
+admin.settings.businessUpdateSuccess = 'Business profile updated successfully';
+admin.settings.toneUpdateSuccess = 'Tone settings updated successfully';
+
+admin.profile = admin.profile || {};
+admin.profile.user = {
+  title: 'User Profile',
+  cancel: 'Cancel',
+  save: 'Save',
+  edit: 'Edit',
+  photoAlt: 'User profile',
+  noPhoto: 'No user photo',
+  uploadPhoto: 'Upload photo',
+  removePhoto: 'Remove photo',
+  nameLabel: 'Full Name',
+  namePlaceholder: 'e.g. John Doe',
+  emptyName: 'Add your full name',
+  emailLabel: 'Email Address',
+  emailPlaceholder: 'e.g. john@example.com',
+  emptyEmail: 'Add your email',
+  phoneLabel: 'Phone Number',
+  phonePlaceholder: 'e.g. +92 300 1234567',
+  emptyPhone: 'Add your phone number'
+};
+
+admin.profile.business = {
+  removePhoto: 'Remove'
+};
+
+
+admin.settings = admin.settings || {};
+admin.settings.bankUpdateSuccess = 'Bank details updated successfully';
+admin.settings.bankDeleteSuccess = 'Bank details deleted successfully';
+admin.settings.resetAllSuccess = 'All settings have been reset';
+admin.settings.account = {
+  title: 'Account Management',
+  deleteTitle: 'Delete Profile Data',
+  deleteDesc: 'Clear your bank details, business profile, and AI preferences.',
+  deleteBtn: 'Delete All Info',
+  confirmTitle: 'Delete All Profile Data?',
+  confirmDesc: 'Are you sure? This will permanently remove your bank details, business profile, and AI settings.',
+  confirmBtn: 'Yes, Delete Everything',
+  cancelBtn: 'Cancel',
+};
+admin.settings.sections = admin.settings.sections || {};
+admin.settings.sections.bank = {
+  title: 'Bank Information',
+  subtitle: 'Payout and payment settings for your shop',
+  current: 'Status',
+  configured: 'Configured',
+  notConfigured: 'Not Set',
+  button: 'Edit Bank Details'
+};
+admin.settings.bank = {
+  title: 'Bank Information',
+  subtitle: 'Configure your payout and payment details',
+  accountTitle: 'Account Holder',
+  accountTitlePlaceholder: 'e.g. John Doe',
+  accountTitleHint: 'As it appears on your bank account',
+  accountNumber: 'Account Number / IBAN',
+  accountNumberPlaceholder: 'e.g. PK00 BANK 0000 0000 0000 0000',
+  ibanHint: 'IBAN is typically 24 characters for Pakistani accounts',
+  bankName: 'Bank Name',
+  bankNamePlaceholder: 'e.g. HBL, Alfalah, Meezan',
+  description: 'Payment Instructions',
+  descriptionPlaceholder: 'e.g. Please include order ID in transfer remarks',
+  required: 'Required',
+  configured: 'Payment details configured',
+  notConfigured: 'No details added yet',
+  verified: 'Saved',
+  savedSuccess: 'Bank details saved successfully!',
+  notConfiguredTitle: 'No Bank Details Added',
+  addDetails: 'Add Bank Account',
+  sectionPayment: 'Payment Details',
+  sectionAccount: 'Account Info',
+  sectionNotes: 'Additional Info',
+  copyIBAN: 'Copy IBAN',
+  copied: 'Copied!',
+  updateBank: 'Update Bank',
+  removeAccount: 'Remove',
+  warning: 'Make sure all details are accurate. This information will be used for your shop payments.',
+  errors: {
+    accountTitleRequired: 'Account Title is required',
+    bankNameRequired: 'Bank Name is required',
+    accountNumberRequired: 'Account Number is required'
+  },
+  notConfiguredDesc: 'Add your bank account so customers can pay you directly.',
+  deleteConfirmTitle: 'Delete Bank Information?',
+  deleteConfirmDesc: 'This will permanently remove your bank details from the system. You will need to re-enter them to receive payments.',
+  deleteConfirmBtn: 'Yes, Delete Info',
+  deleteCancelBtn: 'Keep Info'
 };
 
 export const notFound = {

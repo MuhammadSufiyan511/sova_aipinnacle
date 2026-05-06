@@ -36,11 +36,22 @@ export function AppProvider({ children }) {
         }
   })
 
-  const [user, setUser] = useState({ name: 'User', plan: 'Free' })
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('sova-user')
+    return saved ? JSON.parse(saved) : { name: 'User', plan: 'Free', email: '', phone: '', avatar: '' }
+  })
+
+  const [bankDetails, setBankDetails] = useState(() => {
+    const saved = localStorage.getItem('sova-bank-details')
+    return saved ? JSON.parse(saved) : { accountTitle: '', accountNumber: '', bankName: '', description: '' }
+  })
+
   const [showCelebration, setShowCelebration] = useState(false)
   const [homeDarkMode, setHomeDarkMode] = useState(() => {
     if (typeof window === 'undefined') return false
-    return localStorage.getItem('sova-home-theme') === 'dark'
+    const saved = localStorage.getItem('sova-home-theme')
+    if (saved) return saved === 'dark'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
   })
 
   useEffect(() => {
@@ -56,16 +67,43 @@ export function AppProvider({ children }) {
   }, [tones])
 
   useEffect(() => {
-    localStorage.setItem('sova-home-theme', homeDarkMode ? 'dark' : 'light')
-  }, [homeDarkMode])
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = (e) => {
+      if (!localStorage.getItem('sova-home-theme')) {
+        setHomeDarkMode(e.matches)
+      }
+    }
+    mq.addEventListener('change', handleChange)
+    return () => mq.removeEventListener('change', handleChange)
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('sova-business-profile', JSON.stringify(businessProfile))
   }, [businessProfile])
 
   useEffect(() => {
-    localStorage.setItem('sova-business-details', JSON.stringify(businessDetails))
+    try {
+      localStorage.setItem('sova-business-details', JSON.stringify(businessDetails))
+    } catch (e) {
+      if (e.name === 'QuotaExceededError') {
+        console.error('Storage quota exceeded. Please use smaller images.')
+      }
+    }
   }, [businessDetails])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sova-user', JSON.stringify(user))
+    } catch (e) {
+      if (e.name === 'QuotaExceededError') {
+        console.error('Storage quota exceeded. Please use a smaller avatar.')
+      }
+    }
+  }, [user])
+
+  useEffect(() => {
+    localStorage.setItem('sova-bank-details', JSON.stringify(bankDetails))
+  }, [bankDetails])
 
   const addProduct = (product) => {
     if (product?.mediaType === 'file') {
@@ -102,6 +140,12 @@ export function AppProvider({ children }) {
     setFiles((prev) => prev.map((file) => (file.id === updatedFile.id ? updatedFile : file)))
   const removeFile = (id) => setFiles((prev) => prev.filter((file) => file.id !== id))
 
+  const toggleHomeDarkMode = () => {
+    const newMode = !homeDarkMode
+    setHomeDarkMode(newMode)
+    localStorage.setItem('sova-home-theme', newMode ? 'dark' : 'light')
+  }
+
   const value = useMemo(() => ({
     businessProfile,
     setBusinessProfile,
@@ -124,8 +168,11 @@ export function AppProvider({ children }) {
     showCelebration,
     setShowCelebration,
     homeDarkMode,
-    setHomeDarkMode
-  }), [businessProfile, products, files, tones, businessDetails, user, showCelebration, homeDarkMode])
+    setHomeDarkMode,
+    toggleHomeDarkMode,
+    bankDetails,
+    setBankDetails
+  }), [businessProfile, products, files, tones, businessDetails, user, showCelebration, homeDarkMode, bankDetails])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

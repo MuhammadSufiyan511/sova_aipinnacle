@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, memo } from 'react'
+import { useRef, useState, memo } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { Upload, X, Eye, PlayCircle, Image as ImageIcon, Star, Plus } from 'lucide-react'
 
@@ -120,7 +120,7 @@ export const ImageUploadZone = memo(function ImageUploadZone({
       <AnimatePresence>
         {gallery.length > 0 ? (
           <Motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-5">
-            {gallery.map((item, index) => (
+            {gallery.map((item) => (
               <Motion.div key={item.id} layout initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.2 }} className="group relative aspect-square overflow-hidden rounded-[18px] border border-[#DDEFE7] bg-white shadow-sm">
                 <div className="absolute left-1.5 top-1.5 z-10 hidden group-hover:flex gap-1.5">
                   <button type="button" onClick={() => removeMedia(item.id)} className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow-md transition hover:scale-110 hover:bg-red-600">

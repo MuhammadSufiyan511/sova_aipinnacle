@@ -19,7 +19,7 @@ const pageTransition = { duration: 0.2, ease: 'easeOut' }
 export function AppShell({ children }) {
   const location = useLocation()
   const { i18n } = useTranslation()
-  const { homeDarkMode, setHomeDarkMode } = useApp()
+  const { homeDarkMode, toggleHomeDarkMode } = useApp()
   const [bgOpacity, setBgOpacity] = useState(1)
   
   const isAppRoute = location.pathname.startsWith('/onboarding') || location.pathname.startsWith('/admin')
@@ -68,7 +68,7 @@ export function AppShell({ children }) {
       {!isAppRoute && (
         <SiteHeader
           isHomeDarkMode={homeDarkMode}
-          onToggleHomeDarkMode={() => setHomeDarkMode(!homeDarkMode)}
+          onToggleHomeDarkMode={toggleHomeDarkMode}
           showThemeToggle={!isAppRoute}
         />
       )}

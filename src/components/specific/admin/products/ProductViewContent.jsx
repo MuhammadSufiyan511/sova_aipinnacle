@@ -1,6 +1,7 @@
-import { AnimatePresence, motion as Motion } from 'framer-motion'
-import { X, ZoomIn, ChevronLeft, ChevronRight, Layers, DollarSign, Package, Box, Star, FileText, Tag, BadgeCheck, Pencil, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
+import { Pencil, Trash2, X, Box, Star, DollarSign, Package, FileText, BadgeCheck, Tag, Layers, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
+import { useState, memo } from 'react'
+import { useApp } from '../../../../context/AppProvider'
 import toast from 'react-hot-toast'
 import { getProductMediaItems, formatFieldLabel } from './utils'
 import { DeleteConfirmationSheet } from '../../../shared/DeleteConfirmationSheet'
@@ -19,6 +20,7 @@ export function ProductViewContent({
   setModalSlideDirection,
   isPage = false // To adjust styles for full page view
 }) {
+  const { homeDarkMode } = useApp()
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   if (!product) return null
 
@@ -43,9 +45,10 @@ export function ProductViewContent({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={isPage ? { opacity: 0 } : { opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 8 : 30 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className={`admin-modal-lux admin-card-shell relative z-[130] flex w-full flex-col overflow-hidden bg-white ${isPage
-        ? 'h-full md:h-[min(90vh,950px)] md:rounded-[32px] md:max-w-6xl md:shadow-[0_40px_100px_rgba(15,23,42,0.3)] md:border md:border-white/20'
-        : 'max-w-6xl rounded-[24px] border border-white/20 shadow-[0_40px_100px_rgba(15,23,42,0.3)] md:flex-row md:h-[min(90vh,950px)] md:rounded-[32px] h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)]'
+      className={`admin-modal-lux admin-card-shell relative z-[130] flex w-full flex-col overflow-hidden ${homeDarkMode ? 'bg-[#040D0C] border-emerald-900/20 shadow-[0_40px_100px_rgba(0,0,0,0.6)]' : 'bg-white border-white/20 shadow-[0_40px_100px_rgba(15,23,42,0.3)]'
+        } ${isPage
+          ? 'h-full md:h-[min(90vh,950px)] md:rounded-[32px] md:max-w-6xl md:border'
+          : 'max-w-6xl rounded-[24px] md:flex-row md:h-[min(90vh,950px)] md:rounded-[32px] h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)] border'
         } ${isMobile && isPage ? '' : 'md:flex-row'}`}
     >
       <button
@@ -74,7 +77,7 @@ export function ProductViewContent({
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
+            onDragEnd={(e, { offset }) => {
               const swipe = offset.x
               if (swipe < -50) {
                 showNextModalMedia()
@@ -87,7 +90,7 @@ export function ProductViewContent({
             {currentModalMedia.type === 'video' ? (
               <video src={currentModalMedia.preview} className="h-full w-full object-contain bg-black/50" controls autoPlay muted loop playsInline />
             ) : currentModalMedia.type === 'file' ? (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-50 text-slate-400">
+              <div className={`flex h-full w-full flex-col items-center justify-center gap-4 ${homeDarkMode ? 'bg-slate-900/50 text-slate-500' : 'bg-slate-50 text-slate-400'}`}>
                 <FileText className="h-12 w-12 text-slate-300" />
                 <span className="max-w-[80%] text-center text-[0.75rem] font-bold text-slate-500">{currentModalMedia.name || product.name}</span>
               </div>
@@ -154,45 +157,45 @@ export function ProductViewContent({
       </div>
 
       {/* RIGHT SIDE: Details */}
-      <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-slate-50/20">
-        <div className="flex-1 overflow-y-auto px-5 py-6 md:px-10 md:py-10">
+      <div className={`flex-1 flex flex-col min-h-0 min-w-0 ${homeDarkMode ? 'bg-emerald-950/5' : 'bg-slate-50/20'}`}>
+        <div className="flex-1 overflow-y-auto px-5 py-6 md:px-10 md:py-10 lux-scrollbar">
           <div className="mb-10">
-            <h3 className="text-[1.25rem] sm:text-[1.5rem] md:text-[1.85rem] font-bold text-[#1E293B] leading-tight mb-2">
+            <h3 className={`text-[1.25rem] sm:text-[1.5rem] md:text-[1.85rem] font-bold leading-tight mb-2 ${homeDarkMode ? 'text-white' : 'text-[#1E293B]'}`}>
               {product.name || t('admin.products.item.none')}
             </h3>
           </div>
 
           <div className="space-y-8">
-            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+            <div className={`rounded-[24px] p-4 sm:p-6 shadow-sm border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
               <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                <span className={`flex h-9 w-9 items-center justify-center rounded-xl ${homeDarkMode ? 'bg-indigo-950/30 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}`}>
                   <Layers className="h-4.5 w-4.5" />
                 </span>
                 <div>
-                  <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-[#1E293B]">
+                  <p className={`text-[0.62rem] font-black uppercase tracking-[0.18em] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                     {t('admin.addProductOverview.sections.category.title')}
                   </p>
-                  <p className="text-[0.75rem] font-medium text-slate-400">
+                  <p className={`text-[0.75rem] font-medium ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                     {t('admin.addProductOverview.sections.category.desc') || 'Classification and hierarchy'}
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
-                  <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
+                  <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>
                     {t('admin.addProductOverview.sections.category.industryLabel') || 'Industry'}
                   </span>
-                  <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">{product.industry?.replace('-', ' ')}</span>
+                  <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{product.industry?.replace('-', ' ')}</span>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.categoryLabel')}</span>
-                  <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
+                  <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>{t('admin.addProductOverview.sections.category.categoryLabel')}</span>
+                  <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>
                     {product.categoryAt === 'custom' ? product.customCategory : product.categoryAt?.replace(/-/g, ' ')}
                   </span>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">{t('admin.addProductOverview.sections.category.subCategoryLabel')}</span>
-                  <span className="text-[0.92rem] font-bold text-[#1E293B] capitalize">
+                  <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>{t('admin.addProductOverview.sections.category.subCategoryLabel')}</span>
+                  <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>
                     {product.subCategoryAt === 'custom' ? product.customSubCategory : product.subCategoryAt}
                   </span>
                 </div>
@@ -200,8 +203,8 @@ export function ProductViewContent({
             </div>
 
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
-              <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
-                <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
+              <div className={`rounded-[22px] p-5 shadow-sm transition-all hover:shadow-md border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
+                <p className={`text-[0.55rem] font-black uppercase tracking-[0.15em] mb-2 flex items-center gap-2 ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                   <DollarSign className="h-3 w-3 text-emerald-500" />
                   {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
                 </p>
@@ -210,7 +213,7 @@ export function ProductViewContent({
                 </p>
                 {product.price && Number(product.price) > Number(product.salePrice) && (
                   <div className="mt-2 flex items-center gap-2">
-                    <p className="text-[0.72rem] font-medium text-slate-400 line-through">
+                    <p className={`text-[0.72rem] font-medium line-through ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                       {t('admin.products.item.price', { price: product.price })}
                     </p>
                     <span className="text-[0.62rem] font-black text-rose-500 uppercase">
@@ -220,101 +223,105 @@ export function ProductViewContent({
                 )}
               </div>
 
-              <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-5 shadow-sm transition-all hover:shadow-md">
-                <p className="text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#1E293B] mb-2 flex items-center gap-2">
+              <div className={`rounded-[22px] p-5 shadow-sm transition-all hover:shadow-md border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
+                <p className={`text-[0.55rem] font-black uppercase tracking-[0.15em] mb-2 flex items-center gap-2 ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                   <Package className="h-3 w-3 text-slate-400" />
                   {t('admin.addProductOverview.sections.pricing.currentStockLabel', { defaultValue: 'Current Stock' })}
                 </p>
                 <div className="flex items-baseline gap-1.5">
-                  <p className={`text-[1.25rem] font-bold ${Number(product.stock) <= Number(product.minStock) ? 'text-rose-500' : 'text-[#1E293B]'}`}>
+                  <p className={`text-[1.25rem] font-bold ${Number(product.stock) <= Number(product.minStock) ? 'text-rose-500' : (homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]')}`}>
                     {product.stock ?? '0'}
                   </p>
-                  <span className="text-[0.65rem] font-bold text-[#1E293B] uppercase tracking-wider">{t('admin.common.units')}</span>
+                  <span className={`text-[0.65rem] font-bold uppercase tracking-wider ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.common.units')}</span>
                 </div>
-                <p className="mt-2 text-[0.68rem] font-medium text-slate-400">
+                <p className={`mt-2 text-[0.68rem] font-medium ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                   {t('admin.addProductOverview.sections.pricing.minStockLabel')}: {product.minStock || '0'}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-400">
+              <div className={`rounded-[22px] p-4 flex items-center gap-4 border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${homeDarkMode ? 'bg-slate-900 text-slate-500' : 'bg-slate-50 text-slate-400'}`}>
                   <Box className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.pricing.minOrderLabel')}</p>
-                  <p className="text-[0.88rem] font-bold text-[#1E293B]">{product.minOrder || '1'} {t('admin.common.units')}</p>
+                  <p className={`text-[0.52rem] font-black uppercase tracking-[0.1em] mb-0.5 ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.addProductOverview.sections.pricing.minOrderLabel')}</p>
+                  <p className={`text-[0.88rem] font-bold ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{product.minOrder || '1'} {t('admin.common.units')}</p>
                 </div>
               </div>
               {product.brand && (
-                <div className="rounded-[22px] bg-white border border-[#EAF1EE] p-4 flex items-center gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
+                <div className={`rounded-[22px] p-4 flex items-center gap-4 border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${homeDarkMode ? 'bg-emerald-950/30 text-emerald-400' : 'bg-emerald-50 text-emerald-500'}`}>
                     <Star className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-[0.52rem] font-black uppercase tracking-[0.1em] text-[#1E293B] mb-0.5">{t('admin.addProductOverview.sections.basics.brandLabel') || 'Brand'}</p>
-                    <p className="text-[0.88rem] font-bold text-[#1E293B]">{product.brand}</p>
+                    <p className={`text-[0.52rem] font-black uppercase tracking-[0.1em] mb-0.5 ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.addProductOverview.sections.basics.brandLabel') || 'Brand'}</p>
+                    <p className={`text-[0.88rem] font-bold ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{product.brand}</p>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-5 sm:p-6 shadow-sm group">
+            <div className={`rounded-[24px] p-5 sm:p-6 shadow-sm group border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
               <div className="flex items-center gap-3 mb-4">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-colors group-hover:bg-emerald-50 group-hover:text-emerald-600">
+                <span className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${homeDarkMode ? 'bg-slate-900 text-slate-500 group-hover:bg-emerald-900/40' : 'bg-slate-100 text-slate-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'
+                  }`}>
                   <FileText className="h-4 w-4" />
                 </span>
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                <p className={`text-[0.65rem] font-black uppercase tracking-[0.15em] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                   {t('admin.addProductOverview.sections.basics.descriptionLabel')}
                 </p>
               </div>
-              <p className="text-[0.95rem] font-medium leading-[1.8] text-[#476172] min-h-[50px] whitespace-pre-wrap">
+              <p className={`text-[0.95rem] font-medium leading-[1.8] min-h-[50px] whitespace-pre-wrap ${homeDarkMode ? 'text-slate-400' : 'text-[#476172]'}`}>
                 {product.description || t('admin.products.item.noDescription')}
               </p>
             </div>
 
             {Array.isArray(product.variantGroups) && product.variantGroups.length > 0 && (
-              <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+              <div className={`rounded-[24px] p-4 sm:p-6 shadow-sm border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-xl ${homeDarkMode ? 'bg-violet-950/30 text-violet-400' : 'bg-violet-50 text-violet-600'}`}>
                     <Tag className="h-4.5 w-4.5" />
                   </span>
                   <div>
-                    <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                    <p className={`text-[0.65rem] font-black uppercase tracking-[0.15em] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                       {t('admin.addProductOverview.sections.variants.title')}
                     </p>
-                    <p className="text-[0.75rem] font-medium text-slate-400">
+                    <p className={`text-[0.75rem] font-medium ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                       {t('admin.addProductOverview.sections.variants.desc') || 'Available size and color sets'}
                     </p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   {product.variantGroups.map((group, groupIdx) => (
-                    <div key={group.id || groupIdx} className="p-4 sm:p-5 rounded-2xl bg-slate-50/50 border border-slate-100/30">
+                    <div key={group.id || groupIdx} className={`p-4 sm:p-5 rounded-2xl border ${homeDarkMode ? 'bg-slate-900/30 border-emerald-900/10' : 'bg-slate-50/50 border-slate-100/30'}`}>
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border border-slate-200 text-[0.7rem] font-black text-slate-900 shadow-sm">
+                        <span className={`flex h-7 w-7 items-center justify-center rounded-lg border text-[0.7rem] font-black shadow-sm ${homeDarkMode ? 'bg-slate-900 border-emerald-900/20 text-white' : 'bg-white border-slate-200 text-slate-900'
+                          }`}>
                           {groupIdx + 1}
                         </span>
-                        <span className="text-[0.75rem] font-black text-slate-900/40 uppercase tracking-[0.1em]">
+                        <span className={`text-[0.75rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-900/40'}`}>
                           {t('admin.addProductOverview.sections.variants.rowLabel') || 'Variation Set'}
                         </span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                         {Object.entries(group.attributes || {}).map(([key, val]) => (
                           <div key={key} className="flex flex-col gap-2">
-                            <span className="text-[0.55rem] font-black uppercase tracking-[0.12em] text-[#1E293B]">
+                            <span className={`text-[0.55rem] font-black uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-500' : 'text-[#1E293B]'}`}>
                               {formatFieldLabel(key)}
                             </span>
                             <div className="flex flex-wrap gap-1.5">
                               {Array.isArray(val) ? (
                                 val.map(v => (
-                                  <span key={v} className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
+                                  <span key={v} className={`text-[0.7rem] font-bold px-2.5 py-1 rounded-lg border shadow-sm ${homeDarkMode ? 'bg-slate-900 border-emerald-900/20 text-slate-200' : 'bg-white border-slate-200 text-[#1E293B]'
+                                    }`}>
                                     {v}
                                   </span>
                                 ))
                               ) : (
-                                <span className="text-[0.7rem] font-bold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#1E293B] shadow-sm">
+                                <span className={`text-[0.7rem] font-bold px-2.5 py-1 rounded-lg border shadow-sm ${homeDarkMode ? 'bg-slate-900 border-emerald-900/20 text-slate-200' : 'bg-white border-slate-200 text-[#1E293B]'
+                                  }`}>
                                   {val}
                                 </span>
                               )}
@@ -329,22 +336,22 @@ export function ProductViewContent({
             )}
 
             {product.specs && Object.keys(product.specs).length > 0 && (
-              <div className="rounded-[24px] bg-white border border-[#EAF1EE] p-4 sm:p-6 shadow-sm">
+              <div className={`rounded-[24px] p-4 sm:p-6 shadow-sm border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                  <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${homeDarkMode ? 'bg-amber-950/30 text-amber-400' : 'bg-amber-50 text-amber-600'}`}>
                     <BadgeCheck className="h-4 w-4" />
                   </span>
-                  <p className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-[#1E293B]">
+                  <p className={`text-[0.65rem] font-black uppercase tracking-[0.15em] ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
                     {t('admin.products.item.specsTitle')}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {Object.entries(product.specs).map(([key, value]) => (
-                    <div key={key} className="flex flex-col gap-1.5 pl-3 border-l-2 border-emerald-100">
-                      <span className="text-[0.52rem] font-black uppercase tracking-[0.14em] text-[#9BA8A4]">
+                    <div key={key} className={`flex flex-col gap-1.5 pl-3 border-l-2 ${homeDarkMode ? 'border-emerald-900' : 'border-emerald-100'}`}>
+                      <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>
                         {key.replace(/([A-Z])/g, ' $1')}
                       </span>
-                      <span className="text-[0.88rem] font-bold text-[#1E293B] leading-tight">{value}</span>
+                      <span className={`text-[0.88rem] font-bold leading-tight ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{value}</span>
                     </div>
                   ))}
                 </div>
@@ -354,13 +361,15 @@ export function ProductViewContent({
           </div>
         </div>
 
-        <div className="shrink-0 border-t border-[#EAF1EE] bg-white/90 p-4 sm:p-6 md:px-10 backdrop-blur-md">
+        <div className={`shrink-0 border-t p-4 sm:p-6 md:px-10 backdrop-blur-md ${homeDarkMode ? 'bg-[#020617]/90 border-emerald-900/20' : 'bg-white/90 border-[#EAF1EE]'
+          }`}>
           <div className="flex items-center gap-3 md:gap-4">
             <Motion.button
               whileHover={{ scale: 1.01, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onEdit(product)}
-              className="flex-1 h-13 flex items-center justify-center gap-3 rounded-2xl bg-slate-900 text-[0.88rem] font-black text-white shadow-xl shadow-slate-900/10 transition hover:bg-emerald-600 hover:shadow-emerald-600/20"
+              className={`flex-1 h-13 flex items-center justify-center gap-3 rounded-2xl text-[0.88rem] font-black text-white shadow-xl transition ${homeDarkMode ? 'bg-emerald-500 hover:bg-emerald-400 shadow-emerald-500/10' : 'bg-slate-900 hover:bg-emerald-600 shadow-slate-900/10'
+                }`}
             >
               <Pencil className="h-4 w-4" />
               {t('admin.products.item.editBtn')}
@@ -369,7 +378,8 @@ export function ProductViewContent({
               whileHover={{ scale: 1.05, rotate: 2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowDeleteConfirm(true)}
-              className="h-13 w-13 flex items-center justify-center rounded-2xl bg-red-50 text-red-500 transition hover:bg-red-500 hover:text-white ring-1 ring-red-100"
+              className={`h-13 w-13 flex items-center justify-center rounded-2xl transition ring-1 ${homeDarkMode ? 'bg-red-950/30 text-red-400 ring-red-900/20 hover:bg-red-500 hover:text-white' : 'bg-red-50 text-red-500 ring-red-100 hover:bg-red-500 hover:text-white'
+                }`}
             >
               <Trash2 className="h-5 w-5" />
             </Motion.button>

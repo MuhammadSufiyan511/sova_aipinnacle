@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 
 export function HeroBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0">
-      <motion.div
+      <Motion.div
         animate={{
           scale: [1, 1.1, 1],
           opacity: [0.55, 0.75, 0.55],

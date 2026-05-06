@@ -1,5 +1,5 @@
 import { memo, useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { rtlLanguages } from '../../../i18n'
 
@@ -39,7 +39,7 @@ const defaultCards = [
 function ProgressScanLine({ active, onComplete }) {
   return (
     <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[#10B981]/12">
-      <motion.div
+      <Motion.div
         key={active}
         initial={{ width: '0%' }}
         animate={{ width: '100%' }}
@@ -125,7 +125,7 @@ function AeoMobileCarousel({ cards, isRtl }) {
         {/* Active card */}
         <div className="relative" style={{ zIndex: 10 }}>
           <AnimatePresence mode="wait" initial={false} custom={direction}>
-            <motion.div
+            <Motion.div
               key={active}
               custom={direction}
               variants={slideVariants}
@@ -161,7 +161,7 @@ function AeoMobileCarousel({ cards, isRtl }) {
               <p className="mt-3 text-[0.9rem] leading-[1.8] text-[#48617A]">
                 {cards[active].answer}
               </p>
-            </motion.div>
+            </Motion.div>
           </AnimatePresence>
         </div>
       </div>
@@ -206,7 +206,7 @@ export const AeoOverviewSection = memo(function AeoOverviewSection() {
     <section className="aeo-overview-section w-full bg-[#ebf2ff] py-8">
       <div className="mx-auto max-w-[1160px] px-5">
         {/* Heading */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -222,7 +222,7 @@ export const AeoOverviewSection = memo(function AeoOverviewSection() {
           <p className="aeo-description mx-auto mt-3 max-w-[720px] text-[0.98rem] leading-[1.75] text-[#48617A]">
             {t('content.aeoOverview.description')}
           </p>
-        </motion.div>
+        </Motion.div>
 
         {/* Mobile carousel */}
         <AeoMobileCarousel cards={cards} isRtl={isRtl} />
@@ -232,7 +232,7 @@ export const AeoOverviewSection = memo(function AeoOverviewSection() {
           {cards.map((item, index) => {
             const { bg } = CARD_META[index % CARD_META.length]
             return (
-              <motion.div
+              <Motion.div
                 key={item.question}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -252,7 +252,7 @@ export const AeoOverviewSection = memo(function AeoOverviewSection() {
                   )}
                 </h3>
                 <p className="mt-3 text-[0.96rem] leading-[1.8] text-[#48617A]">{item.answer}</p>
-              </motion.div>
+              </Motion.div>
             )
           })}
         </div>

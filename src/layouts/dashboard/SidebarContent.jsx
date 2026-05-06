@@ -25,7 +25,7 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
     className="h-full w-full object-cover rounded-full scale-90"
   />
 </span> */}
-          <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" className="h-7 w-10 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
+          <img src={sovaLogo} alt={t('common.brand')} width="56" height="32" loading="eager" decoding="async" draggable="false" className="h-7 w-10 rounded-lg sm:h-8 sm:w-14 sm:rounded-xl shadow-sm" />
           <div>
             <p className="font-display text-[0.95rem] font-bold tracking-tight text-white">SOVA</p>
             <p className="text-[0.55rem] font-bold uppercase tracking-[0.28em] text-[#10B981]">Workspace</p>
@@ -53,8 +53,8 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                     type="button"
                     onClick={() => toggleGroup(link.label, isActive)}
                     className={`sidebar-group-trigger group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${isActive
-                        ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
-                        : 'text-white hover:bg-white/[0.06] hover:text-white/80'
+                      ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
+                      : 'text-white hover:bg-white/[0.06] hover:text-white/80'
                       }`}
                   >
                     <link.icon className={`h-4 w-4 shrink-0 transition-all ${isActive ? 'text-[#10B981]' : 'opacity-60 group-hover:opacity-80'}`} />
@@ -80,8 +80,8 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                                 to={child.path}
                                 onClick={collapseOnNavigate ? onClose : undefined}
                                 className={`sidebar-nav-child group flex items-center gap-3 rounded-xl px-3 py-2 text-[0.8rem] font-medium transition-all ${childActive
-                                    ? 'is-active bg-[#10B981]/12 text-[#A7F3D0] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.18)]'
-                                    : 'text-white hover:bg-white/[0.05] hover:text-white/75'
+                                  ? 'is-active bg-[#10B981]/12 text-[#A7F3D0] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.18)]'
+                                  : 'text-white hover:bg-white/[0.05] hover:text-white/75'
                                   }`}
                               >
                                 <child.icon className={`h-3.5 w-3.5 shrink-0 ${childActive ? 'text-[#34D399]' : 'opacity-60 group-hover:opacity-80'}`} />
@@ -104,8 +104,8 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
                 to={link.path}
                 onClick={collapseOnNavigate ? onClose : undefined}
                 className={`sidebar-nav-link group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[0.84rem] font-medium transition-all ${isActive
-                    ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
-                    : 'text-white hover:bg-white/[0.06] hover:text-white/80'
+                  ? 'is-active bg-[#10B981]/15 text-[#10B981] shadow-[inset_0_0_0_1px_rgba(16,185,129,0.2)]'
+                  : 'text-white hover:bg-white/[0.06] hover:text-white/80'
                   }`}
               >
                 <link.icon className={`h-4 w-4 shrink-0 transition-all ${isActive ? 'text-[#10B981]' : 'opacity-50 group-hover:opacity-75'}`} />
@@ -131,7 +131,7 @@ export function SidebarContent({ collapseOnNavigate = false, links, location, na
           className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[0.78rem] font-medium text-white transition hover:bg-red-500/10 hover:text-red-400"
         >
           <LogOut className="h-4 w-4 opacity-70" />
-          {t('common.exitWorkspace', 'Exit workspace')}
+          {t('common.logout', 'Logout')}
         </button>
       </div>
     </div>

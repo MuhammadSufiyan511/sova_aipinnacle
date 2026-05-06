@@ -65,7 +65,7 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
               </button>
             </div>
 
-            <div className="no-scrollbar flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6">
+            <div className="lux-scrollbar flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6">
               <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                 {businessTypes.map((type) => {
                   const isSelected = draftBusinessType === type.id

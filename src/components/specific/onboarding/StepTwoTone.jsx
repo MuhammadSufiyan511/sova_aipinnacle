@@ -1,5 +1,5 @@
 import { Sparkles, Check, ChevronLeft, ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { useTranslation, Trans } from 'react-i18next'
 import sovaLogo from '../../../assets/logos/sova-bgless.png'
 
@@ -28,7 +28,7 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
 
   return (
     <div className="w-full max-w-[58rem] onboarding-step-container">
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-9 text-center"
@@ -44,7 +44,7 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
         <p className="mx-auto mt-3 max-w-md px-4 text-[0.88rem] leading-6 text-slate-800 sm:text-[0.98rem] sm:leading-7 onboarding-card-desc">
           {t('onboarding.tone.subtitle')}
         </p>
-      </motion.div>
+      </Motion.div>
 
       <div className="grid grid-cols-1 gap-3.5 xs:grid-cols-2 lg:grid-cols-3">
         {availableTones.map((tone, i) => {
@@ -53,7 +53,7 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
           const descKey = `onboarding.tone.profiles.${tone.id}.desc`
 
           return (
-            <motion.button
+            <Motion.button
               key={tone.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
               <p className="text-[0.84rem] font-medium leading-6 text-slate-800 onboarding-desc">
                 {t(descKey)}
               </p>
-            </motion.button>
+            </Motion.button>
           )
         })}
       </div>

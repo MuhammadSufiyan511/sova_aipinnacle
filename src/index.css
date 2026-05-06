@@ -118,6 +118,14 @@
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   }
 
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-select: none;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -181,6 +189,50 @@
 
   .sidebar-scroll::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #0F8F72 0%, #0891B2 100%);
+  }
+
+  /* Premium Lux Scrollbar for Modals and Content */
+  .lux-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 #F1F5F9;
+  }
+
+  .lux-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .lux-scrollbar::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 10px;
+  }
+
+  .lux-scrollbar::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 10px;
+    border: 1px solid #F1F5F9;
+  }
+
+  .lux-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #10B981;
+  }
+
+  /* Dark mode variants for lux-scrollbar */
+  .home-dark-mode .lux-scrollbar {
+    scrollbar-color: #1C3D3A #040D0C;
+  }
+
+  .home-dark-mode .lux-scrollbar::-webkit-scrollbar-track {
+    background: #040D0C;
+  }
+
+  .home-dark-mode .lux-scrollbar::-webkit-scrollbar-thumb {
+    background: #1C3D3A;
+    border: 1px solid #040D0C;
+  }
+
+  .home-dark-mode .lux-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #10B981;
   }
 
   .home-dark-mode {
@@ -1814,11 +1866,13 @@
 
   /* High Contrast Visibility Overrides */
   .admin-variant-main-title {
-    color: #064E3B !important; /* Emerald 900 */
+    color: #064E3B !important;
+    /* Emerald 900 */
   }
 
   .admin-variant-sub-title {
-    color: #065F46 !important; /* Emerald 800 */
+    color: #065F46 !important;
+    /* Emerald 800 */
     opacity: 0.7;
   }
 
@@ -1827,16 +1881,19 @@
   }
 
   .admin-variant-delete-btn {
-    color: #DC2626 !important; /* Red 600 */
+    color: #DC2626 !important;
+    /* Red 600 */
   }
 
   .home-dark-mode .admin-variant-main-title {
-    color: #34D399 !important; /* Vibrant Light Emerald */
+    color: #34D399 !important;
+    /* Vibrant Light Emerald */
     text-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
   }
 
   .home-dark-mode .admin-variant-sub-title {
-    color: #ECFDF5 !important; /* Emerald 50 */
+    color: #ECFDF5 !important;
+    /* Emerald 50 */
     opacity: 0.6 !important;
   }
 
@@ -1849,7 +1906,8 @@
   }
 
   .home-dark-mode .admin-variant-delete-btn {
-    color: #F87171 !important; /* Red 400 */
+    color: #F87171 !important;
+    /* Red 400 */
   }
 
   .home-dark-mode .admin-variant-chevron-wrapper {

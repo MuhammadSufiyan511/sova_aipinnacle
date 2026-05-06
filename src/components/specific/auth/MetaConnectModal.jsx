@@ -1,7 +1,7 @@
 import { Check, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { ROUTES } from '../../../utils/routes'
 
 const successItems = [
@@ -23,7 +23,7 @@ export function MetaConnectModal({ onClose }) {
 
   return (
     <div className="meta-modal-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/40 px-4 backdrop-blur-md" onClick={onClose}>
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -68,7 +68,7 @@ export function MetaConnectModal({ onClose }) {
         >
           {copy.button}
         </button>
-        </motion.div>
+        </Motion.div>
     </div>
   )
 }

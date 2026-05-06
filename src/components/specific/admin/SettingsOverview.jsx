@@ -1,20 +1,22 @@
 import { motion as Motion } from 'framer-motion'
-import { Bell, Bot, Briefcase, MessageSquare, Shield, Zap } from 'lucide-react'
-import { memo } from 'react'
+import { Bell, Bot, Briefcase, MessageSquare, Shield, Zap, Landmark, AlertTriangle, RotateCcw, Trash2 } from 'lucide-react'
+import { memo, useState } from 'react'
 import { BusinessProfileModal } from './settings/BusinessProfileModal'
 import { ToneSettingsModal } from './settings/ToneSettingsModal'
+import { BankInformationSection } from './settings/BankInformationSection'
 import { useSettingsData } from '../../../hooks/useSettingsData'
 import { Toggle } from '../../shared/Toggle'
+import { DeleteConfirmationSheet } from '../../shared/DeleteConfirmationSheet'
 import sovaLogo from '../../../assets/logos/sova-bgless.png'
 
 function SettingRow({ icon, iconBg, title, desc, children }) {
   return (
-    <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
+    <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-start">
       <div className="flex flex-col items-center gap-3.5 sm:flex-row sm:items-center">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
           {icon}
         </span>
-        <div className="min-w-0">
+        <div className="min-w-0 sm:text-start">
           <p className="text-[0.82rem] font-bold text-[#173247]">{title}</p>
           <p className="text-[0.7rem] leading-4 text-[#1E293B] sm:leading-normal">{desc}</p>
         </div>
@@ -26,7 +28,6 @@ function SettingRow({ icon, iconBg, title, desc, children }) {
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } }
 const rowItem = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }
-
 export const SettingsOverview = memo(function SettingsOverview() {
   const {
     t, normalizedTones,
@@ -34,16 +35,23 @@ export const SettingsOverview = memo(function SettingsOverview() {
     businessModalOpen, setBusinessModalOpen, draftBusinessType, setDraftBusinessType,
     draftCustomCategory, setDraftCustomCategory, isMobile, businessLabel,
     toneOptions, openBusinessModal, saveBusinessProfile,
-    toneModalOpen, setToneModalOpen, draftTones, setDraftTones, openToneModal, saveToneSettings
+    toneModalOpen, setToneModalOpen, draftTones, setDraftTones, openToneModal, saveToneSettings,
+    bankDetails, draftBankDetails, setDraftBankDetails, saveBankDetails,
+    isEditingBank, setIsEditingBank, cancelBankEdit, deleteBankDetails, resetAllSettings
   } = useSettingsData()
 
-  const selectedToneLabels = normalizedTones
-    .map((toneId) => toneOptions.find((opt) => opt.id === toneId)?.label || toneId)
-    .join(', ')
+  const [showBankDeleteConfirm, setShowBankDeleteConfirm] = useState(false)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
+
+  const selectedToneLabels = normalizedTones.length > 0
+    ? normalizedTones
+      .map((toneId) => toneOptions.find((opt) => opt.id === toneId)?.label || toneId)
+      .join(', ')
+    : t('admin.settings.tones.none', 'None')
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">
-      <Motion.div variants={rowItem} className="text-center sm:text-left">
+      <Motion.div variants={rowItem} className="text-center sm:text-start">
         <h2 className="font-display text-[1.2rem] font-bold text-[#173247] admin-card-title settings-main-title">{t('admin.settings.title')}</h2>
         <p className="mt-0.5 text-[0.74rem] text-[#1E293B] admin-card-desc settings-main-subtitle">{t('admin.settings.subtitle')}</p>
       </Motion.div>
@@ -96,9 +104,20 @@ export const SettingsOverview = memo(function SettingsOverview() {
         </div>
       </Motion.section>
 
+      <BankInformationSection
+        t={t}
+        bankDetails={draftBankDetails}
+        setBankDetails={setDraftBankDetails}
+        saveBankDetails={saveBankDetails}
+        isEditing={isEditingBank}
+        setIsEditing={setIsEditingBank}
+        onCancel={cancelBankEdit}
+        onDelete={() => setShowBankDeleteConfirm(true)}
+      />
+
       <Motion.section variants={rowItem} className="divide-y divide-[#ECF8F3] rounded-[22px] border border-[#DDEFE7] shadow-sm admin-card-shell">
         <div className="px-4 pb-3 pt-4">
-          <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
+          <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-start">
             <Bot className="h-4 w-4 text-[#10B981]" />
             <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#10B981] admin-card-title">{t('admin.settings.sections.rules.title')}</h3>
           </div>
@@ -125,6 +144,38 @@ export const SettingsOverview = memo(function SettingsOverview() {
         </div>
       </Motion.section>
 
+      {/* ── Account Management ── */}
+      <Motion.section variants={rowItem} className="overflow-hidden rounded-[22px] border border-slate-100 shadow-sm admin-card-shell">
+        <div className={`flex items-center gap-2.5 border-b border-slate-100 bg-slate-50/50 px-4 py-3`}>
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+            <Trash2 className="h-4 w-4" />
+          </div>
+          <div>
+            <h3 className="text-[0.78rem] font-black uppercase tracking-[0.14em] text-slate-500">
+              {t('admin.settings.account.title', 'Account Actions')}
+            </h3>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-between gap-4 px-4 py-4 text-center sm:flex-row sm:text-left">
+          <div className="min-w-0">
+            <p className="text-[0.82rem] font-bold text-slate-700">
+              {t('admin.settings.account.deleteTitle', 'Delete Profile Data')}
+            </p>
+            <p className="mt-0.5 text-[0.7rem] leading-relaxed text-slate-400">
+              {t('admin.settings.account.deleteDesc', 'Permanently clears your bank info, business profile, and all AI preferences.')}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowResetConfirm(true)}
+            className="flex shrink-0 items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-2 text-[0.74rem] font-bold text-red-500 transition hover:bg-red-100 hover:border-red-200 active:scale-[0.97]"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            {t('admin.settings.account.deleteBtn', 'Delete Profile Info')}
+          </button>
+        </div>
+      </Motion.section>
+
       <BusinessProfileModal
         isOpen={businessModalOpen}
         onClose={() => setBusinessModalOpen(false)}
@@ -145,6 +196,32 @@ export const SettingsOverview = memo(function SettingsOverview() {
         draftTones={draftTones}
         setDraftTones={setDraftTones}
         saveToneSettings={saveToneSettings}
+      />
+      <DeleteConfirmationSheet
+        isOpen={showResetConfirm}
+        onClose={() => setShowResetConfirm(false)}
+        onConfirm={() => {
+          resetAllSettings()
+          setShowResetConfirm(false)
+        }}
+        title={t('admin.settings.account.confirmTitle', 'Delete All Profile Data?')}
+        description={t('admin.settings.account.confirmDesc', 'This will permanently remove your bank details, business profile, and AI settings. This action cannot be undone.')}
+        confirmText={t('admin.settings.account.confirmBtn', 'Yes, Delete Everything')}
+        cancelText={t('admin.settings.account.cancelBtn', 'Cancel')}
+        isMobile={isMobile}
+      />
+      <DeleteConfirmationSheet
+        isOpen={showBankDeleteConfirm}
+        onClose={() => setShowBankDeleteConfirm(false)}
+        onConfirm={() => {
+          deleteBankDetails()
+          setShowBankDeleteConfirm(false)
+        }}
+        title={t('admin.settings.bank.deleteConfirmTitle', 'Delete Bank Information?')}
+        description={t('admin.settings.bank.deleteConfirmDesc', 'This will permanently remove your bank details from the system. You will need to re-enter them to receive payments.')}
+        confirmText={t('admin.settings.bank.deleteConfirmBtn', 'Yes, Delete Info')}
+        cancelText={t('admin.settings.bank.deleteCancelBtn', 'Cancel')}
+        isMobile={isMobile}
       />
     </Motion.div>
   )

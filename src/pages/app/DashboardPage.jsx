@@ -22,13 +22,13 @@ export function DashboardPage() {
   const location = useLocation()
 
   const renderContent = () => {
-    if (location.pathname === ROUTES.adminAddProduct) return <AddProductOverview />
+    if (location.pathname === ROUTES.adminAddProduct) return <AddProductOverview key="add" />
     
     const editMatch = matchPath(ROUTES.adminEditProduct, location.pathname)
-    if (editMatch) return <EditProductOverview id={editMatch.params.id} />
+    if (editMatch) return <EditProductOverview key={`edit-${editMatch.params.id}`} id={editMatch.params.id} />
 
     const viewMatch = matchPath(ROUTES.adminViewProduct, location.pathname)
-    if (viewMatch) return <ProductDetailsOverview id={viewMatch.params.id} />
+    if (viewMatch) return <ProductDetailsOverview key={`view-${viewMatch.params.id}`} id={viewMatch.params.id} />
 
     switch (location.pathname) {
       case ROUTES.adminProducts:
