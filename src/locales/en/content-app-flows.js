@@ -971,6 +971,7 @@ const admin = {
     },
     tones: {
       none: 'None',
+      noToneSelected: 'No tone selected',
       professional: { label: 'Professional', desc: 'Polished and business-like' },
       friendly: { label: 'Friendly', desc: 'Warm and approachable' },
       direct: { label: 'Direct', desc: 'Concise, no fluff' },
@@ -1223,6 +1224,10 @@ admin.profile.business = {
 admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'Business profile updated successfully';
 admin.settings.toneUpdateSuccess = 'Tone settings updated successfully';
+admin.settings.tones = admin.settings.tones || {};
+admin.settings.tones.validation = {
+  atLeastOne: 'Please select at least one tone for SOVA'
+};
 
 admin.profile = admin.profile || {};
 admin.profile.user = {

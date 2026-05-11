@@ -355,6 +355,7 @@ const admin = {
       }
     },
     tones: {
+      noToneSelected: 'کوئی لہجہ منتخب نہیں کیا گیا',
       professional: { label: 'پیشہ ورانہ', desc: 'نکھرا ہوا اور کاروباری انداز' },
       friendly: { label: 'دوستانہ', desc: 'گرمجوش اور خوش اخلاق' },
       direct: { label: 'براہ راست', desc: 'مختصر اور واضح' },
@@ -907,6 +908,9 @@ admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'کاروباری پروفائل کامیابی سے اپ ڈیٹ ہو گئی';
 admin.settings.toneUpdateSuccess = 'ٹون سیٹنگز کامیابی سے اپ ڈیٹ ہو گئیں';
 admin.settings.tones = {
+  validation: {
+    atLeastOne: 'براہ کرم سوفا کے لیے کم از کم ایک لہجہ منتخب کریں'
+  },
   none: 'کوئی نہیں',
   professional: { label: 'پیشہ ورانہ (Professional)', desc: 'مہذب اور کاروباری انداز' },
   friendly: { label: 'دوستانہ (Friendly)', desc: 'گرمجوش اور خوش اخلاق' },

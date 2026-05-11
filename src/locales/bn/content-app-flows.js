@@ -1020,6 +1020,9 @@ admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'ব্যবসার প্রোফাইল সফলভাবে আপডেট করা হয়েছে';
 admin.settings.toneUpdateSuccess = 'টোন সেটিংস সফলভাবে আপডেট করা হয়েছে';
 admin.settings.tones = {
+  validation: {
+    atLeastOne: 'দয়া করে SOVA-এর জন্য অন্তত একটি টোন নির্বাচন করুন'
+  },
   none: 'কিছুই না',
   professional: { label: 'পেশাদার (Professional)', desc: 'মার্জিত এবং ব্যবসায়িক' },
   friendly: { label: 'বন্ধুত্বপূর্ণ (Friendly)', desc: 'উষ্ণ এবং সহজবোধ্য' },

@@ -1110,6 +1110,9 @@ admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'Geschäftsprofil erfolgreich aktualisiert';
 admin.settings.toneUpdateSuccess = 'Tone-Einstellungen erfolgreich aktualisiert';
 admin.settings.tones = {
+  validation: {
+    atLeastOne: 'Bitte wählen Sie mindestens einen Ton für SOVA aus'
+  },
   none: 'Keiner',
   professional: { label: 'Professionell', desc: 'Seriös und geschäftsmäßig' },
   friendly: { label: 'Freundlich', desc: 'Herzlich und nahbar' },

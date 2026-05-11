@@ -47,7 +47,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
     ? normalizedTones
       .map((toneId) => toneOptions.find((opt) => opt.id === toneId)?.label || toneId)
       .join(', ')
-    : t('admin.settings.tones.none', 'None')
+    : t('admin.settings.tones.noToneSelected', 'No tone selected')
 
   return (
     <Motion.div variants={container} initial="hidden" animate="show" className="mx-auto flex w-[94%] max-w-3xl flex-col gap-4 sm:w-full">

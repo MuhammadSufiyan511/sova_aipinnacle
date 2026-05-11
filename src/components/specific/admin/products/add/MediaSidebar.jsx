@@ -1,6 +1,6 @@
-import { ImageIcon, Tag, Plus, PlayCircle, Trash2, Star, Pencil } from 'lucide-react'
+import { ImageIcon, Tag, Plus, PlayCircle, Trash2, Star, Pencil, RefreshCw } from 'lucide-react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { MediaEditorModal } from './components/MediaEditorModal'
 
 export const MediaSidebar = ({
@@ -8,11 +8,14 @@ export const MediaSidebar = ({
   setFormData,
   fileInputRef,
   handleMediaUpload,
+  handleReplaceMedia,
   removeMedia,
   setPrimaryMedia,
   t
 }) => {
   const [editingMedia, setEditingMedia] = useState(null)
+  const replaceInputRef = useRef(null)
+  const [replacingId, setReplacingId] = useState(null)
 
   const handleEditSave = (newPreview, editorState) => {
     setFormData(prev => ({
@@ -25,6 +28,21 @@ export const MediaSidebar = ({
     }))
     setEditingMedia(null)
   }
+
+  const onReplaceClick = (id) => {
+    setReplacingId(id)
+    replaceInputRef.current?.click()
+  }
+
+  const onReplaceFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (file && replacingId) {
+      handleReplaceMedia(replacingId, file)
+      setReplacingId(null)
+    }
+    e.target.value = ''
+  }
+
   return (
     <aside className="admin-media-sidebar space-y-6 md:space-y-8">
       <div className="lg:sticky lg:top-10 space-y-6 md:space-y-8">
@@ -141,6 +159,13 @@ export const MediaSidebar = ({
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
+                      <button
+                        onClick={() => onReplaceClick(item.id)}
+                        className="flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-lg bg-white/20 text-white backdrop-blur-md hover:bg-emerald-500"
+                        title={t('common.replace', { defaultValue: 'Replace' })}
+                      >
+                        <RefreshCw className="h-3.5 w-3.5" />
+                      </button>
                       {item.type === 'image' && (
                         <button
                           onClick={() => setEditingMedia(item)}
@@ -168,6 +193,7 @@ export const MediaSidebar = ({
             </AnimatePresence>
           </div>
           <input ref={fileInputRef} type="file" multiple accept="image/*,video/*" className="hidden" onChange={handleMediaUpload} />
+          <input ref={replaceInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={onReplaceFileChange} />
         </section>
       </div>
 

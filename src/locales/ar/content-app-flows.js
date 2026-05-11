@@ -849,6 +849,9 @@ admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'تم تحديث ملف المنشأة بنجاح';
 admin.settings.toneUpdateSuccess = 'تم تحديث إعدادات الصوت بنجاح';
 admin.settings.tones = {
+  validation: {
+    atLeastOne: 'يرجى اختيار نغمة واحدة على الأقل لـ SOVA'
+  },
   none: 'لا شيء',
   professional: { label: 'احترافي', desc: 'مهذب وعملي' },
   friendly: { label: 'ودود', desc: 'دافئ وسهل التعامل' },

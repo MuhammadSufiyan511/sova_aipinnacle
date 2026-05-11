@@ -1039,6 +1039,9 @@ admin.settings = admin.settings || {};
 admin.settings.businessUpdateSuccess = 'बिज़नेस प्रोफ़ाइल सफलतापूर्वक अपडेट की गई';
 admin.settings.toneUpdateSuccess = 'टोन सेटिंग्स सफलतापूर्वक अपडेट की गईं';
 admin.settings.tones = {
+  validation: {
+    atLeastOne: 'कृपया SOVA के लिए कम से कम एक टोन चुनें'
+  },
   none: 'कोई नहीं',
   professional: { label: 'पेशेवर (Professional)', desc: 'सुरुचिपूर्ण और व्यावसायिक' },
   friendly: { label: 'मिलनसार (Friendly)', desc: 'गर्मजोशी भरा और सुलभ' },

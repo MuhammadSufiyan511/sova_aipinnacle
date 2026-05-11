@@ -212,6 +212,59 @@ export function EditProductOverview({ id: propId }) {
     return { ...prev, gallery: next }
   })
 
+  const handleReplaceMedia = async (id, file) => {
+    if (!file) return
+
+    const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+    const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
+    const MIN_VIDEO_DURATION = 15
+    const MAX_VIDEO_DURATION = 20
+
+    if (file.type.startsWith('image/')) {
+      if (file.size > MAX_IMAGE_SIZE) {
+        toast.error(
+          (toastObj) => (
+            <span>
+              <b>{file.name}</b> {t('admin.addProductOverview.validation.imageTooLarge', 'exceeds 5MB.')}
+              <br />
+              <a href="https://tinypng.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline font-bold ml-1">
+                Compress here
+              </a>
+            </span>
+          ),
+          { duration: 6000 }
+        )
+        return
+      }
+    } else if (file.type.startsWith('video/')) {
+      if (file.size > MAX_VIDEO_SIZE) {
+        toast.error(`${file.name} exceeds 15MB limit.`)
+        return
+      }
+      const duration = await checkVideoDuration(file)
+      if (duration < MIN_VIDEO_DURATION || duration > MAX_VIDEO_DURATION) {
+        toast.error(`${file.name} must be 15-20 seconds (Current: ${Math.round(duration)}s).`)
+        return
+      }
+    } else {
+      toast.error(t('admin.products.modal.invalidMediaType', 'Please upload a valid image or video file'))
+      return
+    }
+
+    const updatedMedia = {
+      preview: URL.createObjectURL(file),
+      type: file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'file',
+      name: file.name,
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      gallery: prev.gallery.map((item) =>
+        item.id === id ? { ...item, ...updatedMedia, originalPreview: null, editorState: null } : item
+      ),
+    }))
+  }
+
   const handleSubmit = () => {
     if (!formData.name.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.nameRequired')); return }
     if (!formData.description.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.descriptionRequired')); return }
@@ -346,6 +399,7 @@ export function EditProductOverview({ id: propId }) {
             setFormData={setFormData}
             fileInputRef={fileInputRef}
             handleMediaUpload={handleMediaUpload}
+            handleReplaceMedia={handleReplaceMedia}
             removeMedia={removeMedia}
             setPrimaryMedia={setPrimaryMedia}
             t={t}

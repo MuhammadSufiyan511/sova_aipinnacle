@@ -14,6 +14,21 @@ export const features = [
   { title: 'Built-in Integrations', description: 'Connect Sova with your favorite apps to sync leads and automate workflows.', icon: ScanSearch },
 ]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const pricingPlans = [
   {
     name: 'SOVA Basic',

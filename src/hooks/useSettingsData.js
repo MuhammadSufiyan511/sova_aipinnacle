@@ -21,7 +21,7 @@ export const businessTypes = [
 export function useSettingsData() {
   const { t } = useTranslation()
   const { businessProfile, setBusinessProfile, tones, setTones, setHomeDarkMode } = useApp()
-  const normalizedTones = Array.isArray(tones) ? tones : []
+  const normalizedTones = (Array.isArray(tones) ? tones : []).map(t => t.toLowerCase())
   
   const [alerts, setAlerts] = useState(true)
   const [autoReply, setAutoReply] = useState(true)
@@ -52,12 +52,12 @@ export function useSettingsData() {
     : t(`onboarding.business.categories.${businessProfile?.type || 'clothing'}.label`)
 
   const toneOptions = [
-    { id: 'Professional', label: t('admin.settings.tones.professional.label'), desc: t('admin.settings.tones.professional.desc'), color: 'emerald' },
-    { id: 'Friendly', label: t('admin.settings.tones.friendly.label'), desc: t('admin.settings.tones.friendly.desc'), color: 'blue' },
-    { id: 'Direct', label: t('admin.settings.tones.direct.label'), desc: t('admin.settings.tones.direct.desc'), color: 'amber' },
-    { id: 'Persuasive', label: t('admin.settings.tones.persuasive.label'), desc: t('admin.settings.tones.persuasive.desc'), color: 'rose' },
-    { id: 'Playful', label: t('admin.settings.tones.playful.label'), desc: t('admin.settings.tones.playful.desc'), color: 'violet' },
-    { id: 'Empathetic', label: t('admin.settings.tones.empathetic.label'), desc: t('admin.settings.tones.empathetic.desc'), color: 'cyan' },
+    { id: 'professional', label: t('admin.settings.tones.professional.label'), desc: t('admin.settings.tones.professional.desc'), color: 'emerald' },
+    { id: 'friendly', label: t('admin.settings.tones.friendly.label'), desc: t('admin.settings.tones.friendly.desc'), color: 'blue' },
+    { id: 'direct', label: t('admin.settings.tones.direct.label'), desc: t('admin.settings.tones.direct.desc'), color: 'amber' },
+    { id: 'persuasive', label: t('admin.settings.tones.persuasive.label'), desc: t('admin.settings.tones.persuasive.desc'), color: 'rose' },
+    { id: 'playful', label: t('admin.settings.tones.playful.label'), desc: t('admin.settings.tones.playful.desc'), color: 'violet' },
+    { id: 'empathetic', label: t('admin.settings.tones.empathetic.label'), desc: t('admin.settings.tones.empathetic.desc'), color: 'cyan' },
   ]
 
   const openBusinessModal = () => {
@@ -83,6 +83,10 @@ export function useSettingsData() {
   }
 
   const saveToneSettings = () => {
+    if (draftTones.length === 0) {
+      toast.error(t('admin.settings.tones.validation.atLeastOne', 'Please select at least one tone for SOVA'))
+      return
+    }
     setTones(draftTones)
     setToneModalOpen(false)
     toast.success(t('admin.settings.toneUpdateSuccess'))
