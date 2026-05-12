@@ -10,9 +10,8 @@ function SkeletonImage({ src, alt, className, imgClassName, loading = 'lazy', de
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <div
-        className={`absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 transition-opacity duration-500 ${
-          loaded ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 transition-opacity duration-500 ${loaded ? 'opacity-0' : 'opacity-100'
+          }`}
       />
       <img
         src={src}
@@ -27,17 +26,19 @@ function SkeletonImage({ src, alt, className, imgClassName, loading = 'lazy', de
   )
 }
 
-export const CardOne = memo(function CardOne({ feature, image, micro, disableAnimation = false }) {
+export const CardOne = memo(function CardOne({ feature, image, micro, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, x: -30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass md:col-span-2 flex flex-col justify-between rounded-[24px] border border-[#E2EFEA] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_20px_60px_rgba(16,185,129,0.1)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass md:col-span-2 flex flex-col justify-between rounded-[24px] border border-[#E2EFEA] hover:border-[#10B981] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_20px_60px_rgba(16,185,129,0.1)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <div>
         <h3 className="font-display text-[1.15rem] font-bold text-[#10B981] sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
@@ -66,17 +67,19 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
   )
 })
 
-export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation = false }) {
+export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, x: 30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass card-automation flex flex-col justify-between rounded-[24px] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] p-4 text-white shadow-[0_20px_50px_rgba(167,139,250,0.3)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass card-automation flex flex-col justify-between rounded-[24px] border border-transparent hover:border-[#A78BFA] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] p-4 text-white shadow-[0_20px_50px_rgba(167,139,250,0.3)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <div className="relative z-10">
         <h3 className="font-display text-[1.15rem] font-bold sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
@@ -97,21 +100,23 @@ export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation 
   )
 })
 
-export const CardThree = memo(function CardThree({ feature, image, disableAnimation = false }) {
+export const CardThree = memo(function CardThree({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, y: 50 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass md:row-span-2 flex flex-col rounded-[24px] border border-[#E2EFEA] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass md:row-span-2 flex flex-col overflow-hidden rounded-[24px] border border-[#E2EFEA] hover:border-[#F59E0B] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <h3 className="font-display text-[1.15rem] font-bold text-[#F59E0B] sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
       <p className="mt-2 text-[0.88rem] text-[#1E293B] sm:text-[0.94rem]">{feature?.description}</p>
-      <div className="mt-6 flex flex-1 items-center justify-center sm:mt-8">
+      <div className="mt-6 flex flex-1 items-center justify-center sm:mt-8 min-h-0">
         <motion.div animate={featureImageAnimations[2]} transition={featureImageTransition(5)} whileHover={{ scale: 1.02, y: -8 }} className="relative h-full w-full">
           <div className="pointer-events-none absolute -inset-3 rounded-[28px] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.16)_0%,rgba(255,255,255,0)_72%)] blur-lg" />
           <SkeletonImage
@@ -126,17 +131,19 @@ export const CardThree = memo(function CardThree({ feature, image, disableAnimat
   )
 })
 
-export const CardFour = memo(function CardFour({ feature, image, disableAnimation = false }) {
+export const CardFour = memo(function CardFour({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, x: 30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass md:col-span-2 flex flex-col items-center gap-4 rounded-[24px] border border-[#E2EFEA] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 md:flex-row lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass md:col-span-2 flex flex-col items-center gap-4 rounded-[24px] border border-[#E2EFEA] hover:border-[#FB7185] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 md:flex-row lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <div className="flex-1">
         <h3 className="font-display text-[1.15rem] font-bold text-[#FB7185] sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
@@ -157,17 +164,19 @@ export const CardFour = memo(function CardFour({ feature, image, disableAnimatio
   )
 })
 
-export const CardFive = memo(function CardFive({ feature, image, disableAnimation = false }) {
+export const CardFive = memo(function CardFive({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, x: -30, y: 30 },
         whileInView: { opacity: 1, x: 0, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass card-broadcast flex flex-col justify-between rounded-[24px] bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-4 text-white shadow-[0_20px_50px_rgba(30,41,59,0.35)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass card-broadcast flex flex-col justify-between rounded-[24px] border border-transparent hover:border-[#64748B] bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-4 text-white shadow-[0_20px_50px_rgba(30,41,59,0.35)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <div className="flex-1">
         <h3 className="font-display text-[1.15rem] font-bold sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
@@ -188,17 +197,19 @@ export const CardFive = memo(function CardFive({ feature, image, disableAnimatio
   )
 })
 
-export const CardSix = memo(function CardSix({ feature, image, disableAnimation = false }) {
+export const CardSix = memo(function CardSix({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
   return (
     <MotionDiv
-      {...(!disableAnimation && {
+      ref={wrapperRef || null}
+      {...(!disableAnimation && !scrollRevealClass && {
         initial: { opacity: 0, y: 40 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true, amount: 0.1, margin: "200px 0px 200px 0px" },
         transition: { duration: 0.6, ease: "easeOut" }
       })}
       whileHover={{ y: -5 }}
-      className="feature-card-glass flex flex-col justify-between rounded-[24px] border border-[#E2EFEA] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7"
+      className={`feature-card-glass flex flex-col justify-between rounded-[24px] border border-[#E2EFEA] hover:border-[#10B981] bg-white p-4 shadow-[0_12px_44px_rgba(0,0,0,0.03)] sm:rounded-[28px] sm:p-6 lg:rounded-[32px] lg:p-7 ${scrollRevealClass} ${extraClass}`}
+      style={scrollRevealClass ? { '--fg-delay': `${scrollRevealDelay}ms` } : undefined}
     >
       <div>
         <h3 className="font-display text-[1.15rem] font-bold text-[#10B981] sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>

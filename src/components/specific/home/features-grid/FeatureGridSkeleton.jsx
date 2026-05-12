@@ -13,7 +13,7 @@ export const FeatureGridSkeleton = memo(function FeatureGridSkeleton({ colSpan2 
   }
 
   return (
-    <div 
+    <div
       className={`
         feature-card-skeleton 
         flex flex-col justify-between 
@@ -40,16 +40,16 @@ export const FeatureGridSkeleton = memo(function FeatureGridSkeleton({ colSpan2 
       </div>
 
       <div className={`mt-4 flex ${colSpan2 ? 'justify-between items-end' : 'justify-end'}`}>
-        <div 
+        <div
           className={`
             animate-pulse rounded-2xl bg-slate-200/20
             ${colSpan2 ? 'h-24 w-full max-w-[200px] sm:h-28' : 'h-24 w-full max-w-[120px] sm:h-28'}
-          `} 
+          `}
         />
         {colSpan2 && (
           <div className="hidden sm:flex flex-col gap-2 w-[180px]">
-             <div className="h-8 w-full rounded-2xl bg-slate-200/20" />
-             <div className="h-8 w-full rounded-2xl bg-slate-200/20" />
+            <div className="h-8 w-full rounded-2xl bg-slate-200/20" />
+            <div className="h-8 w-full rounded-2xl bg-slate-200/20" />
           </div>
         )}
       </div>

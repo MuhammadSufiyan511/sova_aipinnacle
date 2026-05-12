@@ -41,9 +41,13 @@ export const metaIntegration = {
 
 export const metaModal = {
   eyebrow: 'Meta connection',
-  title: 'Account সফলভাবে connected',
-  items: ['Meta business account verify হয়েছে', 'WhatsApp number automation-এর জন্য ready', 'আপনার টিমের জন্য SOVA workspace তৈরি হয়েছে'],
-  nextStep: 'Next step',
-  nextStepText: 'এখন আপনি dashboard-এ গিয়ে reply, lead filter আর follow-up flow সেট করতে পারবেন।',
-  button: 'Dashboard-এ যান',
+  title: 'Authentication সম্পন্ন হয়েছে!',
+  items: [
+    'Meta Business Profile ভেরিফাই হয়েছে',
+    'WhatsApp Business API কানেক্ট হয়েছে',
+    'মেসেজ অটোমেশন রেডি',
+  ],
+  nextStep: 'সেটআপ সম্পন্ন করা হচ্ছে',
+  nextStepText: 'আপনি আপনার অটোমেটেড ওয়ার্কস্পেস থেকে মাত্র কয়েক ধাপ দূরে। এরপর আমরা আপনার বিজনেস প্রোফাইল এবং প্রোডাক্ট ক্যাটালগ সেটআপ করব।',
+  button: 'বিজনেস তৈরি করুন',
 }
