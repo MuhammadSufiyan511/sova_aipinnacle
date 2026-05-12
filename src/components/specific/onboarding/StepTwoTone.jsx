@@ -99,7 +99,7 @@ export function StepTwoTone({ tones, setTones, onBack, onNext }) {
           className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 disabled:bg-slate-200 disabled:shadow-none sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
           <span className="relative z-10 transition group-hover:translate-x-[-4px]">{t('onboarding.products.nextBtn', 'Save & Continue')}</span>
-          <ArrowRight className="relative z-10 h-4.5 w-4.5 transition group-hover:translate-x-[4px]" />
+          {/* <ArrowRight className="relative z-10 h-4.5 w-4.5 transition group-hover:translate-x-[4px]" /> */}
         </button>
       </div>
     </div>

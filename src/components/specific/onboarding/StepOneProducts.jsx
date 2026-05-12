@@ -144,7 +144,7 @@ function StepOneProductsComponent({ products, setProducts, onComplete, onBack, b
           className="group relative flex h-12 w-full max-w-[18rem] items-center justify-center gap-2 overflow-hidden rounded-full bg-[#173247] text-[0.9rem] font-bold text-white shadow-2xl transition hover:bg-emerald-500 sm:h-13 sm:text-[0.95rem] onboarding-btn-next"
         >
           <span className="relative z-10">{t('onboarding.tone.completeBtn', 'Launch Dashboard')}</span>
-          <ArrowRight className="relative z-10 h-4 w-4 transition group-hover:translate-x-1" />
+          {/* <ArrowRight className="relative z-10 h-4 w-4 transition group-hover:translate-x-1" /> */}
         </button>
       </div>
 

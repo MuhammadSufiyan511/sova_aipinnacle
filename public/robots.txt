@@ -1,6 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /onboarding
+Disallow: /admin/*
+Disallow: /onboarding/*
 
+# Host
+Host: https://sova.my
+
+# Sitemap
 Sitemap: https://sova.my/sitemap.xml
-# Answer Engine Optimization (AEO) file
+
+# Answer Engine Optimization (AEO)
 Allow: /llms.txt

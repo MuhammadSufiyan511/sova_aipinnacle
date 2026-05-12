@@ -1,21 +1,25 @@
-import { FaEnvelope, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaInstagram, FaYoutube, FaTiktok, FaFacebook } from 'react-icons/fa'
+import { SiThreads } from 'react-icons/si'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import sovaLogo from '../../assets/logos/sova.png'
+import { useApp } from '../../context/AppProvider'
 import { ROUTES } from '../../utils/routes'
 
 const socialLinks = [
-  { icon: FaYoutube, href: 'https://youtube.com', color: '#FF0000', bg: 'rgba(255,0,0,0.08)' },
-  { icon: FaInstagram, href: 'https://instagram.com', color: '#E4405F', bg: 'rgba(228,64,95,0.08)' },
-  { icon: FaLinkedin, href: 'https://linkedin.com', color: '#0A66C2', bg: 'rgba(10,102,194,0.08)' },
-  { icon: FaEnvelope, href: 'mailto:hello@sova.ai', color: '#10B981', bg: 'rgba(16,185,129,0.08)' },
+  { icon: FaYoutube, href: 'https://www.youtube.com/@SOVAMY', color: '#FF0000', bg: 'rgba(255,0,0,0.06)' },
+  { icon: FaInstagram, href: 'https://www.instagram.com/socialsovamy/?hl=en', color: '#E4405F', bg: 'rgba(228,64,95,0.06)' },
+  { icon: SiThreads, href: 'https://www.threads.com/@socialsovamy?hl=en', color: '#000000', bg: 'rgba(0,0,0,0.06)' },
+  { icon: FaTiktok, href: 'https://www.tiktok.com/@sovamy2', color: '#000000', bg: 'rgba(0,0,0,0.06)' },
+  { icon: FaFacebook, href: 'https://www.facebook.com/sova.my.social/', color: '#1877F2', bg: 'rgba(24,119,242,0.06)' },
 ]
 
 export function SiteFooter() {
   const { t } = useTranslation()
+  const { homeDarkMode } = useApp()
 
   return (
-    <footer className="w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
+    <footer className="site-footer-shell w-full border-t border-[#E2E8F0] bg-white pt-8 pb-20 text-[#1E293B] md:pt-12 md:pb-12">
       <div className="mx-auto max-w-[1160px] px-5">
         <div className="flex flex-col items-center justify-between gap-5 pb-6 md:flex-row md:gap-8 md:pb-12">
           <div className="flex items-center gap-3">
@@ -33,8 +37,11 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open ${item.href.replace(/^https?:\/\//, '').replace(/^mailto:/, '')}`}
-                className="social-icon-box inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)]"
-                style={{ color: item.color, backgroundColor: item.bg }}
+                className={`social-icon-box inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E8F2EE] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(30,41,59,0.08)] ${homeDarkMode ? 'icon-bg-force-light' : ''}`}
+                style={{
+                  color: item.color,
+                  backgroundColor: homeDarkMode ? '' : item.bg
+                }}
               >
                 <item.icon size={18} />
               </a>

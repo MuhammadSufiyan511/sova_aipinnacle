@@ -144,7 +144,20 @@ export function AppProvider({ children }) {
     const newMode = !homeDarkMode
     setHomeDarkMode(newMode)
     localStorage.setItem('sova-home-theme', newMode ? 'dark' : 'light')
+    if (newMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
+
+  useEffect(() => {
+    if (homeDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [homeDarkMode])
 
   const value = useMemo(() => ({
     businessProfile,

@@ -90,8 +90,8 @@ export const admin = {
     automationLive: 'Automatisierung ist aktiv',
     active: 'Aktiv',
     inactive: 'Inaktiv',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
+    currencySymbol: '$',
+    currencyCode: 'USD',
     live: 'Live',
     previous: 'Zurück',
     next: 'Weiter',
@@ -153,7 +153,7 @@ export const admin = {
       btn: 'Erstes Produkt hinzufügen'
     },
     item: {
-      price: '{{price}} €',
+      price: '${{price}}',
       priceLabel: 'Preis',
       stockLabel: 'Bestand',
       skuLabel: 'SKU-Nummer',
@@ -975,7 +975,7 @@ admin.upgrade = {
     starter: {
       badge: 'Starter',
       name: 'Starter',
-      price: '19 $/Mo',
+      price: '$19/Mo',
       desc: 'Für kleine Teams am Anfang.',
       features: {
         1: 'Bis zu 1.000 Antworten pro Monat',
@@ -987,7 +987,7 @@ admin.upgrade = {
     growth: {
       badge: 'Growth',
       name: 'Growth',
-      price: '49 $/Mo',
+      price: '$49/Mo',
       desc: 'Für aktives Verkaufswachstum.',
       features: {
         1: 'Bis zu 5.000 Antworten pro Monat',
@@ -999,7 +999,7 @@ admin.upgrade = {
     scale: {
       badge: 'Scale',
       name: 'Scale',
-      price: '99 $/Mo',
+      price: '$99/Mo',
       desc: 'Für hohes Chat-Volumen.',
       features: {
         1: 'Unbegrenzter Fokus auf Skalierung',
@@ -1046,20 +1046,20 @@ admin.mockData = {
   ],
   reports: {
     stats: {
-      revenue: '8,4k €',
+      revenue: '$8.4k',
       orderRate: '37%',
       resolved: '1.284',
       revenueChange: '+18%',
       orderRateChange: '+6%',
       resolvedChange: '+22%'
     },
-    revenueLines: ['820 €', '950 €', '1,1k €', '1,3k €', '1,5k €'],
+    revenueLines: ['$820', '$950', '$1.1k', '$1.3k', '$1.5k'],
     rows: [
-      { revenue: '820 €', rate: '16.9%' },
-      { revenue: '950 €', rate: '17.7%' },
-      { revenue: '1,1k €', rate: '17.4%' },
-      { revenue: '1,3k €', rate: '18.8%' },
-      { revenue: '1,5k €', rate: '20.0%' }
+      { revenue: '$820', rate: '16.9%' },
+      { revenue: '$950', rate: '17.7%' },
+      { revenue: '$1.1k', rate: '17.4%' },
+      { revenue: '$1.3k', rate: '18.8%' },
+      { revenue: '$1.5k', rate: '20.0%' }
     ]
   },
   drawer: [

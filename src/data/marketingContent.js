@@ -1,6 +1,6 @@
 import { BellRing, Bot, Filter, ScanSearch } from 'lucide-react'
 
-export const heroVideoUrl = 'https://share.synthesia.io/embeds/videos/ed5d3cb6-7ec9-4780-bd15-1417266dbf7d'
+export const heroVideoUrl = 'https://www.youtube.com/embed/udh_1mQaXgg'
 export const contactPhone = '+92 344 0555915'
 export const whatsappLink = 'https://wa.me/923440555915'
 export const mapEmbedUrl = 'https://www.google.com/maps?q=Pakistan&output=embed'

@@ -318,7 +318,7 @@
 
   .home-dark-mode .brand-feature-heading,
   .home-dark-mode .brand-feature-heading.bg-white {
-    background-color: #081917 !important;
+    background-color: #ffffff !important;
   }
 
   /* Global Border Overrides */
@@ -388,11 +388,17 @@
     color: #FAF7ED !important;
   }
 
-  .home-dark-mode .site-footer-shell a,
+  .home-dark-mode .site-footer-shell a:not(.social-icon-box),
   .home-dark-mode .site-footer-shell p,
-  .home-dark-mode .site-footer-shell span {
+  .home-dark-mode .site-footer-shell span:not(.social-icon-box) {
     color: #FAF7ED !important;
     opacity: 0.85;
+  }
+
+  .home-dark-mode .social-icon-box.icon-bg-force-light {
+    background-color: #fffffff3 !important;
+    border-color: #ffffff !important;
+    opacity: 1 !important;
   }
 
   .hero-bottom-wash {
@@ -446,19 +452,12 @@
     box-shadow: 0 30px 60px rgba(4, 13, 12, 0.6) !important;
   }
 
-  .home-dark-mode .site-footer-shell a:not([href*="instagram"]):not([href*="youtube"]):not([href*="linkedin"]):not([href*="mailto"]):hover {
+  .home-dark-mode .site-footer-shell a:not(.social-icon-box):hover {
     color: #F59E0B !important;
     /* Gold hover for luxury feel */
   }
 
   /* Social Icons on Emerald Base */
-  .home-dark-mode .site-footer-shell a[href*="instagram"],
-  .home-dark-mode .site-footer-shell a[href*="youtube"],
-  .home-dark-mode .site-footer-shell a[href*="linkedin"],
-  .home-dark-mode .site-footer-shell a[href*="mailto"] {
-    border-color: #1C3D3A !important;
-    background: #0A1B19 !important;
-  }
 
   /* Language Selector Button */
   .home-dark-mode .language-selector-button {
