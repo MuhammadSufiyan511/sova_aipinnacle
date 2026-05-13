@@ -954,6 +954,7 @@ const admin = {
         current: 'Current business',
         modalTitle: 'Update your business category',
         modalSubtitle: 'Choose the business type SOVA should use for replies, buyer filtering, and product context.',
+        customCategoryLabel: 'Custom business category',
         save: 'Save changes',
         cancel: 'Cancel',
         close: 'Close'
@@ -1210,6 +1211,7 @@ admin.profile.business = {
   photoAlt: 'Business profile',
   noPhoto: 'No business photo',
   uploadPhoto: 'Upload photo',
+  removePhoto: 'Remove',
   nameLabel: 'Business name',
   namePlaceholder: 'e.g. Noor Abaya House',
   emptyName: 'Add your business name',
@@ -1250,9 +1252,7 @@ admin.profile.user = {
   emptyPhone: 'Add your phone number'
 };
 
-admin.profile.business = {
-  removePhoto: 'Remove'
-};
+
 
 
 admin.settings = admin.settings || {};

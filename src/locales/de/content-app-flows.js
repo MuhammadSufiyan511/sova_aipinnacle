@@ -772,6 +772,7 @@ export const admin = {
         current: 'Aktuelles Geschäft',
         modalTitle: 'Business-Kategorie aktualisieren',
         modalSubtitle: 'Wählen Sie den Typ, damit SOVA im richtigen Kontext antwortet.',
+        customCategoryLabel: 'Benutzerdefinierte Kategorie',
         save: 'Änderungen speichern',
         cancel: 'Abbrechen',
         close: 'Schließen'
@@ -1114,6 +1115,7 @@ admin.settings.tones = {
     atLeastOne: 'Bitte wählen Sie mindestens einen Ton für SOVA aus'
   },
   none: 'Keiner',
+  noToneSelected: 'Kein Ton ausgewählt',
   professional: { label: 'Professionell', desc: 'Seriös und geschäftsmäßig' },
   friendly: { label: 'Freundlich', desc: 'Herzlich und nahbar' },
   direct: { label: 'Direkt', desc: 'Prägnant, ohne Umschweife' },
@@ -1143,8 +1145,38 @@ admin.profile.user = {
   emptyPhone: 'Fügen Sie Ihre Telefonnummer hinzu'
 };
 
+admin.profile.header = {
+  label: 'SOVA Arbeitsbereich-Profil',
+  desc: 'Verwalten Sie Ihre Identität, Sprache und Automatisierungsbereitschaft an einem Ort.'
+};
+admin.profile.plan = '{{name}} Tarif';
+admin.profile.activity = {
+  products: 'Verbundene Produkte',
+  automations: 'Aktive Automatisierungen',
+  alerts: 'Ungelesene Lead-Benachrichtigungen'
+};
 admin.profile.business = {
-  removePhoto: 'Entfernen'
+  title: 'Unternehmensprofil',
+  cancel: 'Abbrechen',
+  save: 'Speichern',
+  edit: 'Bearbeiten',
+  photoAlt: 'Unternehmensprofil',
+  noPhoto: 'Kein Unternehmensfoto',
+  uploadPhoto: 'Foto hochladen',
+  removePhoto: 'Entfernen',
+  nameLabel: 'Unternehmensname',
+  namePlaceholder: 'z.B. Noor Abaya House',
+  emptyName: 'Unternehmensnamen hinzufügen',
+  descriptionLabel: 'Unternehmensbeschreibung',
+  descriptionPlaceholder: 'Erzählen Sie Käufern, was Sie verkaufen und warum sie sich für Sie entscheiden sollten.',
+  emptyDescription: 'Kurze Unternehmensbeschreibung hinzufügen',
+  locationLabel: 'Unternehmensstandort',
+  locationPlaceholder: 'z.B. Berlin, Deutschland',
+  emptyLocation: 'Standort hinzufügen'
+};
+admin.profile.summary = {
+  title: 'Profilzusammenfassung',
+  desc: 'Dieser Arbeitsbereich ist bereit, WhatsApp-Gespräche zu verwalten, Leads zu qualifizieren und Antworten über SOVA zu automatisieren.'
 };
 
 

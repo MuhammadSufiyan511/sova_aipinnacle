@@ -18,7 +18,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
     <div className="rounded-[24px] border border-[#DDEFE7] bg-white p-5 shadow-sm sm:p-5 admin-card-shell">
       <div className="flex flex-col items-center justify-between gap-2 sm:flex-row sm:items-start">
         <h3 className="font-display text-[1rem] font-bold text-[#173247] text-center sm:text-left admin-card-title">
-          {t('admin.profile.business.title', 'Business Profile')}
+          {t('admin.profile.business.title')}
         </h3>
         {isEditingBusiness ? (
           <div className="flex items-center gap-2">
@@ -28,7 +28,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
               className="inline-flex items-center gap-1 rounded-full border border-[#DDEFE7] px-3 py-1.5 text-[0.68rem] font-bold text-[#476172] transition hover:bg-[#F8FAFC]"
             >
               <X className="h-3.5 w-3.5" />
-              {t('admin.profile.business.cancel', 'Cancel')}
+              {t('admin.profile.business.cancel')}
             </button>
             <button
               type="button"
@@ -36,7 +36,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
               className="inline-flex items-center gap-1 rounded-full bg-[#10B981] px-3 py-1.5 text-[0.68rem] font-bold text-white transition hover:scale-[1.02]"
             >
               <Save className="h-3.5 w-3.5" />
-              {t('admin.profile.business.save', 'Save')}
+              {t('admin.profile.business.save')}
             </button>
           </div>
         ) : (
@@ -46,7 +46,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
             className="inline-flex items-center gap-1 rounded-full border border-[#DDEFE7] px-3 py-1.5 text-[0.68rem] font-bold text-[#476172] transition hover:bg-[#F8FAFC]"
           >
             <Edit3 className="h-3.5 w-3.5" />
-            {t('admin.profile.business.edit', 'Edit')}
+            {t('admin.profile.business.edit')}
           </button>
         )}
       </div>
@@ -55,12 +55,12 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
         <div className="rounded-[20px] bg-[#F2FBF7] p-3.5 text-center sm:text-left admin-field-group">
           <div className="relative mx-auto h-36 w-full max-w-[220px] overflow-hidden rounded-2xl border border-[#DDEFE7] bg-white sm:mx-0">
             {draftBusiness.image ? (
-              <img src={draftBusiness.image} alt={t('admin.profile.business.photoAlt', 'Business profile')} className="h-full w-full object-cover" />
+              <img src={draftBusiness.image} alt={t('admin.profile.business.photoAlt')} className="h-full w-full object-cover" />
             ) : (
               <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-[#6D8A88]">
                 <ImagePlus className="h-6 w-6 text-emerald-500" />
                 <span className="text-[0.72rem] font-semibold">
-                  {t('admin.profile.business.noPhoto', 'No business photo')}
+                  {t('admin.profile.business.noPhoto')}
                 </span>
               </div>
             )}
@@ -82,7 +82,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
                   className="inline-flex items-center gap-2 rounded-full border border-[#BFE7DA] bg-white px-3 py-2 text-[0.72rem] font-bold text-[#0D8E73] transition hover:bg-[#ECFDF5]"
                 >
                   <ImagePlus className="h-3.5 w-3.5" />
-                  {t('admin.profile.business.uploadPhoto', 'Upload photo')}
+                  {t('admin.profile.business.uploadPhoto')}
                 </button>
                 {draftBusiness.image && (
                   <button
@@ -91,7 +91,7 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
                     className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white px-3 py-2 text-[0.72rem] font-bold text-rose-500 transition hover:bg-rose-50"
                   >
                     <Trash className="h-3.5 w-3.5" />
-                    {t('admin.profile.business.removePhoto', 'Remove')}
+                    {t('admin.profile.business.removePhoto')}
                   </button>
                 )}
               </div>
@@ -102,59 +102,59 @@ export const BusinessProfileSection = memo(function BusinessProfileSection({
         <div className="space-y-3">
           <div className="rounded-[20px] bg-[#F2FBF7] p-3.5 text-left admin-field-group">
             <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B]">
-              {t('admin.profile.business.nameLabel', 'Business name')}
+              {t('admin.profile.business.nameLabel')}
             </p>
             {isEditingBusiness ? (
               <input
                 type="text"
                 value={draftBusiness.name || ''}
                 onChange={(e) => setDraftBusiness((prev) => ({ ...prev, name: e.target.value }))}
-                placeholder={t('admin.profile.business.namePlaceholder', 'e.g. My Business')}
+                placeholder={t('admin.profile.business.namePlaceholder')}
                 className="mt-2 w-full rounded-xl border border-[#CDE7DD] bg-white px-3 py-2 text-[0.84rem] font-semibold text-[#295565] outline-none transition focus:border-[#10B981]"
               />
             ) : (
               <p className="mt-2 text-[0.84rem] font-semibold text-[#295565]">
-                {businessDetails.name || t('admin.profile.business.emptyName', 'Add your business name')}
+                {businessDetails.name || t('admin.profile.business.emptyName')}
               </p>
             )}
           </div>
 
           <div className="rounded-[20px] bg-[#F2FBF7] p-3.5 text-left admin-field-group">
             <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B]">
-              {t('admin.profile.business.descriptionLabel', 'Business description')}
+              {t('admin.profile.business.descriptionLabel')}
             </p>
             {isEditingBusiness ? (
               <textarea
                 value={draftBusiness.description || ''}
                 onChange={(e) => setDraftBusiness((prev) => ({ ...prev, description: e.target.value }))}
-                placeholder={t('admin.profile.business.descriptionPlaceholder', 'Tell buyers what you sell and why they choose you.')}
+                placeholder={t('admin.profile.business.descriptionPlaceholder')}
                 rows={3}
                 className="mt-2 w-full resize-none rounded-xl border border-[#CDE7DD] bg-white px-3 py-2 text-[0.84rem] font-medium text-[#295565] outline-none transition focus:border-[#10B981]"
               />
             ) : (
               <p className="mt-2 text-[0.84rem] font-semibold text-[#295565]">
-                {businessDetails.description || t('admin.profile.business.emptyDescription', 'Add a short business description')}
+                {businessDetails.description || t('admin.profile.business.emptyDescription')}
               </p>
             )}
           </div>
 
           <div className="rounded-[20px] bg-[#F2FBF7] p-3.5 text-left admin-field-group">
             <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#1E293B]">
-              {t('admin.profile.business.locationLabel', 'Business location')}
+              {t('admin.profile.business.locationLabel')}
             </p>
             {isEditingBusiness ? (
               <input
                 type="text"
                 value={draftBusiness.location || ''}
                 onChange={(e) => setDraftBusiness((prev) => ({ ...prev, location: e.target.value }))}
-                placeholder={t('admin.profile.business.locationPlaceholder', 'e.g. Karachi, Pakistan')}
+                placeholder={t('admin.profile.business.locationPlaceholder')}
                 className="mt-2 w-full rounded-xl border border-[#CDE7DD] bg-white px-3 py-2 text-[0.84rem] font-semibold text-[#295565] outline-none transition focus:border-[#10B981]"
               />
             ) : (
               <div className="mt-2 flex items-center gap-2 text-[#295565]">
                 <MapPin className="h-4 w-4 text-emerald-500" />
                 <span className="text-[0.84rem] font-semibold">
-                  {businessDetails.location || t('admin.profile.business.emptyLocation', 'Add your location')}
+                  {businessDetails.location || t('admin.profile.business.emptyLocation')}
                 </span>
               </div>
             )}

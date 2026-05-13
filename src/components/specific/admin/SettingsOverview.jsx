@@ -152,17 +152,17 @@ export const SettingsOverview = memo(function SettingsOverview() {
           </div>
           <div>
             <h3 className="text-[0.78rem] font-black uppercase tracking-[0.14em] text-slate-500">
-              {t('admin.settings.account.title', 'Account Actions')}
+              {t('admin.settings.account.title')}
             </h3>
           </div>
         </div>
         <div className="flex flex-col items-center justify-between gap-4 px-4 py-4 text-center sm:flex-row sm:text-left">
           <div className="min-w-0">
             <p className="text-[0.82rem] font-bold text-slate-700">
-              {t('admin.settings.account.deleteTitle', 'Delete Profile Data')}
+              {t('admin.settings.account.deleteTitle')}
             </p>
             <p className="mt-0.5 text-[0.7rem] leading-relaxed text-slate-400">
-              {t('admin.settings.account.deleteDesc', 'Permanently clears your bank info, business profile, and all AI preferences.')}
+              {t('admin.settings.account.deleteDesc')}
             </p>
           </div>
           <button
@@ -171,7 +171,7 @@ export const SettingsOverview = memo(function SettingsOverview() {
             className="flex shrink-0 items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-2 text-[0.74rem] font-bold text-red-500 transition hover:bg-red-100 hover:border-red-200 active:scale-[0.97]"
           >
             <Trash2 className="h-3.5 w-3.5" />
-            {t('admin.settings.account.deleteBtn', 'Delete Profile Info')}
+            {t('admin.settings.account.deleteBtn')}
           </button>
         </div>
       </Motion.section>
@@ -204,10 +204,10 @@ export const SettingsOverview = memo(function SettingsOverview() {
           resetAllSettings()
           setShowResetConfirm(false)
         }}
-        title={t('admin.settings.account.confirmTitle', 'Delete All Profile Data?')}
-        description={t('admin.settings.account.confirmDesc', 'This will permanently remove your bank details, business profile, and AI settings. This action cannot be undone.')}
-        confirmText={t('admin.settings.account.confirmBtn', 'Yes, Delete Everything')}
-        cancelText={t('admin.settings.account.cancelBtn', 'Cancel')}
+        title={t('admin.settings.account.confirmTitle')}
+        description={t('admin.settings.account.confirmDesc')}
+        confirmText={t('admin.settings.account.confirmBtn')}
+        cancelText={t('admin.settings.account.cancelBtn')}
         isMobile={isMobile}
       />
       <DeleteConfirmationSheet
@@ -217,10 +217,10 @@ export const SettingsOverview = memo(function SettingsOverview() {
           deleteBankDetails()
           setShowBankDeleteConfirm(false)
         }}
-        title={t('admin.settings.bank.deleteConfirmTitle', 'Delete Bank Information?')}
-        description={t('admin.settings.bank.deleteConfirmDesc', 'This will permanently remove your bank details from the system. You will need to re-enter them to receive payments.')}
-        confirmText={t('admin.settings.bank.deleteConfirmBtn', 'Yes, Delete Info')}
-        cancelText={t('admin.settings.bank.deleteCancelBtn', 'Cancel')}
+        title={t('admin.settings.bank.deleteConfirmTitle')}
+        description={t('admin.settings.bank.deleteConfirmDesc')}
+        confirmText={t('admin.settings.bank.deleteConfirmBtn')}
+        cancelText={t('admin.settings.bank.deleteCancelBtn')}
         isMobile={isMobile}
       />
     </Motion.div>

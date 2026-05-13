@@ -681,6 +681,7 @@ export const admin = {
         current: 'मौजूदा बिज़नेस',
         modalTitle: 'अपनी बिज़नेस कैटेगरी अपडेट करें',
         modalSubtitle: 'वह बिज़नेस टाइप चुनें जिसे SOVA जवाबों, लीड फ़िल्टरिंग और प्रोडक्ट संदर्भ के लिए इस्तेमाल करे।',
+        customCategoryLabel: 'कस्टम बिज़नेस कैटेगरी',
         save: 'बदलाव सुरक्षित करें',
         cancel: 'रद्द करें',
         close: 'बंद करें'
@@ -717,7 +718,7 @@ export const admin = {
   profile: {
     header: {
       label: 'SOVA वर्कस्पेस प्रोफ़ाइल',
-      desc: 'अपनी वर्कस्पेस पहचान, भाषा और ऑटोमेशन तैयारी को एक ही जगह से संभालें।'
+      desc: 'अपनी वर्कस्पेस पहचान, भाषा और ऑटोमेशन की तैयारी को एक ही स्थान से प्रबंधित करें।'
     },
     plan: '{{name}} प्लान',
     activity: {
@@ -745,6 +746,7 @@ export const admin = {
       photoAlt: 'बिज़नेस प्रोफ़ाइल',
       noPhoto: 'कोई बिज़नेस फोटो नहीं',
       uploadPhoto: 'फोटो अपलोड करें',
+      removePhoto: 'हटाएं',
       nameLabel: 'बिज़नेस नाम',
       namePlaceholder: 'उदाहरण: Noor Abaya House',
       emptyName: 'अपना बिज़नेस नाम जोड़ें',
@@ -1043,6 +1045,7 @@ admin.settings.tones = {
     atLeastOne: 'कृपया SOVA के लिए कम से कम एक टोन चुनें'
   },
   none: 'कोई नहीं',
+  noToneSelected: 'कोई टोन नहीं चुना गया',
   professional: { label: 'पेशेवर (Professional)', desc: 'सुरुचिपूर्ण और व्यावसायिक' },
   friendly: { label: 'मिलनसार (Friendly)', desc: 'गर्मजोशी भरा और सुलभ' },
   direct: { label: 'सीधा (Direct)', desc: 'संक्षिप्त और स्पष्ट' },
@@ -1072,9 +1075,7 @@ admin.profile.user = {
   emptyPhone: 'अपना फ़ोन नंबर जोड़ें'
 };
 
-admin.profile.business = {
-  removePhoto: 'हटाएं'
-};
+
 
 admin.settings = admin.settings || {};
 admin.settings.bankUpdateSuccess = 'बैंक विवरण सफलतापूर्वक अपडेट किया गया';

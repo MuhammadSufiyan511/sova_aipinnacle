@@ -682,6 +682,7 @@ export const admin = {
         current: 'বর্তমান ব্যবসা',
         modalTitle: 'আপনার ব্যবসার বিভাগ আপডেট করুন',
         modalSubtitle: 'SOVA উত্তর প্রদান এবং পণ্য প্রসঙ্গে সঠিক ব্যবসার ধরণ ব্যবহার করতে এটি বেছে নিন।',
+        customCategoryLabel: 'কাস্টম বিজনেস বিভাগ',
         save: 'পরিবর্তন সংরক্ষণ করুন',
         cancel: 'বাতিল',
         close: 'বন্ধ করুন'
@@ -698,6 +699,8 @@ export const admin = {
       }
     },
     tones: {
+      none: 'কিছুই না',
+      noToneSelected: 'কোনো টোন নির্বাচিত হয়নি',
       professional: { label: 'পেশাদার', desc: 'পরিশীলিত এবং মার্জিত' },
       friendly: { label: 'বন্ধুসুলভ', desc: 'উষ্ণ এবং আন্তরিক' },
       direct: { label: 'সরাসরি', desc: 'সংক্ষিপ্ত এবং স্পষ্ট' },
@@ -745,6 +748,7 @@ export const admin = {
       photoAlt: 'বিজনেস প্রোফাইল',
       noPhoto: 'কোনো বিজনেস ছবি নেই',
       uploadPhoto: 'ছবি আপলোড করুন',
+      removePhoto: 'মুছে ফেলুন',
       nameLabel: 'বিজনেসের নাম',
       namePlaceholder: 'উদাহরণ: Noor Abaya House',
       emptyName: 'আপনার বিজনেস নাম যোগ করুন',
@@ -1053,9 +1057,7 @@ admin.profile.user = {
   emptyPhone: 'আপনার ফোন নম্বর যোগ করুন'
 };
 
-admin.profile.business = {
-  removePhoto: 'মুছে ফেলুন'
-};
+
 
 admin.addProductOverview = admin.addProductOverview || {};
 admin.addProductOverview.validation = {

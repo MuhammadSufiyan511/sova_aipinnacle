@@ -106,9 +106,7 @@ export const BusinessProfileModal = memo(function BusinessProfileModal({
                     className="overflow-hidden"
                   >
                     <label className="mb-2 block text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#648E89]">
-                      {t('admin.settings.sections.business.customCategoryLabel', {
-                        defaultValue: t('onboarding.business.customCategoryPlaceholder'),
-                      })}
+                      {t('admin.settings.sections.business.customCategoryLabel')}
                     </label>
                     <div className="relative">
                       <PencilLine className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-emerald-500" />
