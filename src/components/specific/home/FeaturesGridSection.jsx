@@ -230,9 +230,7 @@ export const FeaturesGridSection = memo(function FeaturesGridSection() {
           transition={{ duration: 0.6 }}
           className="mb-10"
         >
-          <span className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#10B981]">
-            <span className="text-lg">✦</span> {t('sections.featuresEyebrow')}
-          </span>
+
           <h2 className="mt-1 font-display text-[2rem] font-extrabold tracking-[-0.04em] text-[#1E293B] sm:text-[2.6rem] md:text-[3.2rem]">
             {t('sections.featuresTitleA')}{' '}
             <span className="bg-gradient-to-r from-[#10B981] to-[#A78BFA] bg-clip-text text-transparent">
