@@ -446,28 +446,6 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
               )}
               {currentStep === 'pricing' && <PricingStep key="pricing" formData={formData} set={set} t={t} />}
             </AnimatePresence>
-
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
-              <button
-                disabled={currentStepIndex === 0}
-                onClick={() => setCurrentStep(STEPS[currentStepIndex - 1].id)}
-                className="admin-cta-secondary flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-4 font-bold text-[#1E293B]/50 transition-all hover:text-[#1E293B]/80 disabled:opacity-30"
-              >
-                <ChevronLeft className="h-5 w-5" /> {t('common.previous')}
-              </button>
-              <div className="flex w-full sm:w-auto gap-4">
-                {!isLastStep ? (
-                  <button onClick={handleNextStep} className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none">
-                    {t('common.next')} <ChevronRight className="h-5 w-5" />
-                  </button>
-                ) : (
-                  <button onClick={handleSubmit} className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-10 py-4 font-bold text-white shadow-xl shadow-emerald-500/20 transition-all sm:flex-none">
-                    <Check className="h-5 w-5" />
-                    {isEditMode ? t('admin.addProductOverview.sections.actions.submitEdit') : t('admin.addProductOverview.sections.actions.submitAdd')}
-                  </button>
-                )}
-              </div>
-            </div>
           </div>
 
           <MediaSidebar
@@ -480,6 +458,28 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
             setPrimaryMedia={setPrimaryMedia}
             t={t}
           />
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 lg:col-start-1">
+            <button
+              disabled={currentStepIndex === 0}
+              onClick={() => setCurrentStep(STEPS[currentStepIndex - 1].id)}
+              className="admin-cta-secondary flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-4 font-bold text-[#1E293B]/50 transition-all hover:text-[#1E293B]/80 disabled:opacity-30"
+            >
+              <ChevronLeft className="h-5 w-5" /> {t('common.previous')}
+            </button>
+            <div className="flex w-full sm:w-auto gap-4">
+              {!isLastStep ? (
+                <button onClick={handleNextStep} className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-900 px-10 py-4 font-bold text-white shadow-xl transition-all sm:flex-none">
+                  {t('common.next')} <ChevronRight className="h-5 w-5" />
+                </button>
+              ) : (
+                <button onClick={handleSubmit} className="admin-cta-premium flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-10 py-4 font-bold text-white shadow-xl shadow-emerald-500/20 transition-all sm:flex-none">
+                  <Check className="h-5 w-5" />
+                  {isEditMode ? t('admin.addProductOverview.sections.actions.submitEdit') : t('admin.addProductOverview.sections.actions.submitAdd')}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </div>
