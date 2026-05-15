@@ -25,45 +25,45 @@ export const PricingStep = ({ formData, set, t }) => {
       subtitle={t('admin.addProductOverview.sections.pricing.subtitle')}
       icon={DollarSign}
     >
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <Field 
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        <Field
           label={
             <div className="flex items-center gap-2">
               {t('admin.addProductOverview.sections.pricing.priceLabel')}
               {hasVariants && <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.6rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>}
             </div>
-          } 
+          }
           icon={DollarSign}
         >
           <div className="relative">
             <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-            <input 
-              type="number" 
-              value={displayPrice} 
-              onChange={(e) => !hasVariants && set('price', e.target.value)} 
-              className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`} 
-              placeholder="0.00" 
+            <input
+              type="number"
+              value={displayPrice}
+              onChange={(e) => !hasVariants && set('price', e.target.value)}
+              className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`}
+              placeholder="0.00"
               readOnly={hasVariants}
             />
           </div>
         </Field>
-        <Field 
+        <Field
           label={
             <div className="flex items-center gap-2">
               {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
-              {hasVariants && <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.6rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>}
+              {/* {hasVariants && <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.6rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>} */}
             </div>
-          } 
+          }
           icon={Tag}
         >
           <div className="relative">
             <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
-            <input 
-              type="number" 
-              value={displaySalePrice} 
-              onChange={(e) => !hasVariants && set('salePrice', e.target.value)} 
-              className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`} 
-              placeholder="0.00" 
+            <input
+              type="number"
+              value={displaySalePrice}
+              onChange={(e) => !hasVariants && set('salePrice', e.target.value)}
+              className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`}
+              placeholder="0.00"
               readOnly={hasVariants}
             />
             {displayPrice > 0 && displaySalePrice > 0 && displaySalePrice < displayPrice && (
@@ -73,24 +73,26 @@ export const PricingStep = ({ formData, set, t }) => {
             )}
           </div>
         </Field>
-        <Field 
-          label={
-            <div className="flex items-center gap-2">
-              {t('admin.addProductOverview.sections.pricing.stockLabel')}
-              {hasVariants && <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.6rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>}
-            </div>
-          } 
-          icon={Package}
-        >
-          <input 
-            type="number" 
-            value={displayStock} 
-            onChange={(e) => !hasVariants && set('stock', e.target.value)} 
-            className={`${inputCls} rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`} 
-            placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')} 
-            readOnly={hasVariants}
-          />
-        </Field>
+        <div className="sm:col-span-2 md:col-span-2 lg:col-span-2 xl:col-span-1">
+          <Field
+            label={
+              <div className="flex items-center gap-2">
+                {t('admin.addProductOverview.sections.pricing.stockLabel')}
+                {hasVariants && <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.6rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>}
+              </div>
+            }
+            icon={Package}
+          >
+            <input
+              type="number"
+              value={displayStock}
+              onChange={(e) => !hasVariants && set('stock', e.target.value)}
+              className={`${inputCls} rtl:text-left ${hasVariants ? 'bg-slate-50 opacity-70 cursor-not-allowed' : ''}`}
+              placeholder={t('admin.addProductOverview.sections.pricing.stockPlaceholder')}
+              readOnly={hasVariants}
+            />
+          </Field>
+        </div>
       </div>
       <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
         <Field label={t('admin.addProductOverview.sections.pricing.skuLabel')} icon={Info} helpText={t('admin.addProductOverview.sections.pricing.skuHelp')}>
