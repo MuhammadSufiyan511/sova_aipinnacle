@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { Building2, Check, PencilLine, ArrowRight } from 'lucide-react'
 import { useTranslation, Trans } from 'react-i18next'
+import { CurrencySelect } from '../../shared/CurrencySelect'
 
 const businessTypes = [
   { id: 'clothing', emoji: '🛍️' },
@@ -18,11 +19,20 @@ const businessTypes = [
   { id: 'other', emoji: '🌟' },
 ]
 
-export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
+export function StepZeroBusiness({ 
+  businessType, 
+  setBusinessType, 
+  businessName,
+  setBusinessName,
+  currency,
+  setCurrency,
+  homeDarkMode,
+  onNext 
+}) {
   const { t } = useTranslation()
   const [customCategory, setCustomCategory] = useState('')
   const isOther = businessType === 'other'
-  const isValid = Boolean(businessType) && (!isOther || customCategory.trim() !== '')
+  const isValid = Boolean(businessType) && (!isOther || customCategory.trim() !== '') && Boolean(businessName?.trim())
 
   const handleNext = () => {
     if (isValid) {
@@ -51,7 +61,42 @@ export function StepZeroBusiness({ businessType, setBusinessType, onNext }) {
         </p>
       </Motion.div>
 
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row">
+        <div className="flex-1 space-y-1.5 text-left">
+          <label className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-700">
+            {t('onboarding.business.nameLabel', 'Business Title')}
+          </label>
+          <div className="relative">
+            <Building2 className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-emerald-500" />
+            <input
+              type="text"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              placeholder={t('onboarding.business.namePlaceholder', 'e.g. My Awesome Shop')}
+              className="h-14 w-full rounded-2xl border-2 border-emerald-50 bg-emerald-50/30 pl-12 pr-4 font-medium text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+            />
+          </div>
+        </div>
+        
+        <div className="w-full sm:w-[240px] space-y-1.5 text-left">
+          <label className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-700">
+            {t('onboarding.business.currencyLabel', 'Base Currency')}
+          </label>
+          <div className="relative z-50">
+            <CurrencySelect 
+              value={currency} 
+              onChange={setCurrency} 
+              homeDarkMode={homeDarkMode} 
+            />
+          </div>
+        </div>
+      </div>
+
+
       {/* Business Type Grid */}
+      <div className="mb-4 text-left">
+        <h3 className="text-[1.1rem] font-bold text-slate-900">{t('onboarding.business.chooseCategoryTitle', 'Choose your business category')}</h3>
+      </div>
       <div className="grid grid-cols-2 gap-3.5 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {businessTypes.map((type, i) => {
           const isSelected = businessType === type.id

@@ -1,7 +1,7 @@
 import { Sparkles, Check, ChevronLeft, ArrowRight } from 'lucide-react'
 import { motion as Motion } from 'framer-motion'
 import { useTranslation, Trans } from 'react-i18next'
-import sovaLogo from '../../../assets/logos/sova-bgless.png'
+import sovaLogo from '../../../assets/logos/sova-bgless.webp'
 
 const availableTones = [
   { id: 'professional' },

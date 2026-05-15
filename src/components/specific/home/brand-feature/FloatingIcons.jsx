@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Mail, MessageSquare } from 'lucide-react'
-import { FaFacebookF, FaInstagram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaTelegramPlane, FaWhatsapp } from '../../../shared/icons/BrandIcons'
 
 const MotionDiv = motion.div
 

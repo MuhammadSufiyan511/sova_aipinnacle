@@ -39,6 +39,9 @@ export function ProductViewContent({
     setActiveMediaIndex(curr => (curr === 0 ? modalMediaItems.length - 1 : curr - 1))
   }
 
+  const validVariants = Array.isArray(product.variantGroups) && product.variantGroups.filter(g => Object.keys(g.attributes || {}).length > 0)
+  const hasVariants = validVariants && validVariants.length > 0
+
   return (
     <Motion.div
       initial={isPage ? { opacity: 0, y: -20 } : { opacity: 0, scale: isMobile ? 1 : 0.96, y: isMobile ? 12 : 30 }}
@@ -107,7 +110,7 @@ export function ProductViewContent({
           </span>
           {product.industry && (
             <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/40 text-white border border-white/10 shadow-sm backdrop-blur-md tracking-wider uppercase">
-              {product.industry}
+              {t(`admin.addProductOverview.categories.${product.industry}`, { defaultValue: product.industry })}
             </span>
           )}
           {product.brand && (
@@ -117,7 +120,7 @@ export function ProductViewContent({
           )}
           {product.sku && (
             <span className="text-[0.6rem] font-black px-3 py-1 rounded-full bg-black/60 text-white border border-white/20 shadow-sm backdrop-blur-md tracking-wider uppercase">
-              SKU: {product.sku}
+              {t('admin.products.item.skuLabel')}: {product.sku}
             </span>
           )}
         </div>
@@ -176,27 +179,29 @@ export function ProductViewContent({
                     {t('admin.addProductOverview.sections.category.title')}
                   </p>
                   <p className={`text-[0.75rem] font-medium ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
-                    {t('admin.addProductOverview.sections.category.desc') || 'Classification and hierarchy'}
+                    {t('admin.addProductOverview.sections.category.desc')}
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>
-                    {t('admin.addProductOverview.sections.category.industryLabel') || 'Industry'}
+                    {t('admin.addProductOverview.sections.category.industryLabel')}
                   </span>
-                  <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{product.industry?.replace('-', ' ')}</span>
+                  <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>
+                    {t(`admin.addProductOverview.categories.${product.industry}`, { defaultValue: product.industry?.replace('-', ' ') })}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>{t('admin.addProductOverview.sections.category.categoryLabel')}</span>
                   <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>
-                    {product.categoryAt === 'custom' ? product.customCategory : product.categoryAt?.replace(/-/g, ' ')}
+                    {product.categoryAt === 'custom' ? product.customCategory : t(`admin.addProductOverview.subcategories.${product.categoryAt}`, { defaultValue: product.categoryAt?.replace(/-/g, ' ') })}
                   </span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>{t('admin.addProductOverview.sections.category.subCategoryLabel')}</span>
                   <span className={`text-[0.92rem] font-bold capitalize ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>
-                    {product.subCategoryAt === 'custom' ? product.customSubCategory : product.subCategoryAt}
+                    {product.subCategoryAt === 'custom' ? product.customSubCategory : t(`admin.addProductOverview.subcategories.${product.subCategoryAt}`, { defaultValue: product.subCategoryAt })}
                   </span>
                 </div>
               </div>
@@ -204,10 +209,14 @@ export function ProductViewContent({
 
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
               <div className={`rounded-[22px] p-5 shadow-sm transition-all hover:shadow-md border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
-                <p className={`text-[0.55rem] font-black uppercase tracking-[0.15em] mb-2 flex items-center gap-2 ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
-                  <DollarSign className="h-3 w-3 text-emerald-500" />
-                  {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
-                </p>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`text-[0.6rem] font-black uppercase tracking-[0.15em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                    {t('admin.products.item.priceLabel')}
+                  </span>
+                  {hasVariants && (
+                    <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.55rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.startingFromLabel', 'Starting From')}</span>
+                  )}
+                </div>
                 <p className="text-[1.25rem] font-bold text-[#10B981]">
                   {product.salePrice ? t('admin.products.item.price', { price: product.salePrice }) : t('admin.products.item.none')}
                 </p>
@@ -224,10 +233,14 @@ export function ProductViewContent({
               </div>
 
               <div className={`rounded-[22px] p-5 shadow-sm transition-all hover:shadow-md border ${homeDarkMode ? 'bg-[#0A1B19] border-emerald-900/20' : 'bg-white border-[#EAF1EE]'}`}>
-                <p className={`text-[0.55rem] font-black uppercase tracking-[0.15em] mb-2 flex items-center gap-2 ${homeDarkMode ? 'text-slate-300' : 'text-[#1E293B]'}`}>
-                  <Package className="h-3 w-3 text-slate-400" />
-                  {t('admin.addProductOverview.sections.pricing.currentStockLabel', { defaultValue: 'Current Stock' })}
-                </p>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`text-[0.6rem] font-black uppercase tracking-[0.15em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                    {t('admin.products.item.stockLabel')}
+                  </span>
+                  {hasVariants && (
+                    <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[0.55rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.totalLabel', 'Total')}</span>
+                  )}
+                </div>
                 <div className="flex items-baseline gap-1.5">
                   <p className={`text-[1.25rem] font-bold ${Number(product.stock) <= Number(product.minStock) ? 'text-rose-500' : (homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]')}`}>
                     {product.stock ?? '0'}
@@ -256,7 +269,7 @@ export function ProductViewContent({
                     <Star className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className={`text-[0.52rem] font-black uppercase tracking-[0.1em] mb-0.5 ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.addProductOverview.sections.basics.brandLabel') || 'Brand'}</p>
+                    <p className={`text-[0.52rem] font-black uppercase tracking-[0.1em] mb-0.5 ${homeDarkMode ? 'text-slate-400' : 'text-[#1E293B]'}`}>{t('admin.addProductOverview.sections.basics.brandLabel')}</p>
                     <p className={`text-[0.88rem] font-bold ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{product.brand}</p>
                   </div>
                 </div>
@@ -289,7 +302,7 @@ export function ProductViewContent({
                       {t('admin.addProductOverview.sections.variants.title')}
                     </p>
                     <p className={`text-[0.75rem] font-medium ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
-                      {t('admin.addProductOverview.sections.variants.desc') || 'Available size and color sets'}
+                      {t('admin.addProductOverview.sections.variants.desc')}
                     </p>
                   </div>
                 </div>
@@ -302,14 +315,14 @@ export function ProductViewContent({
                           {groupIdx + 1}
                         </span>
                         <span className={`text-[0.75rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-900/40'}`}>
-                          {t('admin.addProductOverview.sections.variants.rowLabel') || 'Variation Set'}
+                          {t('admin.addProductOverview.sections.variants.rowLabel')}
                         </span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                         {Object.entries(group.attributes || {}).map(([key, val]) => (
                           <div key={key} className="flex flex-col gap-2">
                             <span className={`text-[0.55rem] font-black uppercase tracking-[0.12em] ${homeDarkMode ? 'text-slate-500' : 'text-[#1E293B]'}`}>
-                              {formatFieldLabel(key)}
+                              {t(`admin.addProductOverview.variantNames.${key}`, { defaultValue: formatFieldLabel(key) })}
                             </span>
                             <div className="flex flex-wrap gap-1.5">
                               {Array.isArray(val) ? (
@@ -328,6 +341,53 @@ export function ProductViewContent({
                             </div>
                           </div>
                         ))}
+
+                        {/* Variant Price & Stock Info */}
+                        {(group.price || group.salePrice || group.stock) && (
+                          <div className={`col-span-full mt-2 pt-3 border-t flex items-center gap-6 ${homeDarkMode ? 'border-emerald-900/20' : 'border-slate-100'}`}>
+                            {group.salePrice ? (
+                              <>
+                                <div className="flex flex-col gap-0.5">
+                                  <span className={`text-[0.5rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                                    {t('admin.addProductOverview.sections.pricing.salePriceLabel')}
+                                  </span>
+                                  <span className="text-[0.85rem] font-black text-[#10B981]">
+                                    {t('admin.products.item.price', { price: group.salePrice })}
+                                  </span>
+                                </div>
+                                {group.price && (
+                                  <div className="flex flex-col gap-0.5">
+                                    <span className={`text-[0.5rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                                      {t('admin.addProductOverview.sections.pricing.priceLabel')}
+                                    </span>
+                                    <span className={`text-[0.85rem] font-medium line-through ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                                      {t('admin.products.item.price', { price: group.price })}
+                                    </span>
+                                  </div>
+                                )}
+                              </>
+                            ) : group.price && (
+                              <div className="flex flex-col gap-0.5">
+                                <span className={`text-[0.5rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                                  {t('admin.addProductOverview.sections.pricing.priceLabel')}
+                                </span>
+                                <span className="text-[0.85rem] font-black text-emerald-500">
+                                  {t('admin.products.item.price', { price: group.price })}
+                                </span>
+                              </div>
+                            )}
+                            {group.stock && (
+                              <div className="flex flex-col gap-0.5">
+                                <span className={`text-[0.5rem] font-black uppercase tracking-[0.1em] ${homeDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                                  {t('admin.addProductOverview.sections.pricing.stockLabel')}
+                                </span>
+                                <span className={`text-[0.85rem] font-black ${homeDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
+                                  {group.stock} <span className="text-[0.6rem] font-bold opacity-50 uppercase ml-0.5">{t('admin.common.units')}</span>
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -349,7 +409,7 @@ export function ProductViewContent({
                   {Object.entries(product.specs).map(([key, value]) => (
                     <div key={key} className={`flex flex-col gap-1.5 pl-3 border-l-2 ${homeDarkMode ? 'border-emerald-900' : 'border-emerald-100'}`}>
                       <span className={`text-[0.52rem] font-black uppercase tracking-[0.14em] ${homeDarkMode ? 'text-slate-500' : 'text-[#9BA8A4]'}`}>
-                        {key.replace(/([A-Z])/g, ' $1')}
+                        {t(`admin.addProductOverview.fields.${key}.label`, { defaultValue: key.replace(/([A-Z])/g, ' $1') })}
                       </span>
                       <span className={`text-[0.88rem] font-bold leading-tight ${homeDarkMode ? 'text-slate-200' : 'text-[#1E293B]'}`}>{value}</span>
                     </div>

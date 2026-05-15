@@ -4,6 +4,10 @@ export const onboarding = {
     subtitle: 'यह SOVA को आपके वर्कफ़्लो और तकनीकी आवश्यकताओं को समझने में मदद करता है।',
     searchPlaceholder: 'उद्योग खोजें...',
     customCategoryPlaceholder: 'अपनी व्यावसायिक श्रेणी दर्ज करें...',
+    nameLabel: 'व्यवसाय का शीर्षक',
+    namePlaceholder: 'उदा. मेरी शानदार दुकान',
+    currencyLabel: 'मूल मुद्रा',
+    chooseCategoryTitle: 'अपनी व्यावसायिक श्रेणी चुनें',
     nextBtn: 'मेरा व्यवसाय चुनें ←',
     categories: {
       clothing: { label: 'कपड़े और फैशन', desc: 'साइज, स्टॉक और डिलीवरी के लिए ऑटो रिप्लाई' },
@@ -154,8 +158,10 @@ export const admin = {
     },
     item: {
       price: 'Rs. {{price}}',
-      priceLabel: 'कीमत',
-      stockLabel: 'दुकान में सामान',
+      priceLabel: 'विक्रय मूल्य',
+      salePriceLabel: 'छूट की कीमत',
+      stockLabel: 'हाथ में कुल सामान',
+      minOrderLabel: 'न्यूनतम ऑर्डर की संख्या',
       skuLabel: 'आइटम आईडी',
       specsTitle: 'खास जानकारी',
       editBtn: 'बदलाव करें',
@@ -250,16 +256,19 @@ export const admin = {
         title: 'कीमत और स्टॉक',
         subtitle: 'विक्रय मूल्य और स्टॉक की स्थिति सेट करें।',
         priceLabel: 'विक्रय मूल्य',
-        salePriceLabel: 'छूट के बाद कीमत',
-        salePricePlaceholder: 'वैकल्पिक',
-        stockLabel: 'कुल स्टॉक',
+        salePriceLabel: 'छूट की कीमत (वैकल्पिक)',
+        salePricePlaceholder: 'वैकल्पিক',
+        stockLabel: 'हाथ में कुल सामान',
         stockPlaceholder: 'मौजूद मात्रा (Quantity)',
         currentStockLabel: 'वर्तमान स्टॉक',
         minStockLabel: 'कम स्टॉक अलर्ट',
         skuLabel: 'आइटम आईडी / SKU',
         skuPlaceholder: 'जैसे: ITEM-001',
         skuHelp: 'दुकान का आंतरिक कोड',
-        minOrderLabel: 'न्यूनतम ऑर्डर',
+        minOrderLabel: 'न्यूनतम ऑर्डर की संख्या',
+        startingFromLabel: 'से शुरू',
+        totalLabel: 'कुल',
+        autoLabel: 'ऑटो'
       },
       variants: {
         title: 'उत्पाद विविधताएं',
@@ -693,6 +702,11 @@ export const admin = {
         button: 'आवाज़ बदलें',
         modalTitle: 'आवाज़ सेटअप'
       },
+      currency: {
+        title: 'मूल मुद्रा और क्षेत्र',
+        subtitle: 'बिलिंग और चालान के लिए अपनी प्राथमिक मुद्रा सेट करें।',
+        current: 'वर्तमान',
+      },
       rules: {
         title: 'स्वचालन नियम',
         subtitle: 'स्वचालित उत्तर और फ़िल्टरिंग प्राथमिकताएं सेट करें।'
@@ -1029,7 +1043,7 @@ admin.addProductOverview.validation = {
   maxFilesExceeded: 'आप केवल {{max}} फाइलें अपलोड कर सकते हैं।',
   imageTooLarge: '5MB से अधिक है।',
   videoTooLarge: '{{name}} 15MB की सीमा से अधिक है।',
-  videoDurationInvalid: '{{name}} 15-20 सेकंड लंबा होना चाहिए (वर्तमान: {{duration}}s)।',
+  videoDurationInvalid: '{{name}} 20 सेकंड से कम लंबा होना चाहिए (वर्तमान: {{duration}}s)।',
   compressLink: 'यहां कंप्रेस करें',
   statusActive: 'उत्पाद को सक्रिय के रूप में चिह्नित किया गया',
   statusInactive: 'उत्पाद को निष्क्रिय के रूप में चिह्नित किया गया',

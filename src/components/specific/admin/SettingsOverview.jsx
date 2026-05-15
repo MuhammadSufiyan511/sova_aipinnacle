@@ -6,8 +6,9 @@ import { ToneSettingsModal } from './settings/ToneSettingsModal'
 import { BankInformationSection } from './settings/BankInformationSection'
 import { useSettingsData } from '../../../hooks/useSettingsData'
 import { Toggle } from '../../shared/Toggle'
+import { CurrencySelect } from '../../shared/CurrencySelect'
 import { DeleteConfirmationSheet } from '../../shared/DeleteConfirmationSheet'
-import sovaLogo from '../../../assets/logos/sova-bgless.png'
+import sovaLogo from '../../../assets/logos/sova-bgless.webp'
 
 function SettingRow({ icon, iconBg, title, desc, children }) {
   return (
@@ -37,7 +38,8 @@ export const SettingsOverview = memo(function SettingsOverview() {
     toneOptions, openBusinessModal, saveBusinessProfile,
     toneModalOpen, setToneModalOpen, draftTones, setDraftTones, openToneModal, saveToneSettings,
     bankDetails, draftBankDetails, setDraftBankDetails, saveBankDetails,
-    isEditingBank, setIsEditingBank, cancelBankEdit, deleteBankDetails, resetAllSettings
+    isEditingBank, setIsEditingBank, cancelBankEdit, deleteBankDetails, resetAllSettings,
+    currency, setCurrency
   } = useSettingsData()
 
   const [showBankDeleteConfirm, setShowBankDeleteConfirm] = useState(false)
@@ -101,6 +103,28 @@ export const SettingsOverview = memo(function SettingsOverview() {
           <button type="button" onClick={openBusinessModal} className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-4 py-2 text-[0.76rem] font-bold text-white shadow-[0_10px_24px_rgba(16,185,129,0.18)] transition hover:scale-[1.02]">
             {t('admin.settings.sections.business.button')}
           </button>
+        </div>
+        <div className="mt-4 flex flex-col items-center gap-3 border-t border-[#ECF8F3] pt-4 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-500 admin-stat-icon">
+              <Landmark className="h-4.5 w-4.5" />
+            </span>
+            <div>
+              <h3 className="text-[0.86rem] font-bold text-[#173247] admin-card-title">{t('admin.settings.sections.currency.title', 'Base Currency & Region')}</h3>
+              <p className="mt-0.5 text-[0.72rem] leading-5 text-[#1E293B]">{t('admin.settings.sections.currency.subtitle', 'Set your primary currency for billing and invoices.')}</p>
+              <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#10B981]">
+                {t('admin.settings.sections.currency.current', 'Current')}: {currency}
+              </p>
+            </div>
+          </div>
+
+          <div className="w-[200px] sm:shrink-0">
+            <CurrencySelect 
+              value={currency} 
+              onChange={setCurrency} 
+              className="w-full"
+            />
+          </div>
         </div>
       </Motion.section>
 

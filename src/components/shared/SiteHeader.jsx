@@ -1,7 +1,7 @@
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import sovaLogo from '../../assets/logos/sova.png'
+import sovaLogo from '../../assets/logos/sova.webp'
 import { useHeaderUi } from '../../hooks/useHeaderUi'
 import { ROUTES } from '../../utils/routes'
 import { HeaderDesktopNav } from './header/HeaderDesktopNav'

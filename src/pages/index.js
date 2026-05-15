@@ -4,5 +4,4 @@ export { CaseStudiesPage } from './CaseStudiesPage'
 export { AboutContactPage } from './AboutContactPage'
 export { AuthPage } from './AuthPage'
 export { TermsPage, PrivacyPage } from './LegalPages'
-export { OnboardingPage } from './app/OnboardingPage'
-export { DashboardPage } from './app/DashboardPage'
+// OnboardingPage and DashboardPage are lazy-loaded in App.jsx — do NOT re-export here

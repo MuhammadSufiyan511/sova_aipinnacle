@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap');
+/* Google Fonts are loaded via <link> in index.html (non-blocking). Removed @import from here. */
 @import "tailwindcss";
 
 @theme {
@@ -259,6 +259,44 @@
     background-color: #142B2A !important;
     border-color: #1C3D3A !important;
     color: #FAF7ED !important;
+  }
+
+  /* ─── Feature Grid Image Shimmer ───────────────────────────────────────────
+     Pure CSS shimmer: runs entirely on the GPU compositor via background-position.
+     No JS animation loop, no layout ops, zero main-thread cost.
+  ─────────────────────────────────────────────────────────────────────────── */
+  @keyframes feature-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+
+  .feature-img-shimmer {
+    background: linear-gradient(
+      90deg,
+      #e8edf2 0%,
+      #f4f7fa 40%,
+      #e8edf2 80%
+    );
+    background-size: 200% 100%;
+    animation: feature-shimmer 1.4s ease-in-out infinite;
+    will-change: background-position;
+  }
+
+  /* Off-screen feature cards: skip layout+paint until scrolled into view */
+  .feature-card-glass {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 280px;
+  }
+
+  /* Dark mode shimmer: matches dark surface tones */
+  .home-dark-mode .feature-img-shimmer {
+    background: linear-gradient(
+      90deg,
+      #0d2220 0%,
+      #142b2a 40%,
+      #0d2220 80%
+    );
+    background-size: 200% 100%;
   }
 
   /* Responsive Utilities */

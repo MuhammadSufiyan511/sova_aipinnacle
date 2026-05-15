@@ -4,6 +4,10 @@ const onboarding = {
     subtitle: 'SOVA tailors its replies and lead detection to your specific industry.',
     searchPlaceholder: 'Search industries...',
     customCategoryPlaceholder: 'Enter your business category...',
+    nameLabel: 'Business Title',
+    namePlaceholder: 'e.g. My Awesome Shop',
+    currencyLabel: 'Base Currency',
+    chooseCategoryTitle: 'Choose your business category',
     nextBtn: 'Pick My Industry →',
     categories: {
       clothing: { label: 'Clothing', desc: 'Apparel, shoes, accessories.' },
@@ -205,8 +209,10 @@ const admin = {
     },
     item: {
       price: 'Rs. {{price}}',
-      priceLabel: 'Price',
+      priceLabel: 'Selling Price',
+      salePriceLabel: 'Discount Price',
       stockLabel: 'Total Items in Hand',
+      minOrderLabel: 'Min. Order Count',
       skuLabel: 'Item ID',
       specsTitle: 'Key Details',
       editBtn: 'Change Details',
@@ -357,7 +363,10 @@ const admin = {
         skuLabel: 'Item ID (Optional)',
         skuHelp: 'A unique code used to identify your item.',
         skuPlaceholder: 'e.g. TS-001',
-        minOrderLabel: 'Min. Order Count'
+        minOrderLabel: 'Min. Order Count',
+        startingFromLabel: 'Starting From',
+        totalLabel: 'Total',
+        autoLabel: 'Auto'
       },
       summary: {
         title: 'Shop Preview',
@@ -393,7 +402,7 @@ const admin = {
       maxFilesExceeded: 'You can only upload up to {{max}} files.',
       imageTooLarge: 'is too large.',
       videoTooLarge: '{{name}} exceeds 15MB limit.',
-      videoDurationInvalid: '{{name}} must be 15-20 seconds (Current: {{duration}}s).',
+      videoDurationInvalid: '{{name}} must be under 20 seconds (Current: {{duration}}s).',
       compressLink: 'Compress here',
       createSuccess: 'Item added to shop successfully',
       updateSuccess: 'Details updated successfully'
@@ -590,7 +599,7 @@ const admin = {
       statusInactive: 'Product marked as inactive',
       imageTooLarge: 'exceeds 5MB.',
       videoTooLarge: 'exceeds 15MB limit.',
-      videoDurationInvalid: 'must be 15-20 seconds (Current: {{duration}}s).',
+      videoDurationInvalid: 'must be under 20 seconds (Current: {{duration}}s).',
       compressLink: 'Compress here',
       maxFilesExceeded: 'You can only upload up to {{max}} media files.',
     },
@@ -965,6 +974,11 @@ const admin = {
         current: 'Current Voice',
         button: 'Change Voice',
         modalTitle: 'Voice Setup'
+      },
+      currency: {
+        title: 'Base Currency & Region',
+        subtitle: 'Set your primary currency for billing and invoices.',
+        current: 'Current',
       },
       rules: {
         title: 'Automation Rules'

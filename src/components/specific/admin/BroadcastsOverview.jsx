@@ -2,7 +2,7 @@ import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { Clock3, Megaphone, PlayCircle, Plus, Radio, Send, Sparkles, Users, Zap } from 'lucide-react'
 import { useState, memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import sovaLogo from '../../../assets/logos/sova.png'
+import sovaLogo from '../../../assets/logos/sova.webp'
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } }
 const item = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }

@@ -142,7 +142,7 @@ export function EditProductOverview({ id: propId }) {
 
     const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
     const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
-    const MIN_VIDEO_DURATION = 15
+    const MIN_VIDEO_DURATION = 1
     const MAX_VIDEO_DURATION = 20
     const MAX_FILES = 10
 
@@ -179,7 +179,7 @@ export function EditProductOverview({ id: propId }) {
         }
         const duration = await checkVideoDuration(file)
         if (duration < MIN_VIDEO_DURATION || duration > MAX_VIDEO_DURATION) {
-          toast.error(`${file.name} must be 15-20 seconds (Current: ${Math.round(duration)}s).`)
+          toast.error(`${file.name} must be under 20 seconds (Current: ${Math.round(duration)}s).`)
           continue
         }
         validFiles.push(file)
@@ -217,7 +217,7 @@ export function EditProductOverview({ id: propId }) {
 
     const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
     const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
-    const MIN_VIDEO_DURATION = 15
+    const MIN_VIDEO_DURATION = 1
     const MAX_VIDEO_DURATION = 20
 
     if (file.type.startsWith('image/')) {
@@ -243,7 +243,7 @@ export function EditProductOverview({ id: propId }) {
       }
       const duration = await checkVideoDuration(file)
       if (duration < MIN_VIDEO_DURATION || duration > MAX_VIDEO_DURATION) {
-        toast.error(`${file.name} must be 15-20 seconds (Current: ${Math.round(duration)}s).`)
+        toast.error(`${file.name} must be under 20 seconds (Current: ${Math.round(duration)}s).`)
         return
       }
     } else {
@@ -266,12 +266,34 @@ export function EditProductOverview({ id: propId }) {
   }
 
   const handleSubmit = () => {
+    const validVariantGroups = formData.variantGroups?.filter(g => Object.keys(g.attributes || {}).length > 0) || []
+    const hasVariants = validVariantGroups.length > 0
+
+    let finalStock = formData.stock
+    let finalPrice = formData.price
+    let finalSalePrice = formData.salePrice
+
+    if (hasVariants) {
+      finalStock = validVariantGroups.reduce((acc, g) => acc + (parseInt(g.stock) || 0), 0).toString()
+      const prices = validVariantGroups.map(g => parseFloat(g.price)).filter(p => !isNaN(p))
+      finalPrice = prices.length > 0 ? Math.min(...prices).toString() : ''
+      const salePrices = validVariantGroups.map(g => parseFloat(g.salePrice)).filter(p => !isNaN(p))
+      finalSalePrice = salePrices.length > 0 ? Math.min(...salePrices).toString() : ''
+    }
+
+    const priceNum = parseFloat(finalPrice)
+    const salePriceNum = parseFloat(finalSalePrice)
+    let finalDiscount = '0%'
+    if (priceNum > 0 && salePriceNum > 0 && salePriceNum < priceNum) {
+      finalDiscount = Math.round((1 - salePriceNum / priceNum) * 100) + '%'
+    }
+
     if (!formData.name.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.nameRequired')); return }
     if (!formData.description.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.descriptionRequired')); return }
     if (formData.gallery.length === 0) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.mediaRequired')); return }
     if (!formData.category) { setCurrentStep('classification'); toast.error(t('admin.addProductOverview.validation.categoryRequired')); return }
     if (nestedOptions.length > 0 && !formData.subCategory) { setCurrentStep('classification'); toast.error(t('admin.addProductOverview.validation.subCategoryRequired')); return }
-    if (!formData.price || isNaN(parseFloat(formData.price)) || parseFloat(formData.price) < 0) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.priceRequired')); return }
+    if (!finalPrice || isNaN(parseFloat(finalPrice)) || parseFloat(finalPrice) < 0) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.priceRequired')); return }
 
     const finalSpecs = { ...formData.specs }
     formData.customFields.forEach(field => {
@@ -281,6 +303,10 @@ export function EditProductOverview({ id: propId }) {
     const primary = formData.gallery.find((i) => i.isPrimary) || formData.gallery[0]
     const payload = {
       ...formData,
+      price: finalPrice,
+      salePrice: finalSalePrice,
+      discount: finalDiscount,
+      stock: finalStock,
       id: initialProduct?.id,
       industry: formData.industry,
       categoryAt: formData.category,

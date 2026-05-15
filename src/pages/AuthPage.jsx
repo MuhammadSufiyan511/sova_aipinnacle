@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Check, ShieldCheck } from 'lucide-react'
-import { FaMeta } from 'react-icons/fa6'
+import { FaMeta } from '../components/shared/icons/BrandIcons'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence } from 'framer-motion'
 import { SeoHead } from '../components'

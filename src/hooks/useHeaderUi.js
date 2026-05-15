@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
+import { loadAndSetLanguage } from '../i18n'
 import US from 'country-flag-icons/react/3x2/US'
 import PK from 'country-flag-icons/react/3x2/PK'
 import SA from 'country-flag-icons/react/3x2/SA'
@@ -81,7 +82,7 @@ export function useHeaderUi() {
     setMenuOpen(false)
     window.dispatchEvent(new Event('language-change-start'))
     setTimeout(() => {
-      i18n.changeLanguage(language)
+      loadAndSetLanguage(language)
       setTimeout(() => {
         setIsChangingLanguage(false)
         window.dispatchEvent(new Event('language-change-end'))

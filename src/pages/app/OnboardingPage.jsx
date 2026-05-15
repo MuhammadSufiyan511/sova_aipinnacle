@@ -12,13 +12,15 @@ import { OnboardingFinalLoader } from './onboarding/OnboardingFinalLoader'
 import { OnboardingInitialLoader } from './onboarding/OnboardingInitialLoader'
 import { OnboardingProgress } from './onboarding/OnboardingProgress'
 import { OnboardingThemeToggle } from './onboarding/OnboardingThemeToggle'
+import { CurrencySelect } from '../../components/shared/CurrencySelect'
 
 export function OnboardingPage() {
   const { t } = useTranslation()
-  const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, toggleHomeDarkMode } = useApp()
+  const { setProducts: setGlobalProducts, setFiles: setGlobalFiles, setTones: setGlobalTones, setShowCelebration, homeDarkMode, toggleHomeDarkMode, currency, setCurrency, setBusinessDetails, setBusinessProfile } = useApp()
   const [step, setStep] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
+  const [businessName, setBusinessName] = useState('')
   const [businessType, setBusinessType] = useState(null)
   const [products, setProducts] = useState([])
   const [tones, setTones] = useState([])
@@ -64,6 +66,8 @@ export function OnboardingPage() {
     setGlobalProducts(productCatalog)
     setGlobalFiles(fileLibrary)
     setGlobalTones(tones)
+    setBusinessDetails(prev => ({ ...prev, name: businessName }))
+    setBusinessProfile(prev => ({ ...prev, type: businessType }))
     setShowCelebration(true)
     setStep(4)
   }
@@ -93,11 +97,14 @@ export function OnboardingPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 py-10 onboarding-page-shell">
-      <OnboardingThemeToggle
-        homeDarkMode={homeDarkMode}
-        onToggle={toggleHomeDarkMode}
-        t={t}
-      />
+      <div className="fixed right-6 top-6 z-[60] flex items-center gap-3">
+
+        <OnboardingThemeToggle
+          homeDarkMode={homeDarkMode}
+          onToggle={toggleHomeDarkMode}
+          t={t}
+        />
+      </div>
 
       <OnboardingBackground />
 
@@ -125,6 +132,11 @@ export function OnboardingPage() {
               <StepZeroBusiness
                 businessType={businessType}
                 setBusinessType={setBusinessType}
+                businessName={businessName}
+                setBusinessName={setBusinessName}
+                currency={currency}
+                setCurrency={setCurrency}
+                homeDarkMode={homeDarkMode}
                 onNext={() => setStep(2)}
               />
             </Motion.div>

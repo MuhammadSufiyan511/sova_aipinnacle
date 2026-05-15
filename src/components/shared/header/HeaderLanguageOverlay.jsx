@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import sovaLogo from '../../../assets/logos/sova.png'
+import sovaLogo from '../../../assets/logos/sova.webp'
 
 const MotionDiv = motion.div
 

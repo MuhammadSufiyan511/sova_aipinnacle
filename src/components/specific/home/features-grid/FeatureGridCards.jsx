@@ -4,29 +4,57 @@ import { featureImageAnimations, featureImageTransition } from './featureImageMo
 
 const MotionDiv = motion.div
 
-function SkeletonImage({ src, alt, className, imgClassName, loading = 'lazy', decoding = 'async' }) {
+// CSS-only shimmer — no JS animation loop, no layout shift, single GPU-composited fade-in
+function SkeletonImage({ src, alt, className, imgClassName, loading = 'lazy', fetchpriority, width, height, onLoad }) {
   const [loaded, setLoaded] = useState(false)
+
+  const handleLoad = () => {
+    setLoaded(true)
+    onLoad?.()
+  }
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <div
-        className={`absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 transition-opacity duration-500 ${loaded ? 'opacity-0' : 'opacity-100'
-          }`}
-      />
+      {!loaded && (
+        <div
+          aria-hidden="true"
+          className="feature-img-shimmer absolute inset-0 rounded-[inherit]"
+        />
+      )}
       <img
         src={src}
         alt={alt}
         loading={loading}
-        decoding={decoding}
-        onLoad={() => setLoaded(true)}
-        onError={() => setLoaded(true)}
-        className={`${imgClassName} transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        decoding="async"
+        fetchpriority={fetchpriority}
+        width={width}
+        height={height}
+        onLoad={handleLoad}
+        onError={handleLoad}
+        className={`${imgClassName} transition-opacity duration-500 ease-out will-change-[opacity] ${loaded ? 'opacity-100' : 'opacity-0'}`}
       />
     </div>
   )
 }
 
+// Deferred motion: holds the looping float animation until the image has decoded,
+// so Framer Motion doesn't composite invisible GPU layers during page load
+function DeferredMotionDiv({ loaded, animate, transition, whileHover, className, style, children }) {
+  return (
+    <MotionDiv
+      animate={loaded ? animate : undefined}
+      transition={loaded ? transition : undefined}
+      whileHover={whileHover}
+      className={className}
+      style={style}
+    >
+      {children}
+    </MotionDiv>
+  )
+}
+
 export const CardOne = memo(function CardOne({ feature, image, micro, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -45,16 +73,26 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
         <p className="mt-2 max-w-[320px] text-[0.88rem] text-[#1E293B] sm:text-[0.94rem]">{feature?.description}</p>
       </div>
       <div className="mt-3 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-        <motion.div animate={featureImageAnimations[0]} transition={featureImageTransition(4.8)} whileHover={{ scale: 1.04, y: -6 }} className="relative w-full max-w-[220px]">
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[0]}
+          transition={featureImageTransition(4.8)}
+          whileHover={{ scale: 1.04, y: -6 }}
+          className="relative w-full max-w-[220px]"
+        >
           <div className="pointer-events-none absolute -inset-2 rounded-[24px] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.18)_0%,rgba(255,255,255,0)_72%)] blur-md" />
           <SkeletonImage
             src={image}
             alt={feature?.title}
             loading="eager"
+            fetchpriority="high"
+            width={220}
+            height={112}
             className="h-24 w-full rounded-2xl sm:h-28"
             imgClassName="h-full w-full object-cover shadow-[0_14px_30px_rgba(16,185,129,0.12)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
         <div className="relative flex w-full min-w-0 flex-col gap-2 sm:min-w-[170px]">
           <div className="ml-auto max-w-[220px] rounded-2xl rounded-br-none bg-gradient-to-r from-[#10B981] to-[#047857] px-3 py-2 text-[10px] text-white shadow-md sm:px-4">{micro?.helpPrompt}</div>
           <div className="mr-auto flex max-w-[240px] items-center gap-2 rounded-2xl rounded-bl-none border border-[#E2EFEA] bg-[#F8FAFC] px-3 py-2 text-[10px] text-[#1E293B] shadow-sm sm:px-4">
@@ -68,6 +106,7 @@ export const CardOne = memo(function CardOne({ feature, image, micro, disableAni
 })
 
 export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -86,21 +125,31 @@ export const CardTwo = memo(function CardTwo({ feature, image, disableAnimation 
         <p className="mt-2 text-[0.86rem] opacity-90 sm:text-[0.9rem]">{feature?.description}</p>
       </div>
       <div className="mt-3 flex justify-end">
-        <motion.div animate={featureImageAnimations[1]} transition={featureImageTransition(4.4, 0.15)} whileHover={{ scale: 1.05, y: -6 }} className="relative w-full max-w-[120px]">
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[1]}
+          transition={featureImageTransition(4.4, 0.15)}
+          whileHover={{ scale: 1.05, y: -6 }}
+          className="relative w-full max-w-[120px]"
+        >
           <div className="pointer-events-none absolute -inset-2 rounded-[24px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_72%)] blur-md" />
           <SkeletonImage
             src={image}
             alt={feature?.title}
+            width={120}
+            height={112}
             className="h-24 w-full rounded-2xl sm:h-28"
             imgClassName="h-full w-full object-cover shadow-[0_16px_32px_rgba(76,29,149,0.2)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
       </div>
     </MotionDiv>
   )
 })
 
 export const CardThree = memo(function CardThree({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -117,21 +166,31 @@ export const CardThree = memo(function CardThree({ feature, image, disableAnimat
       <h3 className="font-display text-[1.15rem] font-bold text-[#F59E0B] sm:text-[1.3rem] lg:text-[1.42rem]">{feature?.title}</h3>
       <p className="mt-2 text-[0.88rem] text-[#1E293B] sm:text-[0.94rem]">{feature?.description}</p>
       <div className="mt-6 flex flex-1 items-center justify-center sm:mt-8 min-h-0">
-        <motion.div animate={featureImageAnimations[2]} transition={featureImageTransition(5)} whileHover={{ scale: 1.02, y: -8 }} className="relative h-full w-full">
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[2]}
+          transition={featureImageTransition(5)}
+          whileHover={{ scale: 1.02, y: -8 }}
+          className="relative h-full w-full"
+        >
           <div className="pointer-events-none absolute -inset-3 rounded-[28px] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.16)_0%,rgba(255,255,255,0)_72%)] blur-lg" />
           <SkeletonImage
             src={image}
             alt={feature?.title}
+            width={340}
+            height={260}
             className="h-full max-h-[220px] w-full rounded-[20px] sm:max-h-[260px] sm:rounded-[24px]"
             imgClassName="h-full w-full object-cover shadow-[0_20px_38px_rgba(245,158,11,0.14)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
       </div>
     </MotionDiv>
   )
 })
 
 export const CardFour = memo(function CardFour({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -150,21 +209,31 @@ export const CardFour = memo(function CardFour({ feature, image, disableAnimatio
         <p className="mt-2 text-[0.88rem] text-[#1E293B] sm:text-[0.94rem]">{feature?.description}</p>
       </div>
       <div className="flex h-24 w-full items-center justify-center rounded-2xl border border-[#D1FAE5] bg-[#F0FDF4] shadow-inner sm:h-26 sm:w-44">
-        <motion.div animate={featureImageAnimations[3]} transition={featureImageTransition(4.6, 0.2)} whileHover={{ scale: 1.04, y: -5 }} className="relative h-full w-full">
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[3]}
+          transition={featureImageTransition(4.6, 0.2)}
+          whileHover={{ scale: 1.04, y: -5 }}
+          className="relative h-full w-full"
+        >
           <div className="pointer-events-none absolute -inset-2 rounded-[22px] bg-[radial-gradient(circle_at_center,rgba(251,113,133,0.18)_0%,rgba(255,255,255,0)_72%)] blur-md" />
           <SkeletonImage
             src={image}
             alt={feature?.title}
+            width={176}
+            height={104}
             className="h-full w-full rounded-2xl"
             imgClassName="h-full w-full object-cover shadow-[0_14px_28px_rgba(251,113,133,0.12)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
       </div>
     </MotionDiv>
   )
 })
 
 export const CardFive = memo(function CardFive({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -183,21 +252,31 @@ export const CardFive = memo(function CardFive({ feature, image, disableAnimatio
         <p className="mt-2 text-[0.86rem] opacity-90 sm:text-[0.9rem]">{feature?.description}</p>
       </div>
       <div className="mt-3 flex h-24 w-full items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-t from-white/10 to-transparent backdrop-blur-md sm:h-26">
-        <motion.div animate={featureImageAnimations[4]} transition={featureImageTransition(4.7)} whileHover={{ scale: 1.03, y: -5 }} className="relative h-full w-full">
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[4]}
+          transition={featureImageTransition(4.7)}
+          whileHover={{ scale: 1.03, y: -5 }}
+          className="relative h-full w-full"
+        >
           <div className="pointer-events-none absolute -inset-2 rounded-[22px] bg-[radial-gradient(circle_at_center,rgba(167,139,250,0.16)_0%,rgba(255,255,255,0)_70%)] blur-md" />
           <SkeletonImage
             src={image}
             alt={feature?.title}
+            width={340}
+            height={104}
             className="h-full w-full rounded-2xl"
             imgClassName="h-full w-full object-cover opacity-95 shadow-[0_16px_28px_rgba(15,23,42,0.25)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
       </div>
     </MotionDiv>
   )
 })
 
 export const CardSix = memo(function CardSix({ feature, image, disableAnimation = false, wrapperRef, scrollRevealClass = '', scrollRevealDelay = 0, extraClass = '' }) {
+  const [imgLoaded, setImgLoaded] = useState(false)
   return (
     <MotionDiv
       ref={wrapperRef || null}
@@ -216,14 +295,23 @@ export const CardSix = memo(function CardSix({ feature, image, disableAnimation 
         <p className="mt-2 text-[0.88rem] text-[#1E293B] sm:text-[0.94rem]">{feature?.description}</p>
       </div>
       <div className="mt-3 flex h-24 w-full items-center justify-center rounded-2xl bg-gradient-to-t from-[#F8FAFC] to-transparent sm:h-26">
-        <motion.div animate={featureImageAnimations[5]} transition={featureImageTransition(4.3, 0.12)} className="flex h-18 w-32 items-center justify-center overflow-hidden rounded-xl border border-purple-200 bg-purple-500/10 sm:h-20 sm:w-36" whileHover={{ scale: 1.05, y: -6 }}>
+        <DeferredMotionDiv
+          loaded={imgLoaded}
+          animate={featureImageAnimations[5]}
+          transition={featureImageTransition(4.3, 0.12)}
+          whileHover={{ scale: 1.05, y: -6 }}
+          className="flex h-18 w-32 items-center justify-center overflow-hidden rounded-xl border border-purple-200 bg-purple-500/10 sm:h-20 sm:w-36"
+        >
           <SkeletonImage
             src={image}
             alt={feature?.title}
+            width={144}
+            height={80}
             className="h-full w-full"
             imgClassName="h-full w-full object-cover shadow-[0_14px_28px_rgba(167,139,250,0.16)]"
+            onLoad={() => setImgLoaded(true)}
           />
-        </motion.div>
+        </DeferredMotionDiv>
       </div>
     </MotionDiv>
   )

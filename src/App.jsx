@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AppShell } from './layouts/AppShell'
-import { AppSplashScreen } from './components/shared/AppSplashScreen'
 import { useState, useEffect } from 'react'
 import {
   AboutContactPage,
@@ -27,8 +26,6 @@ const PageLoader = () => (
 )
 
 function App() {
-  const [isAppInitializing, setIsAppInitializing] = useState(true)
-
   useEffect(() => {
     const MIN_DISPLAY_MS = 600 // prevents flash-of-loader jank
     const startedAt = Date.now()
@@ -36,7 +33,15 @@ function App() {
     const dismiss = () => {
       const elapsed = Date.now() - startedAt
       const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed)
-      setTimeout(() => setIsAppInitializing(false), remaining)
+      
+      setTimeout(() => {
+        const splash = document.getElementById('native-splash')
+        if (splash) {
+          splash.style.opacity = '0'
+          splash.style.visibility = 'hidden'
+          setTimeout(() => splash.remove(), 500)
+        }
+      }, remaining)
     }
 
     // Wait for the document to be fully loaded
@@ -60,14 +65,13 @@ function App() {
     }
 
     // Safety net: dismiss after 4s no matter what
-    const safeguard = setTimeout(() => setIsAppInitializing(false), 4000)
+    const safeguard = setTimeout(dismiss, 4000)
     return () => clearTimeout(safeguard)
   }, [])
 
   return (
     <BrowserRouter>
       <Toaster position="top-center" reverseOrder={false} />
-      <AppSplashScreen isVisible={isAppInitializing} />
       <AppShell>
         <Suspense fallback={<PageLoader />}>
           <Routes>

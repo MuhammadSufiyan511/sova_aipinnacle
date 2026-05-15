@@ -43,17 +43,55 @@ export const MediaSidebar = ({
     e.target.value = ''
   }
 
+    const hasVariants = Array.isArray(formData.variantGroups) && formData.variantGroups.some(g => Object.keys(g.attributes || {}).length > 0);
+
+  const displayPrice = hasVariants 
+    ? (formData.variantGroups.map(g => Number(g.price)).filter(p => !isNaN(p) && p > 0).length > 0 
+        ? Math.min(...formData.variantGroups.map(g => Number(g.price)).filter(p => !isNaN(p) && p > 0)) 
+        : 0)
+    : Number(formData.price || 0);
+
+  const displaySalePrice = hasVariants
+    ? (formData.variantGroups.map(g => Number(g.salePrice)).filter(p => !isNaN(p) && p > 0).length > 0
+        ? Math.min(...formData.variantGroups.map(g => Number(g.salePrice)).filter(p => !isNaN(p) && p > 0))
+        : null)
+    : (formData.salePrice ? Number(formData.salePrice) : null);
+
+  const displayStock = hasVariants
+    ? formData.variantGroups.reduce((sum, g) => sum + (Number(g.stock) || 0), 0)
+    : Number(formData.stock || 0);
+
   return (
     <aside className="admin-media-sidebar space-y-6 md:space-y-8">
       <div className="lg:sticky lg:top-10 space-y-6 md:space-y-8">
         <section className="rounded-[28px] md:rounded-[32px] border border-emerald-100 bg-white p-5 md:p-6 shadow-sm ring-1 ring-emerald-100/50">
           <div className="relative mb-6 h-40 md:h-48 w-full overflow-hidden rounded-2xl md:rounded-3xl bg-emerald-50">
             {formData.gallery.length > 0 ? (
-              <img
-                src={formData.gallery.find(i => i.isPrimary)?.preview || formData.gallery[0].preview}
-                className="h-full w-full object-cover"
-                alt="Preview"
-              />
+              <>
+                {(() => {
+                  const primaryMedia = formData.gallery.find(i => i.isPrimary) || formData.gallery[0];
+                  return primaryMedia.type === 'video' ? (
+                    <video
+                      src={primaryMedia.preview}
+                      className="h-full w-full object-cover cursor-pointer"
+                      onMouseEnter={(e) => e.currentTarget.play()}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.pause();
+                        e.currentTarget.currentTime = 0;
+                      }}
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={primaryMedia.preview}
+                      className="h-full w-full object-cover"
+                      alt="Preview"
+                    />
+                  );
+                })()}
+              </>
             ) : (
               <div className="flex h-full w-full items-center justify-center">
                 <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-[#1E293B]/30" />
@@ -64,18 +102,35 @@ export const MediaSidebar = ({
             </div>
           </div>
           <div className="space-y-3">
-            <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-[#1E293B]">
-              {formData.name || t('admin.addProductOverview.sections.summary.untitled', { defaultValue: 'Untitled Item' })}
-            </h3>
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="line-clamp-2 text-lg md:text-xl font-black leading-tight text-[#1E293B]">
+                {formData.name || t('admin.addProductOverview.sections.summary.untitled', { defaultValue: 'Untitled Item' })}
+              </h3>
+              {hasVariants && (
+                <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-[0.55rem] font-black text-emerald-700 uppercase tracking-wider">{t('admin.addProductOverview.sections.pricing.autoLabel', 'Auto')}</span>
+              )}
+            </div>
 
             <div className="flex items-center justify-between">
-              <p className="text-xl md:text-2xl font-black text-[#1E293B]/80">
-                {t('admin.common.currencySymbol', '$')}{formData.price || '0.00'}
-              </p>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <p className="text-xl md:text-2xl font-black text-[#1E293B]/80">
+                    {t('admin.common.currencySymbol', '$')}{displaySalePrice !== null ? displaySalePrice : displayPrice}
+                  </p>
+                  {hasVariants && (
+                    <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-[0.5rem] font-black text-[#1E293B]/40 uppercase tracking-widest">{t('admin.addProductOverview.sections.pricing.startingFromLabel', 'From')}</span>
+                  )}
+                </div>
+                {displaySalePrice !== null && displayPrice > displaySalePrice && (
+                  <p className="text-[0.75rem] font-medium text-[#1E293B]/40 line-through">
+                    {t('admin.common.currencySymbol', '$')}{displayPrice}
+                  </p>
+                )}
+              </div>
               <div className="flex flex-col items-end gap-1">
-                <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${formData.stock > 0 ? 'bg-emerald-50 text-[#1E293B]/80' : 'bg-red-50 text-red-600'}`}>
-                  {formData.stock > 0
-                    ? t('admin.addProductOverview.sections.summary.statusReady', { defaultValue: 'Ready in Stock' })
+                <span className={`rounded-lg px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-widest ${displayStock > 0 ? 'bg-emerald-50 text-[#1E293B]/80' : 'bg-red-50 text-red-600'}`}>
+                  {displayStock > 0
+                    ? (hasVariants ? `${t('admin.addProductOverview.sections.pricing.totalLabel', 'Total')}: ${displayStock}` : t('admin.addProductOverview.sections.summary.statusReady', { defaultValue: 'Ready in Stock' }))
                     : t('admin.addProductOverview.sections.summary.statusOutOfStock', { defaultValue: 'No Stock Left' })}
                 </span>
                 <div className="flex items-center gap-1.5 px-1">
@@ -134,13 +189,33 @@ export const MediaSidebar = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   key={item.id}
+                  onMouseEnter={(e) => {
+                    const video = e.currentTarget.querySelector('video');
+                    if (video) video.play();
+                  }}
+                  onMouseLeave={(e) => {
+                    const video = e.currentTarget.querySelector('video');
+                    if (video) {
+                      video.pause();
+                      video.currentTime = 0;
+                    }
+                  }}
                   className="group relative aspect-square overflow-hidden rounded-2xl bg-emerald-100"
                 >
                   {item.type === 'image' ? (
                     <img src={item.preview} className="h-full w-full object-cover transition-transform group-hover:scale-110" alt={item.name} draggable="false" />
                   ) : item.type === 'video' ? (
-                    <div className="flex h-full w-full items-center justify-center bg-emerald-900">
-                      <PlayCircle className="h-7 w-7 text-white" />
+                    <div className="relative h-full w-full overflow-hidden bg-emerald-900 group-hover:scale-110 transition-transform">
+                      <video 
+                        src={item.preview} 
+                        className="h-full w-full object-cover"
+                        muted
+                        loop
+                        playsInline
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-transparent transition-colors">
+                        <PlayCircle className="h-7 w-7 text-white/80 group-hover:text-white drop-shadow-lg" />
+                      </div>
                     </div>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-slate-50 text-slate-400">

@@ -2,7 +2,7 @@ import { Moon, Sun } from 'lucide-react'
 
 export function OnboardingThemeToggle({ homeDarkMode, onToggle, t }) {
   return (
-    <div className="fixed right-6 top-6 z-[60]">
+    <div>
       <button
         type="button"
         onClick={onToggle}

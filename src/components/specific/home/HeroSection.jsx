@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { Play, ArrowUpRight } from 'lucide-react'
-import { FaMeta } from 'react-icons/fa6'
+import { FaMeta } from '../../shared/icons/BrandIcons'
 import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../../../utils/routes'
 import { Link } from 'react-router-dom'

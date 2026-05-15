@@ -1,5 +1,5 @@
 import { Globe } from 'lucide-react'
-import { FaMeta } from 'react-icons/fa6'
+import { FaMeta } from '../../shared/icons/BrandIcons'
 import { useTranslation } from 'react-i18next'
 
 const steps = [

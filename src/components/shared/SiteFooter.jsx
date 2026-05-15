@@ -1,8 +1,7 @@
-import { FaInstagram, FaYoutube, FaTiktok, FaFacebook } from 'react-icons/fa'
-import { SiThreads } from 'react-icons/si'
+import { FaInstagram, FaYoutube, FaTiktok, FaFacebook, SiThreads } from './icons/BrandIcons'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import sovaLogo from '../../assets/logos/sova.png'
+import sovaLogo from '../../assets/logos/sova.webp'
 import { useApp } from '../../context/AppProvider'
 import { ROUTES } from '../../utils/routes'
 

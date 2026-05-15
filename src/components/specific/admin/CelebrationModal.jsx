@@ -1,6 +1,6 @@
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { CheckCircle2, MessageSquare, Rocket, ShieldCheck, Sparkles, TrendingUp, X, Zap } from 'lucide-react'
-import sovaLogo from '../../../assets/logos/sova.png'
+import sovaLogo from '../../../assets/logos/sova.webp'
 import { useTranslation, Trans } from 'react-i18next'
 import { memo, useState, useEffect } from 'react'
 import { useApp } from '../../../context/AppProvider'

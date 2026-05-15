@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="./src/assets/logos/sova.jpg" />
+    <link rel="icon" type="image/x-icon" href="./src/assets/logos/sova.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
@@ -26,8 +26,135 @@
     />
     <meta name="twitter:image" content="/sova.ico" />
     <title>SOVA | WhatsApp Automation for Sales and Support</title>
+
+    <!--
+      Google Fonts — loaded via <link> NOT CSS @import.
+      @import blocks render; <link> is parallel.
+      Only 3 weights (400/600/800) instead of 5 — saves ~40% font transfer.
+      preconnect hints let the browser open the connection early.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;600;800&family=Noto+Sans+Arabic:wght@400;600;800&display=swap"
+    />
   </head>
   <body>
+    <!-- NATIVE SPLASH SCREEN: Appears instantly before React downloads/boots -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('sova-home-theme');
+          var isDark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isDark) {
+            document.documentElement.setAttribute('data-splash-theme', 'dark');
+          }
+        } catch(e) {}
+      })();
+    </script>
+    <style>
+      #native-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+      }
+      html[data-splash-theme="dark"] #native-splash { background-color: rgba(4, 13, 12, 0.95); }
+      
+      .splash-logo-container {
+        position: relative;
+        display: flex;
+        height: 6rem;
+        width: 6rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 32px;
+        border: 1px solid #E2EFEA;
+        background-color: #ffffff;
+        box-shadow: 0 20px 50px rgba(16, 185, 129, 0.12);
+        margin-bottom: 1.5rem;
+      }
+      html[data-splash-theme="dark"] .splash-logo-container {
+        border-color: #1C3D3A;
+        background-color: #0A1B19;
+        box-shadow: 0 20px 50px rgba(16, 185, 129, 0.18);
+      }
+      
+      .splash-logo {
+        height: 3.5rem;
+        width: 3.5rem;
+        border-radius: 16px;
+        object-fit: cover;
+        animation: splashPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      .splash-glow {
+        position: absolute;
+        top: -4px; right: -4px; bottom: -4px; left: -4px;
+        border-radius: 36px;
+        border: 2px solid rgba(16, 185, 129, 0.1);
+        animation: splashPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      .splash-text {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #1E293B;
+        margin-bottom: 0.5rem;
+      }
+      html[data-splash-theme="dark"] .splash-text { color: #A7C4BD; }
+      
+      .splash-dots {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .splash-dot {
+        height: 0.5rem;
+        width: 0.5rem;
+        border-radius: 50%;
+        background-color: #10B981;
+        animation: splashBounce 1s infinite;
+      }
+      .splash-dot:nth-child(2) { animation-delay: 0.15s; }
+      .splash-dot:nth-child(3) { animation-delay: 0.3s; }
+      
+      @keyframes splashPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      @keyframes splashBounce {
+        0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+        50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+      }
+    </style>
+
+    <div id="native-splash">
+      <div class="splash-logo-container">
+        <img src="/src/assets/logos/sova.webp" alt="SOVA" decoding="async" class="splash-logo" />
+        <div class="splash-glow"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <p class="splash-text">INITIALIZING SOVA...</p>
+        <div class="splash-dots">
+          <span class="splash-dot"></span>
+          <span class="splash-dot"></span>
+          <span class="splash-dot"></span>
+        </div>
+      </div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

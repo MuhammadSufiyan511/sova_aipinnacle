@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { FaMeta } from 'react-icons/fa6'
+import { FaMeta } from '../../../shared/icons/BrandIcons'
 
 const MotionDiv = motion.div
 

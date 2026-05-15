@@ -1,6 +1,6 @@
 import { whatsappLink } from '../../data'
 import { useTranslation } from 'react-i18next'
-import { FaWhatsapp } from 'react-icons/fa'
+import { FaWhatsapp } from './icons/BrandIcons'
 
 export function FloatingWhatsApp() {
   const { t } = useTranslation()

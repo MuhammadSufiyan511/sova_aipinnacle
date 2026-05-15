@@ -4,6 +4,10 @@ export const onboarding = {
     subtitle: 'تُصمم سوفا ردودها واكتشاف العملاء المحتملين وفقًا لصناعتك.',
     searchPlaceholder: 'البحث في الصناعات...',
     customCategoryPlaceholder: 'أدخل فئة عملك...',
+    nameLabel: 'عنوان العمل',
+    namePlaceholder: 'مثال: متجري الرائع',
+    currencyLabel: 'العملة الأساسية',
+    chooseCategoryTitle: 'اختر فئة عملك',
     nextBtn: '← اختر مجالك',
     categories: {
       clothing: { label: 'الملابس', desc: 'الأزياء، الأحذية، الإكسسوارات.' },
@@ -154,9 +158,11 @@ export const admin = {
     },
     item: {
       price: 'Rs. {{price}}',
-      priceLabel: 'السعر',
-      stockLabel: 'المخزون',
-      skuLabel: 'رمز SKU',
+      priceLabel: 'سعر البيع',
+      salePriceLabel: 'سعر الخصم',
+      stockLabel: 'إجمالي العناصر المتوفرة',
+      minOrderLabel: 'الحد الأدنى لعدد الطلبات',
+      skuLabel: 'معرف المنتج',
       specsTitle: 'المواصفات',
       editBtn: 'تعديل',
       mediaLabel: 'نوع الوسائط',
@@ -272,16 +278,19 @@ export const admin = {
         title: 'السعر والمخزون',
         subtitle: 'حدد سعر البيع وتأكد من المخزون.',
         priceLabel: 'سعر البيع',
-        salePriceLabel: 'السعر بعد الخصم',
+        salePriceLabel: 'سعر الخصم (اختياري)',
         salePricePlaceholder: 'اختياري',
-        stockLabel: 'إجمالي المخزون',
+        stockLabel: 'إجمالي العناصر المتوفرة',
         stockPlaceholder: 'الكمية المتوفرة',
         currentStockLabel: 'المخزون الحالي',
         minStockLabel: 'تنبيه انخفاض المخزون عند',
         skuLabel: 'كود القطعة / SKU',
         skuPlaceholder: 'مثال: ITEM-001',
         skuHelp: 'كود المرجع الداخلي للمحل',
-        minOrderLabel: 'أقل كمية للطلب',
+        minOrderLabel: 'الحد الأدنى لعدد الطلبات',
+        startingFromLabel: 'يبدأ من',
+        totalLabel: 'الإجمالي',
+        autoLabel: 'تلقائي'
       },
       variants: {
         title: 'خيارات المنتج',
@@ -521,6 +530,11 @@ export const admin = {
         current: 'الصوت الحالي',
         button: 'تغيير الصوت',
         modalTitle: 'إعداد الصوت'
+      },
+      currency: {
+        title: 'العملة الأساسية والمنطقة',
+        subtitle: 'عيّن عملتك الأساسية للفوترة والفواتير.',
+        current: 'الحالي',
       },
       rules: {
         title: 'قواعد الأتمتة'
@@ -841,7 +855,7 @@ admin.addProductOverview = admin.addProductOverview || {};
 admin.addProductOverview.validation = admin.addProductOverview.validation || {};
 admin.addProductOverview.validation.imageTooLarge = 'يتجاوز 5 ميجابايت.';
 admin.addProductOverview.validation.videoTooLarge = 'يتجاوز حد 15 ميجابايت.';
-admin.addProductOverview.validation.videoDurationInvalid = 'يجب أن يكون بين 15-20 ثانية (الحالي: {{duration}} ثانية).';
+admin.addProductOverview.validation.videoDurationInvalid = 'يجب أن يكون أقل من 20 ثانية (الحالي: {{duration}} ثانية).';
 admin.addProductOverview.validation.compressLink = 'اضغط هنا للتقليص';
 admin.addProductOverview.validation.maxFilesExceeded = 'يمكنك فقط تحميل ما يصل إلى {{max}} ملفات وسائط.';
 
@@ -922,7 +936,7 @@ admin.addProductOverview.validation = {
   maxFilesExceeded: 'يمكنك تحميل ما يصل إلى {{max}} ملفات فقط.',
   imageTooLarge: 'كبيرة جداً.',
   videoTooLarge: '{{name}} يتجاوز حد 15 ميجابايت.',
-  videoDurationInvalid: 'يجب أن يكون {{name}} بين 15-20 ثانية (الحالي: {{duration}} ثانية).',
+  videoDurationInvalid: 'يجب أن يكون {{name}} أقل من 20 ثانية (الحالي: {{duration}} ثانية).',
   compressLink: 'اضغط هنا',
   createSuccess: 'تمت إضافة القطعة بنجاح',
   updateSuccess: 'تم تحديث التفاصيل بنجاح',

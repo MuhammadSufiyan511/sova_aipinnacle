@@ -4,6 +4,10 @@ const onboarding = {
     subtitle: 'سوفا آپ کے کاروبار کے مطابق جوابات، لیڈ فلٹرنگ، اور آٹومیشن کو ترتیب دیتا ہے۔',
     searchPlaceholder: 'انڈسٹری تلاش کریں...',
     customCategoryPlaceholder: 'اپنے کاروبار کی قسم لکھیں...',
+    nameLabel: 'کاروبار کا عنوان',
+    namePlaceholder: 'مثال کے طور پر: میری شاندار دکان',
+    currencyLabel: 'بنیادی کرنسی',
+    chooseCategoryTitle: 'اپنے کاروبار کیٹیگری منتخب کریں',
     nextBtn: 'میری انڈسٹری منتخب کریں →',
     categories: {
       clothing: { label: 'کپڑے', desc: 'لباس، جوتے، اور فیشن آئٹمز۔' },
@@ -205,8 +209,10 @@ const admin = {
     },
     item: {
       price: '{{price}} روپے',
-      priceLabel: 'قیمت',
-      stockLabel: 'کل اسٹاک',
+      priceLabel: 'فروخت کی قیمت',
+      salePriceLabel: 'رعایتی قیمت',
+      stockLabel: 'ہاتھ میں کل آئٹمز',
+      minOrderLabel: 'کم از کم آرڈر کی تعداد',
       skuLabel: 'آئٹم آئی ڈی',
       specsTitle: 'اہم تفصیلات',
       editBtn: 'تفصیلات بدلیں',
@@ -350,6 +356,11 @@ const admin = {
         current: 'موجودہ آواز',
         button: 'آواز تبدیل کریں',
         modalTitle: 'آواز کا سیٹ اپ'
+      },
+      currency: {
+        title: 'بنیادی کرنسی اور علاقہ',
+        subtitle: 'بلنگ اور انوائسز کے لیے اپنی بنیادی کرنسی سیٹ کریں۔',
+        current: 'موجودہ',
       },
       rules: {
         title: 'آٹومیشن کے اصول'
@@ -879,7 +890,7 @@ admin.addProductOverview = {
     statusInactive: 'پروڈکٹ کو غیر فعال کے طور پر نشان زد کیا گیا',
     imageTooLarge: '5MB سے زیادہ ہے۔',
     videoTooLarge: '15MB کی حد سے زیادہ ہے۔',
-    videoDurationInvalid: '15-20 سیکنڈ کے درمیان ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
+    videoDurationInvalid: '20 سیکنڈ سے کم ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
     compressLink: 'یہاں کمپریس کریں',
     maxFilesExceeded: 'آپ زیادہ سے زیادہ {{max}} میڈیا فائلیں اپ لوڈ کر سکتے ہیں۔'
   },
@@ -972,6 +983,16 @@ admin.settings = admin.settings || {};
 admin.settings.bankUpdateSuccess = 'بینک کی تفصیلات کامیابی سے اپ ڈیٹ ہو گئیں';
 admin.settings.bankDeleteSuccess = 'بینک کی تفصیلات کامیابی سے حذف کر دی گئیں';
 admin.addProductOverview = admin.addProductOverview || {};
+admin.addProductOverview.sections = admin.addProductOverview.sections || {};
+admin.addProductOverview.sections.pricing = {
+  priceLabel: 'فروخت کی قیمت',
+  salePriceLabel: 'رعایتی قیمت (اختیاری)',
+  stockLabel: 'ہاتھ میں کل آئٹمز',
+  minOrderLabel: 'کم از کم آرڈر کی تعداد',
+  startingFromLabel: 'سے شروع',
+  totalLabel: 'کل',
+  autoLabel: 'آٹو'
+};
 admin.addProductOverview.validation = {
   nameRequired: 'پروڈکٹ کا نام ضروری ہے',
   descriptionRequired: 'براہ کرم پروڈکٹ کی تفصیل شامل کریں',
@@ -983,7 +1004,7 @@ admin.addProductOverview.validation = {
   maxFilesExceeded: 'آپ صرف {{max}} فائلیں اپ لوڈ کر سکتے ہیں۔',
   imageTooLarge: 'بہت بڑی ہے۔',
   videoTooLarge: '{{name}} 15MB کی حد سے زیادہ ہے۔',
-  videoDurationInvalid: '{{name}} کی لمبائی 15-20 سیکنڈ ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
+  videoDurationInvalid: '{{name}} کی لمبائی 20 سیکنڈ سے کم ہونی چاہیے (موجودہ: {{duration}} سیکنڈ)۔',
   compressLink: 'یہاں سائز کم کریں',
   createSuccess: 'پروڈکٹ کامیابی سے شامل کر دی گئی',
   updateSuccess: 'تفصیلات کامیابی سے اپ ڈیٹ ہو گئیں',

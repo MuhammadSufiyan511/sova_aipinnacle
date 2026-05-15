@@ -3,6 +3,7 @@ import { BarChart3, Box, Files, LayoutDashboard, MessageSquare, PlusCircle, Radi
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { loadAndSetLanguage } from '../i18n'
 import { NotificationDrawer } from '../components/specific/admin/NotificationDrawer'
 import { useApp } from '../context/AppProvider'
 import { ROUTES } from '../utils/routes'
@@ -57,7 +58,7 @@ export function DashboardLayout({ children }) {
   const currentLanguage = LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[0]
 
   const changeLanguage = (code) => {
-    i18n.changeLanguage(code)
+    loadAndSetLanguage(code)
     setLangOpen(false)
   }
 

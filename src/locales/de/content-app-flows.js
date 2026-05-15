@@ -4,6 +4,10 @@ export const onboarding = {
     subtitle: 'Dies hilft SOVA, Ihren Workflow und Ihre technischen Anforderungen zu verstehen.',
     searchPlaceholder: 'Branchen suchen...',
     customCategoryPlaceholder: 'Geben Sie Ihre Unternehmenskategorie ein...',
+    nameLabel: 'Unternehmenstitel',
+    namePlaceholder: 'z.B. Mein toller Shop',
+    currencyLabel: 'Basiswährung',
+    chooseCategoryTitle: 'Wählen Sie Ihre Unternehmenskategorie',
     nextBtn: 'Meine Branche wählen →',
     categories: {
       clothing: { label: 'Kleidung & Mode', desc: 'Automatische Antworten für Größen, Lagerbestand und Lieferung' },
@@ -154,9 +158,11 @@ export const admin = {
     },
     item: {
       price: '${{price}}',
-      priceLabel: 'Preis',
-      stockLabel: 'Bestand',
-      skuLabel: 'SKU-Nummer',
+      priceLabel: 'Verkaufspreis',
+      salePriceLabel: 'Angebotspreis',
+      stockLabel: 'Gesamte verfügbare Artikel',
+      minOrderLabel: 'Mindestbestellmenge',
+      skuLabel: 'Artikel-ID',
       specsTitle: 'Spezifikationen',
       editBtn: 'Bearbeiten',
       mediaLabel: 'Medientyp',
@@ -251,9 +257,9 @@ export const admin = {
         title: 'Preis & Bestand',
         subtitle: 'Legen Sie den Verkaufspreis fest und prüfen Sie den Bestand.',
         priceLabel: 'Verkaufspreis',
-        salePriceLabel: 'Angebotspreis',
+        salePriceLabel: 'Angebotspreis (Optional)',
         salePricePlaceholder: 'Optional',
-        stockLabel: 'Gesamtbestand',
+        stockLabel: 'Gesamte verfügbare Artikel',
         stockPlaceholder: 'Verfügbare Menge',
         currentStockLabel: 'Aktueller Bestand',
         minStockLabel: 'Warnung bei geringem Lagerbestand',
@@ -261,6 +267,9 @@ export const admin = {
         skuPlaceholder: 'z.B. ARTIKEL-001',
         skuHelp: 'Interner Referenzcode des Shops',
         minOrderLabel: 'Mindestbestellmenge',
+        startingFromLabel: 'Ab',
+        totalLabel: 'Gesamt',
+        autoLabel: 'Auto'
       },
       variants: {
         title: 'Produktvarianten',
@@ -309,7 +318,7 @@ export const admin = {
       maxFilesExceeded: 'Sie können nur bis zu {{max}} Dateien hochladen.',
       imageTooLarge: 'ist zu groß.',
       videoTooLarge: '{{name}} überschreitet das Limit von 15 MB.',
-      videoDurationInvalid: '{{name}} muss 15-20 Sekunden lang sein (Aktuell: {{duration}}s).',
+      videoDurationInvalid: '{{name}} muss unter 20 Sekunden lang sein (Aktuell: {{duration}}s).',
       compressLink: 'Hier komprimieren',
       missingFields: 'Bitte fülle alle Pflichtfelder aus, bevor du speicherst',
       createSuccess: 'Artikel erfolgreich hinzugefügt',
@@ -784,6 +793,11 @@ export const admin = {
         button: 'Stimme ändern',
         modalTitle: 'Stimmen-Setup'
       },
+      currency: {
+        title: 'Basiswährung & Region',
+        subtitle: 'Legen Sie Ihre primäre Währung für Abrechnungen und Rechnungen fest.',
+        current: 'Aktuell',
+      },
       rules: {
         title: 'Automatisierungsregeln',
         subtitle: 'Antwortverhalten und Filter festlegen.'
@@ -1103,7 +1117,7 @@ admin.addProductOverview = admin.addProductOverview || {};
 admin.addProductOverview.validation = admin.addProductOverview.validation || {};
 admin.addProductOverview.validation.imageTooLarge = 'überschreitet 5MB.';
 admin.addProductOverview.validation.videoTooLarge = 'überschreitet 15MB Limit.';
-admin.addProductOverview.validation.videoDurationInvalid = 'muss 15-20 Sekunden lang sein (Aktuell: {{duration}}s).';
+admin.addProductOverview.validation.videoDurationInvalid = 'muss unter 20 Sekunden lang sein (Aktuell: {{duration}}s).';
 admin.addProductOverview.validation.compressLink = 'Hier komprimieren';
 admin.addProductOverview.validation.maxFilesExceeded = 'Sie können maximal {{max}} Mediendateien hochladen.';
 

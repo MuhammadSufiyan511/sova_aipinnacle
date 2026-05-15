@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
-import sovaLogo from '../../assets/logos/sova.png'
+import sovaLogo from '../../assets/logos/sova.webp'
 
 export function SidebarContent({ collapseOnNavigate = false, links, location, navigate, onClose }) {
   const { t } = useTranslation()

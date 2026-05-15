@@ -20,7 +20,7 @@ export const businessTypes = [
 
 export function useSettingsData() {
   const { t } = useTranslation()
-  const { businessProfile, setBusinessProfile, tones, setTones, setHomeDarkMode } = useApp()
+  const { businessProfile, setBusinessProfile, tones, setTones, setHomeDarkMode, currency, setCurrency } = useApp()
   const normalizedTones = (Array.isArray(tones) ? tones : []).map(t => t.toLowerCase())
   
   const [alerts, setAlerts] = useState(true)
@@ -135,9 +135,13 @@ export function useSettingsData() {
     setAutoReply(true)
     setSpamFilter(true)
     
-    // Reset theme to system default
+    // Reset theme — clears saved preference so system preference takes over again
     localStorage.removeItem('sova-home-theme')
     setHomeDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    
+    // Reset currency
+    localStorage.removeItem('sova-currency')
+    setCurrency('United States (USD)')
     
     toast.success(t('admin.settings.resetAllSuccess', 'All settings have been reset'))
   }
@@ -167,7 +171,8 @@ export function useSettingsData() {
     isEditingBank, setIsEditingBank,
     cancelBankEdit,
     deleteBankDetails,
-    resetAllSettings
+    resetAllSettings,
+    currency, setCurrency
   }
 }
 

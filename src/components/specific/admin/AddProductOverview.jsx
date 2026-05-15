@@ -19,7 +19,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams()
-   const { businessProfile, products, addProduct, updateProduct } = useApp()
+  const { businessProfile, products, addProduct, updateProduct } = useApp()
   const fileInputRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
   const dragCounter = useRef(0)
@@ -182,7 +182,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
 
     const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
     const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
-    const MIN_VIDEO_DURATION = 15
+    const MIN_VIDEO_DURATION = 1
     const MAX_VIDEO_DURATION = 20
     const MAX_FILES = 10
 
@@ -257,7 +257,7 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
 
     const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
     const MAX_VIDEO_SIZE = 15 * 1024 * 1024 // 15MB
-    const MIN_VIDEO_DURATION = 15
+    const MIN_VIDEO_DURATION = 1
     const MAX_VIDEO_DURATION = 20
 
     if (file.type.startsWith('image/')) {
@@ -306,13 +306,35 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
   }
 
   const handleSubmit = () => {
+    const validVariantGroups = formData.variantGroups?.filter(g => Object.keys(g.attributes || {}).length > 0) || []
+    const hasVariants = validVariantGroups.length > 0
+
+    let finalStock = formData.stock
+    let finalPrice = formData.price
+    let finalSalePrice = formData.salePrice
+
+    if (hasVariants) {
+      finalStock = validVariantGroups.reduce((acc, g) => acc + (parseInt(g.stock) || 0), 0).toString()
+      const prices = validVariantGroups.map(g => parseFloat(g.price)).filter(p => !isNaN(p))
+      finalPrice = prices.length > 0 ? Math.min(...prices).toString() : ''
+      const salePrices = validVariantGroups.map(g => parseFloat(g.salePrice)).filter(p => !isNaN(p))
+      finalSalePrice = salePrices.length > 0 ? Math.min(...salePrices).toString() : ''
+    }
+
+    const priceNum = parseFloat(finalPrice)
+    const salePriceNum = parseFloat(finalSalePrice)
+    let finalDiscount = '0%'
+    if (priceNum > 0 && salePriceNum > 0 && salePriceNum < priceNum) {
+      finalDiscount = Math.round((1 - salePriceNum / priceNum) * 100) + '%'
+    }
+
     if (!formData.name.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.nameRequired')); return }
     if (!formData.description.trim()) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.descriptionRequired')); return }
     if (formData.gallery.length === 0) { setCurrentStep('basics'); toast.error(t('admin.addProductOverview.validation.mediaRequired')); return }
     if (!formData.category) { setCurrentStep('classification'); toast.error(t('admin.addProductOverview.validation.categoryRequired')); return }
     if (nestedOptions.length > 0 && !formData.subCategory) { setCurrentStep('classification'); toast.error(t('admin.addProductOverview.validation.subCategoryRequired')); return }
-    if (!formData.price || isNaN(parseFloat(formData.price)) || parseFloat(formData.price) < 0) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.priceRequired')); return }
-    if (formData.stock === '' || formData.stock === null || formData.stock === undefined) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.stockRequired')); return }
+    if (!finalPrice || isNaN(parseFloat(finalPrice)) || parseFloat(finalPrice) < 0) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.priceRequired')); return }
+    if (finalStock === '' || finalStock === null || finalStock === undefined) { setCurrentStep('pricing'); toast.error(t('admin.addProductOverview.validation.stockRequired')); return }
 
     const finalSpecs = { ...formData.specs }
     formData.customFields.forEach(field => {
@@ -322,6 +344,10 @@ export const AddProductOverview = memo(function AddProductOverview({ isOnboardin
     const primary = formData.gallery.find((i) => i.isPrimary) || formData.gallery[0]
     const payload = {
       ...formData,
+      price: finalPrice,
+      salePrice: finalSalePrice,
+      discount: finalDiscount,
+      stock: finalStock,
       id: initialProduct?.id || Date.now().toString(),
       industry: formData.industry,
       categoryAt: formData.category,

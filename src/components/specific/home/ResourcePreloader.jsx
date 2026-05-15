@@ -1,12 +1,12 @@
 import { useEffect, memo } from 'react'
 
 // Features Grid Assets
-import seriousBuyerDetectionImage from '../../../assets/home/serious buyer detection.png'
-import autoRepliesImage from '../../../assets/home/auto replies.png'
-import builtInIntegrationsImage from '../../../assets/home/Built-in Integrations.png'
-import spamDetectionImage from '../../../assets/home/spam detection.png'
-import broadcastImage from '../../../assets/home/Broadcast.png'
-import smartFollowUpsImage from '../../../assets/home/Smart Follow-ups.png'
+import seriousBuyerDetectionImage from '../../../assets/home/serious buyer detection.webp'
+import autoRepliesImage from '../../../assets/home/auto replies.webp'
+import builtInIntegrationsImage from '../../../assets/home/Built-in Integrations.webp'
+import spamDetectionImage from '../../../assets/home/spam detection.webp'
+import broadcastImage from '../../../assets/home/Broadcast.webp'
+import smartFollowUpsImage from '../../../assets/home/Smart Follow-ups.webp'
 
 const CRITICAL_ASSETS = [
   seriousBuyerDetectionImage,

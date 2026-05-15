@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Layers, Package, ChevronRight, Tag, Info, Trash2, Plus, Check, X } from 'lucide-react'
+import { Layers, Package, ChevronRight, Tag, Info, Trash2, Plus, Check, X, DollarSign } from 'lucide-react'
 import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { SectionCard } from './components/SectionCard'
 import { Field } from './components/Field'
@@ -445,6 +445,51 @@ export const ClassificationStep = ({
                                 </Field>
                               )
                             })}
+                            <Field label={t('admin.addProductOverview.sections.pricing.stockLabel', 'Stock')} icon={Package}>
+                              <input
+                                type="number"
+                                value={group.stock || ''}
+                                onChange={(e) => {
+                                  const newGroups = [...formData.variantGroups]
+                                  newGroups[groupIdx].stock = e.target.value
+                                  setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                }}
+                                placeholder="0"
+                                className={inputCls}
+                              />
+                            </Field>
+                            <Field label={t('admin.addProductOverview.sections.pricing.priceLabel', 'Price')} icon={DollarSign}>
+                              <div className="relative">
+                                <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                                <input
+                                  type="number"
+                                  value={group.price || ''}
+                                  onChange={(e) => {
+                                    const newGroups = [...formData.variantGroups]
+                                    newGroups[groupIdx].price = e.target.value
+                                    setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                  }}
+                                  placeholder="0.00"
+                                  className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`}
+                                />
+                              </div>
+                            </Field>
+                            <Field label={t('admin.addProductOverview.sections.pricing.salePriceLabel', 'Sale Price')} icon={Tag}>
+                              <div className="relative">
+                                <span className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 font-bold text-[#1E293B]/40">{t('admin.common.currencySymbol', '$')}</span>
+                                <input
+                                  type="number"
+                                  value={group.salePrice || ''}
+                                  onChange={(e) => {
+                                    const newGroups = [...formData.variantGroups]
+                                    newGroups[groupIdx].salePrice = e.target.value
+                                    setFormData(prev => ({ ...prev, variantGroups: newGroups }))
+                                  }}
+                                  placeholder="0.00"
+                                  className={`${inputCls} ltr:pl-8 rtl:pr-8 rtl:text-left`}
+                                />
+                              </div>
+                            </Field>
                           </div>
                           <div className="flex justify-end px-5 pb-5">
                             <button

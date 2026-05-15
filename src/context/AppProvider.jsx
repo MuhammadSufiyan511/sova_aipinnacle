@@ -41,6 +41,11 @@ export function AppProvider({ children }) {
     return saved ? JSON.parse(saved) : { name: 'User', plan: 'Free', email: '', phone: '', avatar: '' }
   })
 
+  const [currency, setCurrency] = useState(() => {
+    const saved = localStorage.getItem('sova-currency')
+    return saved || 'United States (USD)'
+  })
+
   const [bankDetails, setBankDetails] = useState(() => {
     const saved = localStorage.getItem('sova-bank-details')
     return saved ? JSON.parse(saved) : { accountTitle: '', accountNumber: '', bankName: '', description: '' }
@@ -49,6 +54,7 @@ export function AppProvider({ children }) {
   const [showCelebration, setShowCelebration] = useState(false)
   const [homeDarkMode, setHomeDarkMode] = useState(() => {
     if (typeof window === 'undefined') return false
+    // Use saved user preference if it exists, otherwise fall back to system preference
     const saved = localStorage.getItem('sova-home-theme')
     if (saved) return saved === 'dark'
     return window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -57,6 +63,10 @@ export function AppProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('sova-products', JSON.stringify(products))
   }, [products])
+
+  useEffect(() => {
+    localStorage.setItem('sova-currency', currency)
+  }, [currency])
 
   useEffect(() => {
     localStorage.setItem('sova-files', JSON.stringify(files))
@@ -69,9 +79,9 @@ export function AppProvider({ children }) {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     const handleChange = (e) => {
-      if (!localStorage.getItem('sova-home-theme')) {
-        setHomeDarkMode(e.matches)
-      }
+      // Always follow system theme changes — update state and saved preference
+      setHomeDarkMode(e.matches)
+      localStorage.setItem('sova-home-theme', e.matches ? 'dark' : 'light')
     }
     mq.addEventListener('change', handleChange)
     return () => mq.removeEventListener('change', handleChange)
@@ -143,12 +153,8 @@ export function AppProvider({ children }) {
   const toggleHomeDarkMode = () => {
     const newMode = !homeDarkMode
     setHomeDarkMode(newMode)
+    // Persist the user's choice across page reloads
     localStorage.setItem('sova-home-theme', newMode ? 'dark' : 'light')
-    if (newMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
   }
 
   useEffect(() => {
@@ -184,8 +190,10 @@ export function AppProvider({ children }) {
     setHomeDarkMode,
     toggleHomeDarkMode,
     bankDetails,
-    setBankDetails
-  }), [businessProfile, products, files, tones, businessDetails, user, showCelebration, homeDarkMode, bankDetails])
+    setBankDetails,
+    currency,
+    setCurrency
+  }), [businessProfile, products, files, tones, businessDetails, user, showCelebration, homeDarkMode, bankDetails, currency])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

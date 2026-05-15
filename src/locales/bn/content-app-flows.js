@@ -4,7 +4,11 @@ export const onboarding = {
     subtitle: 'SOVA আপনার নির্দিষ্ট শিল্পের ভিত্তিতে তার প্রতিক্রিয়া এবং লিড শনাক্তকরণ কাস্টমাইজ করে।',
     searchPlaceholder: 'শিল্প অনুসন্ধান করুন...',
     customCategoryPlaceholder: 'আপনার ব্যবসার বিভাগ লিখুন...',
-    nextBtn: 'আমার শিল্প নির্বাচন করুন ←',
+    nameLabel: 'ব্যবসার শিরোনাম',
+    namePlaceholder: 'উদাঃ আমার সুন্দর দোকান',
+    currencyLabel: 'মূল মুদ্রা',
+    chooseCategoryTitle: 'আপনার ব্যবসার বিভাগ চয়ন করুন',
+    nextBtn: 'আমার শিল্প চয়ন করুন →',
     categories: {
       clothing: { label: 'পোশাক', desc: 'পরিধেয় বস্ত্র, জুতা, আনুষাঙ্গিক।' },
       jewellery: { label: 'অলঙ্কার', desc: 'সোনা, রূপা, গহনা।' },
@@ -155,8 +159,10 @@ export const admin = {
     },
     item: {
       price: 'Rs. {{price}}',
-      priceLabel: 'দাম',
-      stockLabel: 'মোট মজুদ পণ্য',
+      priceLabel: 'বিক্রয় মূল্য',
+      salePriceLabel: 'ছাড়ের মূল্য',
+      stockLabel: 'হাতে থাকা মোট পণ্য',
+      minOrderLabel: 'সর্বনিম্ন অর্ডারের সংখ্যা',
       skuLabel: 'পণ্য আইডি',
       specsTitle: 'মূল বিবরণ',
       editBtn: 'বিবরণ পরিবর্তন করুন',
@@ -251,16 +257,19 @@ export const admin = {
         title: 'মূল্য ও মজুদ',
         subtitle: 'বিক্রয় মূল্য এবং মজুদের পরিমাণ নির্ধারণ করুন।',
         priceLabel: 'বিক্রয় মূল্য',
-        salePriceLabel: 'ছাড়ের পর মূল্য',
+        salePriceLabel: 'ছাড়ের মূল্য (ঐচ্ছিক)',
         salePricePlaceholder: 'ঐচ্ছিক',
-        stockLabel: 'মোট মজুদ',
+        stockLabel: 'হাতে থাকা মোট পণ্য',
         stockPlaceholder: 'উপলব্ধ সংখ্যা',
         currentStockLabel: 'বর্তমান স্টক',
         minStockLabel: 'কম স্টক অ্যালার্ট',
         skuLabel: 'পণ্য আইডি / SKU',
         skuPlaceholder: 'যেমন: ITEM-001',
         skuHelp: 'দোকানের অভ্যন্তরীণ কোড',
-        minOrderLabel: 'সর্বনিম্ন অর্ডার',
+        minOrderLabel: 'সর্বনিম্ন অর্ডারের সংখ্যা',
+        startingFromLabel: 'থেকে শুরু',
+        totalLabel: 'মোট',
+        autoLabel: 'অটো'
       },
       variants: {
         title: 'পণ্যের বৈচিত্র্য',
@@ -694,6 +703,11 @@ export const admin = {
         button: 'ভয়েস পরিবর্তন করুন',
         modalTitle: 'ভয়েস সেটআপ'
       },
+      currency: {
+        title: 'মূল মুদ্রা এবং অঞ্চল',
+        subtitle: 'বিলিং এবং চালানের জন্য আপনার প্রাথমিক মুদ্রা সেট করুন।',
+        current: 'বর্তমান',
+      },
       rules: {
         title: 'অটোমেশন নিয়মসমূহ'
       }
@@ -1016,7 +1030,7 @@ admin.addProductOverview = admin.addProductOverview || {};
 admin.addProductOverview.validation = admin.addProductOverview.validation || {};
 admin.addProductOverview.validation.imageTooLarge = '৫ এমবির বেশি।';
 admin.addProductOverview.validation.videoTooLarge = '১৫ এমবির বেশি।';
-admin.addProductOverview.validation.videoDurationInvalid = '১৫-২০ সেকেন্ডের মধ্যে হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।';
+admin.addProductOverview.validation.videoDurationInvalid = '২০ সেকেন্ডের কম হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।';
 admin.addProductOverview.validation.compressLink = 'এখানে কম্প্রেস করুন';
 admin.addProductOverview.validation.maxFilesExceeded = 'আপনি সর্বাধিক {{max}} টি মিডিয়া ফাইল আপলোড করতে পারবেন।';
 
@@ -1071,7 +1085,7 @@ admin.addProductOverview.validation = {
   maxFilesExceeded: 'আপনি কেবল {{max}} টি ফাইল আপলোড করতে পারেন।',
   imageTooLarge: '5MB সীমা ছাড়িয়ে গেছে।',
   videoTooLarge: '{{name}} ১৫ মেগাবাইট সীমা ছাড়িয়ে গেছে।',
-  videoDurationInvalid: '{{name}} অবশ্যই ১৫-২০ সেকেন্ড হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।',
+  videoDurationInvalid: '{{name}} অবশ্যই ২০ সেকেন্ডের কম হতে হবে (বর্তমান: {{duration}} সেকেন্ড)।',
   compressLink: 'এখানে কম্প্রেস করুন',
   statusActive: 'পণ্যটি সক্রিয় হিসেবে চিহ্নিত করা হয়েছে',
   statusInactive: 'পণ্যটি নিষ্ক্রিয় হিসেবে চিহ্নিত করা হয়েছে',
